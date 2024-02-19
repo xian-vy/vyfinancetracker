@@ -1,0 +1,112 @@
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import LeaderboardOutlinedIcon from "@mui/icons-material/LeaderboardOutlined";
+import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
+import SavingsOutlinedIcon from "@mui/icons-material/SavingsOutlined";
+import { Container, IconButton, Stack, Tooltip, Typography, useTheme } from "@mui/material";
+import React, { useState } from "react";
+import { ThemeColor, formatShortAmountWithCurrency } from "../../Helper/utils";
+import { FilterTimeframe } from "../../constants/timeframes";
+import { iconSize, iconSizeXS } from "../../constants/Sizes";
+import { txn_types } from "../../constants/collections";
+import CategoryBreakdownDialog from "../Charts/CategoryBreakdownDialog";
+import CustomIconButton from "../CustomIconButton";
+import TimeframeDrawerPopOver from "./TimeframeDrawerPopOver";
+
+interface Props {
+  onFilterChange: (filterOption: string) => void;
+  title: string;
+  timeframe: string;
+  filterOption: FilterTimeframe;
+  startDate: Date | null;
+  endDate: Date | null;
+  txnType: string;
+  totalAmount: number;
+}
+const FilterBudgetExpenseTrend = (props: Props) => {
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === "dark";
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [filterOption, setFilterOption] = useState<FilterTimeframe>(props.filterOption);
+  const [breakdownOpen, setBreakdownOpen] = useState(false);
+
+  const handleFilterClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setAnchorEl(event.currentTarget);
+    setFilterOpen(!filterOpen);
+  };
+
+  const handleFilterClose = () => {
+    setAnchorEl(null);
+    setFilterOpen(false);
+  };
+
+  const handleFilterOptionChange = (option: FilterTimeframe) => {
+    setFilterOption(option);
+    props.onFilterChange(option);
+    handleFilterClose();
+  };
+
+  let icon: React.ReactElement;
+  if (props.txnType === txn_types.Income) {
+    icon = <PaidOutlinedIcon sx={{ fontSize: iconSizeXS }} />;
+  } else {
+    icon = <SavingsOutlinedIcon sx={{ fontSize: iconSizeXS }} />;
+  }
+  return (
+    <Container maxWidth={false} sx={{ p: 1 }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <Stack direction="row" alignItems="center">
+          {icon}
+          <Typography ml={0.5}>
+            {props.title}
+            <span
+              style={{
+                marginLeft: "5px",
+                fontWeight: "bold",
+              }}
+            >
+              {formatShortAmountWithCurrency(props.totalAmount, false, true)}
+            </span>
+          </Typography>
+        </Stack>
+
+        <Stack direction="row" alignItems="center">
+          <IconButton onClick={() => setBreakdownOpen(true)}>
+            <Tooltip title="Category breakdown">
+              <LeaderboardOutlinedIcon sx={{ fontSize: iconSizeXS }} />
+            </Tooltip>
+          </IconButton>
+
+          <CustomIconButton onClick={handleFilterClick} type="filter">
+            <Typography variant="caption" style={{ color: ThemeColor(theme) }}>
+              {props.timeframe}
+            </Typography>
+            <ExpandMoreIcon fontSize={iconSize} />
+          </CustomIconButton>
+        </Stack>
+      </Stack>
+
+      <TimeframeDrawerPopOver
+        filterOpen={filterOpen}
+        anchorEl={anchorEl}
+        handleFilterClose={handleFilterClose}
+        handleFilterOptionChange={handleFilterOptionChange}
+        selectedTimeframe={filterOption}
+      />
+
+      <CategoryBreakdownDialog
+        filterOption={filterOption}
+        filterTitle={props.timeframe}
+        startDate={props.startDate}
+        endDate={props.endDate}
+        totalAmount={props.totalAmount}
+        txnType={props.txnType}
+        openDialog={breakdownOpen}
+        onDialogClose={() => setBreakdownOpen(false)}
+        isDarkMode={isDarkMode}
+      />
+    </Container>
+  );
+};
+
+export default React.memo(FilterBudgetExpenseTrend);

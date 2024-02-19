@@ -1,0 +1,27 @@
+export const iconSize = "small";
+
+export const iconSizeXS = "16px";
+export const iconSizeSM = "20px";
+export const iconSizeMD = "24px";
+
+export const TXN_SUMMARY_CHART_HEIGHT = 85;
+export const TXN_TREND_CHART_HEIGHT = 260;
+export const DASHBOARD_DIALOG = 200;
+
+export const TABLE_HEIGHT = 520;
+export const FIXED_SIZE = 52;
+
+export const AVATAR_SIZE = {
+  width: 32,
+  height: 32,
+};
+export const AVATAR_SIZE_SM = {
+  width: 24,
+  height: 24,
+};
+
+export const drawerWidth = 250;
+export const drawerWidthCollapse = 60;
+
+export const DELETE_ACCT_TIMEOUT = 25000;
+export const FORM_WIDTH = 320;

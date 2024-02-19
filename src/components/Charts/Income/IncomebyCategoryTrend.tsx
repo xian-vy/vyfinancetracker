@@ -1,0 +1,108 @@
+import React, { useEffect, useMemo, useState } from "react";
+import { FilterAndGroupIncome } from "../../../Helper/IncomeHelper";
+import { getFilterTitle } from "../../../Helper/utils";
+import { GroupTransactionByDateAndCategoriesWorker } from "../../../Helper/workers/workerHelper";
+import { yearFilters } from "../../../constants/timeframes";
+import { txn_types } from "../../../constants/collections";
+import { useIncomeSourcesContext } from "../../../contextAPI/IncomeSourcesContext";
+import { useFilterHandlers } from "../../../hooks/filterHook";
+import IncomeModel from "../../../models/IncomeModel";
+import CustomMonthFilter from "../../Filter/CustomMonthFilter";
+import CustomYearFilter from "../../Filter/CustomYearFilter";
+import FilterIncomeSavingsTrend from "../../Filter/FilterIncomeSavingsTrend";
+import TrendByCategoryChart from "../TrendByCategoryChart";
+
+interface ExpenseTrendProps {
+  incomes: IncomeModel[];
+}
+type chartDataType = {
+  date: string;
+  categories: {
+    category: string | undefined;
+    total: number;
+    color: string;
+  }[];
+};
+
+const IncomebyCategoryTrend: React.FC<ExpenseTrendProps> = ({ incomes }) => {
+  const {
+    filterOption,
+    customMonthOpen,
+    customYearOpen,
+    startDate,
+    endDate,
+    handleFilterOptionChange,
+    handleCloseForm,
+    handleYearFilter,
+    handleMonthFilter,
+  } = useFilterHandlers();
+  const { incomeSource } = useIncomeSourcesContext();
+  const worker = useMemo(
+    () => new Worker(new URL("../../../Helper/workers/trendChartWorker", import.meta.url)),
+    [incomes]
+  );
+
+  const filteredIncome = useMemo(
+    () => FilterAndGroupIncome(filterOption, incomes, incomeSource, startDate || undefined, endDate || undefined, true),
+    [filterOption, incomes, incomeSource, startDate, endDate]
+  );
+
+  const [chartData, setChartData] = useState<chartDataType[] | undefined>(undefined);
+
+  // necessary to populate/do worker function on first load
+  useEffect(() => {
+    return () => {
+      worker.terminate();
+    };
+  }, [worker]);
+
+  useEffect(() => {
+    let isMounted = true;
+    GroupTransactionByDateAndCategoriesWorker(worker, filteredIncome, incomeSource, filterOption).then((data) => {
+      if (isMounted) {
+        setChartData(data as chartDataType[]);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [filteredIncome, incomeSource, filterOption]);
+
+  const allIncomeSources = Array.from(
+    new Set(chartData?.flatMap((item) => item.categories.map((source) => source.category)))
+  );
+  const formattedFilterOption = getFilterTitle(filterOption, startDate, endDate);
+  const includeDateFilter = yearFilters.includes(filterOption);
+
+  const totalAmount =
+    chartData
+      ?.flatMap((item) => item.categories)
+      .reduce((acc: number, curr: { total: number }) => acc + curr.total, 0) || 0;
+  return (
+    <>
+      <FilterIncomeSavingsTrend
+        title="Income"
+        timeframe={formattedFilterOption}
+        onFilterChange={handleFilterOptionChange}
+        filterOption={filterOption}
+        startDate={startDate}
+        endDate={endDate}
+        totalAmount={totalAmount}
+        txnType={txn_types.Income}
+      />
+
+      <TrendByCategoryChart
+        filteredChartData={chartData || undefined}
+        allCategories={allIncomeSources}
+        formattedFilterOption={formattedFilterOption}
+        type={txn_types.Income}
+        includeDateFilter={includeDateFilter}
+      />
+
+      <CustomMonthFilter isFormOpen={customMonthOpen} closeForm={handleCloseForm} onFormSubmit={handleMonthFilter} />
+      <CustomYearFilter isFormOpen={customYearOpen} closeForm={handleCloseForm} onFormSubmit={handleYearFilter} />
+    </>
+  );
+};
+
+export default React.memo(IncomebyCategoryTrend);

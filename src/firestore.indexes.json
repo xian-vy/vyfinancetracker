@@ -1,0 +1,7 @@
+[
+  {
+    "collectionGroup": "Expenses",
+    "queryScope": "COLLECTION",
+    "fields": [{ "fieldPath": "date", "order": "ASCENDING" }]
+  }
+]
