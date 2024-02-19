@@ -132,4 +132,4 @@ build/
 # Capacitor
 /android
 /ios
-.firebase/hosting.YnVpbGQ.cache
+.firebase/
