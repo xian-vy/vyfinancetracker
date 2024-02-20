@@ -16,7 +16,7 @@ const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; p
     try {
       setLoading(true);
       await signInWithGoogle();
-    } catch (error) {
+    } catch (error: any) {
       if (error.message === "Network request failed") {
         setNetworkError(true);
       } else {
@@ -36,7 +36,7 @@ const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; p
           fullWidth
           disabled={loading}
           startIcon={<GoogleIcon style={{ fontSize: "20px" }} />}
-          sx={{ textTransform: "none" }}
+          sx={{ textTransform: "none", fontSize: "0.75rem" }}
         >
           Continue with Google
         </Button>

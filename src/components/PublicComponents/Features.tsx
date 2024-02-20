@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Box, Stack, Typography } from "@mui/material";
 import {
   BackupOutlined,
-  EnergySavingsLeafOutlined,
-  CategoryOutlined,
-  CheckOutlined,
-  CloudSyncOutlined,
   CachedOutlined,
+  CategoryOutlined,
   DevicesOutlined,
+  EnergySavingsLeafOutlined,
   LockOutlined,
 } from "@mui/icons-material";
-import { Grow } from "@mui/material";
+import { Box, Grow, Stack, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 
 const featuresData = [
   {
@@ -18,11 +15,7 @@ const featuresData = [
     IconComponent: LockOutlined,
   },
   {
-    description: "Cross Platform",
-    IconComponent: DevicesOutlined,
-  },
-  {
-    description: "Data backup and sync",
+    description: "Backup and sync",
     IconComponent: BackupOutlined,
   },
   {
@@ -40,7 +33,7 @@ const featuresData = [
   },
   {
     description: "Available Offline and on the Web",
-    IconComponent: CloudSyncOutlined,
+    IconComponent: DevicesOutlined,
   },
 ];
 
@@ -65,7 +58,7 @@ const Features = () => {
         alignItems="flex-start"
         justifyContent="center"
         flexWrap="wrap"
-        sx={{ px: { xs: 2, sm: 8, md: 24, lg: 34, xl: 64 } }}
+        sx={{ px: { xs: 0, sm: 8, md: 24, lg: 34, xl: 64 } }}
       >
         {featuresData.map((feature, index) => (
           <Box key={index}>
@@ -77,14 +70,13 @@ const Features = () => {
               <Stack
                 direction="row"
                 alignItems="center"
-                justifyContent="center"
-                sx={{ m: { xs: 0.3, md: 0.5 }, borderRadius: 4 }}
+                justifyContent="space-between"
+                sx={{ m: { xs: 0.3, md: 0.5 }, borderRadius: 4, px: 1 }}
               >
-                <CheckOutlined sx={{ fontSize: "12px", mr: 0.2 }} />
-                <Typography sx={{ fontSize: { xs: "0.75rem", md: "0.85rem" } }} mr={1}>
+                <Typography sx={{ fontSize: { xs: "0.75rem", md: "0.85rem" } }} mx={1}>
                   {feature.description}
                 </Typography>
-                <feature.IconComponent sx={{ fontSize: { xs: "14px", sm: "16px", md: "20px" }, mr: 0.3 }} />
+                <feature.IconComponent sx={{ fontSize: { xs: "14px", sm: "16px", md: "20px" }, mr: 0.5 }} />
               </Stack>
             </Grow>
           </Box>

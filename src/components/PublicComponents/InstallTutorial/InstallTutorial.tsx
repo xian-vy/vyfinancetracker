@@ -1,5 +1,4 @@
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
-import AddToHomeScreenIcon from "@mui/icons-material/AddToHomeScreen";
 import CloseIcon from "@mui/icons-material/Close";
 import InstallDesktopIcon from "@mui/icons-material/InstallDesktop";
 import InstallMobileIcon from "@mui/icons-material/InstallMobile";
@@ -45,15 +44,9 @@ const InstallTutorial = ({ onDialogClose }: { onDialogClose: () => void }) => {
           </Stack>
           <Stack direction="row" justifyContent="center" alignItems="center" my={0.5}>
             <Typography variant="body2" textAlign="center" mr={1}>
-              Step 2 - select Install
+              Step 2 - Install or Add to Homescreen
             </Typography>
             <InstallMobileIcon />
-          </Stack>
-          <Stack direction="row" justifyContent="center" alignItems="center" my={0.5}>
-            <Typography variant="body2" textAlign="center" mr={1}>
-              Step 3 - or Add to Homescreen
-            </Typography>
-            <AddToHomeScreenIcon />
           </Stack>
 
           <InstallAndroid />

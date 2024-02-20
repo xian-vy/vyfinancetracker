@@ -16,7 +16,7 @@ const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean
     try {
       setLoading(true);
       await signInAnonymous();
-    } catch (error) {
+    } catch (error: any) {
       if (error.message === "Network request failed") {
         setNetworkError(true);
       } else {
@@ -36,7 +36,7 @@ const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean
           fullWidth
           disabled={loading}
           startIcon={<Incognito fill="#ccc" style={{ width: "22px", height: "22px" }} />}
-          sx={{ textTransform: "none" }}
+          sx={{ textTransform: "none", fontSize: "0.75rem" }}
         >
           Continue Anonymously
         </Button>

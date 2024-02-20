@@ -19,12 +19,12 @@ const FeaturesIMG = () => {
   const [currentImage, setCurrentImage] = useState(expensesLaptop);
   const [currentMobileImage, setCurrentMobileImage] = useState(expensesMobile);
 
-  const handleBreadcrumbClick = (laptopImage, mobileImage) => {
+  const handleBreadcrumbClick = (laptopImage: string, mobileImage: string) => {
     setCurrentImage(laptopImage);
     setCurrentMobileImage(mobileImage);
   };
 
-  const handleImageClick = (image) => {
+  const handleImageClick = (image: string) => {
     setShowFullImage({ open: true, img: image });
   };
 
