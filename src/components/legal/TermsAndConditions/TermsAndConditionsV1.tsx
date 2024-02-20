@@ -5,14 +5,14 @@ import { Container, Link, Stack } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { HOME } from "../../../constants/routes";
 
-const markdown = `# Vy Finance Tracker Terms of Use
+const markdown = `
+# Vy Finance Tracker Terms of Use
 
 Welcome to Vy Finance Tracker. These Terms of Use ("Terms") govern your use of the Vy Finance Tracker app and website, and any related services provided by Vy Finance Tracker. By accessing or using the Vy Finance Tracker, you agree to be bound by these Terms. If you do not agree to all the terms of Use, then you may not access or use the services.
 
 ## Acceptance of Terms
 
 By using the Vy Finance Tracker, you confirm that you have read, understood, and agree to be bound by these Terms. If you are using the services on behalf of an organization, you are agreeing to these Terms for that organization and promising that you have the authority to bind that organization to these terms.
-
 
 ## IMPORTANT NOTICE
 
@@ -35,7 +35,7 @@ Vy Finance Tracker is a free financial management application designed to help u
 - **Financial Reporting**: Vy Finance Tracker offers reports and visualizations to help users understand their financial situation and trends over time.
 - **Data Synchronization**: The app synchronizes data across devices to provide a consistent user experience.
 - **Data Import**: Users have the option to upload Excel files to import their expense data. Instructions for the required file formats and structures are provided within the app, accessible via a question mark icon next to the import feature. We take precautions to ensure the security of data uploaded to our services. However, users are responsible for the accuracy and integrity of the data contained in the files they upload.
-- **Data Export**: Users have the option to export their financial data, such as expense and income lists, in a format suitable for backup or transfer to other financial management systems. This feature allows users to easily download their data and maintain a copy outside of the app.
+- **Data Export**: Users have the option to export their financial data, such as expense and income lists, in an Excel format suitable for backup or transfer to other financial management systems. This feature allows users to easily download their data and maintain a copy outside of the app. **Please note that the exported data is not encrypted and the user is responsible for the security of the exported data.**
 - **Transaction History**: The app maintains logs of certain transaction events, including the creation, deletion, and any modifications to expenses, budgets, income, savings, and savings contributions. This transaction history is displayed to users as recent transactions within the app to provide a clear overview of financial activities. While these logs are not currently used to generate financial reports, they may be utilized for this purpose in the future to enhance the services offered by Vy Finance Tracker.
 - **Deletion**:Users have the option to delete their account through the settings within the app. This includes the ability to remove all personal data and transaction history associated with the account. Please note that deleting your account requires an active network connection, as it involves removing data both locally on your device and from our servers.
 - **Authentication**: Vy Finance Tracker uses Google Firebase Authentication to securely manage user accounts. This service provides a robust and secure authentication system that supports various sign-in methods, including Google and Anonymous sign in.
@@ -133,6 +133,7 @@ Any disputes arising out of or in connection with these Terms shall be subject t
 
 
 By using the Vy Finance Tracker, you acknowledge that you have read and agree to these terms.
+
 
 `;
 const TermsAndConditions = ({ isPublic = true }: { isPublic?: boolean }) => {

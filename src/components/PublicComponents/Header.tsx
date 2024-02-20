@@ -82,7 +82,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
   }, [androidIcon, iosIcon, windowsIcon]);
   return (
     <>
-      <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ pb: 1 }}>
+      <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
         <Container disableGutters maxWidth="sm" component="main" sx={{ pb: 0.5, px: 4 }}>
           <Stack direction="row" alignItems="center" justifyContent="center">
             <img src={logo} alt="Logo" style={{ width: "30px", height: "30px" }} />
@@ -91,7 +91,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             </Typography>
           </Stack>
           <Typography component="h3" align="center" sx={{ fontSize: { xs: "0.8rem", md: "0.9rem" } }}>
-            Expense and income tracker, budget planner in one app
+            A progressive web app - free personal finance tracker
           </Typography>
         </Container>
 
@@ -101,7 +101,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               variant="outlined"
               color="inherit"
               size="small"
-              sx={{ textTransform: "capitalize", width: 100 }}
+              sx={{ textTransform: "capitalize", width: 100, fontSize: "0.75rem" }}
               onClick={handleStartClick}
             >
               Start Now
@@ -116,7 +116,13 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               variant="outlined"
               color="inherit"
               size="small"
-              sx={{ display: "flex", width: 100, alignItems: "center", textTransform: "capitalize" }}
+              sx={{
+                display: "flex",
+                width: 100,
+                alignItems: "center",
+                textTransform: "capitalize",
+                fontSize: "0.75rem",
+              }}
               onClick={handleInstallClick}
             >
               Install
