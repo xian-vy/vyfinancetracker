@@ -22,7 +22,7 @@ interface DataWithIdAndLastModified {
   lastModified?: Timestamp;
 }
 // Optimize data fetch to reduce Firestore reads.
-export const fetchCachedData = async <T extends DataWithIdAndLastModified>(
+export const fetchTransactionData = async <T extends DataWithIdAndLastModified>(
   collectionName: string,
   mapFunction: (doc: QueryDocumentSnapshot<DocumentData>, data: DocumentData) => T[]
 ): Promise<T[]> => {
@@ -36,18 +36,18 @@ export const fetchCachedData = async <T extends DataWithIdAndLastModified>(
     const collectionRef = collection(userDocRef, collectionName);
 
     /* FETCH OLD/CACHED DATA ----------------------------------------------------------------*/
-    const fetchOldResult = await fetchOldData(collectionRef, collectionName, persistenceID, mapFunction, key);
-    const { oldData, firstFetch } = fetchOldResult;
+    const fetchOldResult = await fetchInitialData(collectionRef, collectionName, persistenceID, mapFunction, key);
+    const { initialData, firstFetch } = fetchOldResult;
 
     if (firstFetch) {
-      return oldData;
+      return initialData;
     }
 
     /* FETCH NEW DATA -----------------------------------------------------------------------*/
     const fetchNewResult = await fetchNewData(collectionRef, collectionName, persistenceID, mapFunction, key);
     const newData = fetchNewResult;
 
-    let combinedData = [...oldData, ...newData];
+    let combinedData = [...initialData, ...newData];
 
     /* CONFLICT RESOLUTIOON - LAST WRITE WINS -----------------------------------------------*/
 
@@ -75,10 +75,10 @@ export const fetchCachedData = async <T extends DataWithIdAndLastModified>(
 };
 
 type FetchResult<T> = {
-  oldData: T[];
+  initialData: T[];
   firstFetch: boolean;
 };
-const fetchOldData = async <T,>(
+const fetchInitialData = async <T,>(
   collectionRef: CollectionReference,
   collectionName: string,
   persistenceID: string,
@@ -87,7 +87,7 @@ const fetchOldData = async <T,>(
 ): Promise<FetchResult<T>> => {
   let firstFetch = false;
   let oldSnapshot: QuerySnapshot<DocumentData> | null = null;
-  let oldData: T[] = [];
+  let initialData: T[] = [];
   try {
     const getCollectionQ = query(collectionRef, orderBy("lastModified", "desc"));
 
@@ -107,13 +107,13 @@ const fetchOldData = async <T,>(
       const decryptedDataPromises = oldSnapshot.docs.map(async (doc) =>
         decryptAndMapData(doc, doc.data() as DocumentData, key, mapFunction)
       );
-      oldData = (await Promise.all(decryptedDataPromises)).flat();
+      initialData = (await Promise.all(decryptedDataPromises)).flat();
     }
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 
-  return { oldData, firstFetch };
+  return { initialData, firstFetch };
 };
 
 const fetchNewData = async <T,>(

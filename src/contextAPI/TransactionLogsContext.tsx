@@ -6,7 +6,7 @@ import { collections } from "../constants/collections";
 import { encryptAndConvertToBase64 } from "../encryption/encryption";
 import { retrieveKeySecurely } from "../encryption/keyhandling";
 import { db } from "../firebase";
-import { fetchCachedData } from "../firebase/GenericFetch";
+import { fetchTransactionData } from "../firebase/GenericFetch";
 import { getUserDocRef } from "../firebase/UsersService";
 import { convertToFirestoreTimestamp } from "../firebase/utils";
 import TransactionLogsModel from "../models/TransactionLogsModel";
@@ -66,7 +66,10 @@ export const TransactionLogsProvider = ({ children }: { children: ReactNode }) =
   const [loading, setLoading] = useState(false);
 
   const fetchLogsByTimeframe = async (filterOption: string, startDateParam?: Date, endDateParam?: Date) => {
-    const cachedLogs = await fetchCachedData<TransactionLogsModel>(collections.Transaction_Logs, mapDataToLogsModel);
+    const cachedLogs = await fetchTransactionData<TransactionLogsModel>(
+      collections.Transaction_Logs,
+      mapDataToLogsModel
+    );
 
     const { startDate, endDate } = getStartAndEndDate(filterOption, startDateParam, endDateParam);
 

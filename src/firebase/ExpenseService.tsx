@@ -12,7 +12,7 @@ import {
 import { collections } from "../constants/collections";
 import { db } from "../firebase";
 import ExpenseModel from "../models/ExpenseModel";
-import { fetchCachedData } from "./GenericFetch";
+import { fetchTransactionData } from "./GenericFetch";
 import { getUserDocRef } from "./UsersService";
 import { retrieveKeySecurely } from "../encryption/keyhandling";
 import { decryptFromBase64, encryptAndConvertToBase64 } from "../encryption/encryption";
@@ -60,7 +60,7 @@ const mapDataToExpenseModel = (doc: QueryDocumentSnapshot<any>, data: any): Expe
 };
 
 export const getExpenses = async (): Promise<ExpenseModel[]> => {
-  return fetchCachedData<ExpenseModel>(collections.Expenses, mapDataToExpenseModel);
+  return fetchTransactionData<ExpenseModel>(collections.Expenses, mapDataToExpenseModel);
 };
 
 export const addExpensetoFirestore = async (expense: ExpenseModel): Promise<string> => {

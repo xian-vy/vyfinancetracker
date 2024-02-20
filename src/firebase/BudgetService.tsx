@@ -9,7 +9,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { BudgetItemsModel, BudgetModel } from "../models/BudgetModel";
-import { fetchCachedData } from "./GenericFetch";
+import { fetchTransactionData } from "./GenericFetch";
 import { getUserDocRef } from "./UsersService";
 import { collections } from "../constants/collections";
 import { retrieveKeySecurely } from "../encryption/keyhandling";
@@ -33,7 +33,7 @@ const mapDataToBudgetModel = (doc: QueryDocumentSnapshot, data: DocumentData): B
   return [budgetModel];
 };
 export const getBudget = async (): Promise<BudgetModel[]> => {
-  return fetchCachedData<BudgetModel>(collections.Budgets, mapDataToBudgetModel);
+  return fetchTransactionData<BudgetModel>(collections.Budgets, mapDataToBudgetModel);
 };
 
 export const addBudget = async (budgetModel: BudgetModel): Promise<BudgetModel> => {
