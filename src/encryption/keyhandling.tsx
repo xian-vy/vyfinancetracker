@@ -55,8 +55,7 @@ const getIndexedDB = async () => {
     },
   });
 };
-export const deleteIndexedDB = async () => {
-  const persistenceId = await getPersistenceID();
+export const deleteIndexedDB = async (persistenceId: string) => {
   if (!persistenceId) {
     throw new Error("No signed in user.");
   }

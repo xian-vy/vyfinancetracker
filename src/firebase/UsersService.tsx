@@ -260,7 +260,7 @@ export async function deleteAccountData(): Promise<boolean> {
       await batch.commit();
     }
     console.log("Collections deleted.");
-    await deleteIndexedDB();
+    await deleteIndexedDB(persistenceID);
     console.log("DB deleted.");
     await deleteAuthAccount(user);
     console.log("Auth deleted.");

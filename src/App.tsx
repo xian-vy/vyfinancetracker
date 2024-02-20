@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { darkTheme, lightTheme } from "./Theme";
 import ConnectionStatus from "./components/ConnectionStatus";
+import DeleteAccountBackdrop from "./components/DeleteAccountBackdrop";
 import ErrorBoundary from "./components/ErrorBoundary";
 import LoadingLogo from "./components/LoadingLogo";
 import { ProtectedRoute } from "./components/ProtectedRoutes";
@@ -12,8 +13,8 @@ import DashboardSkeleton from "./components/Skeleton/DashboardSkeleton";
 import { DASHBOARD_PATH, routes } from "./constants/routes";
 import { useAuthState } from "./hooks/authStateHook";
 import { useBgColor } from "./hooks/bgColorHook";
+import { setIsDeleting, setSuccessDeleteMessage } from "./redux/reducer/deleteAccountSlice";
 import { RootState } from "./redux/store";
-import { setSuccessDeleteMessage, setIsDeleting } from "./redux/reducer/deleteAccountSlice";
 const SeedPhraseMain = React.lazy(() => import("./encryption/SeedPhraseMain"));
 
 function getFallbackComponent(path: string) {
@@ -49,7 +50,7 @@ function App() {
   return (
     <div className="App">
       <ConnectionStatus />
-
+      <DeleteAccountBackdrop />
       <Router>
         <ErrorBoundary>
           <Routes>
@@ -76,7 +77,13 @@ function App() {
       <ThemeProvider
         theme={darktheme === null ? (systemThemeIsDark ? darkTheme : lightTheme) : darktheme ? darkTheme : lightTheme}
       >
-        <React.Suspense fallback={<div>loading...</div>}>
+        <React.Suspense
+          fallback={
+            <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="100vh">
+              Loading...
+            </Box>
+          }
+        >
           <SeedPhraseMain
             onKeyStored={() => {
               setOpenSeedPhrase({ open: false, hasSalt: null });
