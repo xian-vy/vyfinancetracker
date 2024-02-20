@@ -18,7 +18,7 @@ import {
   default as SavingGoalsContributionModel,
 } from "../models/SavingGoalsContribution";
 import SavingGoalsModel from "../models/SavingGoalsModel";
-import { fetchCachedData } from "./GenericFetch";
+import { fetchTransactionData } from "./GenericFetch";
 import { getUserDocRef } from "./UsersService";
 import { convertToFirestoreTimestamp } from "./utils";
 
@@ -65,11 +65,11 @@ const mapDataToSavingsContributionModel = (doc: QueryDocumentSnapshot<any>, data
 };
 
 export const getSavings = async (): Promise<SavingGoalsModel[]> => {
-  return fetchCachedData<SavingGoalsModel>(collections.SavingGoals, mapDataToSavingsModel);
+  return fetchTransactionData<SavingGoalsModel>(collections.SavingGoals, mapDataToSavingsModel);
 };
 
 export const getSavingsContributions = async (): Promise<SavingGoalsContribution[]> => {
-  return fetchCachedData<SavingGoalsContribution>(
+  return fetchTransactionData<SavingGoalsContribution>(
     collections.SavingGoalsContributions,
     mapDataToSavingsContributionModel
   );

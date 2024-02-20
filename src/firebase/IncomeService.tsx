@@ -8,7 +8,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import IncomeModel from "../models/IncomeModel";
-import { fetchCachedData } from "./GenericFetch";
+import { fetchTransactionData } from "./GenericFetch";
 import { getUserDocRef } from "./UsersService";
 import { collections } from "../constants/collections";
 import { retrieveKeySecurely } from "../encryption/keyhandling";
@@ -34,7 +34,7 @@ const mapDataToIncomeModel = (doc: QueryDocumentSnapshot<any>, data: any): Incom
 };
 
 export const getIncome = async (): Promise<IncomeModel[]> => {
-  return fetchCachedData<IncomeModel>(collections.Income, mapDataToIncomeModel);
+  return fetchTransactionData<IncomeModel>(collections.Income, mapDataToIncomeModel);
 };
 
 //INSERT

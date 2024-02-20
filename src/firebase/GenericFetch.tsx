@@ -7,6 +7,7 @@ import {
   collection,
   getDocs,
   getDocsFromCache,
+  getDocsFromServer,
   orderBy,
   query,
   where,
@@ -16,12 +17,12 @@ import { retrieveKeySecurely } from "../encryption/keyhandling";
 import { getPersistenceID, getUserDocRef } from "./UsersService";
 import { convertToFirestoreTimestamp } from "./utils";
 
-interface IDataWithIdAndLastModified {
+interface DataWithIdAndLastModified {
   id?: string;
   lastModified?: Timestamp;
 }
-
-export const fetchCachedData = async <T extends IDataWithIdAndLastModified>(
+// Optimize data fetch to reduce Firestore reads.
+export const fetchTransactionData = async <T extends DataWithIdAndLastModified>(
   collectionName: string,
   mapFunction: (doc: QueryDocumentSnapshot<DocumentData>, data: DocumentData) => T[]
 ): Promise<T[]> => {
@@ -32,52 +33,24 @@ export const fetchCachedData = async <T extends IDataWithIdAndLastModified>(
     }
     const persistenceID = await getPersistenceID();
     const userDocRef = await getUserDocRef();
+    const collectionRef = collection(userDocRef, collectionName);
 
-    const col = collection(userDocRef, collectionName);
-    let firstFetch = false;
-
-    let querySnapshot: QuerySnapshot<DocumentData> | null = null;
-
-    // Fetch the data from the cache
-    const q = query(col, orderBy("lastModified", "desc"));
-    querySnapshot = await getDocsFromCache(q);
-    // Store the last modified timestamp in local storage
-    if (querySnapshot.docs[0]) {
-      const data = querySnapshot.docs[0].data() as DocumentData;
-      if (data.lastModified) {
-        localStorage.setItem(collectionName + "lastModified" + persistenceID, JSON.stringify(data.lastModified));
-      }
-    } else {
-      firstFetch = true;
-      const q = query(col, orderBy("lastModified", "desc"));
-      querySnapshot = await getDocs(q);
-      if (querySnapshot.docs[0]) {
-        const data = querySnapshot.docs[0].data() as DocumentData;
-        if (data.lastModified) {
-          localStorage.setItem(collectionName + "lastModified" + persistenceID, JSON.stringify(data.lastModified));
-        }
-      }
-    }
-
-    let decryptedDataPromises = querySnapshot.docs.map(async (doc) =>
-      decryptAndMapData(doc, doc.data() as DocumentData, key, mapFunction)
-    );
-    let decryptedData = (await Promise.all(decryptedDataPromises)).flat();
+    /* FETCH OLD/CACHED DATA ----------------------------------------------------------------*/
+    const fetchOldResult = await fetchInitialData(collectionRef, collectionName, persistenceID, mapFunction, key);
+    const { initialData, firstFetch } = fetchOldResult;
 
     if (firstFetch) {
-      return decryptedData;
+      return initialData;
     }
 
-    //decryptedData isn't empty, check and append newer data from server
-    let newData: T[] = [];
+    /* FETCH NEW DATA -----------------------------------------------------------------------*/
+    const fetchNewResult = await fetchNewData(collectionRef, collectionName, persistenceID, mapFunction, key);
+    const newData = fetchNewResult;
 
-    if (decryptedData.length > 0) {
-      newData = await tryFetchNewerData(collectionName, mapFunction, persistenceID, col, newData, key);
-    }
+    let combinedData = [...initialData, ...newData];
 
-    let combinedData = [...decryptedData, ...newData];
+    /* CONFLICT RESOLUTIOON - LAST WRITE WINS -----------------------------------------------*/
 
-    //Conflict Resolution, last write wins
     if (newData.length > 0) {
       const map = new Map();
       combinedData.forEach((newItem) => {
@@ -101,42 +74,84 @@ export const fetchCachedData = async <T extends IDataWithIdAndLastModified>(
   }
 };
 
-const tryFetchNewerData = async <T,>(
+type FetchResult<T> = {
+  initialData: T[];
+  firstFetch: boolean;
+};
+const fetchInitialData = async <T,>(
+  collectionRef: CollectionReference,
   collectionName: string,
-  mapFunction: (doc: QueryDocumentSnapshot<DocumentData>, data: DocumentData) => T[],
   persistenceID: string,
-  col: CollectionReference,
-  latestData: T[],
+  mapFunction: (doc: QueryDocumentSnapshot<DocumentData>, data: DocumentData) => T[],
+  key: CryptoKey
+): Promise<FetchResult<T>> => {
+  let firstFetch = false;
+  let oldSnapshot: QuerySnapshot<DocumentData> | null = null;
+  let initialData: T[] = [];
+  try {
+    const getCollectionQ = query(collectionRef, orderBy("lastModified", "desc"));
+
+    //check if cache data is available
+    oldSnapshot = await getDocsFromCache(getCollectionQ);
+    if (oldSnapshot.docs[0]) {
+      storeLastModified(collectionName, persistenceID, oldSnapshot.docs[0].data().lastModified);
+    } else {
+      //cache data isnt available, fetch from server (first sign in or change device)
+      firstFetch = true;
+      oldSnapshot = await getDocsFromServer(getCollectionQ);
+      if (oldSnapshot.docs[0]) {
+        storeLastModified(collectionName, persistenceID, oldSnapshot.docs[0].data().lastModified);
+      }
+    }
+    if (oldSnapshot) {
+      const decryptedDataPromises = oldSnapshot.docs.map(async (doc) =>
+        decryptAndMapData(doc, doc.data() as DocumentData, key, mapFunction)
+      );
+      initialData = (await Promise.all(decryptedDataPromises)).flat();
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+
+  return { initialData, firstFetch };
+};
+
+const fetchNewData = async <T,>(
+  collectionRef: CollectionReference,
+  collectionName: string,
+  persistenceID: string,
+  mapFunction: (doc: QueryDocumentSnapshot<DocumentData>, data: DocumentData) => T[],
   key: CryptoKey
 ): Promise<T[]> => {
-  const lastModifiedString = localStorage.getItem(collectionName + "lastModified" + persistenceID);
-  const lastModified = lastModifiedString ? JSON.parse(lastModifiedString) : null;
-  const lastModifiedTimestamp = convertToFirestoreTimestamp(lastModified);
-
-  const q = query(col, orderBy("lastModified", "desc"), where("lastModified", ">", lastModifiedTimestamp));
-
-  // console.log("new data", timestamp.toDate());
-  let latestSnapshot: QuerySnapshot<DocumentData> | null = null;
+  let newData: T[] = [];
   try {
-    latestSnapshot = await getDocs(q);
+    const lastModifiedString = localStorage.getItem(collectionName + "lastModified" + persistenceID);
+    const lastModified = lastModifiedString ? JSON.parse(lastModifiedString) : null;
+    const lastModifiedTimestamp = convertToFirestoreTimestamp(lastModified);
+
+    const getCollectionQ = query(
+      collectionRef,
+      orderBy("lastModified", "desc"),
+      where("lastModified", ">", lastModifiedTimestamp)
+    );
+
+    let latestSnapshot: QuerySnapshot<DocumentData> | null = null;
+
+    latestSnapshot = await getDocs(getCollectionQ);
     if (latestSnapshot.docs[0]) {
-      const data = latestSnapshot.docs[0].data() as DocumentData;
-      if (data.lastModified) {
-        localStorage.setItem(collectionName + "lastModified" + persistenceID, JSON.stringify(data.lastModified));
-      }
+      storeLastModified(collectionName, persistenceID, latestSnapshot.docs[0].data().lastModified);
+    }
+
+    if (latestSnapshot) {
+      const latestDataPromise = latestSnapshot.docs.map(async (doc) =>
+        decryptAndMapData(doc, doc.data() as DocumentData, key, mapFunction)
+      );
+      newData = (await Promise.all(latestDataPromise)).flat();
     }
   } catch (error) {
     console.error("Failed to fetch data from Firestore:", error);
   }
-
-  let latestDataPromise: Promise<T[]>[] = [];
-  if (latestSnapshot) {
-    latestDataPromise = latestSnapshot.docs.map(async (doc) =>
-      decryptAndMapData(doc, doc.data() as DocumentData, key, mapFunction)
-    );
-    latestData = (await Promise.all(latestDataPromise)).flat();
-  }
-  return latestData;
+  return newData;
 };
 
 const decryptAndMapData = async <T,>(
@@ -148,4 +163,10 @@ const decryptAndMapData = async <T,>(
   const decryptedData = await decryptFromBase64(data.encryptedData.encryptedDataBase64, key, data.encryptedData.iv);
 
   return mapFunction(doc, decryptedData);
+};
+
+const storeLastModified = (collectionName: string, persistenceID: string, lastModified: Timestamp | null) => {
+  if (lastModified) {
+    localStorage.setItem(collectionName + "lastModified" + persistenceID, JSON.stringify(lastModified));
+  }
 };
