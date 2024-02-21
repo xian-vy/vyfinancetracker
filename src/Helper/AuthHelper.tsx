@@ -7,6 +7,7 @@ import {
   signInWithRedirect,
   signOut,
 } from "firebase/auth";
+import { SIGNIN_NETWORK_ERROR_MESSAGE } from "../constants/errors";
 
 export async function signInWithGoogle() {
   const auth = getAuth();
@@ -15,7 +16,7 @@ export async function signInWithGoogle() {
   return signInWithRedirect(auth, provider).catch((error) => {
     const errorCode = error.code;
     if (errorCode === "auth/network-request-failed") {
-      throw new Error("Network request failed");
+      throw new Error(SIGNIN_NETWORK_ERROR_MESSAGE);
     }
     console.error("An error occurred during sign-in:", error.message);
   });
@@ -24,8 +25,11 @@ export async function signInWithGoogle() {
 export async function signInAnonymous() {
   const auth = getAuth();
   return signInAnonymously(auth).catch((error) => {
-    console.error("An error occurred during sign-in", error.message);
-    throw error;
+    const errorCode = error.code;
+    if (errorCode === "auth/network-request-failed") {
+      throw new Error(SIGNIN_NETWORK_ERROR_MESSAGE);
+    }
+    console.error("An error occurred during sign-in:", error.message);
   });
 }
 
@@ -39,67 +43,6 @@ export async function signOutWithGoogle() {
     console.error("An error occurred during sign-in:", error.message);
   }
 }
-/* 
-export async function isUserSignedInRecently(): Promise<boolean> {
-  const auth = getAuth();
-  const user = auth.currentUser;
-  if (user) {
-    const now = Date.now();
-    const lastSignInTime = user.metadata.lastSignInTime;
-
-    const oneHourAgo = now - 60 * 60 * 1000; // 1 hour ago in milliseconds
-
-    console.log(oneHourAgo);
-    let lastSignInTimestamp;
-
-    if (lastSignInTime) {
-      lastSignInTimestamp = new Date(lastSignInTime).getTime();
-    }
-
-    if (lastSignInTimestamp !== undefined && lastSignInTimestamp < oneHourAgo) {
-      return false;
-    } else {
-      return true;
-    }
-  } else {
-    return false;
-  }
-}
-*/
-
-/* Disable Since current auth is fully Google based
-export enum AuthProvider {
-  Google = "Google",
-  Email = "Email",
-  Unknown = "",
-}
-
-export async function getUserAuthProvider(): Promise<AuthProvider> {
-  try {
-    const auth = getAuth();
-    const user = auth.currentUser;
-
-    if (!user) {
-      throw new Error("User auth error.");
-    }
-
-    const providerData = user.providerData;
-    const googleProvider = providerData.find((data) => data.providerId === "google.com");
-    const emailProvider = providerData.find((data) => data.providerId === "password");
-
-    if (googleProvider) {
-      return AuthProvider.Google;
-    } else if (emailProvider) {
-      return AuthProvider.Email;
-    } else {
-      return AuthProvider.Unknown;
-    }
-  } catch (error) {
-    console.error("Error getting user auth provider:", error);
-    return AuthProvider.Unknown;
-  }
-}
-*/
 
 export async function reAuthGoogleSignIn(): Promise<string> {
   const auth = getAuth();

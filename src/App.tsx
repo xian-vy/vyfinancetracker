@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { darkTheme, lightTheme } from "./Theme";
 import ConnectionStatus from "./components/ConnectionStatus";
-import DeleteAccountBackdrop from "./components/DeleteAccountBackdrop";
+import AccountActivityBackdrop from "./components/AccountActivityBackdrop";
 import ErrorBoundary from "./components/ErrorBoundary";
 import LoadingLogo from "./components/LoadingLogo";
 import { ProtectedRoute } from "./components/ProtectedRoutes";
@@ -13,7 +13,7 @@ import DashboardSkeleton from "./components/Skeleton/DashboardSkeleton";
 import { DASHBOARD_PATH, routes } from "./constants/routes";
 import { useAuthState } from "./hooks/authStateHook";
 import { useBgColor } from "./hooks/bgColorHook";
-import { setIsDeleting, setSuccessDeleteMessage } from "./redux/reducer/deleteAccountSlice";
+import { setIsDeleting, setSuccessDeleteMessage } from "./redux/reducer/userAccountSlice";
 import { RootState } from "./redux/store";
 const SeedPhraseMain = React.lazy(() => import("./encryption/SeedPhraseMain"));
 
@@ -50,7 +50,7 @@ function App() {
   return (
     <div className="App">
       <ConnectionStatus />
-      <DeleteAccountBackdrop />
+      <AccountActivityBackdrop />
       <Router>
         <ErrorBoundary>
           <Routes>

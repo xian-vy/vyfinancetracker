@@ -3,27 +3,32 @@ import React, { useState } from "react";
 import { signInAnonymous } from "../../Helper/AuthHelper";
 import { ReactComponent as Incognito } from "../../Media/incognito.svg";
 import GenericDialog from "../Dialog/GenericDialog";
+import { SIGNIN_NETWORK_ERROR_MESSAGE } from "../../constants/errors";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsSigningIn } from "../../redux/reducer/userAccountSlice";
+import { RootState } from "../../redux/store";
 
 const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; promptAgreementMsg: () => void }) => {
-  const [loading, setLoading] = useState(false);
   const [networkError, setNetworkError] = useState(false);
+  const dispatch = useDispatch();
+  const isSigningIn = useSelector((state: RootState) => state.userAccount.isSigningIn);
 
   const signIn = async () => {
     if (!hasAgreed) {
       promptAgreementMsg();
+
       return;
     }
     try {
-      setLoading(true);
+      dispatch(setIsSigningIn(true));
+
       await signInAnonymous();
     } catch (error: any) {
-      if (error.message === "Network request failed") {
+      if (error.message === SIGNIN_NETWORK_ERROR_MESSAGE) {
         setNetworkError(true);
       } else {
         console.error(error.message);
       }
-    } finally {
-      setLoading(false);
     }
   };
   return (
@@ -34,7 +39,7 @@ const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean
           color="inherit"
           onClick={signIn}
           fullWidth
-          disabled={loading}
+          disabled={isSigningIn}
           startIcon={<Incognito fill="#ccc" style={{ width: "22px", height: "22px" }} />}
           sx={{ textTransform: "none", fontSize: "0.75rem" }}
         >
@@ -48,7 +53,7 @@ const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean
         title="Network required"
         content={
           <>
-            <Typography variant="body1">
+            <Typography variant="body1" mt={2}>
               Offline access is enabled in this app, but initial sign-in requires an internet connection.
             </Typography>
           </>

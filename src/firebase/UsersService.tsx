@@ -227,7 +227,6 @@ export async function deleteAccountData(): Promise<boolean> {
   try {
     const auth = getAuth();
     const user = auth.currentUser;
-    //await new Promise((resolve) => setTimeout(resolve, 20000));
 
     //unique key for user
     const persistenceID = await getPersistenceID();
@@ -262,12 +261,11 @@ export async function deleteAccountData(): Promise<boolean> {
     console.log("Collections deleted.");
     await deleteIndexedDB(persistenceID);
     console.log("DB deleted.");
-    await deleteAuthAccount(user);
-    console.log("Auth deleted.");
     await deleteDoc(userDocRef);
     console.log("Doc deleted.");
     signOutWithGoogle();
-
+    await deleteAuthAccount(user);
+    console.log("Auth deleted.");
     //remove all user associated data in localstorage
     Object.keys(localStorage).forEach((key) => {
       if (key.endsWith(persistenceID)) {

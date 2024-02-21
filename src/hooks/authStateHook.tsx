@@ -7,6 +7,7 @@ import { checkUserAgreement, getPersistenceID } from "../firebase/UsersService";
 import { retryPromise } from "../firebase/utils";
 import { setIsAuthenticating, setPersistentId, setUser } from "../redux/reducer/authSlice";
 import { RootState } from "../redux/store";
+import { setIsSigningIn } from "../redux/reducer/userAccountSlice";
 enum loadingStates {
   Intializing = "Intializing",
   Authenticating = "Authenticating",
@@ -79,7 +80,7 @@ export const useAuthState = () => {
       } else {
         dispatch(setUser(null));
       }
-
+      dispatch(setIsSigningIn(false));
       dispatch(setIsAuthenticating(false));
     });
 

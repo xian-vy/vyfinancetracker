@@ -2,7 +2,7 @@ import { Box, Stack } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useSnackbarHook from "../../hooks/snackbarHook";
-import { setSuccessDeleteMessage } from "../../redux/reducer/deleteAccountSlice";
+import { setSuccessDeleteMessage } from "../../redux/reducer/userAccountSlice";
 import { RootState } from "../../redux/store";
 import Features from "./Features";
 import FeaturesIMG from "./FeaturesIMG";
@@ -19,7 +19,7 @@ export default function MainPage() {
   const [appInstalled, setAppInstalled] = useState(false);
   const { openSuccessSnackbar, SnackbarComponent } = useSnackbarHook();
   const dispatch = useDispatch();
-  const accntDeleted = useSelector((state: RootState) => state.deleteAccount.msg);
+  const accntDeleted = useSelector((state: RootState) => state.userAccount.deleteMessage);
   const [isOverflowing, setIsOverflowing] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
   useEffect(() => {

@@ -4,7 +4,7 @@ import { signOutWithGoogle } from "../../Helper/AuthHelper";
 import { deleteAccountData, getPersistenceID } from "../../firebase/UsersService";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { setIsDeleting, setSuccessDeleteMessage } from "../../redux/reducer/deleteAccountSlice";
+import { setIsDeleting, setSuccessDeleteMessage } from "../../redux/reducer/userAccountSlice";
 import useSnackbarHook from "../../hooks/snackbarHook";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
 import { DELETE_ACCT_TIMEOUT } from "../../constants/Sizes";

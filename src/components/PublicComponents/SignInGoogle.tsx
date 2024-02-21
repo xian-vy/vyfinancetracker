@@ -3,10 +3,15 @@ import React, { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { signInWithGoogle } from "../../Helper/AuthHelper";
 import GenericDialog from "../Dialog/GenericDialog";
+import { SIGNIN_NETWORK_ERROR_MESSAGE } from "../../constants/errors";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { setIsSigningIn } from "../../redux/reducer/userAccountSlice";
 
 const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; promptAgreementMsg: () => void }) => {
-  const [loading, setLoading] = useState(false);
   const [networkError, setNetworkError] = useState(false);
+  const dispatch = useDispatch();
+  const isSigningIn = useSelector((state: RootState) => state.userAccount.isSigningIn);
 
   const signIn = async () => {
     if (!hasAgreed) {
@@ -14,16 +19,14 @@ const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; p
       return;
     }
     try {
-      setLoading(true);
+      dispatch(setIsSigningIn(true));
       await signInWithGoogle();
     } catch (error: any) {
-      if (error.message === "Network request failed") {
+      if (error.message === SIGNIN_NETWORK_ERROR_MESSAGE) {
         setNetworkError(true);
       } else {
         console.error(error.message);
       }
-    } finally {
-      setLoading(false);
     }
   };
   return (
@@ -34,7 +37,7 @@ const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; p
           color="inherit"
           onClick={signIn}
           fullWidth
-          disabled={loading}
+          disabled={isSigningIn}
           startIcon={<GoogleIcon style={{ fontSize: "20px" }} />}
           sx={{ textTransform: "none", fontSize: "0.75rem" }}
         >
@@ -48,7 +51,7 @@ const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; p
         title="Network required"
         content={
           <>
-            <Typography variant="body1">
+            <Typography variant="body1" mt={2}>
               Offline access is enabled in this app, but initial sign-in requires an internet connection.
             </Typography>
           </>

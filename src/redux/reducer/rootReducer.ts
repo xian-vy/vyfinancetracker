@@ -6,7 +6,7 @@ import incomeReducer from "./incomeSlice";
 import timeframeSlice from "./timeframeSlice";
 import themeSlice from "./themeSlice";
 import authSlice from "./authSlice";
-import deleteAccountSlice from "./deleteAccountSlice";
+import userAccountSlice from "./userAccountSlice";
 import pendingSyncSlice from "./pendingSyncSlice";
 import powerSavingSlice from "./powerSavingSlice";
 import fontSizeSlice from "./fontSizeSlice";
@@ -23,7 +23,7 @@ const rootReducer = combineReducers({
   savingsContribution: savingsContributionReducer,
   auth: authSlice,
   theme: themeSlice,
-  deleteAccount: deleteAccountSlice,
+  userAccount: userAccountSlice,
   pendingSync: pendingSyncSlice,
   powerSaving: powerSavingSlice,
   fontSize: fontSizeSlice,

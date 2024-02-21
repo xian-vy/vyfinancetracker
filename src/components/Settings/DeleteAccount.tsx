@@ -6,7 +6,7 @@ import { DELETE_ACCT_TIMEOUT } from "../../constants/Sizes";
 import { deleteAccountData } from "../../firebase/UsersService";
 import { hasInternetConnection } from "../../firebase/utils";
 import useSnackbarHook from "../../hooks/snackbarHook";
-import { setIsDeleting, setSuccessDeleteMessage } from "../../redux/reducer/deleteAccountSlice";
+import { setIsDeleting, setSuccessDeleteMessage } from "../../redux/reducer/userAccountSlice";
 import { RootState } from "../../redux/store";
 import DeleteAccountConfirmationDialog from "../Dialog/DeleteAccountConfirmationDialog";
 
