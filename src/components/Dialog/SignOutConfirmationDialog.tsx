@@ -88,7 +88,7 @@ const SignOutConfirmationDialog = (props: Props) => {
                       dispatch(setSuccessDeleteMessage("Account has been deleted successfully."));
                       dispatch(setIsDeleting(false));
                     }
-                  } catch (error) {
+                  } catch (error: any) {
                     if (error.message === "Timeout") {
                       dispatch(setIsDeleting(false));
                       openSuccessSnackbar(

@@ -35,7 +35,7 @@ export async function signOutWithGoogle() {
   try {
     await signOut(auth);
     console.log("User signed out ");
-  } catch (error) {
+  } catch (error: any) {
     console.error("An error occurred during sign-in:", error.message);
   }
 }
@@ -113,7 +113,7 @@ export async function reAuthGoogleSignIn(): Promise<string> {
   try {
     await reauthenticateWithPopup(user, provider);
     return "Success";
-  } catch (error) {
+  } catch (error: any) {
     if (error.code === "auth/user-mismatch") {
       return "Re-Authentication failed, account mismatch.";
     }
@@ -138,7 +138,7 @@ export async function linkAnonymousAcccount(): Promise<string> {
     }
 
     return "Success";
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error upgrading anonymous account,", error);
     if (error.code === "auth/credential-already-in-use") {
       return "The Google account is already in use by another account.";

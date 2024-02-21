@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 interface Icon {
   name: string;
@@ -13,31 +13,16 @@ interface Props {
   color: string;
 }
 
+const renderIcon = (icon: JSX.Element, color: string) => {
+  return React.cloneElement(icon, { style: { color: color } });
+};
+
 const IconListComponent = ({ icons, selectedIcon, onIconSelect, color }: Props) => {
-  // State to hold the outlined icons
   const [outlinedIcons, setOutlinedIcons] = useState<Icon[]>([]);
-  // State to track the loading status of the icons
-  const [loadingIcons, setLoadingIcons] = useState<boolean>(false);
-  const [selected, setSelected] = useState<Icon | null>(null);
 
-  // Function to load the icons
   const loadIcons = async () => {
-    setLoadingIcons(true);
-    // No need to filter the icons, as they are already outlined
     setOutlinedIcons(icons);
-    setLoadingIcons(false);
   };
-
-  const renderIcon = (icon: JSX.Element, color: string) => {
-    return React.cloneElement(icon, { style: { color: color } });
-  };
-
-  useEffect(() => {
-    if (selectedIcon) {
-      const icon = icons.find((icon) => icon.name === selectedIcon);
-      setSelected(icon || null);
-    }
-  }, [selectedIcon, icons]);
 
   const IconSelectComponent = (
     <FormControl fullWidth size="small">

@@ -44,7 +44,13 @@ export function generateAccountsBalances(
   const allAccountIds = getAllAccountIds(incomeData, expenseData, contributionData);
 
   // Compute balance for each account type
-  const balanceByAccountId = {};
+  interface AccountBalance {
+    balance: number;
+    income: number;
+    expense: number;
+    savings: number;
+  }
+  const balanceByAccountId: { [key: string]: AccountBalance } = {};
   for (const accountId of allAccountIds) {
     const income = incomeDataByAccountId[accountId as string]?.reduce((sum, item) => sum + item.amount, 0) || 0;
     const expense = expenseDataByAccountId[accountId as string]?.reduce((sum, item) => sum + item.amount, 0) || 0;
@@ -59,7 +65,15 @@ export function generateAccountsBalances(
   }
 
   // Get account details for each account type
-  const balanceByAccountType = {};
+  interface AccountTypeBalance {
+    balance: number;
+    income: number;
+    expense: number;
+    savings: number;
+    color: string;
+    icon: string;
+  }
+  const balanceByAccountType: { [key: string]: AccountTypeBalance } = {};
   for (const accountId in balanceByAccountId) {
     const { data } = getAccountsDetails(accounts, accountId);
     if (data?.description) {
