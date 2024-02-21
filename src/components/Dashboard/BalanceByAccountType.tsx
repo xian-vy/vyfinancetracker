@@ -14,7 +14,7 @@ import { useFilterHandlers } from "../../hooks/filterHook";
 import { RootState } from "../../redux/store";
 import FilterActionsComponent from "../Filter/FilterActionsComponent";
 import FilterTitleAndIcon from "../Filter/FilterTitleAndIcon";
-import BalanceByAccountTypeItemsDialog from "./BalanceByAccountTypeItemsDialog";
+import BalanceByAccountTypeDialog from "./BalanceByAccountTypeDialog";
 
 interface AccountDetails {
   balance: number;
@@ -220,7 +220,7 @@ const BalanceByAccountType = () => {
                             </IconButton>
                           </Stack>
 
-                          <BalanceByAccountTypeItemsDialog
+                          <BalanceByAccountTypeDialog
                             accountDetails={accountDetails}
                             openDialog={expandedStates[accountType] || false}
                             onDialogClose={() => handleExpandClick(accountType)}

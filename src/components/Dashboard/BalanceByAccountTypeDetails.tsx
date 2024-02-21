@@ -19,7 +19,7 @@ interface AccountDetails {
 interface Props {
   accountDetails: AccountDetails;
 }
-const BalanceByAccountTypeItems = ({ accountDetails }: Props) => {
+const BalanceByAccountTypeDetails = ({ accountDetails }: Props) => {
   const breakdown = [
     {
       type: txn_types.Income,
@@ -102,4 +102,4 @@ const BalanceByAccountTypeItems = ({ accountDetails }: Props) => {
   );
 };
 
-export default React.memo(BalanceByAccountTypeItems);
+export default React.memo(BalanceByAccountTypeDetails);

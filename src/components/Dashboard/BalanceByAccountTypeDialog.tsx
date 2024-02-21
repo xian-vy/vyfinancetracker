@@ -16,7 +16,7 @@ import { formatShortAmountWithCurrency } from "../../Helper/utils";
 import { PERCENTAGE_DECREASE } from "../../constants/componentTheme";
 import { RootState } from "../../redux/store";
 
-const BalanceByAccountTypeItems = React.lazy(() => import("./BalanceByAccountTypeItems"));
+const BalanceByAccountTypeDetails = React.lazy(() => import("./BalanceByAccountTypeDetails"));
 
 interface AccountDetails {
   balance: number;
@@ -35,7 +35,7 @@ interface Props {
   accountDetails: AccountDetails;
 }
 
-const BalanceByAccountTypeItemsDialog = (props: Props) => {
+const BalanceByAccountTypeDialog = (props: Props) => {
   const powerSavingMode = useSelector((state: RootState) => state.powerSaving.enabled);
 
   const theme = useTheme();
@@ -86,7 +86,7 @@ const BalanceByAccountTypeItemsDialog = (props: Props) => {
               </Box>
             }
           >
-            <BalanceByAccountTypeItems accountDetails={props.accountDetails} />
+            <BalanceByAccountTypeDetails accountDetails={props.accountDetails} />
           </React.Suspense>
         </DialogContent>
         <DialogActions
@@ -110,4 +110,4 @@ const BalanceByAccountTypeItemsDialog = (props: Props) => {
   );
 };
 
-export default BalanceByAccountTypeItemsDialog;
+export default BalanceByAccountTypeDialog;
