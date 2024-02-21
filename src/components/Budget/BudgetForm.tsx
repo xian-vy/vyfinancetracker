@@ -76,7 +76,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ onCloseForm }) => {
     const prevBudget = budgetSlice.find((budget) => budget.monthYear === prevMonthYearHeader);
     if (prevBudget) {
       // Populate categoryAmounts with the previous budget's data
-      const prevAmounts = prevBudget.budgets.reduce((acc, item) => {
+      const prevAmounts = prevBudget.budgets.reduce((acc: { [key: string]: number }, item) => {
         acc[item.category_id] = item.amount;
         return acc;
       }, {});
@@ -127,7 +127,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ onCloseForm }) => {
     const existingBudget = budgetSlice.find((budget) => budget.monthYear === monthYearHeader);
     if (existingBudget) {
       // Populate categoryAmounts with existing data
-      const amounts = existingBudget.budgets.reduce((acc, item) => {
+      const amounts = existingBudget.budgets.reduce((acc: { [key: string]: number }, item) => {
         acc[item.category_id] = item.amount;
         return acc;
       }, {});

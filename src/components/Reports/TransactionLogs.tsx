@@ -276,7 +276,7 @@ export const TransactionLogs = () => {
 
   return (
     <>
-      <Container maxWidth={false} sx={{ px: 1 }}>
+      <Container maxWidth={false} sx={{ p: 1 }}>
         <FilterTransactionLogs
           onFilterChange={handleFilterOptionChange}
           title={getFilterTitle(filterOption, startDate, endDate)}

@@ -43,9 +43,9 @@ export default function BudgetListHeader({
 
   const formattedRemaining = formatShortAmountWithCurrency(totalRemaining, false, true);
 
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -149,7 +149,7 @@ export default function BudgetListHeader({
         <DialogContent sx={{ px: { xs: 2, md: 3 }, py: { xs: 1, sm: 2 }, background: isDarkMode ? "#1e1e1e" : "#fff" }}>
           <Stack direction="column" p={1} sx={{ minWidth: 200 }}>
             <Typography textAlign="center" variant="body2" mb={2}>
-              {filterDate}
+              {filterDate} {" Budget"}
             </Typography>
             <Stack direction="row" justifyContent="space-between" mb={1}>
               <Typography variant="body2">Total Expenses</Typography>

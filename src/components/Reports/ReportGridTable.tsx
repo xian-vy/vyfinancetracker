@@ -148,7 +148,7 @@ const ReportGridTable = () => {
 
   return (
     <Box style={{ overflowX: "auto" }}>
-      <Container maxWidth={false} sx={{ px: 1 }}>
+      <Container maxWidth={false} sx={{ p: 1 }}>
         <FilterReports
           title={getFilterTitle(filterOption, startDate, endDate)}
           onFilterChange={handleFilterOptionChange}

@@ -57,7 +57,7 @@ const DeleteAccount = ({ onDeleteSuccess }: { onDeleteSuccess?: () => void }) =>
           dispatch(setIsDeleting(false));
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       if (error.message === "Timeout") {
         dispatch(setIsDeleting(false));
         openSuccessSnackbar("Something went wrong, if this persists, try reloading App then try again.", true);
@@ -102,7 +102,7 @@ const DeleteAccount = ({ onDeleteSuccess }: { onDeleteSuccess?: () => void }) =>
                   dispatch(setIsDeleting(false));
                 }
               }
-            } catch (error) {
+            } catch (error: any) {
               if (error.message === "Timeout") {
                 dispatch(setIsDeleting(false));
                 openSuccessSnackbar("Something went wrong, if this persists, try reloading App then try again.", true);
