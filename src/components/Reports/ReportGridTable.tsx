@@ -162,7 +162,9 @@ const ReportGridTable = () => {
             <TableRow>
               {columns.map((column, index) => (
                 <TableCell key={index}>
-                  <Typography variant="body1">{column.headerName}</Typography>
+                  <Typography variant="body1" noWrap>
+                    {column.headerName}
+                  </Typography>
                 </TableCell>
               ))}
             </TableRow>
