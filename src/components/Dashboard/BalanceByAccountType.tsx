@@ -4,10 +4,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { filterDataByDateRange } from "../../Helper/GenericTransactionHelper";
-import { formatNumberWithoutCurrency, getFilterTitle } from "../../Helper/utils";
-import { generateAccountsBalancesWorker } from "../../Helper/workers/workerHelper";
-import AccountsIcons from "../../Media/AccountsIcons";
+import { filterDataByDateRange } from "../../helper/GenericTransactionHelper";
+import { formatNumberWithoutCurrency, getFilterTitle } from "../../helper/utils";
+import { generateAccountsBalancesWorker } from "../../helper/workers/workerHelper";
+import AccountsIcons from "../../media/AccountsIcons";
 import { PERCENTAGE_DECREASE } from "../../constants/componentTheme";
 import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { useFilterHandlers } from "../../hooks/filterHook";
@@ -101,7 +101,7 @@ const BalanceByAccountType = () => {
   const [data, setData] = useState<AccountDetails[] | undefined>(undefined);
 
   const worker = useMemo(
-    () => new Worker(new URL("../../Helper/workers/accountBalanceWorker", import.meta.url)),
+    () => new Worker(new URL("../../helper/workers/accountBalanceWorker", import.meta.url)),
     [incomeData, expenseData, contributionData, accountType]
   );
 

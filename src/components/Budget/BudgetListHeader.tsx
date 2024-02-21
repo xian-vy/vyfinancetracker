@@ -4,8 +4,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Dialog, DialogContent, LinearProgress, Stack, Typography, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { ThemeColor, formatShortAmountWithCurrency } from "../../Helper/utils";
-import { iconSize, iconSizeXS } from "../../constants/Sizes";
+import { ThemeColor, formatShortAmountWithCurrency } from "../../helper/utils";
+import { iconSize, iconSizeXS } from "../../constants/size";
 import { RootState } from "../../redux/store";
 import CustomIconButton from "../CustomIconButton";
 

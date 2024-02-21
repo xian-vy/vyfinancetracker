@@ -2,10 +2,10 @@ import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { Box, Button, Container, Dialog, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../../Media/logo.svg";
-import androidIcon from "../../Media/platforms/android.png";
-import iosIcon from "../../Media/platforms/apple.png";
-import windowsIcon from "../../Media/platforms/windows.png";
+import logo from "../../media/logo.svg";
+import androidIcon from "../../media/platforms/android.png";
+import iosIcon from "../../media/platforms/apple.png";
+import windowsIcon from "../../media/platforms/windows.png";
 import { SIGN_IN_PATH } from "../../constants/routes";
 import useSnackbarHook from "../../hooks/snackbarHook";
 interface ChoiceResult {

@@ -3,15 +3,15 @@ import { Container, Paper, Stack, Typography, useMediaQuery, useTheme } from "@m
 import React from "react";
 import { useSelector } from "react-redux";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { FilterAndGroupContributions, FilterAndGroupSavingsContribution } from "../../../Helper/SavingsHelper";
+import { FilterAndGroupContributions, FilterAndGroupSavingsContribution } from "../../../helper/SavingsHelper";
 import {
   ThemeColor,
   formatNumberWithoutCurrency,
   formatShortAmountWithCurrency,
   getFilterTitle,
   hexToRGBA,
-} from "../../../Helper/utils";
-import { TXN_TREND_CHART_HEIGHT, iconSizeXS } from "../../../constants/Sizes";
+} from "../../../helper/utils";
+import { TXN_TREND_CHART_HEIGHT, iconSizeXS } from "../../../constants/size";
 import { txn_summary } from "../../../constants/collections";
 import { yearFilters } from "../../../constants/timeframes";
 import { getSavingsDetails, getSavingsIDByDescription } from "../../../firebase/utils";

@@ -2,7 +2,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ShortcutOutlinedIcon from "@mui/icons-material/ShortcutOutlined";
 import { Breadcrumbs, IconButton, Link, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React, { useState } from "react";
-import { iconSizeXS } from "../../constants/Sizes";
+import { iconSizeXS } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
 import Shortcutitems from "./Shortcutitems";
 const types = [txn_types.Expenses, txn_types.Savings, txn_types.Income];

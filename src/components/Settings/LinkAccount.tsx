@@ -1,7 +1,7 @@
 import GoogleIcon from "@mui/icons-material/Google";
 import { Button } from "@mui/material";
 import React from "react";
-import { linkAnonymousAcccount } from "../../Helper/AuthHelper";
+import { linkAnonymousAcccount } from "../../helper/AuthHelper";
 import useSnackbarHook from "../../hooks/snackbarHook";
 
 const LinkAccount = () => {

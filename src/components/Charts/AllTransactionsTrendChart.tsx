@@ -2,12 +2,12 @@ import { Box, Checkbox, CircularProgress, Typography, useMediaQuery, useTheme } 
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { Bar, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { FilterAndGroupBudget } from "../../Helper/BudgetHelper";
-import { FilterAndGroupExpense } from "../../Helper/ExpenseHelper";
-import { FilterAndGroupIncome } from "../../Helper/IncomeHelper";
-import { FilterAndGroupSavingsContribution } from "../../Helper/SavingsHelper";
-import { formatShortAmountWithCurrency, hexToRGBA } from "../../Helper/utils";
-import { FilterAndGroupAllTransactionsWorker } from "../../Helper/workers/workerHelper";
+import { FilterAndGroupBudget } from "../../helper/BudgetHelper";
+import { FilterAndGroupExpense } from "../../helper/ExpenseHelper";
+import { FilterAndGroupIncome } from "../../helper/IncomeHelper";
+import { FilterAndGroupSavingsContribution } from "../../helper/SavingsHelper";
+import { formatShortAmountWithCurrency, hexToRGBA } from "../../helper/utils";
+import { FilterAndGroupAllTransactionsWorker } from "../../helper/workers/workerHelper";
 import { txn_types } from "../../constants/collections";
 import {
   BALANCE_THEME,
@@ -183,7 +183,7 @@ const AllTransactionsTrendChart = (props: Props) => {
   const [chartData, setChartData] = useState<chartDataType[] | undefined>(undefined);
 
   const worker = useMemo(
-    () => new Worker(new URL("../../Helper/workers/allTrendChartWorker", import.meta.url)),
+    () => new Worker(new URL("../../helper/workers/allTrendChartWorker", import.meta.url)),
     [filteredExpense, filteredIncome, filteredBudget, filteredSavingsContribution, categories, incomeSource]
   );
 

@@ -1,7 +1,7 @@
 import GoogleIcon from "@mui/icons-material/Google";
 import React, { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
-import { signInWithGoogle } from "../../Helper/AuthHelper";
+import { signInWithGoogle } from "../../helper/AuthHelper";
 import GenericDialog from "../Dialog/GenericDialog";
 import { SIGNIN_NETWORK_ERROR_MESSAGE } from "../../constants/errors";
 import { useDispatch, useSelector } from "react-redux";

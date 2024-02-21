@@ -2,12 +2,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box, Link, Stack } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import React, { useState } from "react";
-import budgetLaptop from "../../Media/features/budgetLaptop.png";
-import budgetMobile from "../../Media/features/budgetMobile.png";
-import expensesLaptop from "../../Media/features/expensesLaptop.png";
-import expensesMobile from "../../Media/features/expensesMobile.png";
-import dashboardLaptop from "../../Media/features/laptop.png";
-import dashboardMobile from "../../Media/features/mobile.png";
+import budgetLaptop from "../../media/features/budgetLaptop.png";
+import budgetMobile from "../../media/features/budgetMobile.png";
+import expensesLaptop from "../../media/features/expensesLaptop.png";
+import expensesMobile from "../../media/features/expensesMobile.png";
+import dashboardLaptop from "../../media/features/laptop.png";
+import dashboardMobile from "../../media/features/mobile.png";
 import "./features.css";
 const features = [
   { name: "Dashboard", laptopImg: dashboardLaptop, mobileImg: dashboardMobile },

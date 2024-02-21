@@ -1,7 +1,7 @@
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import React from "react";
-import { formatShortAmountWithCurrency, hexToRGBA } from "../../Helper/utils";
-import { DASHBOARD_DIALOG } from "../../constants/Sizes";
+import { formatShortAmountWithCurrency, hexToRGBA } from "../../helper/utils";
+import { DASHBOARD_DIALOG } from "../../constants/size";
 type groupedData = {
   category: string;
   amount: number;

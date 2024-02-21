@@ -4,8 +4,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LineAxisOutlinedIcon from "@mui/icons-material/LineAxisOutlined";
 import { Box, Typography, useTheme } from "@mui/material";
 import React from "react";
-import { ThemeColor } from "../../Helper/utils";
-import { iconSize, iconSizeXS } from "../../constants/Sizes";
+import { ThemeColor } from "../../helper/utils";
+import { iconSize, iconSizeXS } from "../../constants/size";
 import CustomIconButton from "../CustomIconButton";
 interface Props {
   title: string;

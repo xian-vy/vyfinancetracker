@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { formatShortAmountWithCurrency } from "../../Helper/utils";
-import { DASHBOARD_DIALOG } from "../../constants/Sizes";
+import { formatShortAmountWithCurrency } from "../../helper/utils";
+import { DASHBOARD_DIALOG } from "../../constants/size";
 import { txn_summary } from "../../constants/collections";
 import { PERCENTAGE_DECREASE } from "../../constants/componentTheme";
 import { FilterTimeframe } from "../../constants/timeframes";

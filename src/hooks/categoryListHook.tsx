@@ -11,8 +11,8 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useMemo, useState } from "react";
-import CategoryIcons from "../Media/CategoryIcons";
-import { iconSizeXS } from "../constants/Sizes";
+import CategoryIcons from "../media/CategoryIcons";
+import { iconSizeXS } from "../constants/size";
 import { useCategoryContext } from "../contextAPI/CategoryContext";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";

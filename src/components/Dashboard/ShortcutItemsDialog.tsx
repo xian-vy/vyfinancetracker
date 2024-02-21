@@ -18,10 +18,10 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import CategoryIcons from "../../Media/CategoryIcons";
-import IncomeSourceIcons from "../../Media/IncomeSourceIcons";
-import SavingsIcons from "../../Media/SavingsIcons";
-import { iconSizeSM, iconSizeXS } from "../../constants/Sizes";
+import CategoryIcons from "../../media/CategoryIcons";
+import IncomeSourceIcons from "../../media/IncomeSourceIcons";
+import SavingsIcons from "../../media/SavingsIcons";
+import { iconSizeSM, iconSizeXS } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
 import { RootState } from "../../redux/store";
 

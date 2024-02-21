@@ -19,9 +19,9 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { signOutWithGoogle } from "../../Helper/AuthHelper";
-import incognito from "../../Media/incognito.svg";
-import { iconSizeXS } from "../../constants/Sizes";
+import { signOutWithGoogle } from "../../helper/AuthHelper";
+import incognito from "../../media/incognito.svg";
+import { iconSizeXS } from "../../constants/size";
 import { getPersistenceID } from "../../firebase/UsersService";
 import { RootState } from "../../redux/store";
 import GenericDialog from "../Dialog/GenericDialog";

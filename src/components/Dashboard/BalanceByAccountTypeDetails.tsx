@@ -3,8 +3,8 @@ import PaidIcon from "@mui/icons-material/Paid";
 import SavingsIcon from "@mui/icons-material/Savings";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import React from "react";
-import { formatShortAmountWithCurrency, hexToRGBA } from "../../Helper/utils";
-import { iconSizeSM } from "../../constants/Sizes";
+import { formatShortAmountWithCurrency, hexToRGBA } from "../../helper/utils";
+import { iconSizeSM } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
 import { EXPENSES_THEME, INCOME_THEME, SAVINGS_THEME_DARK } from "../../constants/componentTheme";
 

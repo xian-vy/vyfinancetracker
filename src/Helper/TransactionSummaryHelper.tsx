@@ -7,9 +7,9 @@ import SouthIcon from "@mui/icons-material/South";
 import { Theme } from "@mui/material";
 import React from "react";
 import "swiper/css";
-import { ReactComponent as Coin } from "../Media/coin.svg";
+import { ReactComponent as Coin } from "../media/coin.svg";
 import { txn_summary } from "../constants/collections";
-import { iconSizeXS } from "../constants/Sizes";
+import { iconSizeXS } from "../constants/size";
 import {
   PERCENTAGE_INCREASE,
   PERCENTAGE_DECREASE,

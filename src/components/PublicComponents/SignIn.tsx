@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../../Media/logo.svg";
+import logo from "../../media/logo.svg";
 import { HOME, PRIVACY_POLICY, TERMS_OF_USE, TNCandPrivacyPolicyDialog } from "../../constants/routes";
 import useSnackbarHook from "../../hooks/snackbarHook";
 import SignInAnonymous from "./SignInAnonymous";

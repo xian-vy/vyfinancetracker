@@ -2,7 +2,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../../Media/logoAnimate.svg";
+import logo from "../../media/logoAnimate.svg";
 import { HOME } from "../../constants/routes";
 
 const About = ({ isPrivate }: { isPrivate?: boolean | null }) => {

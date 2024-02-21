@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { formatShortAmountWithCurrency } from "../../Helper/utils";
+import { formatShortAmountWithCurrency } from "../../helper/utils";
 import { PERCENTAGE_DECREASE } from "../../constants/componentTheme";
 import { RootState } from "../../redux/store";
 

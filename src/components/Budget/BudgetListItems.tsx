@@ -1,8 +1,8 @@
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
 import { Card, CircularProgress, Grid, Stack, Typography, useTheme } from "@mui/material";
 import React from "react";
-import { formatShortAmountWithCurrency, hexToRGBA, useResponsiveCharLimit } from "../../Helper/utils";
-import { iconSizeSM } from "../../constants/Sizes";
+import { formatShortAmountWithCurrency, hexToRGBA, useResponsiveCharLimit } from "../../helper/utils";
+import { iconSizeSM } from "../../constants/size";
 import { useCategoryContext } from "../../contextAPI/CategoryContext";
 import { getCategoryDetails } from "../../firebase/utils";
 

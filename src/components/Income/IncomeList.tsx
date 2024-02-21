@@ -18,10 +18,10 @@ import {
 } from "@mui/material";
 import React, { useEffect, useMemo, useRef } from "react";
 import { FixedSizeList, ListChildComponentProps } from "react-window";
-import { generateIncomeList } from "../../Helper/ReportHelper";
-import { TimestamptoDate } from "../../Helper/date";
-import { ThemeColor, formatNumberWithoutCurrency, hoverBgColor, useResponsiveCharLimit } from "../../Helper/utils";
-import { FIXED_SIZE, TABLE_HEIGHT, iconSizeSM, iconSizeXS } from "../../constants/Sizes";
+import { generateIncomeList } from "../../helper/ReportHelper";
+import { TimestamptoDate } from "../../helper/date";
+import { ThemeColor, formatNumberWithoutCurrency, hoverBgColor, useResponsiveCharLimit } from "../../helper/utils";
+import { FIXED_SIZE, TABLE_HEIGHT, iconSizeSM, iconSizeXS } from "../../constants/size";
 import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
 import { getCategoryAndAccountTypeDescription, getIncomeSourceDetails } from "../../firebase/utils";

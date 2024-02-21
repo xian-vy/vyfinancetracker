@@ -3,7 +3,7 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import { Button, Divider, Paper, Skeleton, useTheme } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ThemeColor } from "../../Helper/utils";
+import { ThemeColor } from "../../helper/utils";
 import { setDarkMode } from "../../localstorage/darkmodesettings";
 import { toggleDarkMode } from "../../redux/reducer/themeSlice";
 import { RootState } from "../../redux/store";

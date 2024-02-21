@@ -15,11 +15,11 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useState } from "react";
-import { TimestamptoDate } from "../../Helper/date";
-import { ThemeColor, formatShortAmountWithCurrency, hexToRGBA, toTitleCase } from "../../Helper/utils";
-import SavingsIcons from "../../Media/SavingsIcons";
+import { TimestamptoDate } from "../../helper/date";
+import { ThemeColor, formatShortAmountWithCurrency, hexToRGBA, toTitleCase } from "../../helper/utils";
+import SavingsIcons from "../../media/SavingsIcons";
 import SavingGoalsModel from "../../models/SavingGoalsModel";
-import { iconSizeSM } from "../../constants/Sizes";
+import { iconSizeSM } from "../../constants/size";
 
 export function SavingsItems({
   handleMoreIconClick,

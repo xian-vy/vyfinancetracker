@@ -6,7 +6,7 @@ import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import { DialogContent, DialogTitle, IconButton, Stack, Typography } from "@mui/material";
 import React from "react";
-import { getOperatingSystem } from "../../../Helper/utils";
+import { getOperatingSystem } from "../../../helper/utils";
 import InstallAndroid from "./InstallAndroid";
 import InstallIOS from "./InstallIOS";
 import InstallWindows from "./InstallWindows";

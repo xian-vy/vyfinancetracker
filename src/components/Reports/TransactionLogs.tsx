@@ -21,8 +21,8 @@ import {
   getFilterTitle,
   hoverBgColor,
   useResponsiveCharLimit,
-} from "../../Helper/utils";
-import { iconSizeXS } from "../../constants/Sizes";
+} from "../../helper/utils";
+import { iconSizeXS } from "../../constants/size";
 import { operation_types, txn_types } from "../../constants/collections";
 import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { useCategoryContext } from "../../contextAPI/CategoryContext";

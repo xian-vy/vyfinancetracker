@@ -3,8 +3,8 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { Box, Divider, IconButton, Skeleton, Stack, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { ThemeColor } from "../../Helper/utils";
-import { iconSizeSM, iconSizeXS } from "../../constants/Sizes";
+import { ThemeColor } from "../../helper/utils";
+import { iconSizeSM, iconSizeXS } from "../../constants/size";
 import { RootState } from "../../redux/store";
 
 interface Props {

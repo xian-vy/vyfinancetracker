@@ -2,8 +2,8 @@ import { Box, CircularProgress, Container, useMediaQuery, useTheme } from "@mui/
 import React from "react";
 import { useSelector } from "react-redux";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { formatShortAmountWithCurrency, hexToRGBA } from "../../Helper/utils";
-import { TXN_TREND_CHART_HEIGHT } from "../../constants/Sizes";
+import { formatShortAmountWithCurrency, hexToRGBA } from "../../helper/utils";
+import { TXN_TREND_CHART_HEIGHT } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
 import { RootState } from "../../redux/store";
 import TrendByCategoryTooltip from "./TrendByCategoryTooltip";

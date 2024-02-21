@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { signInAnonymous } from "../../Helper/AuthHelper";
-import { ReactComponent as Incognito } from "../../Media/incognito.svg";
+import { signInAnonymous } from "../../helper/AuthHelper";
+import { ReactComponent as Incognito } from "../../media/incognito.svg";
 import GenericDialog from "../Dialog/GenericDialog";
 import { SIGNIN_NETWORK_ERROR_MESSAGE } from "../../constants/errors";
 import { useDispatch, useSelector } from "react-redux";

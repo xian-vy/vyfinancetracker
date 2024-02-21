@@ -4,7 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, IconButton, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { CirclePicker } from "react-color";
-import CategoryIcons from "../../../Media/CategoryIcons.tsx";
+import CategoryIcons from "../../../media/CategoryIcons.tsx";
 import { useCategoryContext } from "../../../contextAPI/CategoryContext.tsx";
 import { getRandomColor } from "../../../firebase/defaultData.tsx";
 import CategoryModel from "../../../models/CategoryModel";

@@ -20,9 +20,9 @@ import {
 import { Timestamp } from "firebase/firestore";
 import React, { useEffect, useRef, useState } from "react";
 import { CirclePicker } from "react-color";
-import { currentDatetoDatePicker } from "../../Helper/date";
-import { isValidInput } from "../../Helper/utils";
-import SavingsIcons from "../../Media/SavingsIcons";
+import { currentDatetoDatePicker } from "../../helper/date";
+import { isValidInput } from "../../helper/utils";
+import SavingsIcons from "../../media/SavingsIcons";
 import { getRandomColor } from "../../firebase/defaultData";
 import SavingGoalsModel from "../../models/SavingGoalsModel";
 import EntryFormDatePicker from "../GenericComponents/EntryFormDatePicker";

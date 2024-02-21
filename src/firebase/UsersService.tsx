@@ -12,7 +12,7 @@ import {
   writeBatch,
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
-import { signOutWithGoogle } from "../Helper/AuthHelper";
+import { signOutWithGoogle } from "../helper/AuthHelper";
 import { collections } from "../constants/collections";
 import { TEST_DATA } from "../constants/constants";
 import { _arrayBufferToBase64, encryptAndConvertToBase64 } from "../encryption/encryption";

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import logoAnimate from "../Media/logoAnimate.svg";
+import logoAnimate from "../media/logoAnimate.svg";
 import { RootState } from "../redux/store";
 
 const LoadingLogo = ({ loadingLabel }: { loadingLabel: string }) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { FormControl, InputLabel, Select, MenuItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { iconSizeXS } from "../../constants/Sizes";
+import { iconSizeXS } from "../../constants/size";
 
 interface CategoryModel {
   id: string;

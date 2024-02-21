@@ -6,8 +6,8 @@ import { DocumentReference, Timestamp, WriteBatch, arrayUnion, collection, doc, 
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { convertFormattedDateToTimestamp, validateDateFormat } from "../../Helper/date";
-import { ThemeColor } from "../../Helper/utils";
+import { convertFormattedDateToTimestamp, validateDateFormat } from "../../helper/date";
+import { ThemeColor } from "../../helper/utils";
 import { collections, operation_types, subcollections, txn_types } from "../../constants/collections";
 import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { useCategoryContext } from "../../contextAPI/CategoryContext";

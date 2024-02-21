@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { distributeBudgetAmounts } from "../../Helper/BudgetHelper";
+import { distributeBudgetAmounts } from "../../helper/BudgetHelper";
 import {
   calculateCurrentSum,
   calculatePercentageIncrease,
@@ -14,8 +14,8 @@ import {
   determinePercentageStr,
   swiperBreakpointsConfig,
   typeIconColor,
-} from "../../Helper/TransactionSummaryHelper";
-import { getFilterTitle } from "../../Helper/utils";
+} from "../../helper/TransactionSummaryHelper";
+import { getFilterTitle } from "../../helper/utils";
 import { txn_summary } from "../../constants/collections";
 import { useFilterHandlers } from "../../hooks/filterHook";
 import { useSumDataByTimeframe } from "../../hooks/sumDataByTimeframeHook";
@@ -77,21 +77,21 @@ const TransactionSummary = () => {
   );
 
   const workerIncome = useMemo(
-    () => new Worker(new URL("../../Helper/workers/transactionSummarySumWorker", import.meta.url)),
+    () => new Worker(new URL("../../helper/workers/transactionSummarySumWorker", import.meta.url)),
     []
   );
   const workerSavings = useMemo(
-    () => new Worker(new URL("../../Helper/workers/transactionSummarySumWorker", import.meta.url)),
+    () => new Worker(new URL("../../helper/workers/transactionSummarySumWorker", import.meta.url)),
     []
   );
 
   const workerExpense = useMemo(
-    () => new Worker(new URL("../../Helper/workers/transactionSummarySumWorker", import.meta.url)),
+    () => new Worker(new URL("../../helper/workers/transactionSummarySumWorker", import.meta.url)),
     []
   );
 
   const workerBudget = useMemo(
-    () => new Worker(new URL("../../Helper/workers/transactionSummarySumWorker", import.meta.url)),
+    () => new Worker(new URL("../../helper/workers/transactionSummarySumWorker", import.meta.url)),
     []
   );
 

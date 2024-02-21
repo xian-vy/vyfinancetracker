@@ -1,13 +1,13 @@
 import { Dialog, DialogTitle, DialogContent, Typography, DialogActions, Button, useTheme, Stack } from "@mui/material";
 import React from "react";
-import { signOutWithGoogle } from "../../Helper/AuthHelper";
+import { signOutWithGoogle } from "../../helper/AuthHelper";
 import { deleteAccountData, getPersistenceID } from "../../firebase/UsersService";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setIsDeleting, setSuccessDeleteMessage } from "../../redux/reducer/userAccountSlice";
 import useSnackbarHook from "../../hooks/snackbarHook";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
-import { DELETE_ACCT_TIMEOUT } from "../../constants/Sizes";
+import { DELETE_ACCT_TIMEOUT } from "../../constants/size";
 
 interface Props {
   open: boolean;

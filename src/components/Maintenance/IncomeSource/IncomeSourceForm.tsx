@@ -4,7 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, IconButton, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { CirclePicker } from "react-color";
-import IncomeSourceIcons from "../../../Media/IncomeSourceIcons";
+import IncomeSourceIcons from "../../../media/IncomeSourceIcons";
 import { useIncomeSourcesContext } from "../../../contextAPI/IncomeSourcesContext";
 import { getRandomColor } from "../../../firebase/defaultData";
 import IncomeSourcesModel from "../../../models/IncomeSourcesModel";

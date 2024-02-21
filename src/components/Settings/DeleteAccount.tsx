@@ -1,8 +1,8 @@
 import { Button } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { reAuthGoogleSignIn } from "../../Helper/AuthHelper";
-import { DELETE_ACCT_TIMEOUT } from "../../constants/Sizes";
+import { reAuthGoogleSignIn } from "../../helper/AuthHelper";
+import { DELETE_ACCT_TIMEOUT } from "../../constants/size";
 import { deleteAccountData } from "../../firebase/UsersService";
 import { hasInternetConnection } from "../../firebase/utils";
 import useSnackbarHook from "../../hooks/snackbarHook";

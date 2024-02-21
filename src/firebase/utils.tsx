@@ -1,8 +1,8 @@
 import { Timestamp, collection, getDocsFromServer, query } from "firebase/firestore";
-import AccountsIcons from "../Media/AccountsIcons";
-import CategoryIcons from "../Media/CategoryIcons";
-import IncomeSourceIcons from "../Media/IncomeSourceIcons";
-import SavingsIcons from "../Media/SavingsIcons";
+import AccountsIcons from "../media/AccountsIcons";
+import CategoryIcons from "../media/CategoryIcons";
+import IncomeSourceIcons from "../media/IncomeSourceIcons";
+import SavingsIcons from "../media/SavingsIcons";
 import { getUserDocRef } from "../firebase/UsersService";
 import AccountTypeModel from "../models/AccountTypeModel";
 import CategoryModel from "../models/CategoryModel";

@@ -1,6 +1,6 @@
 import { Container } from "@mui/material";
 import React from "react";
-import { getFilterTitle } from "../../Helper/utils";
+import { getFilterTitle } from "../../helper/utils";
 import { useFilterHandlers } from "../../hooks/filterHook";
 import AllTransactionsTrendChart from "../Charts/AllTransactionsTrendChart";
 import FilterActionsComponent from "../Filter/FilterActionsComponent";

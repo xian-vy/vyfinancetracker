@@ -14,8 +14,8 @@ import { useCategoryContext } from "../../contextAPI/CategoryContext";
 import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
 
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
-import { formatNumberWithoutCurrency } from "../../Helper/utils";
-import { iconSizeXS } from "../../constants/Sizes";
+import { formatNumberWithoutCurrency } from "../../helper/utils";
+import { iconSizeXS } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
 import { getCategoriesIDByDescription, getCategoryDetails, getIncomeSourceDetails } from "../../firebase/utils";
 

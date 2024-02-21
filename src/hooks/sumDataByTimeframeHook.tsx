@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { sumDataByTimeframeWorker } from "../Helper/workers/workerHelper";
+import { sumDataByTimeframeWorker } from "../helper/workers/workerHelper";
 import { FilterTimeframe } from "../constants/timeframes";
 
 type generatedBudgets = {

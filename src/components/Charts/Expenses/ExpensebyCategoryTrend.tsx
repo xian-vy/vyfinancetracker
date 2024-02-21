@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { FilterAndGroupExpense } from "../../../Helper/ExpenseHelper";
-import { getFilterTitle } from "../../../Helper/utils";
-import { GroupTransactionByDateAndCategoriesWorker } from "../../../Helper/workers/workerHelper";
+import { FilterAndGroupExpense } from "../../../helper/ExpenseHelper";
+import { getFilterTitle } from "../../../helper/utils";
+import { GroupTransactionByDateAndCategoriesWorker } from "../../../helper/workers/workerHelper";
 import { yearFilters } from "../../../constants/timeframes";
 import { txn_types } from "../../../constants/collections";
 import { useCategoryContext } from "../../../contextAPI/CategoryContext";
@@ -40,7 +40,7 @@ const ExpensebyCategoryTrend: React.FC<Props> = ({ title }) => {
 
   const { categories } = useCategoryContext();
   const worker = useMemo(
-    () => new Worker(new URL("../../../Helper/workers/trendChartWorker", import.meta.url)),
+    () => new Worker(new URL("../../../helper/workers/trendChartWorker", import.meta.url)),
     [expenses]
   );
 

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { filterBudgetByDateRange } from "../../../Helper/BudgetHelper";
-import { groupDataByIdWithIcons } from "../../../Helper/GenericTransactionHelper";
+import { filterBudgetByDateRange } from "../../../helper/BudgetHelper";
+import { groupDataByIdWithIcons } from "../../../helper/GenericTransactionHelper";
 import { getCategoryDetails } from "../../../firebase/utils";
 import { FilterTimeframe } from "../../../constants/timeframes";
 import { useCategoryContext } from "../../../contextAPI/CategoryContext";

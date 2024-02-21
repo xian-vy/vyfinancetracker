@@ -1,9 +1,9 @@
 import { Add as AddIcon } from "@mui/icons-material";
 import { List, ListItemButton, ListItemText, Popover, Stack, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { ThemeColor, getFilterTitle } from "../../Helper/utils";
+import { ThemeColor, getFilterTitle } from "../../helper/utils";
 import { FilterTimeframe } from "../../constants/timeframes";
-import { iconSizeXS } from "../../constants/Sizes";
+import { iconSizeXS } from "../../constants/size";
 import { useFilterHandlers } from "../../hooks/filterHook";
 import CustomIconButton from "../CustomIconButton";
 import FilterActionsComponent from "../Filter/FilterActionsComponent";

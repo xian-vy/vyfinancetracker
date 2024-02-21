@@ -35,7 +35,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { drawerWidth, drawerWidthCollapse, iconSizeSM, iconSizeXS } from "../../constants/Sizes";
+import { drawerWidth, drawerWidthCollapse, iconSizeSM, iconSizeXS } from "../../constants/size";
 import {
   BUDGET_PATH,
   DASHBOARD_PATH,

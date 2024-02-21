@@ -4,9 +4,9 @@ import PaidIcon from "@mui/icons-material/Paid";
 import SavingsIcon from "@mui/icons-material/Savings";
 import { Paper, Stack, Typography } from "@mui/material";
 import React from "react";
-import { formatNumberWithoutCurrency } from "../../Helper/utils";
-import { iconSizeXS } from "../../constants/Sizes";
-import { ReactComponent as Coin } from "../../Media/coin.svg";
+import { formatNumberWithoutCurrency } from "../../helper/utils";
+import { iconSizeXS } from "../../constants/size";
+import { ReactComponent as Coin } from "../../media/coin.svg";
 interface TrendTooltipProps {
   payload: any[];
   isExpenseChecked: boolean;

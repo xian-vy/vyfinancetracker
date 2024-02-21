@@ -18,10 +18,10 @@ import {
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import CategoryIcons from "../../Media/CategoryIcons";
-import IncomeSourceIcons from "../../Media/IncomeSourceIcons";
-import SavingsIcons from "../../Media/SavingsIcons";
-import { iconSizeXS } from "../../constants/Sizes";
+import CategoryIcons from "../../media/CategoryIcons";
+import IncomeSourceIcons from "../../media/IncomeSourceIcons";
+import SavingsIcons from "../../media/SavingsIcons";
+import { iconSizeXS } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
 import { EXPENSE_PATH, INCOME_PATH, SAVINGS_PATH } from "../../constants/routes";
 import { useCategoryContext } from "../../contextAPI/CategoryContext";

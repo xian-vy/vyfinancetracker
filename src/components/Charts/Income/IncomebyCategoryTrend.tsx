@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { FilterAndGroupIncome } from "../../../Helper/IncomeHelper";
-import { getFilterTitle } from "../../../Helper/utils";
-import { GroupTransactionByDateAndCategoriesWorker } from "../../../Helper/workers/workerHelper";
+import { FilterAndGroupIncome } from "../../../helper/IncomeHelper";
+import { getFilterTitle } from "../../../helper/utils";
+import { GroupTransactionByDateAndCategoriesWorker } from "../../../helper/workers/workerHelper";
 import { yearFilters } from "../../../constants/timeframes";
 import { txn_types } from "../../../constants/collections";
 import { useIncomeSourcesContext } from "../../../contextAPI/IncomeSourcesContext";
@@ -38,7 +38,7 @@ const IncomebyCategoryTrend: React.FC<ExpenseTrendProps> = ({ incomes }) => {
   } = useFilterHandlers();
   const { incomeSource } = useIncomeSourcesContext();
   const worker = useMemo(
-    () => new Worker(new URL("../../../Helper/workers/trendChartWorker", import.meta.url)),
+    () => new Worker(new URL("../../../helper/workers/trendChartWorker", import.meta.url)),
     [incomes]
   );
 

@@ -1,9 +1,9 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { List, ListItemButton, ListItemText, Popover, Typography, useTheme } from "@mui/material";
 import React, { useState } from "react";
-import { ThemeColor } from "../../Helper/utils";
+import { ThemeColor } from "../../helper/utils";
 import CustomIconButton from "../CustomIconButton";
-import { iconSize } from "../../constants/Sizes";
+import { iconSize } from "../../constants/size";
 import CheckIcon from "@mui/icons-material/Check";
 
 interface Props {

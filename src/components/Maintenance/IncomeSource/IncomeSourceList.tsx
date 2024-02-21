@@ -5,9 +5,9 @@ import { Dialog, DialogContent, Grid, IconButton, Paper, Typography, useMediaQue
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ThemeColor } from "../../../Helper/utils";
-import IncomeSourceIcons from "../../../Media/IncomeSourceIcons";
-import { FORM_WIDTH, iconSizeXS } from "../../../constants/Sizes";
+import { ThemeColor } from "../../../helper/utils";
+import IncomeSourceIcons from "../../../media/IncomeSourceIcons";
+import { FORM_WIDTH, iconSizeXS } from "../../../constants/size";
 import { useIncomeSourcesContext } from "../../../contextAPI/IncomeSourcesContext";
 import { useActionPopover } from "../../../hooks/actionHook";
 import useSnackbarHook from "../../../hooks/snackbarHook";

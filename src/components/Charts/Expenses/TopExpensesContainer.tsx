@@ -1,7 +1,7 @@
 import { Box, Breadcrumbs, Link } from "@mui/material";
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { filterDataByDateRange, groupDataByIdWithIcons } from "../../../Helper/GenericTransactionHelper";
+import { filterDataByDateRange, groupDataByIdWithIcons } from "../../../helper/GenericTransactionHelper";
 import { getCategoryDetails, getAccountsDetails } from "../../../firebase/utils";
 import { useCategoryContext } from "../../../contextAPI/CategoryContext";
 import { useAccountTypeContext } from "../../../contextAPI/AccountTypeContext";

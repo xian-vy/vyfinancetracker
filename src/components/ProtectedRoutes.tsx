@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { darkTheme, darkThemeLGfont, lightTheme, lightThemeLGfont } from "../Theme";
-import { drawerWidth } from "../constants/Sizes";
+import { drawerWidth } from "../constants/size";
 import { HOME } from "../constants/routes";
 import { RootState } from "../redux/store";
 import NavMenu from "./NavMenu/NavMenu";

@@ -3,7 +3,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, IconButton, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { CirclePicker } from "react-color";
-import AccountsIcons from "../../../Media/AccountsIcons";
+import AccountsIcons from "../../../media/AccountsIcons";
 import { useAccountTypeContext } from "../../../contextAPI/AccountTypeContext";
 import { getRandomColor } from "../../../firebase/defaultData";
 import AccountTypeModel from "../../../models/AccountTypeModel";

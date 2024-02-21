@@ -1,7 +1,7 @@
 import { QueryDocumentSnapshot, Timestamp, collection, doc, setDoc, writeBatch } from "firebase/firestore";
 import React, { ReactNode, createContext, useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { getStartAndEndDate } from "../Helper/date";
+import { getStartAndEndDate } from "../helper/date";
 import { collections } from "../constants/collections";
 import { encryptAndConvertToBase64 } from "../encryption/encryption";
 import { retrieveKeySecurely } from "../encryption/keyhandling";
