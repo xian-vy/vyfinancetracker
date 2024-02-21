@@ -5,7 +5,8 @@ import { Container, Link, Stack } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { HOME } from "../../../constants/routes";
 
-const markdown = `# Vy Finance Tracker Privacy Policy
+const markdown = `
+# Vy Finance Tracker Privacy Policy
 **Last updated: February 18, 2024 **
 
 Welcome to Vy Finance Tracker. Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our Progressive Web App (PWA). We are committed to protecting your personal information and your right to privacy.
@@ -15,7 +16,6 @@ If you have any questions or concerns about our policy or our practices regardin
 ## Summary
 - **Data Collection:** We collect essential information such as the Unique User Identifier (UID) for account identification and user-provided financial data to enable our services.
 - **Cookies :** We utilize Google Firebase services for secure authentication, robust database management, and insightful analytics. These services use cookies and collect data to enhance user experience and service functionality.
-
 
 ## Collection and Use of User Data
 
@@ -62,20 +62,15 @@ We use the following Firebase services in the Vy Finance Tracker:
 - **Firebase Analytics**: We use Firebase Analytics to collect anonymous usage data to help us understand how our services are used and to improve user experience. This data may include information such as how often you use the application, the events that occur within the application, aggregated usage, performance data, and from where the application was downloaded.
 
 
-
-
-
 ### Use of Cookies
 
-Vy Finance Tracker uses "cookies" to enhance the user experience. A cookie is a small piece of data stored on the user's device by the web browser while browsing a website. We use cookies in conjunction with Firebase services to enable certain functions of our service, to provide analytics, to store your preferences, and to enable advertisements delivery, including behavioral advertising.
+Vy Finance Tracker uses "cookies" to enhance the user experience. A cookie is a small piece of data stored on the user's device by the web browser while browsing a website. We use cookies in conjunction with Firebase services to enable certain functions of our service, to provide analytics, to store your preferences, and for security purposes.
 
 The cookies used by Firebase services are essential for the operation of our application and include, but are not limited to:
 
 - **Authentication Cookies**: These are necessary for Firebase Authentication to enable you to sign in to our application and to remember your sign-in information for your next visit.
 - **Analytics Cookies**: Essential for Firebase Analytics to track user interactions with our application, which helps us understand usage patterns and improve our services.
 - **Security Cookies**: Critical for enabling and supporting our security features, and to help us detect malicious activity.
-
-Please note that these essential cookies are required to use our service. While you may set your browser to block or alert you about these cookies, some parts of the service will not function without them. Non-essential cookies, such as those used for advertising and non-critical analytics, can be managed through your browser settings, and you may choose to accept or refuse these cookies. Be aware that if you choose to refuse non-essential cookies, it may affect your experience and the availability of certain features within our service.
 
 
 ### Your Choices Regarding Cookies
@@ -96,12 +91,9 @@ Vy Finance Tracker collects only the essential Personal Data needed to provide o
 
 ### Retention by Google Firebase
 
-The retention of data collected and stored by Google Firebase services, including the UID, is governed by Google's own data retention policies. For detailed information about how long Google retains different types of user data collected via Firebase services, please refer to the document "Privacy and Security in Firebase."
+The retention of data collected and stored by Google Firebase services, including the UID, is governed by Google's own data retention policies.
 
 For more information about Google's data retention practices and how they may apply to the data collected through Vy Finance Tracker, please visit [Google's Privacy & Terms](https://policies.google.com/privacy).
-
-If you have any questions about data retention in relation to Vy Finance Tracker, or if you wish to inquire about the deletion of your Personal Data, please contact Google Firebase directly, as they manage the data retention for services used by Vy Finance Tracker.
-
 
 
 ## Changes to This Privacy Policy
@@ -111,11 +103,6 @@ We reserve the right to update or change our Privacy Policy at any time. Any cha
 Your continued use of the Vy Finance Tracker after any modifications to the Privacy Policy will constitute your acknowledgment of the modifications and your consent to abide and be bound by the modified Privacy Policy.
 
 If we make any material changes to this Privacy Policy, we will notify you through an in-app announcement or update the "Last updated" date at the top of this Privacy Policy.
-
-
-
-
-
 
 `;
 const PrivacyPolicy = ({ isPublic = true }: { isPublic?: boolean }) => {

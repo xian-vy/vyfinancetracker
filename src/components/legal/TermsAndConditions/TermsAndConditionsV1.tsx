@@ -52,15 +52,10 @@ By using Vy Finance Tracker, you acknowledge and agree to the scope of services 
 
 By using Vy Finance Tracker, you agree to the following responsibilities:
 
-- **Accurate Information**: You are responsible for ensuring that all information you enter into the app, including data from uploaded Excel files, is accurate and up-to-date.
 - **Lawful Use**: You must use the Vy Finance Tracker in compliance with all applicable local, state, national, and international laws and regulations.
 - **Account Security**: You are responsible for maintaining the confidentiality of your account login information and for all activities that occur under your account.
-- **Respect for Rights**: You must respect the rights of others, including privacy and intellectual property rights.
-- **Prohibited Activities**: You may not use the Vy Finance Tracker for any unauthorized or illegal purpose, including but not limited to fraud, embezzlement, money laundering, or supporting terrorist activities.
 - **Data Backup and Synchronization**: While Vy Finance Tracker automatically backs up and synchronizes your data, you are responsible for ensuring that the app is opened and connected to a network regularly to facilitate this process. This helps prevent data loss and ensures that your financial information is up-to-date across all your devices.
-- **Reporting Misuse**: If you become aware of any unauthorized use of your account or any other breaches of security, you agree to immediately notify Vy Finance Tracker.
 
-Failure to comply with these responsibilities may result in the suspension or termination of your account and access to Vy Finance Tracker services.
 
 ## Termination
 
@@ -96,15 +91,6 @@ Upon termination, we may retain your data for a certain period as necessary to c
 
 Please note that if you have signed in anonymously and have entered transaction data using that anonymous account, the transaction data will remain in the server if you sign out while youre offline. This is because the data is stored locally on your device and is not synced with our servers until you use your active network.
 
-### Survival
-
-The following sections will survive termination: User Responsibilities, Security of Data and Offline Use, Privacy and Sensitive Information, Disclaimer of Warranties, Limitation of Liability, Indemnification, Governing Law and Jurisdiction, and any other provisions of the Terms that by their nature should survive termination.
-
-
-### Disclaimer of Warranties
-
-The Vy Finance Tracker is provided on an "as is" and "as available" basis without any warranties of any kind, either express or implied, including, but not limited to, the implied warranties of merchantability, fitness for a particular purpose, or non-infringement. We do not warrant that the app will always be available, be uninterrupted, be error-free, meet your requirements, or that any defects in the app will be corrected.
-
 
 ### Limitation of Liability
 
@@ -112,28 +98,7 @@ Information provided through the Vy Finance Tracker is for informational purpose
 
 In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arising out of, or in connection with, the use of the Vy Finance Tracker.
 
-### Indemnification
-
-You agree to indemnify, defend, and hold harmless Vy Finance Tracker, its officers, directors, employees, agents, licensors, suppliers, and any third-party information providers to the service from and against all losses, expenses, damages, and costs, including reasonable attorneys' fees, resulting from any violation of this agreement (including negligent or wrongful conduct) by you or any other person accessing the service.
-
-## Dispute Resolution
-
-In the event of a dispute, we encourage you to contact us at vyfinanceapp@gmail.com to resolve the issue. We will make every effort to resolve any disagreements quickly and amicably.
-
-If you are not satisfied with the resolution, you may pursue claims as explained in the Governing Law and Jurisdiction section of these Terms.
-
-We are committed to fair and transparent handling of any disputes and will work with you to find a mutually satisfactory solution.
-
-
-## Governing Law and Jurisdiction
-
-These Terms shall be governed and construed in accordance with the laws of Philippines, without regard to its conflict of law provisions. Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect.
-
-Any disputes arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts of Philippines.
-
-
 By using the Vy Finance Tracker, you acknowledge that you have read and agree to these terms.
-
 
 `;
 const TermsAndConditions = ({ isPublic = true }: { isPublic?: boolean }) => {
