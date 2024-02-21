@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { updateUserSalt } from "../firebase/UsersService";
 import useSnackbarHook from "../hooks/snackbarHook";
 import SeedPhraseDialog from "./SeedPhraseDialog";
 import { testDecryption } from "./encryption";
-import { deriveKeyFromSeedPhrase, generateSeedPhrase, storeKeySecurely } from "./keyhandling";
+import { deriveKeyFromSeedPhrase, storeKeySecurely } from "./keyhandling";
 const SeedPhraseMain = ({
   onKeyStored,
   onDeleteAccount,
@@ -16,18 +16,11 @@ const SeedPhraseMain = ({
   salt: Uint8Array | null;
 }) => {
   const { openSuccessSnackbar, SnackbarComponent } = useSnackbarHook();
-  const [seedPhrase, setSeedPhrase] = useState<string>("");
-  useEffect(() => {
-    if (!salt) {
-      const phrase = generateSeedPhrase();
-      setSeedPhrase(phrase);
-    }
-  }, [salt]);
 
-  const handleKeyCreation = async () => {
+  const handleKeyCreation = async (newSeedPhrase: string) => {
     //if salt is available, user has generated key but changed device, require seed phrase for decrypt testing
     if (salt) {
-      const { key } = await deriveKeyFromSeedPhrase(seedPhrase, salt);
+      const { key } = await deriveKeyFromSeedPhrase(newSeedPhrase, salt);
       const testPassed = await testDecryption(key);
 
       if (testPassed) {
@@ -40,7 +33,7 @@ const SeedPhraseMain = ({
       }
     } else {
       // user first time sign in, generate new key from seed phrase
-      const { key, saltToUse } = await deriveKeyFromSeedPhrase(seedPhrase);
+      const { key, saltToUse } = await deriveKeyFromSeedPhrase(newSeedPhrase);
       await storeKeySecurely(key);
       await updateUserSalt(saltToUse);
     }
@@ -50,14 +43,7 @@ const SeedPhraseMain = ({
 
   return (
     <>
-      <SeedPhraseDialog
-        open={open}
-        salt={salt}
-        onConfirmSeed={handleKeyCreation}
-        onDeleteAccount={onDeleteAccount}
-        seedPhrase={seedPhrase}
-        setSeedPhrase={setSeedPhrase}
-      />
+      <SeedPhraseDialog open={open} salt={salt} onConfirmSeed={handleKeyCreation} onDeleteAccount={onDeleteAccount} />
       {SnackbarComponent}
     </>
   );

@@ -15,25 +15,22 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useSnackbarHook from "../hooks/snackbarHook";
 import ForgotSeedPhrase from "./ForgotSeedPhrase";
 import SeedPhraseInfo from "./SeedPhraseInfo";
+import { generateSeedPhrase } from "./keyhandling";
 
 const SeedPhraseDialog = ({
   salt,
   open,
   onConfirmSeed,
   onDeleteAccount,
-  seedPhrase,
-  setSeedPhrase,
 }: {
   salt: Uint8Array | null;
   open: boolean;
-  onConfirmSeed: () => void;
+  onConfirmSeed: (phrase: string) => void;
   onDeleteAccount?: () => void;
-  seedPhrase: string;
-  setSeedPhrase: (phrase: string) => void;
 }) => {
   const [openInfo, setOpenInfo] = useState(false);
   const [openForgotSeedPhrase, setOpenForgotSeedPhrase] = useState(false);
@@ -42,10 +39,18 @@ const SeedPhraseDialog = ({
   const isDarkMode = theme.palette.mode === "dark";
   const [seedPhraseWords, setSeedPhraseWords] = useState<string[]>([]);
   const [isButtonDisabled, setIsButtonDisabled] = useState(salt ? false : true);
+  const [newSeedPhrase, setNewSeedPhrase] = useState<string>("");
+
+  useEffect(() => {
+    if (!salt) {
+      const phrase = generateSeedPhrase();
+      setNewSeedPhrase(phrase);
+    }
+  }, [salt]);
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(seedPhrase);
+      await navigator.clipboard.writeText(newSeedPhrase);
       setIsButtonDisabled(false);
     } catch (err) {
       console.error("Failed to copy text: ", err);
@@ -59,7 +64,7 @@ const SeedPhraseDialog = ({
       const words = trimmedData.split(" ");
       if (words.length === 12) {
         setSeedPhraseWords(words);
-        setSeedPhrase(trimmedData);
+        setNewSeedPhrase(trimmedData);
         setIsButtonDisabled(false);
       } else {
         openSuccessSnackbar("Invalid Seed Phrase.", true);
@@ -71,13 +76,29 @@ const SeedPhraseDialog = ({
 
   const handleDownload = () => {
     const element = document.createElement("a");
-    const file = new Blob([seedPhrase], { type: "text/plain" });
+    const file = new Blob([newSeedPhrase], { type: "text/plain" });
     element.href = URL.createObjectURL(file);
     element.download = "vy-finance-tracker-seed-phrase.txt";
     document.body.appendChild(element); // Required for Firefox
     element.click();
     document.body.removeChild(element); // Clean up
     setIsButtonDisabled(false);
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => {
+    const newValue = (event.target as HTMLInputElement).value;
+    setSeedPhraseWords((prevWords) => {
+      const newWords = [...prevWords];
+      newWords[index] = newValue;
+
+      const newSeedPhrase = newWords.join(" ");
+      setNewSeedPhrase(newSeedPhrase);
+
+      if (newWords.length === 12 && newWords.every((word) => word.trim() !== "")) {
+        setIsButtonDisabled(false);
+      }
+      return newWords;
+    });
   };
   return (
     <>
@@ -120,11 +141,8 @@ const SeedPhraseDialog = ({
                 textAlign="center"
                 sx={{ mb: 1, display: "flex", justifyContent: "center", alignItems: "center", fontSize: "1rem" }}
               >
-                Seed Phrase Required
+                Recovery Phrase Required
                 <LockOutlined fontSize="small" sx={{ ml: 1 }} />
-              </Typography>
-              <Typography textAlign="center" mr={1} gutterBottom variant="body2">
-                Paste your recovery Seed Phrase on the first input field
               </Typography>
             </>
           ) : (
@@ -145,13 +163,14 @@ const SeedPhraseDialog = ({
               {[...Array(12)].map((_, index) => (
                 <Grid item key={index} px={0}>
                   <TextField
-                    disabled={index !== 0}
                     autoFocus={index === 0}
                     size="small"
                     focused={index === 0}
                     value={seedPhraseWords[index] || ""}
-                    onPaste={index === 0 ? handlePaste : undefined}
+                    onPaste={handlePaste}
+                    onChange={(event) => handleChange(event, index)}
                     sx={{ width: 120 }}
+                    inputProps={{ style: { fontSize: "0.9rem" } }}
                   />
                 </Grid>
               ))}
@@ -159,7 +178,7 @@ const SeedPhraseDialog = ({
           ) : (
             <Stack p={1} direction="row" justifyContent="center" alignItems="center">
               <Typography variant="subtitle1" mr={1}>
-                {seedPhrase}
+                {newSeedPhrase}
               </Typography>
               <IconButton onClick={handleCopy} aria-label="copy seed phrase">
                 <ContentCopyIcon />
@@ -173,7 +192,7 @@ const SeedPhraseDialog = ({
         <DialogActions>
           <Stack direction="row" justifyContent="space-between" sx={{ width: "100%", px: { xs: 0, sm: 1 } }}>
             {salt ? (
-              <Button onClick={() => setOpenForgotSeedPhrase(true)}>I forgot my seed phrase</Button>
+              <Button onClick={() => setOpenForgotSeedPhrase(true)}>I forgot my recovery phrase</Button>
             ) : (
               <Typography></Typography>
             )}
@@ -183,8 +202,7 @@ const SeedPhraseDialog = ({
                 if (isButtonDisabled) {
                   openSuccessSnackbar("Please Backup the Seed Phrase", true);
                 }
-                setSeedPhraseWords([]);
-                onConfirmSeed();
+                onConfirmSeed(newSeedPhrase);
               }}
               color="primary"
             >
@@ -205,4 +223,4 @@ const SeedPhraseDialog = ({
   );
 };
 
-export default SeedPhraseDialog;
+export default React.memo(SeedPhraseDialog);
