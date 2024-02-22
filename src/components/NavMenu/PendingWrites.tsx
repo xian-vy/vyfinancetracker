@@ -121,30 +121,30 @@ const PendingWrites = () => {
     <Stack direction="row" alignItems="center" justifyContent="center" my={1}>
       {showSyncingAnimation ? (
         <>
-          <Typography variant="body1" mr={0.5}>
+          <Typography variant="caption" mr={0.5}>
             Syncing in progress..
           </Typography>
           <SyncOutlinedIcon
             sx={{
               color: "green",
               animation: "spin 1s linear infinite",
-              fontSize: "20px",
+              fontSize: "16px",
             }}
           />
         </>
       ) : (
         <>
-          <Typography variant="body1" mr={0.5}>
+          <Typography variant="caption" mr={0.5}>
             {pendingWrites > 0
               ? `${pendingWrites} unsynced data ${pendingWrites === 1 ? "change" : "changes"}`
               : "All transaction data synced"}
           </Typography>
           {pendingWrites > 0 ? (
             <Tooltip title="Open network to sync and backup data">
-              <SyncProblemOutlinedIcon sx={{ color: "darkorange", fontSize: "20px" }} />
+              <SyncProblemOutlinedIcon sx={{ color: "darkorange", fontSize: "16px" }} />
             </Tooltip>
           ) : (
-            <PublishedWithChangesOutlinedIcon sx={{ color: "green", fontSize: "20px" }} />
+            <PublishedWithChangesOutlinedIcon sx={{ color: "green", fontSize: "16px" }} />
           )}
         </>
       )}

@@ -27,6 +27,7 @@ import { RootState } from "../../redux/store";
 import GenericDialog from "../Dialog/GenericDialog";
 import SignOutConfirmationDialog from "../Dialog/SignOutConfirmationDialog";
 import PendingWrites from "./PendingWrites";
+import TotalNetWorth from "./TotalNetWorth";
 
 const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; collapsedDrawer: boolean }) => {
   const theme = useTheme();
@@ -74,22 +75,13 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
     }
   };
 
-  // const savingsContribution = useSelector((state: RootState) => state.savingsContribution.contribution);
-  // const expenses = useSelector((state: RootState) => state.expenses.expenses);
-  // const income = useSelector((state: RootState) => state.income.income);
-
-  // const totalSavingsContribution = calculateTotalSum(savingsContribution, "amount");
-  // const totalExpenses = calculateTotalSum(expenses, "amount");
-  // const totalIncome = calculateTotalSum(income, "amount");
-
-  // const totalBalance = totalIncome - totalExpenses - totalSavingsContribution;
-
   return (
     <div>
       <Box
         sx={{
-          py: 1.5,
-          px: 1,
+          py: user?.isAnonymous ? 0.8 : 1.5,
+          pl: collapsedDrawer ? 0.5 : 1.5,
+          pr: 0.5,
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
@@ -101,8 +93,8 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
           style={{
             backgroundColor: user?.isAnonymous ? "#333" : photoURL ? undefined : "#00897b",
             color: user?.isAnonymous ? "#fff" : "inherit",
-            width: 34,
-            height: 34,
+            width: 30,
+            height: 30,
             WebkitTapHighlightColor: "transparent",
             cursor: "pointer",
           }}
@@ -126,7 +118,7 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
                     whiteSpace: "nowrap",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
-                    height: "1.1rem",
+                    height: "0.9rem",
                     fontWeight: "bold",
                   }}
                 >
@@ -148,27 +140,12 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
         )}
       </Box>
 
-      {!user?.isAnonymous && <Divider sx={{ mx: 2 }} />}
-      {/* 
-      {!collapsedDrawer && (
-        <Stack direction="row" my={0.5} justifyContent="center" alignItems="center">
-          <Coin fill={isDarkMode ? "#ccc" : "#666"} style={{ width: "14px", height: "14px", marginRight: "5px" }} />
-          <Typography
-            textAlign="center"
-            variant="h5"
-            fontWeight="bold"
-            sx={{ color: totalBalance < 0 ? "salmon" : "inherit" }}
-          >
-            {totalBalance === 0 ? "0.00" : formatNumberWithoutCurrency(totalBalance)}
-          </Typography>
-          <Divider orientation="vertical" sx={{ height: 12, mx: 1, my: "auto", borderColor: theme.palette.divider }} />
-          <Typography textAlign="center" variant="caption">
-            {new Date().toLocaleString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" })}
-          </Typography>
-        </Stack>
-      )}
+      <Divider sx={{ mx: 2 }} />
+
+      <TotalNetWorth collapsedDrawer={collapsedDrawer} />
+
       {!collapsedDrawer && !user?.isAnonymous && <Divider sx={{ mx: 2 }} />}
-       */}
+
       {!collapsedDrawer && user?.isAnonymous && (
         <Paper
           variant="outlined"
