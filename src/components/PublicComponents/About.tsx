@@ -8,10 +8,7 @@ import { HOME } from "../../constants/routes";
 const About = ({ isPrivate }: { isPrivate?: boolean | null }) => {
   const navigate = useNavigate();
   return (
-    <Stack
-      direction="column"
-      sx={{ height: isPrivate ? "auto" : "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}
-    >
+    <Stack direction="column" sx={{ height: "auto", display: "flex", justifyContent: "center", alignItems: "center" }}>
       <Stack direction="row" alignItems="center" justifyContent="center" mb={2}>
         <img
           src={logo}

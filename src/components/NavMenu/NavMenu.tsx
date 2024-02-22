@@ -394,7 +394,7 @@ const NavMenu = () => {
         open={openAbout}
         onClose={() => setOpenAbout(false)}
         PaperProps={{
-          sx: { background: isDarkMode ? "#1e1e1e" : "#fff", maxWidth: 320 },
+          sx: { background: isDarkMode ? "#1e1e1e" : "#fff", width: 260 },
         }}
         maxWidth="xs"
         fullWidth
