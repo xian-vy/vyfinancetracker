@@ -4,7 +4,7 @@ import {
   linkWithPopup,
   reauthenticateWithPopup,
   signInAnonymously,
-  signInWithRedirect,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
 import { SIGNIN_NETWORK_ERROR_MESSAGE } from "../constants/errors";
@@ -13,12 +13,13 @@ export async function signInWithGoogle() {
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
 
-  return signInWithRedirect(auth, provider).catch((error) => {
+  return signInWithPopup(auth, provider).catch((error) => {
     const errorCode = error.code;
     if (errorCode === "auth/network-request-failed") {
       throw new Error(SIGNIN_NETWORK_ERROR_MESSAGE);
     }
     console.error("An error occurred during sign-in:", error.message);
+    throw error;
   });
 }
 
