@@ -54,43 +54,14 @@ By using Vy Finance Tracker, you agree to the following responsibilities:
 
 - **Lawful Use**: You must use the Vy Finance Tracker in compliance with all applicable local, state, national, and international laws and regulations.
 - **Account Security**: You are responsible for maintaining the confidentiality of your account login information and for all activities that occur under your account.
-- **Data Backup and Synchronization**: While Vy Finance Tracker automatically backs up and synchronizes your data, you are responsible for ensuring that the app is opened and connected to a network regularly to facilitate this process. This helps prevent data loss and ensures that your financial information is up-to-date across all your devices.
-
+- **Data Export Security**: Please note that any data exported from the app is not encrypted. You are responsible for securing any exported data to prevent unauthorized access.
+- **Backup and Synchronization**: While Vy Finance Tracker automatically backs up and synchronizes your data, you are responsible for ensuring that the app is opened and connected to a network regularly to facilitate this process. This helps prevent data loss and ensures that your financial information is up-to-date across all your devices.
 
 ## Termination
 
-We reserve the right to terminate or suspend your access to Vy Finance Tracker immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms of Use. Upon termination, your right to use the service will cease immediately.
-
-### Termination by Vy Finance Tracker
-
-Vy Finance Tracker may terminate your access to the app and its services if:
-
-- You violate any provision of these Terms of Use.
-- You engage in any activity that may harm Vy Finance Tracker or its users.
-- You use the service for any illegal or unauthorized purpose.
-- We decide to discontinue the service or any part thereof.
-
-If your access is terminated, you must cease all use of the service, and we may delete or deactivate your account and all related information and files in your account without liability to you.
-
-### Termination by User
-
 You may terminate your use of Vy Finance Tracker at any time by:
-
 - Discontinuing your use of the service.
-- Deleting the app from your devices.
-- Contacting Vy Finance Tracker support to deactivate your account, if applicable.
 - Deleting your account through the settings within the app.
-
-### Effect of Termination
-
-Upon termination, all licenses and rights granted to you in these Terms will immediately cease. We are not liable for any losses or damages arising from your inability to access or use the service after termination.
-
-### Data Retention and Deletion
-
-Upon termination, we may retain your data for a certain period as necessary to comply with our legal obligations, resolve disputes, and enforce our agreements. If you wish to request the deletion of your personal data, please contact us at the provided contact information.
-
-Please note that if you have signed in anonymously and have entered transaction data using that anonymous account, the transaction data will remain in the server if you sign out while youre offline. This is because the data is stored locally on your device and is not synced with our servers until you use your active network.
-
 
 ### Limitation of Liability
 

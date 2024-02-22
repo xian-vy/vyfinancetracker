@@ -50,7 +50,7 @@ const FeaturesIMG = () => {
                   sx={{
                     textDecoration: "none",
                     WebkitTapHighlightColor: "transparent",
-                    fontSize: { xs: "0.75rem", md: "0.85rem" },
+                    fontSize: { xs: "0.75rem", lg: "0.85rem" },
                     mx: { xs: 1, md: 1.5 },
                   }}
                 >

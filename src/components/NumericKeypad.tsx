@@ -37,7 +37,7 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onInput, onClear, disable
           color="inherit"
           onClick={() => onInput(input)}
           disabled={disabled}
-          sx={{ width: "2.5em", margin: "2px", borderColor: isDarkMode ? "#454545" : "#ccc", fontSize: "0.9rem" }}
+          sx={{ width: "2.5em", margin: "2px", borderColor: isDarkMode ? "#454545" : "#ccc", fontSize: "0.75rem" }}
         >
           {input}
         </Button>
@@ -48,7 +48,7 @@ const NumericKeypad: React.FC<NumericKeypadProps> = ({ onInput, onClear, disable
         color="inherit"
         onClick={onClear}
         disabled={disabled}
-        sx={{ width: "2.5em", margin: "2px", borderColor: isDarkMode ? "#454545" : "#ccc", fontSize: "0.9rem" }}
+        sx={{ width: "2.5em", margin: "2px", borderColor: isDarkMode ? "#454545" : "#ccc", fontSize: "0.75rem" }}
       >
         C
       </Button>

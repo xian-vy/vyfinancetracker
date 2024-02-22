@@ -22,7 +22,7 @@ const InstallIOS = () => {
           direction="row"
           sx={{ flexGrow: 1, height: 25, bgcolor: "#666", borderRadius: 3, alignItems: "center", px: 1.5 }}
         >
-          <Typography variant="body1">https://vyfinancetracker.web.app/</Typography>
+          <Typography variant="body1">vyfinancetracker.web.app/</Typography>
         </Stack>
       </Stack>
 

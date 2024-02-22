@@ -15,7 +15,7 @@ const AccountActivityBackdrop = () => {
       >
         <CircularProgress color="inherit" size={30} />
         <Typography variant="body2" color="inherit" ml={2}>
-          {isSigningIn ? "Signing In..." : "Deleting account, Please Wait..."}
+          {isSigningIn ? "Signing In..." : isDeleting ? "Deleting account, Please Wait..." : ""}
         </Typography>
       </Backdrop>
     </div>

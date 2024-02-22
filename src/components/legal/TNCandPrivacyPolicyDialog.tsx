@@ -28,7 +28,7 @@ const TNCandPrivacyPolicyDialog = ({ onClose, selectedDoc }: { onClose: () => vo
           </Stack>
 
           <Stack direction="row" mt={1} justifyContent="center">
-            <Typography variant="body1" gutterBottom>
+            <Typography variant="body1" textAlign="center" gutterBottom>
               <strong>By continuing to use our app, you agree to our </strong>
               <Link
                 onClick={() => {
@@ -36,7 +36,7 @@ const TNCandPrivacyPolicyDialog = ({ onClose, selectedDoc }: { onClose: () => vo
                   setTermsAndConditionsAsContent(false);
                   scrollToTop();
                 }}
-                sx={{ mx: 1, cursor: "pointer", WebkitTapHighlightColor: "transparent" }}
+                sx={{ mx: 0.5, cursor: "pointer", WebkitTapHighlightColor: "transparent" }}
               >
                 Privacy Policy
               </Link>
@@ -47,7 +47,7 @@ const TNCandPrivacyPolicyDialog = ({ onClose, selectedDoc }: { onClose: () => vo
                   setPrivacyPolicyAsContent(false);
                   scrollToTop();
                 }}
-                sx={{ mx: 1, cursor: "pointer", WebkitTapHighlightColor: "transparent" }}
+                sx={{ mx: 0.5, cursor: "pointer", WebkitTapHighlightColor: "transparent" }}
               >
                 Terms of Use
               </Link>

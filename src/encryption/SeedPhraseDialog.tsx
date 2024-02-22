@@ -119,11 +119,11 @@ const SeedPhraseDialog = ({
           {!salt && (
             <Typography
               mr={1}
+              variant="body2"
               sx={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                fontSize: "1rem",
               }}
               gutterBottom
             >
@@ -138,8 +138,9 @@ const SeedPhraseDialog = ({
           {salt ? (
             <>
               <Typography
+                variant="body2"
                 textAlign="center"
-                sx={{ mb: 1, display: "flex", justifyContent: "center", alignItems: "center", fontSize: "1rem" }}
+                sx={{ mb: 1, display: "flex", justifyContent: "center", alignItems: "center" }}
               >
                 Recovery Phrase Required
                 <LockOutlined fontSize="small" sx={{ ml: 1 }} />
@@ -147,12 +148,12 @@ const SeedPhraseDialog = ({
             </>
           ) : (
             <>
-              <Typography variant="body2" textAlign="center" mr={1} sx={{ color: "salmon" }}>
+              <Typography variant="body1" textAlign="center" mr={1}>
                 This phrase is required for accessing your account data if you change device or if data storage is
                 cleared.
               </Typography>
-              <Typography variant="body2" textAlign="center" mr={1} sx={{ color: "salmon" }}>
-                This is the only time you can backup this.
+              <Typography variant="body1" textAlign="center" mr={1} sx={{ color: "darkorange" }}>
+                This is the only time you can backup your phrase.
               </Typography>
             </>
           )}

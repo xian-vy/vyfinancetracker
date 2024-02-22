@@ -22,6 +22,7 @@ const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; p
       dispatch(setIsSigningIn(true));
       await signInWithGoogle();
     } catch (error: any) {
+      dispatch(setIsSigningIn(false));
       if (error.message === SIGNIN_NETWORK_ERROR_MESSAGE) {
         setNetworkError(true);
       } else {
@@ -39,7 +40,7 @@ const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; p
           fullWidth
           disabled={isSigningIn}
           startIcon={<GoogleIcon style={{ fontSize: "20px" }} />}
-          sx={{ textTransform: "none", fontSize: "0.75rem" }}
+          sx={{ textTransform: "none", fontSize: { xs: "0.7rem", lg: "0.75rem" } }}
         >
           Continue with Google
         </Button>

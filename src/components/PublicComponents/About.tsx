@@ -24,16 +24,22 @@ const About = ({ isPrivate }: { isPrivate?: boolean | null }) => {
         </Typography>
       </Stack>
 
-      <Typography variant="body1" display="block" mt={-0.5} mb={1}>
+      <Typography variant="body1" textAlign="center">
         A progressive web app
       </Typography>
-      <Typography variant="body1" textAlign="center" mt={-0.5} mb={3}>
-        built with React, Typescript, Redux, MUI, Firebase and Web Crypto API
+      <Typography variant="body1" textAlign="center">
+        built with
+      </Typography>
+      <Typography variant="body1" textAlign="center">
+        React, Typescript, Redux, MUI, Firebase
+      </Typography>
+      <Typography variant="body1" textAlign="center" mb={3}>
+        and Web Crypto API
       </Typography>
 
       <Stack direction="column" justifyContent="start" alignItems="center" mb={2} width="100%">
-        <Link variant="body1" href="mailto:vyfinanceapp@gmail.com" color="inherit" sx={{ cursor: "pointer" }}>
-          {"vyfinanceapp@gmail.com"}
+        <Link variant="body1" href="mailto:xianvy0000@gmail.com" color="inherit" sx={{ cursor: "pointer" }}>
+          {"xianvy0000@gmail.com"}
         </Link>
         <Typography variant="caption" textAlign="center">
           Feedback

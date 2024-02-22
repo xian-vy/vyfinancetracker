@@ -11,6 +11,7 @@ import SignInGoogle from "./SignInGoogle";
 import { useSelector } from "react-redux";
 import { darkTheme, lightTheme } from "../../Theme";
 import { RootState } from "../../redux/store";
+
 export default function SignIn() {
   const darktheme = useSelector((state: RootState) => state.theme.darkMode);
   const systemThemeIsDark = useMediaQuery("(prefers-color-scheme: dark)");
@@ -38,9 +39,9 @@ export default function SignIn() {
             src={logo}
             onClick={() => navigate(HOME)}
             alt="Logo"
-            style={{ width: "30px", height: "30px", cursor: "pointer", padding: 0 }}
+            style={{ width: "24px", height: "24px", cursor: "pointer", padding: 0 }}
           />
-          <Typography component="h1" align="center" ml={1} sx={{ fontSize: "1.1rem" }}>
+          <Typography component="h1" align="center" ml={0.5} sx={{ fontSize: "0.9rem", fontWeight: "bold" }}>
             Sign In
           </Typography>
         </Stack>
@@ -65,7 +66,7 @@ export default function SignIn() {
               color="primary"
               sx={{ height: 16, width: 25 }}
             />
-            <Typography variant="body1" align="center">
+            <Typography align="center" sx={{ fontSize: { xs: "0.7rem", lg: "0.75rem" } }}>
               I agree to the{" "}
               <Link
                 onClick={() => setAgreementDialog({ open: true, doc: PRIVACY_POLICY })}
@@ -77,7 +78,7 @@ export default function SignIn() {
               and
             </Typography>
           </Stack>
-          <Typography variant="body1" align="center">
+          <Typography align="center" sx={{ fontSize: { xs: "0.7rem", lg: "0.75rem" } }}>
             acknowledge being subject to its{" "}
             <Link
               onClick={() => setAgreementDialog({ open: true, doc: TERMS_OF_USE })}

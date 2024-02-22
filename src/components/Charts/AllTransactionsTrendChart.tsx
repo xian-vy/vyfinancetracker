@@ -58,7 +58,9 @@ const AllTransactionsTrendChart = (props: Props) => {
   const preferredFontSize = useSelector((state: RootState) => state.fontSize.size);
 
   const theme = useTheme();
-  const smScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const xsScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const smScreen = useMediaQuery(theme.breakpoints.down("md"));
+
   const isDarkMode = theme.palette.mode === "dark";
 
   const { categories } = useCategoryContext();
@@ -235,7 +237,7 @@ const AllTransactionsTrendChart = (props: Props) => {
 
   return (
     <>
-      <ResponsiveContainer width="100%" height={smScreen ? 300 : 400}>
+      <ResponsiveContainer width="100%" height={xsScreen ? 280 : smScreen ? 400 : 460}>
         {!chartData || loading ? (
           <Box display="flex" justifyContent="center" alignItems="center">
             <CircularProgress size={20} />

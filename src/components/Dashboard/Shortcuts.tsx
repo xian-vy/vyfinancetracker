@@ -16,7 +16,7 @@ const Shortcuts = () => {
   const smScreen = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <>
-      <Stack direction="row" justifyContent="space-between" flexWrap="wrap" px={{ xs: 0, md: 2 }}>
+      <Stack direction="row" justifyContent="space-between" flexWrap="wrap" px={{ xs: 0, sm: 2 }}>
         <Stack direction="row" alignItems="center">
           <Stack direction="row" alignItems="center">
             <ShortcutOutlinedIcon sx={{ fontSize: iconSizeXS }} />

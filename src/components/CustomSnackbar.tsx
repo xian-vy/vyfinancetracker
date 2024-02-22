@@ -1,6 +1,5 @@
 import React from "react";
 import { Snackbar, Alert } from "@mui/material";
-import Slide, { SlideProps } from "@mui/material/Slide";
 
 interface CustomSnackbarProps {
   open: boolean;
@@ -8,9 +7,9 @@ interface CustomSnackbarProps {
   message: string;
   severity: "error" | "success" | "info" | "warning";
 }
-function SlideTransition(props: SlideProps) {
-  return <Slide {...props} direction="down" />;
-}
+// function SlideTransition(props: SlideProps) {
+//   return <Slide {...props} direction="down" />;
+// }
 
 const CustomSnackbar: React.FC<CustomSnackbarProps> = ({ open, onClose, message, severity }) => {
   return (
@@ -19,7 +18,7 @@ const CustomSnackbar: React.FC<CustomSnackbarProps> = ({ open, onClose, message,
       autoHideDuration={severity === "error" ? 8000 : 4000}
       onClose={onClose}
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      TransitionComponent={SlideTransition}
+      // TransitionComponent={SlideTransition}
     >
       <Alert onClose={onClose} severity={severity} sx={{ width: "100%" }}>
         {message}

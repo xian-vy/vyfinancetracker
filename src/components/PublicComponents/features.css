@@ -37,7 +37,7 @@
   z-index: 10000;
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1400px) {
   .laptop {
     width: 47%;
     top: 0;
@@ -49,6 +49,21 @@
     width: 9%;
     top: 33%;
     left: 61%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .laptop {
+    width: 32%;
+    top: 0;
+    left: 0;
+  }
+
+  .mobile {
+    position: absolute;
+    width: 7%;
+    top: 27%;
+    left: 59%;
   }
 }
 

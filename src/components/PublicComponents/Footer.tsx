@@ -1,54 +1,68 @@
-import { Dialog, DialogContent, Divider, Stack, Typography } from "@mui/material";
+import { Dialog, DialogContent, Divider, Stack, ThemeProvider, Typography, useMediaQuery } from "@mui/material";
 import Link from "@mui/material/Link";
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { PRIVACY_POLICY, TERMS_OF_USE } from "../../constants/routes";
+import { PRIVACY_POLICY, TERMS_OF_USE, TNCandPrivacyPolicyDialog } from "../../constants/routes";
+import { darkTheme, lightTheme } from "../../Theme";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 const About = React.lazy(() => import("../PublicComponents/About"));
 
 const Footer = () => {
   const [openAbout, setOpenAbout] = useState(false);
+  const darktheme = useSelector((state: RootState) => state.theme.darkMode);
+  const systemThemeIsDark = useMediaQuery("(prefers-color-scheme: dark)");
 
+  const [agreementDialog, setAgreementDialog] = React.useState<{ open: boolean; doc: string | null }>({
+    open: false,
+    doc: null,
+  });
   return (
     <>
       <Stack
         direction="column"
         sx={{
-          mt: 1,
           px: { xs: 4, md: 8, lg: 10 },
           width: "100%",
         }}
       >
-        <Divider sx={{ mt: 1, mx: { xs: 1, md: 10, lg: 30, xl: 60 } }} />
-        <Stack direction="row" justifyContent="center" mt={1}>
+        <Divider sx={{ mt: 1, mx: "auto", width: { xs: "96%", sm: "90%", md: "50%", xl: "55%" } }} />
+        <Stack direction="row" justifyContent="center" mt={0.5}>
           <Link
-            variant="body1"
-            component={RouterLink}
-            to={PRIVACY_POLICY}
-            sx={{ cursor: "pointer", WebkitTapHighlightColor: "transparent" }}
+            onClick={() => setAgreementDialog({ open: true, doc: PRIVACY_POLICY })}
+            sx={{
+              cursor: "pointer",
+              WebkitTapHighlightColor: "transparent",
+              fontSize: { xs: "0.7rem", lg: "0.75rem" },
+            }}
           >
             Privacy Policy
           </Link>
           <Link
-            variant="body1"
             ml={1.5}
-            component={RouterLink}
-            to={TERMS_OF_USE}
-            sx={{ cursor: "pointer", WebkitTapHighlightColor: "transparent" }}
+            onClick={() => setAgreementDialog({ open: true, doc: TERMS_OF_USE })}
+            sx={{
+              cursor: "pointer",
+              WebkitTapHighlightColor: "transparent",
+              fontSize: { xs: "0.7rem", lg: "0.75rem" },
+            }}
           >
             Terms of Use
           </Link>
           <Link
-            variant="body1"
             ml={1.5}
             component="div"
             onClick={() => setOpenAbout(true)}
-            sx={{ cursor: "pointer", WebkitTapHighlightColor: "transparent" }}
+            sx={{
+              cursor: "pointer",
+              WebkitTapHighlightColor: "transparent",
+              fontSize: { xs: "0.7rem", lg: "0.75rem" },
+            }}
           >
             About
           </Link>
         </Stack>
         <Stack direction="row" justifyContent="center">
-          <Typography variant="caption" textAlign="center">
+          <Typography textAlign="center" sx={{ fontSize: { xs: "0.6rem", lg: "0.65rem" } }}>
             {"Copyright © "}
             {"Vy Finance Tracker"} {new Date().getFullYear()}
             {"."}
@@ -80,6 +94,19 @@ const Footer = () => {
           </React.Suspense>
         </DialogContent>
       </Dialog>
+
+      <ThemeProvider
+        theme={darktheme === null ? (systemThemeIsDark ? darkTheme : lightTheme) : darktheme ? darkTheme : lightTheme}
+      >
+        <Dialog open={agreementDialog.open} maxWidth="md" fullWidth>
+          <React.Suspense fallback={<div>loading...</div>}>
+            <TNCandPrivacyPolicyDialog
+              selectedDoc={agreementDialog.doc}
+              onClose={() => setAgreementDialog({ open: false, doc: PRIVACY_POLICY })}
+            />
+          </React.Suspense>
+        </Dialog>
+      </ThemeProvider>
     </>
   );
 };

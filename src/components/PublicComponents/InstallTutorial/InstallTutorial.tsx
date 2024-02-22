@@ -42,7 +42,7 @@ const InstallTutorial = ({ onDialogClose }: { onDialogClose: () => void }) => {
             </Typography>
             <MoreVertOutlinedIcon />
           </Stack>
-          <Stack direction="row" justifyContent="center" alignItems="center" my={0.5}>
+          <Stack direction="row" justifyContent="center" alignItems="center" mt={0.5} mb={2}>
             <Typography variant="body2" textAlign="center" mr={1}>
               Step 2 - Install or Add to Homescreen
             </Typography>
@@ -63,7 +63,7 @@ const InstallTutorial = ({ onDialogClose }: { onDialogClose: () => void }) => {
             </Typography>
             <IosShareOutlinedIcon />
           </Stack>
-          <Stack direction="row" justifyContent="center" alignItems="center" my={0.5}>
+          <Stack direction="row" justifyContent="center" alignItems="center" mt={0.5} mb={2}>
             <Typography variant="body2" textAlign="center" mr={1}>
               Step 2 - choose Add to Homescreen
             </Typography>

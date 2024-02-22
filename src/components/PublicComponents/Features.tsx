@@ -2,7 +2,6 @@ import {
   BackupOutlined,
   CachedOutlined,
   CategoryOutlined,
-  DevicesOutlined,
   EnergySavingsLeafOutlined,
   LockOutlined,
 } from "@mui/icons-material";
@@ -31,10 +30,6 @@ const featuresData = [
     description: "Cache optimized for minimal data usage",
     IconComponent: CachedOutlined,
   },
-  {
-    description: "Available Offline and on the Web",
-    IconComponent: DevicesOutlined,
-  },
 ];
 
 const Features = () => {
@@ -58,25 +53,25 @@ const Features = () => {
         alignItems="flex-start"
         justifyContent="center"
         flexWrap="wrap"
-        sx={{ px: { xs: 0, sm: 8, md: 24, lg: 34, xl: 64 } }}
+        sx={{ maxWidth: { xs: "90%", sm: "80%", md: "56%", lg: "50%", xl: "55%", margin: "auto" } }}
       >
         {featuresData.map((feature, index) => (
           <Box key={index}>
             <Grow
               in={index <= visibleIndex}
-              style={{ transformOrigin: "0  0  0", border: `solid   1px #333`, padding: 3 }}
+              style={{ transformOrigin: "0  0  0", border: `solid   1px #333`, padding: 2 }}
               timeout={200}
             >
               <Stack
                 direction="row"
                 alignItems="center"
                 justifyContent="space-between"
-                sx={{ m: { xs: 0.3, md: 0.5 }, borderRadius: 4, px: 1 }}
+                sx={{ m: { xs: 0.3, lg: 0.5 }, borderRadius: 4, px: 1 }}
               >
-                <Typography sx={{ fontSize: { xs: "0.75rem", md: "0.85rem" } }} mx={1}>
+                <Typography sx={{ fontSize: { xs: "0.75rem", lg: "0.85rem" } }} mx={1}>
                   {feature.description}
                 </Typography>
-                <feature.IconComponent sx={{ fontSize: { xs: "14px", sm: "16px", md: "20px" }, mr: 0.5 }} />
+                <feature.IconComponent sx={{ fontSize: { xs: "14px", sm: "16px", lg: "20px" }, mr: 0.5 }} />
               </Stack>
             </Grow>
           </Box>

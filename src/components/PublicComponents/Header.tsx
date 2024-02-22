@@ -85,12 +85,12 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
       <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
         <Container disableGutters maxWidth="sm" component="main" sx={{ pb: 0.5, px: 4 }}>
           <Stack direction="row" alignItems="center" justifyContent="center">
-            <img src={logo} alt="Logo" style={{ width: "30px", height: "30px" }} />
-            <Typography component="h2" align="center" ml={0.5} sx={{ fontSize: "1.1rem" }}>
+            <img src={logo} alt="Logo" style={{ width: "24px", height: "24px" }} />
+            <Typography component="h2" align="center" ml={0.5} sx={{ fontSize: "0.9rem", fontWeight: "bold" }}>
               Finance Tracker
             </Typography>
           </Stack>
-          <Typography component="h3" align="center" sx={{ fontSize: { xs: "0.8rem", md: "0.9rem" } }}>
+          <Typography component="h3" align="center" sx={{ fontSize: { xs: "0.8rem", lg: "0.9rem" } }}>
             A progressive web app - free personal finance tracker
           </Typography>
         </Container>
@@ -101,7 +101,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               variant="outlined"
               color="inherit"
               size="small"
-              sx={{ textTransform: "capitalize", width: 100, fontSize: "0.75rem" }}
+              sx={{ textTransform: "capitalize", width: 100, fontSize: { xs: "0.7rem", lg: "0.75rem" } }}
               onClick={handleStartClick}
             >
               Start Now
@@ -121,7 +121,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
                 width: 100,
                 alignItems: "center",
                 textTransform: "capitalize",
-                fontSize: "0.75rem",
+                fontSize: { xs: "0.7rem", lg: "0.75rem" },
               }}
               onClick={handleInstallClick}
             >

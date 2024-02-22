@@ -7,14 +7,15 @@ type generatedBudgets = {
   prevSum: number;
   prevDate: string;
 };
-export const useSumDataByTimeframe = (
+
+export const useSumDataByTimeframe = <T,>(
   worker: Worker,
-  store: any[],
+  store: T[],
   setStoreData: React.Dispatch<React.SetStateAction<generatedBudgets | null>>,
   filterOption: FilterTimeframe,
   startDate: Date | undefined,
   endDate: Date | undefined,
-  deps: any[]
+  dependencies: any[]
 ) => {
   useEffect(() => {
     let isMounted = true;
@@ -40,5 +41,5 @@ export const useSumDataByTimeframe = (
     return () => {
       isMounted = false;
     };
-  }, deps);
+  }, dependencies);
 };

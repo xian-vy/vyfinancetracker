@@ -41,7 +41,7 @@ const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean
           fullWidth
           disabled={isSigningIn}
           startIcon={<Incognito fill="#ccc" style={{ width: "22px", height: "22px" }} />}
-          sx={{ textTransform: "none", fontSize: "0.75rem" }}
+          sx={{ textTransform: "none", fontSize: { xs: "0.7rem", lg: "0.75rem" } }}
         >
           Continue Anonymously
         </Button>

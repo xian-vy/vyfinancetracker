@@ -7,11 +7,9 @@ import { HOME } from "../../../constants/routes";
 
 const markdown = `
 # Vy Finance Tracker Privacy Policy
-**Last updated: February 18, 2024 **
+**Last updated: February 20, 2024 **
 
-Welcome to Vy Finance Tracker. Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our Progressive Web App (PWA). We are committed to protecting your personal information and your right to privacy.
-
-If you have any questions or concerns about our policy or our practices regarding your personal information, please contact us at vyfinanceapp@gmail.com.
+If you have any questions or concerns about our policy or our practices regarding your personal information, please contact xianvy0000@gmail.com.
 
 ## Summary
 - **Data Collection:** We collect essential information such as the Unique User Identifier (UID) for account identification and user-provided financial data to enable our services.
@@ -23,44 +21,16 @@ If you have any questions or concerns about our policy or our practices regardin
 
 - **Unique User Identifier (UID)**: Provided by Google Firebase Authentication when you sign in to our application, used solely for the purpose of identifying your user account within our services.
 - **User-Provided Financial Data**: This includes any data that you manually enter into the Vy Finance Tracker, such as expenses, budget, income, savings, and savings contributions. We collect this data to provide you with personalized financial tracking and management services.
-- **Local Storage Data**: We use local storage to save certain preferences and data to enhance your experience with the Vy Finance Tracker. This may include:
-  - **Dark Mode Theme**: Your preference for a dark or light interface, to ensure a consistent visual experience.
-  - **Power Saving Mode**: Your preference for enabling/disabling animations.
-
-  - **LastModified Date**: The date and time you last modified data per transaction. This is used to help you track changes and updates to your financial data and to optimize and perform queries in our Firestore database to retrieve the latest data efficiently.
-  - **Favorites**: Your selected shortcuts for transaction categories, allowing for quicker and more convenient entry of recurring transactions.
-  - **PendingWritesCount**: The number of unsynced changes made while offline, which helps track any pending updates that need to be synchronized when you are back online.
 
 ### How We Use Your Information
 
-The information we collect is used for the following purposes:
-
-- **Unique User Identifier (UID)**: 
-  - Enable you to access and use the Vy Finance Tracker services.
-  - Maintain and improve the functionality of our services.
-  - Monitor the usage of our services.
-  - Detect, prevent, and address technical issues.
+- **Unique User Identifier (UID)**:  
+  - Used as a unique identifier for your user account within our Firebase services.
+  - Serves as the primary key for your data in our Firestore database, ensuring that all your financial transactions and preferences are securely associated with your account.
 
 - **User-Provided Financial Data**:
   - Provide personalized financial tracking and management services.
   - Generate reports and insights based on your financial activity.
-  - Assist you in budgeting.
-
-- **Local Storage Data**:
-  - Preserve your preferences, such as dark or light theme, to enhance your user experience each time you use the service.
-  - Utilize the LastModified Date to perform efficient queries in our Firestore database, ensuring you have the most up-to-date information.
-  - Allow for quick access to your favorite transaction categories through the Favorites feature.
-  - Keep track of any unsynced changes with PendingWritesCount to ensure all your data is up-to-date once you reconnect to the internet.
-
-
-### Google Firebase Services
-
-We use the following Firebase services in the Vy Finance Tracker:
-
-- **Firebase Authentication**: This service is used to authenticate users and manage user sessions. It provides the UID that we use as an identifier in our Firestore database.
-- **Firebase Firestore**: This is our primary database where we store data related to your financial transactions. We do not store any personal information other than the UID provided by Firebase Authentication.
-- **Firebase Analytics**: We use Firebase Analytics to collect anonymous usage data to help us understand how our services are used and to improve user experience. This data may include information such as how often you use the application, the events that occur within the application, aggregated usage, performance data, and from where the application was downloaded.
-
 
 ### Use of Cookies
 
