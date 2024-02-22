@@ -17,6 +17,7 @@ const FontSizeToggle = React.lazy(() => import("./FontSizeToggle"));
 const TimeframeToggle = React.lazy(() => import("./TimeframeToggle"));
 const DeleteAccount = React.lazy(() => import("./DeleteAccount"));
 const LinkAccount = React.lazy(() => import("./LinkAccount"));
+const HideBalances = React.lazy(() => import("./HideBalances"));
 
 const SettingsForm: React.FC<Props> = ({ closeForm, loading }) => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -68,6 +69,15 @@ const SettingsForm: React.FC<Props> = ({ closeForm, loading }) => {
           <Stack direction="row" justifyContent="center" mb={1}>
             <React.Suspense fallback={<Skeleton variant="text" width={150} height={30} sx={{ borderRadius: 3 }} />}>
               <ThemeToggle loading={loading} />
+            </React.Suspense>
+          </Stack>
+          {/* Mask Networth----------------------------------------------------------------------------------*/}
+          <Typography variant="caption" textAlign="center">
+            Hide Balances
+          </Typography>
+          <Stack direction="row" justifyContent="center" mb={1}>
+            <React.Suspense fallback={<Skeleton variant="text" width={150} height={30} sx={{ borderRadius: 3 }} />}>
+              <HideBalances isDarkMode={isDarkMode} />
             </React.Suspense>
           </Stack>
           {/* Power Saving --------------------------------------------------------------------------------*/}

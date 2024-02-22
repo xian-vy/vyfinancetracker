@@ -38,6 +38,8 @@ const typographyStyle = {
 };
 
 const BalanceByAccountType = () => {
+  const isMasked = useSelector((state: RootState) => state.userAccount.hideBalances);
+
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
   const {
@@ -201,7 +203,7 @@ const BalanceByAccountType = () => {
                               style={{ color: accountDetails.balance < 0 ? PERCENTAGE_DECREASE : "inherit" }}
                               sx={typographyStyle}
                             >
-                              {formatNumberWithoutCurrency(accountDetails.balance)}
+                              {isMasked ? "****" : formatNumberWithoutCurrency(accountDetails.balance)}
                             </Typography>
                           </Stack>
 

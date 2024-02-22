@@ -9,6 +9,8 @@ import { txn_summary } from "../../constants/collections";
 import { PERCENTAGE_DECREASE } from "../../constants/componentTheme";
 import { FilterTimeframe } from "../../constants/timeframes";
 import CategoryBreakdownDialog from "../Charts/CategoryBreakdownDialog";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 type sumByTransaction = {
   sum: number;
@@ -37,6 +39,8 @@ interface Props {
 }
 
 const TransactionSummaryItems = (props: Props) => {
+  const isMasked = useSelector((state: RootState) => state.userAccount.hideBalances);
+
   const [expandedStates, setExpandedStates] = React.useState<Record<string, boolean>>({});
   const handleExpandClick = (accountType: string) => {
     setExpandedStates((prevState) => ({
@@ -87,11 +91,15 @@ const TransactionSummaryItems = (props: Props) => {
               <Typography
                 textAlign="left"
                 variant="h4"
-                sx={{ color: props.currentSUM < 0 ? PERCENTAGE_DECREASE : "inherit" }}
+                sx={{
+                  color: props.currentSUM < 0 ? PERCENTAGE_DECREASE : "inherit",
+                }}
               >
                 {/* AMOUNT  ---------------------------------------------------------------------------*/}
 
-                {formatNumberWithoutCurrency(props.currentSUM)}
+                {isMasked && (props.type === txn_summary.Balance || props.type === txn_summary.Income)
+                  ? "****"
+                  : formatNumberWithoutCurrency(props.currentSUM)}
               </Typography>
             )}
           </Stack>
@@ -112,7 +120,13 @@ const TransactionSummaryItems = (props: Props) => {
             <>
               <span style={{ color: props.percentagecolor }}>{props.percentageSTR}</span>
               {` from ${props.prevDate} `}
-              {props.prevSUM === 0 || props.prevDate === "" ? "" : `(${formatNumberWithoutCurrency(props.prevSUM)})`}
+              {props.prevSUM === 0 || props.prevDate === ""
+                ? ""
+                : `(${
+                    isMasked && (props.type === txn_summary.Balance || props.type === txn_summary.Income)
+                      ? "****"
+                      : formatNumberWithoutCurrency(props.prevSUM)
+                  })`}
             </>
           ) : (
             ""

@@ -11,6 +11,8 @@ import { txn_types } from "../../constants/collections";
 import CategoryBreakdownDialog from "../Charts/CategoryBreakdownDialog";
 import CustomIconButton from "../CustomIconButton";
 import TimeframeDrawerPopOver from "./TimeframeDrawerPopOver";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 interface Props {
   onFilterChange: (filterOption: string) => void;
@@ -23,6 +25,8 @@ interface Props {
   totalAmount: number;
 }
 const FilterBudgetExpenseTrend = (props: Props) => {
+  const isMasked = useSelector((state: RootState) => state.userAccount.hideBalances);
+
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
   const [filterOpen, setFilterOpen] = useState(false);
@@ -65,7 +69,9 @@ const FilterBudgetExpenseTrend = (props: Props) => {
                 fontWeight: "bold",
               }}
             >
-              {formatShortAmountWithCurrency(props.totalAmount, false, true)}
+              {isMasked && props.txnType === txn_types.Income
+                ? "****"
+                : formatShortAmountWithCurrency(props.totalAmount, false, true)}
             </span>
           </Typography>
         </Stack>

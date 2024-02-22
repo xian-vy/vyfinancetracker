@@ -1,16 +1,19 @@
 // src/redux/timeframeSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getLocalHideBalances } from "../../localstorage/hidebalancesettings";
 
 interface initState {
   deleteMessage: string | undefined;
   isDeleting: boolean;
   isSigningIn: boolean;
+  hideBalances: boolean;
 }
 
 const initialState: initState = {
   deleteMessage: undefined,
   isDeleting: false,
   isSigningIn: false,
+  hideBalances: getLocalHideBalances() || false,
 };
 
 export const userAccountSlice = createSlice({
@@ -26,9 +29,12 @@ export const userAccountSlice = createSlice({
     setIsSigningIn: (state, action: PayloadAction<boolean>) => {
       state.isSigningIn = action.payload;
     },
+    setHideBalances: (state, action: PayloadAction<boolean>) => {
+      state.hideBalances = action.payload;
+    },
   },
 });
 
-export const { setSuccessDeleteMessage, setIsDeleting, setIsSigningIn } = userAccountSlice.actions;
+export const { setSuccessDeleteMessage, setIsDeleting, setIsSigningIn, setHideBalances } = userAccountSlice.actions;
 
 export default userAccountSlice.reducer;
