@@ -1,4 +1,4 @@
-// ExpenseForm.tsx
+// ExpenseForm
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, IconButton, Stack, TextField, Typography } from "@mui/material";

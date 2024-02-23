@@ -1,4 +1,4 @@
-// src/models/Expense.ts
+// src/models/Expense
 
 import { Timestamp } from "firebase/firestore";
 

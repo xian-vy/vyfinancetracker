@@ -1,4 +1,4 @@
-// reducer/expenseReducer.ts
+// reducer/expenseReducer
 import { createSlice } from "@reduxjs/toolkit";
 import { BudgetModel } from "../../models/BudgetModel";
 import { addbudgetAction, fetchbudget, updatebudgetAction } from "../actions/budgetAction";

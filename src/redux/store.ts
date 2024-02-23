@@ -1,4 +1,4 @@
-// store.ts
+// store
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import rootReducer from "./reducer/rootReducer";

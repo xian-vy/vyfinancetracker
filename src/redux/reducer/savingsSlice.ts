@@ -1,4 +1,4 @@
-// reducer/expenseReducer.ts
+// reducer/expenseReducer
 import { createSlice } from "@reduxjs/toolkit";
 import SavingGoalsContributionModel from "../../models/SavingGoalsContribution";
 import SavingGoalsModel from "../../models/SavingGoalsModel";

@@ -1,15 +1,15 @@
-// ExpenseForm.tsx
+// ExpenseForm
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, IconButton, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { CirclePicker } from "react-color";
-import CategoryIcons from "../../../media/CategoryIcons.tsx";
-import { useCategoryContext } from "../../../contextAPI/CategoryContext.tsx";
-import { getRandomColor } from "../../../firebase/defaultData.tsx";
+import CategoryIcons from "../../../media/CategoryIcons";
+import { useCategoryContext } from "../../../contextAPI/CategoryContext";
+import { getRandomColor } from "../../../firebase/defaultData";
 import CategoryModel from "../../../models/CategoryModel";
 import LoadingDialog from "../../Dialog/LoadingDialog";
-import IconListComponent from "../IconListComponent.tsx";
+import IconListComponent from "../IconListComponent";
 import { v4 as uuidv4 } from "uuid";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 

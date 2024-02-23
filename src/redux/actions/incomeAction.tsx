@@ -1,4 +1,4 @@
-// actions/budgetActions.ts
+// actions/budgetActions
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import IncomeModel from "../../models/IncomeModel";
 import { addIncome, deleteIncome, getIncome, updateIncome } from "../../firebase/IncomeService";

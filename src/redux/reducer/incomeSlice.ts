@@ -1,4 +1,4 @@
-// reducer/expenseReducer.ts
+// reducer/expenseReducer
 import { createSlice } from "@reduxjs/toolkit";
 import IncomeModel from "../../models/IncomeModel";
 import { addincomeAction, deleteincomeAction, fetchincome, updateincomeAction } from "../actions/incomeAction";

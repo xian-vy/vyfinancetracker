@@ -1,4 +1,4 @@
-// src/models/Expense.ts
+// src/models/Expense
 
 interface CategoryModel {
   id: string;

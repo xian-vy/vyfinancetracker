@@ -1,4 +1,4 @@
-// actions/SavingsActions.ts
+// actions/SavingsActions
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import SavingGoalsModel from "../../models/SavingGoalsModel";

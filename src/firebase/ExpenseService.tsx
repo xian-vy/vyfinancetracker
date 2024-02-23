@@ -1,4 +1,4 @@
-// src/firebase/expenseServices.tsx
+// src/firebase/expenseServices
 import {
   QueryDocumentSnapshot,
   Timestamp,

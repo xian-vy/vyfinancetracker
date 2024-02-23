@@ -1,4 +1,4 @@
-// src/redux/timeframeSlice.ts
+// src/redux/timeframeSlice
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getLocalHideBalances } from "../../localstorage/hidebalancesettings";
 

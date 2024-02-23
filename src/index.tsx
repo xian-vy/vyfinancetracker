@@ -1,14 +1,14 @@
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import App from "./App.tsx";
+import App from "./App";
 import { Provider } from "react-redux";
-import store from "./redux/store.ts";
+import store from "./redux/store";
 import React from "react";
-import { AccountTypeProvider } from "./contextAPI/AccountTypeContext.tsx";
-import { CategoryProvider } from "./contextAPI/CategoryContext.tsx";
-import { IncomeSourcesProvider } from "./contextAPI/IncomeSourcesContext.tsx";
-import { TransactionLogsProvider } from "./contextAPI/TransactionLogsContext.tsx";
+import { AccountTypeProvider } from "./contextAPI/AccountTypeContext";
+import { CategoryProvider } from "./contextAPI/CategoryContext";
+import { IncomeSourcesProvider } from "./contextAPI/IncomeSourcesContext";
+import { TransactionLogsProvider } from "./contextAPI/TransactionLogsContext";
 
 function displayUpdateNotification() {
   window.confirm("A new update is available! Please refresh page.");
@@ -59,7 +59,7 @@ reportWebVitals();
 //       }
 //     });
 
-//     let refreshing;
+//     let refreshing = false;
 //     navigator.serviceWorker.addEventListener("controllerchange", () => {
 //       if (refreshing) return;
 //       refreshing = true;

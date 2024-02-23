@@ -1,4 +1,4 @@
-// src/redux/timeframeSlice.ts
+// src/redux/timeframeSlice
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getTimeframetoLocalStorage } from "../../localstorage/timeframesettings";
 import { FilterTimeframe } from "../../constants/timeframes";

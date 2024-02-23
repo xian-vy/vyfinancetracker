@@ -1,4 +1,4 @@
-// actions/expenseActions.ts
+// actions/expenseActions
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import ExpenseModel from "../../models/ExpenseModel";
 import {

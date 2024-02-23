@@ -1,4 +1,4 @@
-// actions/budgetActions.ts
+// actions/budgetActions
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { BudgetModel } from "../../models/BudgetModel";

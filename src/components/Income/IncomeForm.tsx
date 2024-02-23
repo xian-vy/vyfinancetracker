@@ -1,4 +1,4 @@
-// ExpenseForm.tsx
+// ExpenseForm
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Dialog, DialogContent, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { ThunkDispatch } from "@reduxjs/toolkit";
