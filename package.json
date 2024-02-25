@@ -15,7 +15,6 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
     "@types/node": "^16.18.54",
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
@@ -39,9 +38,9 @@
   },
   "scripts": {
     "start": "react-scripts start --host 0.0.0.0",
-    "build": "set GENERATE_SOURCEMAP=false && react-scripts build && npm run generate-sw",
+    "build": "react-scripts build && npm run generate-sw",
     "generate-sw": "node generate-sw.js",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
@@ -64,15 +63,23 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.23.9",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@types/jest": "^29.5.12",
     "@types/papaparse": "^5.3.9",
     "@types/react-color": "^3.0.9",
     "@types/react-date-range": "^1.4.5",
     "@types/react-datepicker": "^4.19.5",
     "@types/react-window": "^1.8.8",
     "@types/uuid": "^9.0.7",
+    "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "source-map-explorer": "^2.5.3",
+    "ts-jest": "^29.1.2",
     "workbox-build": "^7.0.0"
   }
 }

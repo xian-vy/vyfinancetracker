@@ -125,7 +125,7 @@ const Account_Type = [
   },
 ];
 
-const mockData = {
+export const mock_categories = {
   Category: categories,
   Income_source: incomesources,
   Account_Type: Account_Type,
@@ -159,7 +159,7 @@ export async function populateCategories(uid: string) {
   if (categoryCollectionSnapshot.empty) {
     const batch = writeBatch(db);
     const docRef = doc(categoryCollectionRef, subcollections.categories);
-    const categories = mockData.Category.map((category) => ({ id: uuidv4(), ...category }));
+    const categories = mock_categories.Category.map((category) => ({ id: uuidv4(), ...category }));
     batch.set(docRef, { categories: categories });
     await batch.commit();
   }
@@ -172,7 +172,7 @@ export async function populateIncomeSources(uid: string) {
   if (incomeSourceCollectionSnapshot.empty) {
     const batch = writeBatch(db);
     const docRef = doc(incomeSourceCollectionRef, subcollections.incomesources);
-    const accounttypes = mockData.Income_source.map((incomesource) => ({ id: uuidv4(), ...incomesource }));
+    const accounttypes = mock_categories.Income_source.map((incomesource) => ({ id: uuidv4(), ...incomesource }));
     batch.set(docRef, { incomesources: accounttypes });
     await batch.commit();
   }
@@ -186,10 +186,8 @@ export async function populateAccountTypes(uid: string) {
   if (ptypeCollectionSnapshot.empty) {
     const batch = writeBatch(db);
     const docRef = doc(ptypeCollectionRef, subcollections.accounttypes);
-    const accounttypes = mockData.Account_Type.map((accounts) => ({ id: uuidv4(), ...accounts }));
+    const accounttypes = mock_categories.Account_Type.map((accounts) => ({ id: uuidv4(), ...accounts }));
     batch.set(docRef, { accounttypes: accounttypes });
     await batch.commit();
   }
 }
-
-export default mockData;
