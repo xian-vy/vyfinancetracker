@@ -1,6 +1,6 @@
 import { BottomNavigation, BottomNavigationAction, Theme, Typography } from "@mui/material";
 import React from "react";
-import { Link, Location, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 type MenuItemsType = {
