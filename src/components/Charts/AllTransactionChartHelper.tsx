@@ -1,6 +1,5 @@
-import { FilterTimeframe } from "../constants/timeframes";
-import { getDateFormat } from "./date";
-import { sortDates } from "./date";
+import { FilterTimeframe } from "../../constants/timeframes";
+import { getDateFormat, sortDates } from "../../helper/date";
 
 interface FilteredItem {
   date: string;

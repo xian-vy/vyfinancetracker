@@ -7,9 +7,8 @@ import SouthIcon from "@mui/icons-material/South";
 import { Theme } from "@mui/material";
 import React from "react";
 import "swiper/css";
-import { ReactComponent as Coin } from "../media/coin.svg";
-import { txn_summary } from "../constants/collections";
-import { iconSizeXS } from "../constants/size";
+import { ReactComponent as Coin } from "../../media/coin.svg";
+import { txn_summary } from "../../constants/collections";
 import {
   PERCENTAGE_INCREASE,
   PERCENTAGE_DECREASE,
@@ -21,10 +20,12 @@ import {
   BUDGET_THEME,
   SAVINGS_THEME_DARK,
   SAVINGS_THEME,
-  BALANCE_THEME,
   BALANCE_THEME_DARK,
-} from "../constants/componentTheme";
-import { hoverBgColor } from "./utils";
+  BALANCE_THEME,
+} from "../../constants/componentTheme";
+import { iconSizeXS } from "../../constants/size";
+import { hoverBgColor } from "../../helper/utils";
+
 export const calculateCurrentSum = (
   type: string,
   incomeSum: number,

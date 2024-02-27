@@ -14,7 +14,7 @@ import {
   determinePercentageStr,
   swiperBreakpointsConfig,
   typeIconColor,
-} from "../../helper/TransactionSummaryHelper";
+} from "./TransactionSummaryHelper";
 import { getFilterTitle } from "../../helper/utils";
 import { txn_summary } from "../../constants/collections";
 import { useFilterHandlers } from "../../hooks/filterHook";

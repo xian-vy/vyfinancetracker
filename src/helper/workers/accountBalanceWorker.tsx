@@ -1,4 +1,4 @@
-import { generateAccountsBalances } from "../AccountHelper";
+import { generateAccountsBalances } from "../../components/Dashboard/BalanceByAccountTypeHelper";
 
 /* eslint-disable no-restricted-globals */
 self.onmessage = (event: MessageEvent) => {

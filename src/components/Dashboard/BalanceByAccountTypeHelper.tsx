@@ -1,8 +1,8 @@
-import { getAccountsDetails } from "../firebase/utils";
-import AccountTypeModel from "../models/AccountTypeModel";
-import ExpenseModel from "../models/ExpenseModel";
-import IncomeModel from "../models/IncomeModel";
-import SavingGoalsContributionModel from "../models/SavingGoalsContribution";
+import { getAccountsDetails } from "../../firebase/utils";
+import AccountTypeModel from "../../models/AccountTypeModel";
+import ExpenseModel from "../../models/ExpenseModel";
+import IncomeModel from "../../models/IncomeModel";
+import SavingGoalsContributionModel from "../../models/SavingGoalsContribution";
 
 interface Transaction {
   account_id: string;

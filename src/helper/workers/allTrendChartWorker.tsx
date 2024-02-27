@@ -1,4 +1,4 @@
-import { FilterAndGroupAllTransactions } from "../AllTransactionChartHelper";
+import { FilterAndGroupAllTransactions } from "../../components/Charts/AllTransactionChartHelper";
 
 /* eslint-disable no-restricted-globals */
 self.onmessage = (event) => {

@@ -1,7 +1,6 @@
-import { BudgetItemsModel } from "../models/BudgetModel";
-import ExpenseModel from "../models/ExpenseModel";
+import { BudgetItemsModel } from "../../models/BudgetModel";
+import ExpenseModel from "../../models/ExpenseModel";
 
-//For budget list : budget vs expense circular progress
 export const FilterExpenseAndBudgetbyCategory = (expenses: ExpenseModel[], budgets: BudgetItemsModel[]) => {
   const categoryTotals = new Map<string, { totalBudgetAmount: number; totalExpenseAmount: number }>();
 
