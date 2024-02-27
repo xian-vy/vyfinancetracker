@@ -9,7 +9,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { async_result } from "../../constants/constants";
+import { ASYNC_RESULT } from "../../constants/constants";
 import { useCategoryContext } from "../../contextAPI/CategoryContext";
 import { useTransactionLogsContext } from "../../contextAPI/TransactionLogsContext";
 import useSnackbarHook from "../../hooks/snackbarHook";
@@ -119,16 +119,16 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ onCloseForm }) => {
       saveBatchLogs,
     });
     setIsLoading(false);
-    if (result === async_result.success) {
+    if (result === ASYNC_RESULT.success) {
       if (!isEditMode) {
         setIsEditMode(true);
       }
       openSuccessSnackbar(`Budget has been ${isEditMode ? "Updated" : "Added"}`);
-    } else if (result === async_result.failed) {
+    } else if (result === ASYNC_RESULT.failed) {
       openSuccessSnackbar("An error occurred while submitting the budget.");
-    } else if (result === async_result.nochange) {
+    } else if (result === ASYNC_RESULT.nochange) {
       openSuccessSnackbar("No changes were made to the budget.", true);
-    } else if (result === async_result.duplicate) {
+    } else if (result === ASYNC_RESULT.duplicate) {
       openSuccessSnackbar("A budget for the month already exists", true);
     }
   }, [isEditMode, selectedMonth, selectedYear, categoryAmounts, budgetSlice, dispatch, saveBatchLogs]);

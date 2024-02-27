@@ -17,7 +17,7 @@ import {
   addExpenseToStateAction,
 } from "../../redux/actions/expenseAction";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import { async_result } from "../../constants/constants";
+import { ASYNC_RESULT } from "../../constants/constants";
 import { setUploadCancelled, setUploadCount, setUploadStatus } from "../../redux/reducer/expenseSlice";
 
 const getAccountTypeId = async (
@@ -109,7 +109,7 @@ export const uploadExpenses = async ({
   categories,
   accountType,
   dispatch,
-}: UploadType): Promise<async_result | UploadErrorMessage[]> => {
+}: UploadType): Promise<ASYNC_RESULT | UploadErrorMessage[]> => {
   let logsToSave: TransactionLogsModel[] = [];
   let expensesWithInvalidDate: UploadErrorMessage[] = [];
   let expensesWithExceedingCharacters: UploadErrorMessage[] = [];
@@ -222,10 +222,10 @@ export const uploadExpenses = async ({
       await Promise.race([batch.commit(), timeout]);
     } catch (error) {
       if (error instanceof Error && error.message === "Commit operation timed out") {
-        return async_result.timeout;
+        return ASYNC_RESULT.timeout;
       } else {
         console.error("Expense Upload : Error saving expenses to Firestore", error);
-        return async_result.error;
+        return ASYNC_RESULT.error;
       }
     }
 
@@ -236,13 +236,13 @@ export const uploadExpenses = async ({
       return [...expensesWithInvalidDate, ...expensesWithExceedingCharacters];
     }
 
-    return async_result.success;
+    return ASYNC_RESULT.success;
   } catch (error) {
     console.error("Expense Upload : Error saving expenses to Firestore", error);
   } finally {
     dispatch(resetUploadProgress());
   }
-  return async_result.success;
+  return ASYNC_RESULT.success;
 };
 
 const validFileTypes = [

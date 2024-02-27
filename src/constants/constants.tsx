@@ -4,7 +4,7 @@ export const ITERATIONS = 1000000;
 export const APP_NAME = "VyFinanceTracker";
 /* !!!! ------------- !!!!*/
 
-export enum async_result {
+export enum ASYNC_RESULT {
   success = "success",
   failed = "failed",
   nochange = "no change",

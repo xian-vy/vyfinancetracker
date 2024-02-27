@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Timestamp } from "firebase/firestore";
 import { addbudgetAction, updatebudgetAction } from "../../redux/actions/budgetAction";
 import TransactionLogsModel from "../../models/TransactionLogsModel";
-import { async_result } from "../../constants/constants";
+import { ASYNC_RESULT } from "../../constants/constants";
 import { BudgetTimeframe } from "../../constants/timeframes";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 
@@ -27,7 +27,7 @@ export const budgetFormSubmit = async ({
   budgetSlice,
   dispatch,
   saveBatchLogs,
-}: BudgetSubmitParams): Promise<async_result> => {
+}: BudgetSubmitParams): Promise<ASYNC_RESULT> => {
   try {
     let operation: operation_types = operation_types.Create;
     const formattedSelectedMonth = selectedMonth.toLocaleString("default", { month: "long" });
@@ -53,17 +53,17 @@ export const budgetFormSubmit = async ({
         saveBatchLogs,
       });
 
-      if (result === async_result.nochange) {
-        return async_result.nochange;
+      if (result === ASYNC_RESULT.nochange) {
+        return ASYNC_RESULT.nochange;
       }
     } else {
       await addBudget({ operation, budgetSlice, monthYearHeader, budgetItems, dispatch, saveBatchLogs });
     }
 
-    return async_result.success;
+    return ASYNC_RESULT.success;
   } catch (error) {
     console.error("Error submitting budgets", error);
-    return async_result.failed;
+    return ASYNC_RESULT.failed;
   }
 };
 
@@ -83,7 +83,7 @@ async function updateBudget({
   budgetItems,
   dispatch,
   saveBatchLogs,
-}: BudgetParams): Promise<async_result> {
+}: BudgetParams): Promise<ASYNC_RESULT> {
   try {
     operation = operation_types.Update;
     const existingBudgetIndex = budgetSlice.findIndex((budget) => budget.monthYear === monthYearHeader);
@@ -123,16 +123,16 @@ async function updateBudget({
           logsToSave.push(log);
         });
         await saveBatchLogs(logsToSave);
-        return async_result.success;
+        return ASYNC_RESULT.success;
       }
     } else {
-      return async_result.nochange;
+      return ASYNC_RESULT.nochange;
     }
   } catch (error) {
     console.error("Error updating budgets:", error);
-    return async_result.failed;
+    return ASYNC_RESULT.failed;
   }
-  return async_result.success;
+  return ASYNC_RESULT.success;
 }
 
 async function addBudget({
@@ -142,13 +142,13 @@ async function addBudget({
   budgetItems,
   dispatch,
   saveBatchLogs,
-}: BudgetParams): Promise<async_result> {
+}: BudgetParams): Promise<ASYNC_RESULT> {
   try {
     operation = operation_types.Create;
 
     const isDuplicate = budgetSlice.some((budget) => budget.monthYear === monthYearHeader);
     if (isDuplicate) {
-      return async_result.duplicate;
+      return ASYNC_RESULT.duplicate;
     }
 
     const budgetBatch: BudgetModel = {
@@ -177,13 +177,13 @@ async function addBudget({
         logsToSave.push(log);
       });
       await saveBatchLogs(logsToSave);
-      return async_result.success;
+      return ASYNC_RESULT.success;
     }
   } catch (error) {
     console.error("Error adding budgets:", error);
-    return async_result.failed;
+    return ASYNC_RESULT.failed;
   }
-  return async_result.success;
+  return ASYNC_RESULT.success;
 }
 
 export const checkForExistingBudget = (date: Date, budgetSlice: BudgetModel[]) => {

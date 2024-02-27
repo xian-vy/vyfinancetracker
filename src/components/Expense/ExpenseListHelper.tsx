@@ -10,7 +10,7 @@ import { db } from "../../firebase";
 import { getUserDocRef } from "../../firebase/UsersService";
 import TransactionLogsModel from "../../models/TransactionLogsModel";
 import { v4 as uuidv4 } from "uuid";
-import { async_result } from "../../constants/constants";
+import { ASYNC_RESULT } from "../../constants/constants";
 
 type Props = {
   dispatch: ThunkDispatch<any, any, any>;
@@ -30,7 +30,7 @@ export const saveMultipleExpenses = async ({
   shouldUpdateAccount,
   newCategoryId,
   newAccountId,
-}: Props): Promise<async_result> => {
+}: Props): Promise<ASYNC_RESULT> => {
   let operation = "";
 
   try {
@@ -76,9 +76,9 @@ export const saveMultipleExpenses = async ({
         operation = "deleted";
       }
     }
-    return async_result.success;
+    return ASYNC_RESULT.success;
   } catch (error) {
     console.error(error);
-    return async_result.error;
+    return ASYNC_RESULT.error;
   }
 };

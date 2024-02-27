@@ -2,7 +2,7 @@ import { CircularProgress } from "@mui/material";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { async_result } from "../../constants/constants";
+import { ASYNC_RESULT } from "../../constants/constants";
 import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { useCategoryContext } from "../../contextAPI/CategoryContext";
 import { hasInternetConnection } from "../../firebase/utils";
@@ -94,7 +94,7 @@ const ExpenseList = (props: Props) => {
       shouldUpdateCategory,
     });
 
-    if (result === async_result.success) {
+    if (result === ASYNC_RESULT.success) {
       openSuccessSnackbar(`Expenses have been ${dialog.actionType === "delete" ? "Deleted" : "Updated"}`);
     } else {
       openSuccessSnackbar("Something went wrong, please try refreshing page.");
