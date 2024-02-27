@@ -194,7 +194,7 @@ describe("Generic GroupDataByCategory function", () => {
   });
   it("should group expenses by category and by weeks of month", () => {
     (getCategoryAndAccountTypeDescription as jest.Mock).mockReturnValue(categoriesWithIds[0].description);
-    const groupedExpenses = GroupDataByCategory(mappedItems, "eee", categoriesWithIds, false, false);
+    const groupedExpenses = GroupDataByCategory(mappedItems, "dd", categoriesWithIds, false, false);
     expect(groupedExpenses).toBeDefined();
     expect(format).toHaveBeenCalled();
   });
