@@ -6,7 +6,7 @@ import { darkTheme, darkThemeLGfont, lightTheme, lightThemeLGfont } from "../The
 import { drawerWidth } from "../constants/size";
 import { HOME } from "../constants/routes";
 import { RootState } from "../redux/store";
-import NavMenu from "./NavMenu/NavMenu";
+import NavigationMain from "./NavMenu/NavigationMain";
 
 interface ProtectedRouteProps {
   redirectPath?: string;
@@ -46,7 +46,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ redirectPath = H
     >
       <Box sx={{ display: "flex", height: "100vh" }}>
         <CssBaseline />
-        <NavMenu />
+        <NavigationMain />
         <Box
           component="main"
           sx={{
