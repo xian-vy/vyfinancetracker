@@ -24,6 +24,7 @@ import LoadingDialog from "../Dialog/LoadingDialog";
 import IncomeList from "./IncomeList";
 import IncomeTableHeader from "./IncomeTableHeader";
 import EntryFormSkeleton from "../Skeleton/EntryFormSkeleton";
+import { SORT_TYPE } from "../../constants/constants";
 const IncomeForm = React.lazy(() => import("./IncomeForm"));
 const IncomeMainPage = () => {
   const location = useLocation();
@@ -40,7 +41,7 @@ const IncomeMainPage = () => {
   const { saveLogs } = useTransactionLogsContext();
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const [selectedTimeframe, setSelectedTimeframe] = useState(FilterTimeframe.Year);
-  const [sortBy, setSortBy] = useState("date");
+  const [sortBy, setSortBy] = useState(SORT_TYPE.date);
 
   const { incomeSource } = useIncomeSourcesContext();
 
@@ -131,7 +132,7 @@ const IncomeMainPage = () => {
     setSelectedTimeframe(filterOption);
   };
 
-  const handleSortChange = (sortBy: string) => {
+  const handleSortChange = (sortBy: SORT_TYPE) => {
     setSortBy(sortBy);
   };
   const theme = useTheme();
@@ -158,7 +159,6 @@ const IncomeMainPage = () => {
               onOpenForm={openBudgetForm}
               onfilterChange={handleFilterOption}
               onSortChange={handleSortChange}
-              currentSort={sortBy}
             />
             <IncomeList
               income={filteredByTimeframe}

@@ -43,6 +43,7 @@ import ExpenseList from "./ExpenseList";
 import ExpenseListTableHeader from "./ExpenseListTableHeader";
 import { FORM_WIDTH } from "../../constants/size";
 import EntryFormSkeleton from "../Skeleton/EntryFormSkeleton";
+import { SORT_TYPE } from "../../constants/constants";
 const ExpenseForm = React.lazy(() => import("./ExpenseForm"));
 
 const ExpenseMainPage = () => {
@@ -62,7 +63,7 @@ const ExpenseMainPage = () => {
   const { saveLogs } = useTransactionLogsContext();
   const { openSuccessSnackbar, SnackbarComponent } = useSnackbarHook();
   const [selectedCategory, setSelectedCategory] = useState<string[]>(["All Categories"]);
-  const [sortBy, setSortBy] = useState("date");
+  const [sortBy, setSortBy] = useState(SORT_TYPE.date);
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } = useTablePagination();
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
@@ -100,9 +101,9 @@ const ExpenseMainPage = () => {
 
   const filteredAndSortedExpenses = useMemo(() => {
     return [...filteredExpenses].sort((a, b) => {
-      if (sortBy === "date") {
+      if (sortBy === SORT_TYPE.date) {
         return b.date.toDate().getTime() - a.date.toDate().getTime();
-      } else if (sortBy === "amount") {
+      } else if (sortBy === SORT_TYPE.amount) {
         return b.amount - a.amount;
       }
       return 0; // Default case if sortBy is not 'date' or 'amount'
@@ -207,7 +208,7 @@ const ExpenseMainPage = () => {
   const handleCategoryChange = (category: string[]) => {
     setSelectedCategory(category);
   };
-  const handleSortChange = (sortBy: string) => {
+  const handleSortChange = (sortBy: SORT_TYPE) => {
     setSortBy(sortBy);
   };
   const gridContainerRef = useRef<HTMLDivElement>(null);
@@ -233,7 +234,6 @@ const ExpenseMainPage = () => {
             onCategoryChange={handleCategoryChange}
             selectedCategory={selectedCategory}
             onSortChange={handleSortChange}
-            currentSort={sortBy}
           />
 
           {isUploading && !uploadCancelled ? (

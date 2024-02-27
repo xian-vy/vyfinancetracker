@@ -12,3 +12,8 @@ export enum async_result {
   timeout = "timeout",
   duplicate = "duplicate",
 }
+
+export enum SORT_TYPE {
+  date = "Date",
+  amount = "Amount",
+}

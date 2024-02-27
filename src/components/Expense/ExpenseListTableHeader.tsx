@@ -2,31 +2,19 @@ import { Add as AddIcon } from "@mui/icons-material";
 import ClearIcon from "@mui/icons-material/Clear";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import {
-  Grid,
-  IconButton,
-  InputAdornment,
-  InputBase,
-  List,
-  ListItemButton,
-  ListItemText,
-  Popover,
-  Stack,
-  Tooltip,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { ThemeColor, getFilterTitle } from "../../helper/utils";
-import { FilterTimeframe } from "../../constants/timeframes";
+import SwapVertIcon from "@mui/icons-material/SwapVert";
+import { Grid, IconButton, InputAdornment, InputBase, Stack, Tooltip, Typography, useTheme } from "@mui/material";
+import React, { useEffect } from "react";
 import { iconSizeXS } from "../../constants/size";
+import { FilterTimeframe } from "../../constants/timeframes";
+import { ThemeColor, getFilterTitle } from "../../helper/utils";
+import { useActionPopover } from "../../hooks/actionHook";
 import { useCategoryList } from "../../hooks/categoryListHook";
 import { useFilterHandlers } from "../../hooks/filterHook";
 import CustomIconButton from "../CustomIconButton";
 import FilterActionsComponent from "../Filter/FilterActionsComponent";
 import FilterTitleAndIcon from "../Filter/FilterTitleAndIcon";
-import SwapVertIcon from "@mui/icons-material/SwapVert";
-import CheckIcon from "@mui/icons-material/Check";
+import { SORT_TYPE } from "../../constants/constants";
 
 interface ExpenseListActionProps {
   onformOpen: () => void;
@@ -34,8 +22,7 @@ interface ExpenseListActionProps {
   onSearch: (searchItem: string) => void;
   onCategoryChange: (categoryDescription: string[]) => void;
   selectedCategory: string[];
-  onSortChange: (sortBy: string) => void;
-  currentSort: string;
+  onSortChange: (sortBy: SORT_TYPE) => void;
 }
 
 const ExpenseListTableHeader: React.FC<ExpenseListActionProps> = ({
@@ -45,7 +32,6 @@ const ExpenseListTableHeader: React.FC<ExpenseListActionProps> = ({
   onCategoryChange,
   selectedCategory,
   onSortChange,
-  currentSort,
 }) => {
   const {
     filterOption,
@@ -63,24 +49,6 @@ const ExpenseListTableHeader: React.FC<ExpenseListActionProps> = ({
     handleMonthFilter,
   } = useFilterHandlers();
 
-  const [sortOpen, setSortOpen] = useState(false);
-  const [anchorSort, setAnchorSort] = useState<HTMLElement | null>(null);
-
-  const handleSortClose = () => {
-    setAnchorSort(null);
-    setSortOpen(false);
-  };
-
-  const handleSortClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setAnchorSort(event.currentTarget);
-    setSortOpen(!filterOpen);
-  };
-
-  const handleSortOptionChange = (option: string) => {
-    onSortChange(option);
-    handleSortClose();
-  };
-
   const { renderCategoryList, selectedCategory: selectedcategory, handleCategoryClick } = useCategoryList();
   const [searchValue, setSearchValue] = React.useState("");
 
@@ -89,6 +57,15 @@ const ExpenseListTableHeader: React.FC<ExpenseListActionProps> = ({
       onCategoryChange(selectedcategory);
     }
   }, [selectedcategory]);
+
+  const handleAction = (action: string, fodder: string) => {
+    onSortChange(action as SORT_TYPE);
+    handleActionClose();
+  };
+  const { ActionPopover, handleActionOpen, handleActionClose } = useActionPopover({
+    actions: [SORT_TYPE.date, SORT_TYPE.amount],
+    handleAction,
+  });
 
   useEffect(() => {
     onfilterChange(filterOption, startDate || undefined, endDate || undefined);
@@ -149,7 +126,7 @@ const ExpenseListTableHeader: React.FC<ExpenseListActionProps> = ({
         </Stack>
 
         <Stack direction="row" sx={{ mt: { xs: 1, sm: 0 } }} alignItems="center" ml={{ xs: -1, sm: 0 }}>
-          <CustomIconButton type="filter" onClick={handleSortClick}>
+          <CustomIconButton type="filter" onClick={(event) => handleActionOpen(event, "fodder")}>
             <Typography variant="caption" style={{ color: ThemeColor(theme) }}>
               Sort
             </Typography>
@@ -193,42 +170,7 @@ const ExpenseListTableHeader: React.FC<ExpenseListActionProps> = ({
         handleYearFilter={handleYearFilter}
         selectedTimeframe={filterOption}
       />
-      <Popover
-        open={sortOpen}
-        anchorEl={anchorSort}
-        onClose={handleSortClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        sx={{
-          "& .MuiPaper-root": {
-            width: 140,
-          },
-        }}
-      >
-        <List>
-          {["date", "amount"].map((filterOption) => (
-            <ListItemButton
-              key={filterOption}
-              onClick={() => handleSortOptionChange(filterOption)}
-              // selected={filterOption === currentSort}
-            >
-              <ListItemText
-                primary={filterOption}
-                sx={{ color: filterOption === currentSort ? theme.palette.primary.main : "inherit" }}
-              />
-              {filterOption === currentSort && (
-                <CheckIcon fontSize="inherit" style={{ color: theme.palette.primary.main }} />
-              )}
-            </ListItemButton>
-          ))}
-        </List>
-      </Popover>
+      {ActionPopover}
     </div>
   );
 };

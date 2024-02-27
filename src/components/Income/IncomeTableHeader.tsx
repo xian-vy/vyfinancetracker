@@ -1,21 +1,21 @@
 import { Add as AddIcon } from "@mui/icons-material";
-import { List, ListItemButton, ListItemText, Popover, Stack, Typography, useTheme } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { ThemeColor, getFilterTitle } from "../../helper/utils";
-import { FilterTimeframe } from "../../constants/timeframes";
+import SwapVertIcon from "@mui/icons-material/SwapVert";
+import { Stack, Typography, useTheme } from "@mui/material";
+import { useEffect } from "react";
 import { iconSizeXS } from "../../constants/size";
+import { FilterTimeframe } from "../../constants/timeframes";
+import { ThemeColor, getFilterTitle } from "../../helper/utils";
+import { useActionPopover } from "../../hooks/actionHook";
 import { useFilterHandlers } from "../../hooks/filterHook";
 import CustomIconButton from "../CustomIconButton";
 import FilterActionsComponent from "../Filter/FilterActionsComponent";
 import FilterTitleAndIcon from "../Filter/FilterTitleAndIcon";
-import SwapVertIcon from "@mui/icons-material/SwapVert";
-import CheckIcon from "@mui/icons-material/Check";
+import { SORT_TYPE } from "../../constants/constants";
 
 interface Props {
   onfilterChange: (filterOption: FilterTimeframe, startDate: Date | undefined, endDate: Date | undefined) => void;
   onOpenForm: () => void;
-  onSortChange: (sortBy: string) => void;
-  currentSort: string;
+  onSortChange: (sortBy: SORT_TYPE) => void;
 }
 const IncomeTableHeader = (props: Props) => {
   const theme = useTheme();
@@ -36,24 +36,6 @@ const IncomeTableHeader = (props: Props) => {
     handleMonthFilter,
   } = useFilterHandlers();
 
-  const [sortOpen, setSortOpen] = useState(false);
-  const [anchorSort, setAnchorSort] = useState<HTMLElement | null>(null);
-
-  const handleSortClose = () => {
-    setAnchorSort(null);
-    setSortOpen(false);
-  };
-
-  const handleSortClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setAnchorSort(event.currentTarget);
-    setSortOpen(!filterOpen);
-  };
-
-  const handleSortOptionChange = (option: string) => {
-    props.onSortChange(option);
-    handleSortClose();
-  };
-
   useEffect(() => {
     props.onfilterChange(filterOption, startDate || undefined, endDate || undefined);
   }, [handleFilterOptionChange]);
@@ -62,10 +44,19 @@ const IncomeTableHeader = (props: Props) => {
     props.onOpenForm();
   };
 
+  const handleAction = (action: string, fodder: string) => {
+    props.onSortChange(action as SORT_TYPE);
+    handleActionClose();
+  };
+  const { ActionPopover, handleActionOpen, handleActionClose } = useActionPopover({
+    actions: [SORT_TYPE.date, SORT_TYPE.amount],
+    handleAction,
+  });
+
   return (
     <Stack direction="row" justifyContent="end" alignItems="center" sx={{ pr: { xs: 0, sm: 1, md: 2 } }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-        <CustomIconButton type="filter" onClick={handleSortClick}>
+        <CustomIconButton type="filter" onClick={(event) => handleActionOpen(event, "fodder")}>
           <Typography variant="caption" style={{ color: ThemeColor(theme) }}>
             Sort
           </Typography>
@@ -86,38 +77,6 @@ const IncomeTableHeader = (props: Props) => {
         </CustomIconButton>
       </div>
 
-      <Popover
-        open={sortOpen}
-        anchorEl={anchorSort}
-        onClose={handleSortClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        sx={{
-          "& .MuiPaper-root": {
-            width: 140,
-          },
-        }}
-      >
-        <List>
-          {["date", "amount"].map((filterOption) => (
-            <ListItemButton key={filterOption} onClick={() => handleSortOptionChange(filterOption)}>
-              <ListItemText
-                primary={filterOption}
-                sx={{ color: filterOption === props.currentSort ? theme.palette.primary.main : "inherit" }}
-              />
-              {filterOption === props.currentSort && (
-                <CheckIcon fontSize="inherit" style={{ color: theme.palette.primary.main }} />
-              )}
-            </ListItemButton>
-          ))}
-        </List>
-      </Popover>
       <FilterActionsComponent
         filterOpen={filterOpen}
         anchorEl={anchorEl}
@@ -130,6 +89,7 @@ const IncomeTableHeader = (props: Props) => {
         handleYearFilter={handleYearFilter}
         selectedTimeframe={filterOption}
       />
+      {ActionPopover}
     </Stack>
   );
 };
