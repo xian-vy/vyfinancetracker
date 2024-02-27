@@ -1,5 +1,4 @@
 import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
-import BallotOutlinedIcon from "@mui/icons-material/BallotOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LineAxisOutlinedIcon from "@mui/icons-material/LineAxisOutlined";
 import { Box, Typography, useTheme } from "@mui/material";
@@ -7,6 +6,7 @@ import React from "react";
 import { ThemeColor } from "../../helper/utils";
 import { iconSize, iconSizeXS } from "../../constants/size";
 import CustomIconButton from "../CustomIconButton";
+import QueryStatsOutlinedIcon from "@mui/icons-material/QueryStatsOutlined";
 interface Props {
   title: string;
   timeframe: string;
@@ -20,7 +20,7 @@ const FilterTitleAndIcon = (props: Props) => {
   if (props.title === "Account Balances") {
     icon = <AccountBalanceOutlinedIcon sx={{ mr: 0.5, fontSize: iconSizeXS }} />;
   } else if (props.title === "Overview") {
-    icon = <BallotOutlinedIcon sx={{ mr: 0.5, fontSize: iconSizeXS }} />;
+    icon = <QueryStatsOutlinedIcon sx={{ mr: 0.5, fontSize: iconSizeXS }} />;
   } else if (props.title.includes("Trends")) {
     icon = <LineAxisOutlinedIcon sx={{ mr: 0.5, fontSize: iconSizeXS }} />;
   }

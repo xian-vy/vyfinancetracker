@@ -80,7 +80,6 @@ const TransactionSummaryItems = (props: Props) => {
         <Stack direction="row" alignItems="center">
           {/* PERCENTAGE ICON  ----------------------------------------------------------------------*/}
 
-          {(!props.dataLoadStatus[props.type] || !props.loading) && props.percentageIcon}
           <Stack direction="column">
             {/* Show loading if budget not ready since its calculated using web worker ----------*/}
             {!props.dataLoadStatus[props.type] || props.loading ? (
@@ -103,6 +102,7 @@ const TransactionSummaryItems = (props: Props) => {
               </Typography>
             )}
           </Stack>
+          {(!props.dataLoadStatus[props.type] || !props.loading) && props.percentageIcon}
         </Stack>
       </Stack>
 
