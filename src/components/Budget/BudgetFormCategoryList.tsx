@@ -34,7 +34,9 @@ const BudgetFormCategoryList = ({ categories, firstTextFieldRef, categoryAmounts
                     <div style={{ display: "flex", alignItems: "center" }}>
                       {categoryIcon && renderIcon(categoryIcon.icon, category.color)}
                       <Typography align="left" variant="body1" pl={1} noWrap>
-                        {category.description}
+                        {category.description.length > 12
+                          ? category.description.substring(0, 12) + ".."
+                          : category.description}{" "}
                       </Typography>
                     </div>
                   </ListItemAvatar>

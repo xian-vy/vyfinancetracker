@@ -6,23 +6,22 @@ import { Timestamp } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { currentDatetoDatePicker } from "../../helper/date";
-import { isValidInput } from "../../helper/utils";
-import AccountsIcons from "../../media/AccountsIcons";
-import IncomeSourceIcons from "../../media/IncomeSourceIcons";
 import { operation_types, txn_types } from "../../constants/collections";
 import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
 import { useTransactionLogsContext } from "../../contextAPI/TransactionLogsContext";
+import { currentDatetoDatePicker } from "../../helper/date";
+import { isValidInput } from "../../helper/utils";
+import AccountsIcons from "../../media/AccountsIcons";
+import IncomeSourceIcons from "../../media/IncomeSourceIcons";
 import AccountTypeModel from "../../models/AccountTypeModel";
 import IncomeModel from "../../models/IncomeModel";
 import IncomeSourcesModel from "../../models/IncomeSourcesModel";
 import TransactionLogsModel from "../../models/TransactionLogsModel";
 import { addincomeAction, updateincomeAction } from "../../redux/actions/incomeAction";
-import EntryFormCategoryDropdown from "../GenericComponents/EntryFormCategoryDropdown";
 import EntryFormButton from "../GenericComponents/EntryFormButton";
+import EntryFormCategoryDropdown from "../GenericComponents/EntryFormCategoryDropdown";
 import EntryFormDatePicker from "../GenericComponents/EntryFormDatePicker";
-import NumericKeypad from "../NumericKeypad";
 
 interface IncomeFormProps {
   editIncome: IncomeModel;
@@ -39,7 +38,6 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ editIncome, onCloseForm, isEdit
 
   const [isLoading, setIsLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(currentDatetoDatePicker);
-  const [amountInput, setAmountInput] = useState<string>("");
   const [accountFormOpen, setAccountFormOpen] = useState(false);
   const [incomeSourceFormOpen, setIncomeSourceFormOpen] = useState(false);
 
@@ -58,7 +56,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ editIncome, onCloseForm, isEdit
     account_id: "",
   });
 
-  const canSave = parseFloat(amountInput) > 0 && isValidInput(amountInput);
+  const canSave = newIncome.amount > 0;
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -68,14 +66,12 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ editIncome, onCloseForm, isEdit
 
           setSelectedDate(dateFromTimestamp);
           setIncome(editIncome);
-          setAmountInput(editIncome.amount.toString());
         } else {
           setIncome((prevIncome) => ({
             ...prevIncome,
             category_id: categoryIdFromUrl || incomeSource[0].id,
             account_id: accountType[0].id,
           }));
-          setAmountInput("");
         }
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -89,32 +85,26 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ editIncome, onCloseForm, isEdit
       setIsLoading(true);
 
       let incomeId: string | undefined = "";
-      const parsedAmount = parseFloat(amountInput);
-
-      const updatedIncome = {
-        ...newIncome,
-        amount: parsedAmount,
-      };
 
       if (isEditMode) {
-        await dispatch(updateincomeAction(updatedIncome));
-        incomeId = updatedIncome.id;
+        await dispatch(updateincomeAction(newIncome));
+        incomeId = newIncome.id;
       } else {
-        const resultAction = await dispatch(addincomeAction(updatedIncome));
+        const resultAction = await dispatch(addincomeAction(newIncome));
         if (addincomeAction.fulfilled.match(resultAction)) {
           incomeId = resultAction.payload.id;
         }
       }
 
-      if (!isEditMode || (isEditMode && editIncome.amount !== updatedIncome.amount)) {
+      if (!isEditMode || (isEditMode && editIncome.amount !== newIncome.amount)) {
         const log: TransactionLogsModel = {
           txn_id: "",
           txn_ref_id: incomeId,
           txn_type: txn_types.Income,
           operation: isEditMode ? operation_types.Update : operation_types.Create,
-          category_id: updatedIncome.category_id,
-          account_id: updatedIncome.account_id,
-          amount: updatedIncome.amount,
+          category_id: newIncome.category_id,
+          account_id: newIncome.account_id,
+          amount: newIncome.amount,
           lastModified: Timestamp.now(),
         };
 
@@ -126,30 +116,9 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ editIncome, onCloseForm, isEdit
     } catch (error) {
       console.error("Error saving income", error);
     } finally {
-      setAmountInput("0");
       setIncome({ ...newIncome, amount: 0, id: "", description: "" });
-      //setSelectedDate(currentDatetoDatePicker);
       setIsLoading(false);
     }
-  };
-
-  const handleCalculatorInput = (input: string) => {
-    setAmountInput((prevInput) => {
-      const newAmount = prevInput + input;
-
-      if (isValidInput(newAmount) && newAmount.length <= 8) {
-        return newAmount;
-      } else {
-        return prevInput;
-      }
-    });
-  };
-  const handleClearInput = () => {
-    setIncome((prevIncome) => ({
-      ...prevIncome,
-      amount: 0,
-    }));
-    setAmountInput("");
   };
   const handleCategoryChange = (category_id: string) => {
     setIncome((prevIncome) => ({
@@ -220,11 +189,24 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ editIncome, onCloseForm, isEdit
           InputLabelProps={{ shrink: true }}
         />
 
-        <Typography textAlign="center" sx={{ fontSize: "0.9rem", m: 0 }}>
-          {new Intl.NumberFormat("en-US", { maximumSignificantDigits: 7 }).format(Number(amountInput)) || "0.00"}
-        </Typography>
-
-        <NumericKeypad onInput={handleCalculatorInput} disabled={isLoading} onClear={handleClearInput} />
+        <TextField
+          required
+          inputMode="numeric"
+          inputProps={{ inputMode: "numeric" }}
+          size="small"
+          label="Amount"
+          value={newIncome.amount}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (isValidInput(value) && value.length <= 8) {
+              setIncome({
+                ...newIncome,
+                amount: parseFloat(value) || 0,
+              });
+            }
+          }}
+          InputLabelProps={{ shrink: true }}
+        />
 
         <EntryFormButton isLoading={isLoading} canSave={canSave} isEditMode={isEditMode} />
       </Stack>

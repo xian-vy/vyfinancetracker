@@ -1,7 +1,7 @@
 import { Skeleton, Stack } from "@mui/material";
 import React from "react";
 
-const EntryFormSkeleton = ({ items = 6 }: { items?: number }) => {
+const EntryFormSkeleton = ({ items = 5 }: { items?: number }) => {
   return (
     <Stack direction="column" alignItems="center" sx={{ width: "100%" }} spacing={1.5} padding={1.5}>
       <Stack direction="row" justifyContent="space-between" sx={{ width: "100%" }}>

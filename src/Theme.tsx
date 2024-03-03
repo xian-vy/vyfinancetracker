@@ -10,7 +10,7 @@ xl, extra-large: 1536px
 
 */
 const commonTypography = {
-  fontFamily: 'Roboto, "Helvetica", "Arial", sans-serif',
+  fontFamily: 'Poppins, "Helvetica", "Arial", sans-serif',
   h1: {
     fontSize: "2rem",
   },

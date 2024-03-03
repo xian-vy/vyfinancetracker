@@ -101,13 +101,18 @@ const DrawerNav = ({
           <AccountIcon isLoading={isLoading} collapsedDrawer={collapsedDrawer} />
         </React.Suspense>
         {menuItems.map((item) => (
-          <List key={item.key} sx={{ mx: collapsedDrawer ? 1 : 3, height: "26px", pt: 0, mt: 1 }}>
+          <List key={item.key} sx={{ mx: collapsedDrawer ? 1 : 3, height: "30px", pt: 0, mt: 1 }}>
             <ListItem disablePadding sx={{ minWidth: collapsedDrawer ? "40px" : "auto" }}>
               <ListItemButton
                 component={Link}
                 to={item.path}
                 sx={{
-                  backgroundColor: location.pathname === item.path ? (isDarkMode ? "#333" : "#eaeaea") : "",
+                  border:
+                    location.pathname === item.path
+                      ? isDarkMode
+                        ? "1px solid #333"
+                        : "1px solid #ccc"
+                      : "solid 1px transparent",
                   py: 0.4,
                   borderRadius: 4,
                   display: "flex",
@@ -159,7 +164,7 @@ const DrawerNav = ({
         open={drawerOpen}
         onClose={toggleDrawer}
         anchor={isXSScreen ? "bottom" : "left"}
-        transitionDuration={powerSavingMode ? 0 : undefined}
+        transitionDuration={0}
       >
         <div>{drawer}</div>
         <Stack

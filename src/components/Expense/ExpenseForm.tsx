@@ -1,17 +1,17 @@
 // ExpenseForm
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, Dialog, DialogContent, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Dialog, DialogContent, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { Timestamp } from "firebase/firestore"; // Import Firestore
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { operation_types, txn_types } from "../../constants/collections";
+import { useTransactionLogsContext } from "../../contextAPI/TransactionLogsContext";
 import { currentDatetoDatePicker } from "../../helper/date";
 import { isValidInput } from "../../helper/utils";
 import AccountsIcons from "../../media/AccountsIcons";
 import CategoryIcons from "../../media/CategoryIcons";
-import { operation_types, txn_types } from "../../constants/collections";
-import { useTransactionLogsContext } from "../../contextAPI/TransactionLogsContext";
 import AccountTypeModel from "../../models/AccountTypeModel";
 import CategoryModel from "../../models/CategoryModel";
 import ExpenseModel from "../../models/ExpenseModel";
@@ -22,7 +22,6 @@ import EntryFormAutoCompleteInput from "../GenericComponents/EntryFormAutoComple
 import EntryFormButton from "../GenericComponents/EntryFormButton";
 import EntryFormCategoryDropdown from "../GenericComponents/EntryFormCategoryDropdown";
 import EntryFormDatePicker from "../GenericComponents/EntryFormDatePicker";
-import NumericKeypad from "../NumericKeypad";
 
 const CategoryForm = React.lazy(() => import("../Maintenance/Category/CategoryForm"));
 const AccountsForm = React.lazy(() => import("../Maintenance/Accounts/AccountsForm"));
@@ -68,9 +67,8 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
   const descriptionRef = useRef<HTMLInputElement | null>(null);
-  const [amountInput, setAmountInput] = useState<string>("");
 
-  const canSave = parseFloat(amountInput) > 0 && isValidInput(amountInput);
+  const canSave = newExpense.amount > 0;
 
   useEffect(() => {
     if (isEditMode) {
@@ -78,7 +76,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
         const dateFromTimestamp = editExpense.date.toDate();
         setSelectedDate(dateFromTimestamp);
         setNewExpense(editExpense);
-        setAmountInput(editExpense.amount.toString());
       } catch (error) {
         console.error("isEditMode", error);
       }
@@ -88,7 +85,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
         category_id: categoryIdFromUrl || categoryContext[0]?.id,
         account_id: accountType[0]?.id,
       }));
-      setAmountInput("");
     }
     //descriptionRef.current?.focus();
   }, [editExpense]);
@@ -97,32 +93,27 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
     try {
       setIsLoading(true);
 
-      const parsedAmount = parseFloat(amountInput);
-      const updatedExpense = {
-        ...newExpense,
-        amount: parsedAmount,
-      };
       let expenseId: string | undefined = "";
 
       if (isEditMode) {
-        await dispatch(updateExpenseAction(updatedExpense));
-        expenseId = updatedExpense.id;
+        await dispatch(updateExpenseAction(newExpense));
+        expenseId = newExpense.id;
       } else {
-        const resultAction = await dispatch(addExpenseAction(updatedExpense));
+        const resultAction = await dispatch(addExpenseAction(newExpense));
         if (addExpenseAction.fulfilled.match(resultAction)) {
           expenseId = resultAction.payload.id;
         }
       }
 
-      if (!isEditMode || (isEditMode && editExpense.amount !== updatedExpense.amount)) {
+      if (!isEditMode || (isEditMode && editExpense.amount !== newExpense.amount)) {
         const log: TransactionLogsModel = {
           txn_id: "",
           txn_ref_id: expenseId,
           txn_type: txn_types.Expenses,
           operation: isEditMode ? operation_types.Update : operation_types.Create,
-          category_id: updatedExpense.category_id,
-          account_id: updatedExpense.account_id,
-          amount: updatedExpense.amount,
+          category_id: newExpense.category_id,
+          account_id: newExpense.account_id,
+          amount: newExpense.amount,
           lastModified: Timestamp.now(),
         };
 
@@ -135,8 +126,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
     } catch (error) {
       console.error("Error saving expense:", error);
     } finally {
-      setAmountInput("0");
-
       setNewExpense({
         ...newExpense,
         description: "",
@@ -149,24 +138,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
     }
   };
 
-  const handleCalculatorInput = (input: string) => {
-    setAmountInput((prevInput) => {
-      const newAmount = prevInput + input;
-
-      if (isValidInput(newAmount) && newAmount.length <= 8) {
-        return newAmount;
-      } else {
-        return prevInput;
-      }
-    });
-  };
-  const handleClearInput = () => {
-    setNewExpense((prevExpense) => ({
-      ...prevExpense,
-      amount: 0,
-    }));
-    setAmountInput("");
-  };
   const handleCategoryChange = (category_id: string) => {
     setNewExpense((prevExpense) => ({
       ...prevExpense,
@@ -222,6 +193,25 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
           />
         </Stack>
 
+        <TextField
+          required
+          inputMode="numeric"
+          inputProps={{ inputMode: "numeric" }}
+          size="small"
+          label="Amount"
+          value={newExpense.amount}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (isValidInput(value) && value.length <= 8) {
+              setNewExpense({
+                ...newExpense,
+                amount: parseFloat(value) || 0,
+              });
+            }
+          }}
+          InputLabelProps={{ shrink: true }}
+        />
+
         <EntryFormAutoCompleteInput
           options={
             newExpense.description.trim().length > 0
@@ -239,11 +229,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
           }}
           inputRef={descriptionRef}
         />
-
-        <Typography textAlign="center" sx={{ fontSize: "0.9rem", m: 0 }}>
-          {new Intl.NumberFormat("en-US", { maximumSignificantDigits: 7 }).format(Number(amountInput)) || "0.00"}
-        </Typography>
-        <NumericKeypad onInput={handleCalculatorInput} disabled={isLoading} onClear={handleClearInput} />
 
         <EntryFormButton isLoading={isLoading} canSave={canSave} isEditMode={isEditMode} />
       </Stack>

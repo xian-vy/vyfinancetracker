@@ -13,7 +13,7 @@ const EntryFormButton: React.FC<EntryFormButtonProps> = ({ canSave, isLoading, i
   return (
     <div>
       <Button
-        size="small"
+        size="medium"
         disabled={!canSave || isLoading}
         variant="outlined"
         type="submit"

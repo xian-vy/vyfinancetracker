@@ -113,13 +113,13 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
               {displayName && (
                 <Typography
                   textAlign="left"
-                  variant="body1"
                   sx={{
                     whiteSpace: "nowrap",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
-                    height: "0.9rem",
+                    height: "1.1rem",
                     fontWeight: "bold",
+                    fontSize: "0.75rem",
                   }}
                 >
                   {displayName}
@@ -127,8 +127,13 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
               )}
               <Typography
                 textAlign="left"
-                variant={user?.isAnonymous ? "body2" : "body1"}
-                sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", height: "1.1rem" }}
+                sx={{
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  height: "1rem",
+                  fontSize: "0.7rem",
+                }}
               >
                 {email}
               </Typography>
