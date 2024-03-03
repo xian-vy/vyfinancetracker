@@ -174,24 +174,23 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
           setNewData={setNewExpense}
         />
 
-        <Stack direction="row" justifyContent="center" alignItems="center" spacing={0.5}>
-          <EntryFormCategoryDropdown
-            label="Category"
-            category_id={newExpense.category_id || ""}
-            categories={categoryContext}
-            onChange={handleCategoryChange}
-            icons={CategoryIcons}
-            onAddNewCategory={() => setCategoryFormOpen(true)}
-          />
-          <EntryFormCategoryDropdown
-            label="Account Type"
-            category_id={newExpense.account_id || ""}
-            categories={accountType}
-            onChange={handleAccountsChange}
-            icons={AccountsIcons}
-            onAddNewCategory={() => setAccountFormOpen(true)}
-          />
-        </Stack>
+        <EntryFormAutoCompleteInput
+          options={
+            newExpense.description.trim().length > 0
+              ? uniqueDescriptions.filter((option) => option.includes(newExpense.description))
+              : []
+          }
+          value={newExpense.description}
+          onInputChange={(event, newInputValue) => {
+            setNewExpense({ ...newExpense, description: newInputValue });
+          }}
+          onChange={(e) => {
+            if (e.target.value.length <= 70) {
+              setNewExpense({ ...newExpense, description: e.target.value });
+            }
+          }}
+          inputRef={descriptionRef}
+        />
 
         <TextField
           required
@@ -212,23 +211,24 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
           InputLabelProps={{ shrink: true }}
         />
 
-        <EntryFormAutoCompleteInput
-          options={
-            newExpense.description.trim().length > 0
-              ? uniqueDescriptions.filter((option) => option.includes(newExpense.description))
-              : []
-          }
-          value={newExpense.description}
-          onInputChange={(event, newInputValue) => {
-            setNewExpense({ ...newExpense, description: newInputValue });
-          }}
-          onChange={(e) => {
-            if (e.target.value.length <= 70) {
-              setNewExpense({ ...newExpense, description: e.target.value });
-            }
-          }}
-          inputRef={descriptionRef}
-        />
+        <Stack direction="row" justifyContent="center" alignItems="center" spacing={0.5}>
+          <EntryFormCategoryDropdown
+            label="Category"
+            category_id={newExpense.category_id || ""}
+            categories={categoryContext}
+            onChange={handleCategoryChange}
+            icons={CategoryIcons}
+            onAddNewCategory={() => setCategoryFormOpen(true)}
+          />
+          <EntryFormCategoryDropdown
+            label="Account Type"
+            category_id={newExpense.account_id || ""}
+            categories={accountType}
+            onChange={handleAccountsChange}
+            icons={AccountsIcons}
+            onAddNewCategory={() => setAccountFormOpen(true)}
+          />
+        </Stack>
 
         <EntryFormButton isLoading={isLoading} canSave={canSave} isEditMode={isEditMode} />
       </Stack>
