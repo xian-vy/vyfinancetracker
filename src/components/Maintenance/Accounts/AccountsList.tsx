@@ -137,7 +137,7 @@ const AccountsList = () => {
         <Grid container p={1} spacing={1} justifyContent="space-between" alignItems="center">
           <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
             <PaymentsOutlinedIcon sx={{ fontSize: iconSizeXS }} />
-            <Typography variant="body1" align="left" ml={0.5}>
+            <Typography variant="h6" align="left" ml={0.5}>
               Accounts
             </Typography>
           </div>

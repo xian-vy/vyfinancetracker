@@ -1,9 +1,9 @@
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../media/logoAnimate.svg";
 import { HOME } from "../../constants/routes";
+import { getOperatingSystem } from "../../helper/utils";
 
 const About = ({ isPrivate }: { isPrivate?: boolean | null }) => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const About = ({ isPrivate }: { isPrivate?: boolean | null }) => {
           alt="Logo"
           style={{ width: "26px", height: "26px", cursor: "pointer", padding: 0 }}
         />
-        <Typography component="h2" align="center" variant="body2" ml={0.5}>
+        <Typography component="h2" align="center" variant="h6" ml={0.5}>
           Finance Tracker
         </Typography>
       </Stack>
@@ -28,7 +28,7 @@ const About = ({ isPrivate }: { isPrivate?: boolean | null }) => {
         built with
       </Typography>
       <Typography variant="body1" textAlign="center">
-        React, Typescript, Redux, MUI, Firebase
+        React, Typescript, Redux, MUI, Firebase, Recharts
       </Typography>
       <Typography variant="body1" textAlign="center" mb={3}>
         and Web Crypto API
@@ -42,36 +42,23 @@ const About = ({ isPrivate }: { isPrivate?: boolean | null }) => {
           Feedback
         </Typography>
       </Stack>
-      <Stack direction="column" justifyContent="start" alignItems="center" mb={2}>
-        <Link
-          href="https://vyfinancetracker.web.app"
-          target="_blank"
-          rel="noopener noreferrer"
-          color="inherit"
-          variant="body1"
-          sx={{ cursor: "pointer" }}
-        >
-          {"vyfinancetracker.web.app"}
-        </Link>
-        <Typography variant="caption" textAlign="center">
-          Website
-        </Typography>
-      </Stack>
-      <Stack direction="column" justifyContent="start" alignItems="center" mt={2}>
-        <Stack direction="row" justifyContent="center" alignItems="center">
+      {(getOperatingSystem() === "Android" || getOperatingSystem() === "iOS") && (
+        <Stack direction="column" justifyContent="start" alignItems="center" mb={2}>
           <Link
-            variant="body1"
-            href="https://www.buymeacoffee.com/xianvy"
+            href="https://vyfinancetracker.web.app"
             target="_blank"
             rel="noopener noreferrer"
             color="inherit"
+            variant="body1"
             sx={{ cursor: "pointer" }}
           >
-            buy me a coffee
+            {"vyfinancetracker.web.app"}
           </Link>
-          <FavoriteIcon sx={{ fontSize: "14px", ml: 0.5 }} />
+          <Typography variant="caption" textAlign="center">
+            Website
+          </Typography>
         </Stack>
-      </Stack>
+      )}
     </Stack>
   );
 };

@@ -66,7 +66,7 @@ export default function SignIn() {
               color="primary"
               sx={{ height: 16, width: 25 }}
             />
-            <Typography align="center" sx={{ fontSize: { xs: "0.7rem", lg: "0.75rem" } }}>
+            <Typography align="center" sx={{ fontSize: { xs: "0.65rem", lg: "0.7rem" } }}>
               I agree to the{" "}
               <Link
                 onClick={() => setAgreementDialog({ open: true, doc: PRIVACY_POLICY })}
@@ -78,7 +78,7 @@ export default function SignIn() {
               and
             </Typography>
           </Stack>
-          <Typography align="center" sx={{ fontSize: { xs: "0.7rem", lg: "0.75rem" } }}>
+          <Typography align="center" sx={{ fontSize: { xs: "0.65rem", lg: "0.7rem" } }}>
             acknowledge being subject to its{" "}
             <Link
               onClick={() => setAgreementDialog({ open: true, doc: TERMS_OF_USE })}

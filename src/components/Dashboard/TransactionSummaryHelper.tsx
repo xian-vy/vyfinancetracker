@@ -111,6 +111,7 @@ export const swiperBreakpointsConfig = {
     slidesPerView: 2.3,
   },
   1100: {
+    spaceBetween: 15,
     slidesPerView: 2.6,
   },
   1350: {

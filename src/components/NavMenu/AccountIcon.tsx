@@ -109,18 +109,15 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
 
         {!collapsedDrawer && (
           <>
-            <Box sx={{ display: "flex", flexDirection: "column", pl: 1, flexGrow: 1 }}>
+            <Box sx={{ display: "flex", flexDirection: "column", pl: 1, width: "75%" }}>
               {displayName && (
                 <Typography
                   textAlign="left"
+                  variant="h6"
                   sx={{
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
                     height: "1.1rem",
-                    fontWeight: "bold",
-                    fontSize: "0.75rem",
                   }}
+                  noWrap
                 >
                   {displayName}
                 </Typography>

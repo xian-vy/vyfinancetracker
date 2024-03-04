@@ -216,10 +216,10 @@ const SavingsContributionForm = (props: Props) => {
         <CircularProgress color="inherit" />
       </Backdrop>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={2} pt={2} px={1}>
-        <Stack direction="row" alignItems="center">
+        <Stack direction="row" alignItems="center" width="85%">
           {iconObject && renderIcon(iconObject.icon, color)}
 
-          <Typography variant="h6" ml={0.5}>
+          <Typography variant="h6" ml={0.5} noWrap>
             {newSavings.description}
           </Typography>
         </Stack>
@@ -300,7 +300,7 @@ const SavingsContributionForm = (props: Props) => {
             color="inherit"
             endIcon={<Add />}
           >
-            {loading ? "UPDATING..." : "ADD"}
+            {loading ? "UPDATING..." : "ADD CONTRIBUTION"}
           </Button>
         </Stack>
 

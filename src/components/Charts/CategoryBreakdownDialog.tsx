@@ -47,7 +47,7 @@ const CategoryBreakdownDialog = (props: Props) => {
         open={props.openDialog}
         onClose={() => props.onDialogClose()}
         PaperProps={{
-          sx: { borderRadius: 2 },
+          sx: { borderRadius: 3 },
         }}
         fullWidth
         maxWidth="xs"

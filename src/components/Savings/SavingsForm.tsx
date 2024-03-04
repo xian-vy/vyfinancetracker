@@ -27,6 +27,7 @@ import { getRandomColor } from "../../firebase/defaultData";
 import SavingGoalsModel from "../../models/SavingGoalsModel";
 import EntryFormDatePicker from "../GenericComponents/EntryFormDatePicker";
 import IconListComponent from "../Maintenance/IconListComponent";
+import EntryFormButton from "../GenericComponents/EntryFormButton";
 
 interface Props {
   onAddSavings: (savings: SavingGoalsModel) => void;
@@ -276,16 +277,8 @@ const SavingsForm = (props: Props) => {
             </Select>
           </FormControl>
         </Collapse>
-        <Button
-          disabled={!canSave}
-          variant="outlined"
-          type="submit"
-          size="small"
-          color={props.isEditMode ? "info" : "inherit"}
-          endIcon={props.isEditMode ? <CheckOutlinedIcon /> : <AddIcon />}
-        >
-          {props.isEditMode ? "UPDATE" : "CREATE"}
-        </Button>
+
+        <EntryFormButton isLoading={false} canSave={canSave} isEditMode={props.isEditMode} />
       </Stack>
     </>
   );

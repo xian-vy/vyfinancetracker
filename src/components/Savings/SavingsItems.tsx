@@ -68,20 +68,13 @@ export function SavingsItems({
         >
           {/** Savings Name /More Icon -----------------------------------------------------------------*/}
           <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <Stack alignItems="center" direction="row">
+            <Stack alignItems="center" direction="row" width="85%">
               {iconObject && renderIcon(iconObject.icon, savings.color)}
-              <Typography
-                align="left"
-                variant="h6"
-                style={{
-                  textOverflow: "ellipsis",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
-                }}
-                ml={0.5}
-              >
-                {toTitleCase(savings.description)}
-              </Typography>
+              <Tooltip title={savings.description}>
+                <Typography align="left" variant="h6" ml={0.5} noWrap>
+                  {toTitleCase(savings.description)}
+                </Typography>
+              </Tooltip>
             </Stack>
 
             <IconButton onClick={(event) => handleMoreIconClick(event, savings)} sx={{ mr: -1 }}>

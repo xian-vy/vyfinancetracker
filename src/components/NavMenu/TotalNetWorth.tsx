@@ -25,13 +25,8 @@ const TotalNetWorth = ({ collapsedDrawer }: { collapsedDrawer: boolean }) => {
       {!collapsedDrawer && (
         <Tooltip title="Total NetWorth">
           <Stack direction="row" my={0.5} justifyContent="center" alignItems="center" sx={{ cursor: "pointer" }}>
-            <Coin fill={isDarkMode ? "#ccc" : "#666"} style={{ width: "12px", height: "12px", marginRight: "5px" }} />
-            <Typography
-              textAlign="center"
-              variant="body1"
-              fontWeight="bold"
-              sx={{ color: totalBalance < 0 ? "salmon" : "inherit" }}
-            >
+            <Coin fill={isDarkMode ? "#ccc" : "#666"} style={{ width: "14px", height: "14px", marginRight: "5px" }} />
+            <Typography textAlign="center" variant="h4" sx={{ color: totalBalance < 0 ? "salmon" : "inherit" }}>
               {isMasked
                 ? "****"
                 : totalBalance === 0

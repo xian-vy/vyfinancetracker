@@ -11,15 +11,7 @@ xl, extra-large: 1536px
 */
 const commonTypography = {
   fontFamily: 'Poppins, "Helvetica", "Arial", sans-serif',
-  h1: {
-    fontSize: "2rem",
-  },
-  h2: {
-    fontSize: "1.8rem",
-  },
-  h3: {
-    fontSize: "1.5rem",
-  },
+
   h4: {
     fontSize: "0.94rem",
   },
@@ -30,10 +22,13 @@ const commonTypography = {
     fontSize: "0.8rem",
   },
   body1: {
-    fontSize: "0.75rem",
+    fontSize: "0.8rem",
+  },
+  body2: {
+    fontSize: "0.85rem",
   },
   caption: {
-    fontSize: "0.7rem",
+    fontSize: "0.75rem",
   },
 };
 
@@ -127,14 +122,6 @@ const commonComponents = {
 let lightTheme = createTheme({
   typography: {
     ...commonTypography,
-    h6: {
-      ...commonTypography.h6,
-      color: "#333",
-    },
-    h3: {
-      ...commonTypography.h3,
-      color: "#333",
-    },
   },
   components: {
     ...commonComponents,
@@ -194,14 +181,6 @@ let lightTheme = createTheme({
 let darkTheme = createTheme({
   typography: {
     ...commonTypography,
-    h6: {
-      ...commonTypography.h6,
-      color: "#ccc",
-    },
-    h3: {
-      ...commonTypography.h3,
-      color: "#ccc",
-    },
   },
   components: {
     ...commonComponents,
@@ -289,7 +268,7 @@ let lightThemeLGfont = createTheme({
     ...lightTheme.typography,
     caption: {
       ...lightTheme.typography.caption,
-      fontSize: "0.75rem",
+      fontSize: "0.8rem",
     },
     body1: {
       ...lightTheme.typography.body1,

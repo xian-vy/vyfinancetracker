@@ -76,7 +76,7 @@ const TrendByCategoryChart = ({
               }}
               axisLine={false}
               tickLine={false}
-              width={smScreen ? 30 : undefined}
+              width={smScreen ? 35 : undefined}
             />
 
             <Tooltip

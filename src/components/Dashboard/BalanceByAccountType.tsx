@@ -160,7 +160,7 @@ const BalanceByAccountType = () => {
                 spaceBetween: 15,
               },
               1024: {
-                spaceBetween: 20,
+                spaceBetween: 15,
               },
             }}
           >
@@ -199,7 +199,7 @@ const BalanceByAccountType = () => {
                               </Typography>
                             </Stack>
                             <Typography
-                              variant="h6"
+                              variant="h4"
                               style={{ color: accountDetails.balance < 0 ? PERCENTAGE_DECREASE : "inherit" }}
                               sx={typographyStyle}
                             >

@@ -141,7 +141,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ editIncome, onCloseForm, isEdit
         </IconButton>
       </Box>
       <Stack
-        spacing={1.5}
+        spacing={2}
         padding={1.5}
         component="form"
         onSubmit={(e) => {

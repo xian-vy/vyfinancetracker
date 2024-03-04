@@ -61,7 +61,7 @@ const FilterTransactionLogs = (props: Props) => {
       >
         <Stack direction="row" justifyContent="flex-start" alignItems="center">
           <InfoOutlinedIcon sx={{ cursor: "pointer", fontSize: iconSizeXS }} onClick={() => setInfo(true)} />
-          <Typography variant="body1" ml={0.5}>
+          <Typography variant="h6" ml={0.5}>
             Recent Transactions {"(" + props.totalLogs + ")"}
           </Typography>
         </Stack>

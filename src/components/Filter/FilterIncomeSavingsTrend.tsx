@@ -61,12 +61,11 @@ const FilterBudgetExpenseTrend = (props: Props) => {
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Stack direction="row" alignItems="center">
           {icon}
-          <Typography ml={0.5}>
+          <Typography ml={0.5} variant="h6">
             {props.title}
             <span
               style={{
                 marginLeft: "5px",
-                fontWeight: "bold",
               }}
             >
               {isMasked && props.txnType === txn_types.Income

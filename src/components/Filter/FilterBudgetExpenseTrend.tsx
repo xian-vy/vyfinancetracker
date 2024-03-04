@@ -75,12 +75,11 @@ const FilterBudgetExpenseTrend = (props: Props) => {
         <Stack direction="row" justifyContent="space-between" alignItems="center" flexGrow={1}>
           <Stack direction="row" alignItems="center">
             {icon}
-            <Typography ml={0.5}>
+            <Typography ml={0.5} variant="h6">
               {props.title}
               <span
                 style={{
                   marginLeft: "5px",
-                  fontWeight: "bold",
                 }}
               >
                 {formatShortAmountWithCurrency(props.totalAmount, false, true)}

@@ -160,7 +160,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
       </Box>
       <Stack
         component="form"
-        spacing={1.5}
+        spacing={2}
         padding={1.5}
         onSubmit={(e) => {
           e.preventDefault();

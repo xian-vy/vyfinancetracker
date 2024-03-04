@@ -86,7 +86,7 @@ const ExpenseFileUpload = () => {
         id="file-upload-input"
         disabled={isUploading}
       />
-      <Stack direction="row" alignItems="center" ml={{ xs: 0, md: 2 }}>
+      <Stack direction="row" alignItems="center" ml={{ xs: 1, md: 2 }}>
         <FileUploadOutlinedIcon sx={{ fontSize: "16px" }} onClick={handleFileClick} />
 
         <Hidden smDown>
