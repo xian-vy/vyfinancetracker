@@ -186,8 +186,6 @@ const IncomeSourceList = () => {
         onClose={() => setDeleteFormOpen(false)}
         onDelete={handleDeleteIncomeSource}
         description={editIncomeSource?.description || " "}
-        description2={""}
-        date={""}
       />
     </div>
   );

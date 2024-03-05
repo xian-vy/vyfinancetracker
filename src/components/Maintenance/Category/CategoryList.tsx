@@ -240,8 +240,6 @@ const CategoryList = () => {
         onClose={() => setDeleteFormOpen(false)}
         onDelete={handleDeleteCategory}
         description={editCategory?.description || " "}
-        description2={""}
-        date={""}
       />
     </div>
   );

@@ -295,7 +295,6 @@ const SavingsContributionForm = (props: Props) => {
           <Button
             disabled={!canSave || loading || goalAmount <= 0}
             variant="outlined"
-            size="small"
             type="submit"
             color="inherit"
             endIcon={<Add />}

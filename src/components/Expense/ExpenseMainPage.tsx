@@ -271,8 +271,6 @@ const ExpenseMainPage = () => {
         onClose={handleCloseForm}
         onDelete={handleDeleteExpense}
         description={expenseToDelete?.description || " "}
-        description2={getCategoryAndAccountTypeDescription(expenseToDelete?.category_id || "", categories)}
-        date={TimestamptoDate(expenseToDelete?.date || Timestamp.now(), "MMM dd, yyyy")}
       />
     </Grid>
   );

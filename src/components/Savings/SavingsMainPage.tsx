@@ -292,8 +292,6 @@ const SavingsMainPage = () => {
         onClose={handleCloseForm}
         onDelete={handleDeleteSavings}
         description={editedSavings?.description || ""}
-        description2={"N/A"}
-        date={TimestamptoDate(editedSavings?.startDate || Timestamp.now(), "MMM dd, yyyy")}
       />
       {SnackbarComponent}
     </>

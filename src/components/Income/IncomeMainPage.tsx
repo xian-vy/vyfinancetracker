@@ -194,8 +194,6 @@ const IncomeMainPage = () => {
         onClose={handleCloseForm}
         onDelete={handleDeleteIncome}
         description={incomeToDelete?.description || ""}
-        date={TimestamptoDate(incomeToDelete?.date || Timestamp.now(), "MMM dd, yyyy")}
-        description2={getCategoryAndAccountTypeDescription(incomeToDelete?.category_id || "", incomeSource)}
       />
     </>
   );

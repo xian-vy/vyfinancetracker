@@ -1,14 +1,9 @@
-import CloseIcon from "@mui/icons-material/Close";
-import { Box, Button, Dialog, DialogActions, DialogContent, IconButton, Typography, useTheme } from "@mui/material";
-import React from "react";
-import ClearIcon from "@mui/icons-material/Clear";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography, useTheme } from "@mui/material";
 interface Props {
   isDialogOpen: boolean;
   onClose: () => void;
   onDelete: () => void;
-  date: string;
   description: string;
-  description2: string;
 }
 
 const DeleteConfirmationDialog = (props: Props) => {
@@ -19,46 +14,23 @@ const DeleteConfirmationDialog = (props: Props) => {
       open={props.isDialogOpen}
       onClose={props.onClose}
       PaperProps={{
-        sx: { background: isDarkMode ? "#1e1e1e" : "#fff", borderRadius: 4, width: 340 },
+        sx: { background: isDarkMode ? "#1e1e1e" : "#fff", borderRadius: 2, width: 400 },
       }}
     >
-      <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ px: 2, py: 2 }}>
-        <Typography variant="body2" mt={0.3}>
-          <strong>{props.description.toUpperCase().substring(0, 30) + ".."} </strong>
-        </Typography>
-        <IconButton
-          onClick={() => props.onClose()}
-          style={{
-            cursor: "pointer",
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      </Box>
-      <DialogContent sx={{ pt: 0, px: 1, pb: 1 }}>
-        {props.description2 && (
-          <Typography variant="body1" pl={2}>
-            <strong>Category:</strong> {props.description2}
-          </Typography>
-        )}
-        {props.date && (
-          <Typography variant="body1" pl={2} mt={0.5}>
-            <strong>Date:</strong> {props.date}
-          </Typography>
-        )}
-        <DialogActions sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-          <Button
-            variant="outlined"
-            onClick={props.onDelete}
-            color="error"
-            endIcon={<ClearIcon fontSize="small" sx={{ color: theme.palette.error.main }} />}
-            fullWidth
-            sx={{ mx: 2 }}
-          >
-            Delete
-          </Button>
-        </DialogActions>
+      <DialogTitle>
+        <Typography textAlign="center">Are you sure you want to delete the item?</Typography>
+      </DialogTitle>
+      <DialogContent sx={{ px: 1, py: 3 }}>
+        <Typography textAlign="center">{props.description.toUpperCase()}</Typography>
       </DialogContent>
+      <DialogActions sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+        <Button onClick={() => props.onClose()} color="inherit" fullWidth sx={{ mx: 2 }}>
+          Cancel
+        </Button>
+        <Button onClick={props.onDelete} color="error" fullWidth sx={{ mx: 2 }}>
+          Delete
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 };

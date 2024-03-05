@@ -76,7 +76,7 @@ const CustomMontFilter = (props: Props) => {
               variant="outlined"
               component="span"
               color="inherit"
-              startIcon={<TuneIcon />}
+              endIcon={<TuneIcon />}
               onClick={handleFormSubmit}
             >
               FILTER

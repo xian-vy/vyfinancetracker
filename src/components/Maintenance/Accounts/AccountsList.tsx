@@ -214,8 +214,6 @@ const AccountsList = () => {
         onClose={() => setDeleteFormOpen(false)}
         onDelete={handleDeleteAccountType}
         description={editAccountType?.description || " "}
-        description2={""}
-        date={""}
       />
     </div>
   );
