@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import React, { useMemo, useState } from "react";
 import CategoryIcons from "../media/CategoryIcons";
-import { iconSizeXS } from "../constants/size";
+import { iconSizeSM, iconSizeXS } from "../constants/size";
 import { useCategoryContext } from "../contextAPI/CategoryContext";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
@@ -45,7 +45,7 @@ export const useCategoryList = () => {
   };
 
   function renderIcon(icon: React.ReactElement, color: string) {
-    return React.cloneElement(icon, { style: { color: color, fontSize: iconSizeXS } });
+    return React.cloneElement(icon, { style: { color: color, fontSize: iconSizeSM } });
   }
 
   const handleCategoryClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -142,6 +142,9 @@ export const useCategoryList = () => {
         transformOrigin={{
           vertical: "top",
           horizontal: "right",
+        }}
+        slotProps={{
+          paper: { style: { minWidth: 220 } },
         }}
         transitionDuration={powerSavingMode ? 0 : undefined}
       >

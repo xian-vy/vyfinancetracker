@@ -1,25 +1,20 @@
 import { Add as AddIcon } from "@mui/icons-material";
 import BalanceIcon from "@mui/icons-material/Balance";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Dialog, DialogContent, LinearProgress, Stack, Typography, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { iconSizeXS } from "../../constants/size";
 import { ThemeColor, formatShortAmountWithCurrency } from "../../helper/utils";
-import { iconSize, iconSizeXS } from "../../constants/size";
 import { RootState } from "../../redux/store";
 import CustomIconButton from "../CustomIconButton";
 
 export default function BudgetListHeader({
-  selectedTimeframe,
   openBudgetForm,
-  handleFilterClick,
   totalBudget,
   totalExpense,
   filterDate,
 }: {
-  selectedTimeframe: string;
   openBudgetForm: () => void;
-  handleFilterClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   totalBudget: number;
   totalExpense: number;
   filterDate: string;
@@ -102,7 +97,6 @@ export default function BudgetListHeader({
             <Typography
               sx={{
                 color: totalExpense > totalBudget ? "salmon" : isDarkMode ? "#ccc" : "#333",
-                fontWeight: "bold",
               }}
               variant="caption"
             >
@@ -110,28 +104,18 @@ export default function BudgetListHeader({
             </Typography>
             <Typography mx={0.5}>{" / "}</Typography>
 
-            <Typography variant="caption" sx={{ fontWeight: "bold" }}>
-              {formattedBudget}
-            </Typography>
+            <Typography variant="caption">{formattedBudget}</Typography>
             <BalanceIcon sx={{ fontSize: iconSizeXS, ml: 1 }} />
           </Stack>
         </Stack>
       </Stack>
-      <Stack direction="row" alignItems="center" justifyContent="center">
-        <CustomIconButton onClick={handleFilterClick} type="filter">
-          <Typography variant="caption" style={{ color: ThemeColor(theme) }}>
-            {selectedTimeframe}
-          </Typography>
-          <ExpandMoreIcon fontSize={iconSize} />
-        </CustomIconButton>
 
-        <CustomIconButton onClick={openBudgetForm} type="add" style={{ marginLeft: 1 }}>
-          <Typography variant="caption" sx={{ color: ThemeColor(theme) }}>
-            {"Add / Edit"}
-          </Typography>
-          <AddIcon sx={{ fontSize: iconSizeXS }} />
-        </CustomIconButton>
-      </Stack>
+      <CustomIconButton onClick={openBudgetForm} type="add" style={{ marginLeft: 1 }}>
+        <Typography variant="caption" sx={{ color: ThemeColor(theme) }}>
+          {"Add / Edit"}
+        </Typography>
+        <AddIcon sx={{ fontSize: iconSizeXS }} />
+      </CustomIconButton>
 
       <Dialog
         open={open}

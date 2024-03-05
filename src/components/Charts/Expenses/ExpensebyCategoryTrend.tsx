@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { FilterAndGroupExpense } from "../../../helper/ExpenseHelper";
 import { getFilterTitle } from "../../../helper/utils";
 import { GroupTransactionByDateAndCategoriesWorker } from "../../../helper/workers/workerHelper";
-import { yearFilters } from "../../../constants/timeframes";
+import { FilterTimeframe, yearFilters } from "../../../constants/timeframes";
 import { txn_types } from "../../../constants/collections";
 import { useCategoryContext } from "../../../contextAPI/CategoryContext";
 import { useFilterHandlers } from "../../../hooks/filterHook";
@@ -13,11 +13,22 @@ import CustomYearFilter from "../../Filter/CustomYearFilter";
 import FilterBudgetExpenseTrend from "../../Filter/FilterBudgetExpenseTrend";
 import TrendByCategoryChart from "../TrendByCategoryChart";
 
+type chartDataType = {
+  date: string;
+  categories: {
+    category: string | undefined;
+    total: number;
+    color: string;
+  }[];
+};
+
 interface Props {
   title: string;
+  onCategoryChange: (categoryDescription: string[]) => void;
+  onDateFilterChange: (filterOption: FilterTimeframe, startDate: Date | undefined, endDate: Date | undefined) => void;
 }
 
-const ExpensebyCategoryTrend: React.FC<Props> = ({ title }) => {
+const ExpensebyCategoryTrend: React.FC<Props> = ({ title, onDateFilterChange, onCategoryChange }) => {
   const expenses = useSelector((state: RootState) => state.expenses.expenses);
 
   const [selectedCategory, setSelectedCategory] = useState<string[]>(["All Categories"]);
@@ -38,6 +49,16 @@ const ExpensebyCategoryTrend: React.FC<Props> = ({ title }) => {
     handleMonthFilter,
   } = useFilterHandlers();
 
+  useEffect(() => {
+    onDateFilterChange(filterOption, startDate || undefined, endDate || undefined);
+  }, [handleFilterOptionChange]);
+
+  useEffect(() => {
+    if (selectedCategory) {
+      onCategoryChange(selectedCategory);
+    }
+  }, [selectedCategory]);
+
   const { categories } = useCategoryContext();
   const worker = useMemo(
     () => new Worker(new URL("../../../helper/workers/trendChartWorker", import.meta.url)),
@@ -48,15 +69,6 @@ const ExpensebyCategoryTrend: React.FC<Props> = ({ title }) => {
     () => FilterAndGroupExpense(filterOption, expenses, categories, startDate || undefined, endDate || undefined, true),
     [filterOption, expenses, categories, startDate, endDate]
   );
-
-  type chartDataType = {
-    date: string;
-    categories: {
-      category: string | undefined;
-      total: number;
-      color: string;
-    }[];
-  };
 
   const [chartData, setChartData] = useState<chartDataType[] | undefined>(undefined);
 

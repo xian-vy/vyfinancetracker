@@ -1,15 +1,26 @@
 import { Grid, Paper, useTheme } from "@mui/material";
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import BudgetbyCategoryTrend from "../Charts/Budget/BudgetbyCategoryTrend";
 import BudgetList from "./BudgetList";
+import { FilterTimeframe } from "../../constants/timeframes";
 
 const BudgetMainPage = () => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
-
   const location = useLocation();
   const { openForm } = location.state || {};
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [selectedTimeframe, setSelectedTimeframe] = useState(FilterTimeframe.Year);
+
+  const handleDateFilterChange = (selectedTimeframe: FilterTimeframe, startDate?: Date, endDate?: Date) => {
+    if (startDate && endDate) {
+      setStartDate(startDate);
+      setEndDate(endDate);
+    }
+    setSelectedTimeframe(selectedTimeframe);
+  };
 
   const gridContainerRef = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
@@ -26,12 +37,17 @@ const BudgetMainPage = () => {
           sx={{ borderRadius: 4 }}
           variant={isDarkMode ? "elevation" : "outlined"}
         >
-          <BudgetbyCategoryTrend title="Budget" type="Budget" />
+          <BudgetbyCategoryTrend title="Budget" onDateFilterChange={handleDateFilterChange} />
         </Paper>
       </Grid>
       <Grid item xs={12} lg={12}>
         <Paper sx={{ borderRadius: 4, minHeight: 600 }} variant={isDarkMode ? "elevation" : "outlined"}>
-          <BudgetList URLopenForm={openForm} />
+          <BudgetList
+            URLopenForm={openForm}
+            startDate={startDate}
+            endDate={endDate}
+            selectedTimeframe={selectedTimeframe}
+          />
         </Paper>
       </Grid>
     </Grid>

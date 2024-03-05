@@ -1,50 +1,40 @@
 import { Dialog, DialogContent, Grid, Stack, useTheme } from "@mui/material";
 import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { FilterExpenseAndBudgetbyCategory } from "./BudgetListHelper";
+import { FORM_WIDTH } from "../../constants/size";
 import { filterBudgetByDateRange } from "../../helper/BudgetHelper";
 import { filterDataByDateRange } from "../../helper/GenericTransactionHelper";
 import { getFilterTitle } from "../../helper/utils";
-import { FORM_WIDTH } from "../../constants/size";
-import { useFilterHandlers } from "../../hooks/filterHook";
 import { RootState } from "../../redux/store";
-import FilterActionsComponent from "../Filter/FilterActionsComponent";
-import BudgetListHeader from "./BudgetListHeader";
-import { BudgetListItems } from "./BudgetListItems";
 import EntryFormSkeleton from "../Skeleton/EntryFormSkeleton";
+import BudgetListHeader from "./BudgetListHeader";
+import { FilterExpenseAndBudgetbyCategory } from "./BudgetListHelper";
+import { BudgetListItems } from "./BudgetListItems";
+import { FilterTimeframe } from "../../constants/timeframes";
+
+interface Props {
+  selectedTimeframe: FilterTimeframe;
+  startDate: Date | null;
+  endDate: Date | null;
+  URLopenForm: boolean;
+}
 
 const BudgetForm = React.lazy(() => import("./BudgetForm"));
 
-const BudgetList = ({ URLopenForm }: { URLopenForm: boolean }) => {
+const BudgetList = ({ selectedTimeframe, startDate, endDate, URLopenForm }: Props) => {
   const [isBudgetFormOpen, setIsBudgetFormOpen] = useState(URLopenForm || false);
   const powerSavingMode = useSelector((state: RootState) => state.powerSaving.enabled);
-
-  const {
-    filterOption,
-    customMonthOpen,
-    customYearOpen,
-    startDate,
-    anchorEl,
-    filterOpen,
-    handleFilterClick,
-    handleFilterClose,
-    endDate,
-    handleFilterOptionChange,
-    handleCloseForm,
-    handleYearFilter,
-    handleMonthFilter,
-  } = useFilterHandlers();
 
   const budgets = useSelector((state: RootState) => state.budget.budgets);
   const expenses = useSelector((state: RootState) => state.expenses.expenses);
 
   const filteredExpense = useMemo(() => {
-    return filterDataByDateRange(expenses, "date", filterOption, startDate || undefined, endDate || undefined);
-  }, [expenses, filterOption, startDate, endDate]);
+    return filterDataByDateRange(expenses, "date", selectedTimeframe, startDate || undefined, endDate || undefined);
+  }, [expenses, selectedTimeframe, startDate, endDate]);
 
   const { budgetItems: filteredBudget } = useMemo(() => {
-    return filterBudgetByDateRange(budgets, filterOption, startDate || undefined, endDate || undefined);
-  }, [budgets, filterOption, startDate, endDate]);
+    return filterBudgetByDateRange(budgets, selectedTimeframe, startDate || undefined, endDate || undefined);
+  }, [budgets, selectedTimeframe, startDate, endDate]);
 
   const finalData = useMemo(() => {
     return FilterExpenseAndBudgetbyCategory(filteredExpense, filteredBudget);
@@ -55,15 +45,13 @@ const BudgetList = ({ URLopenForm }: { URLopenForm: boolean }) => {
   const totalExpense = filteredExpense.reduce((acc, expense) => acc + expense.amount, 0);
   const totalBudget = filteredBudget.reduce((acc, budget) => acc + budget.amount, 0);
 
-  const filter = getFilterTitle(filterOption, startDate, endDate);
+  const filter = getFilterTitle(selectedTimeframe, startDate, endDate);
   return (
     <Stack direction="column" sx={{ p: 1 }}>
       <BudgetListHeader
-        selectedTimeframe={filter}
         openBudgetForm={() => {
           setIsBudgetFormOpen(true);
         }}
-        handleFilterClick={handleFilterClick}
         totalExpense={totalExpense}
         totalBudget={totalBudget}
         filterDate={filter}
@@ -100,19 +88,6 @@ const BudgetList = ({ URLopenForm }: { URLopenForm: boolean }) => {
           </React.Suspense>
         </DialogContent>
       </Dialog>
-
-      <FilterActionsComponent
-        filterOpen={filterOpen}
-        anchorEl={anchorEl}
-        handleFilterClose={handleFilterClose}
-        customMonthOpen={customMonthOpen}
-        customYearOpen={customYearOpen}
-        handleFilterOptionChange={handleFilterOptionChange}
-        handleCloseForm={handleCloseForm}
-        handleMonthFilter={handleMonthFilter}
-        handleYearFilter={handleYearFilter}
-        selectedTimeframe={filterOption}
-      />
     </Stack>
   );
 };

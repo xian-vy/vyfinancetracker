@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { FilterAndGroupIncome } from "../../../helper/IncomeHelper";
 import { getFilterTitle } from "../../../helper/utils";
 import { GroupTransactionByDateAndCategoriesWorker } from "../../../helper/workers/workerHelper";
-import { yearFilters } from "../../../constants/timeframes";
+import { FilterTimeframe, yearFilters } from "../../../constants/timeframes";
 import { txn_types } from "../../../constants/collections";
 import { useIncomeSourcesContext } from "../../../contextAPI/IncomeSourcesContext";
 import { useFilterHandlers } from "../../../hooks/filterHook";
@@ -12,9 +12,6 @@ import CustomYearFilter from "../../Filter/CustomYearFilter";
 import FilterIncomeSavingsTrend from "../../Filter/FilterIncomeSavingsTrend";
 import TrendByCategoryChart from "../TrendByCategoryChart";
 
-interface ExpenseTrendProps {
-  incomes: IncomeModel[];
-}
 type chartDataType = {
   date: string;
   categories: {
@@ -24,7 +21,12 @@ type chartDataType = {
   }[];
 };
 
-const IncomebyCategoryTrend: React.FC<ExpenseTrendProps> = ({ incomes }) => {
+interface ExpenseTrendProps {
+  incomes: IncomeModel[];
+  onDateFilterChange: (filterOption: FilterTimeframe, startDate: Date | undefined, endDate: Date | undefined) => void;
+}
+
+const IncomebyCategoryTrend: React.FC<ExpenseTrendProps> = ({ incomes, onDateFilterChange }) => {
   const {
     filterOption,
     customMonthOpen,
@@ -36,6 +38,11 @@ const IncomebyCategoryTrend: React.FC<ExpenseTrendProps> = ({ incomes }) => {
     handleYearFilter,
     handleMonthFilter,
   } = useFilterHandlers();
+
+  useEffect(() => {
+    onDateFilterChange(filterOption, startDate || undefined, endDate || undefined);
+  }, [handleFilterOptionChange]);
+
   const { incomeSource } = useIncomeSourcesContext();
   const worker = useMemo(
     () => new Worker(new URL("../../../helper/workers/trendChartWorker", import.meta.url)),

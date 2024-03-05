@@ -189,24 +189,22 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ editIncome, onCloseForm, isEdit
           InputLabelProps={{ shrink: true }}
         />
 
-        <Stack direction="row" justifyContent="center" alignItems="center" spacing={0.5}>
-          <EntryFormCategoryDropdown
-            label="Income Source"
-            category_id={newIncome.category_id || ""}
-            categories={incomeSource}
-            onChange={handleCategoryChange}
-            icons={IncomeSourceIcons}
-            onAddNewCategory={() => setIncomeSourceFormOpen(true)}
-          />
-          <EntryFormCategoryDropdown
-            label="Account Type"
-            category_id={newIncome.account_id || ""}
-            categories={accountType}
-            onChange={handleAccountsChange}
-            icons={AccountsIcons}
-            onAddNewCategory={() => setAccountFormOpen(true)}
-          />
-        </Stack>
+        <EntryFormCategoryDropdown
+          label="Income Source"
+          category_id={newIncome.category_id || ""}
+          categories={incomeSource}
+          onChange={handleCategoryChange}
+          icons={IncomeSourceIcons}
+          onAddNewCategory={() => setIncomeSourceFormOpen(true)}
+        />
+        <EntryFormCategoryDropdown
+          label="Account Type"
+          category_id={newIncome.account_id || ""}
+          categories={accountType}
+          onChange={handleAccountsChange}
+          icons={AccountsIcons}
+          onAddNewCategory={() => setAccountFormOpen(true)}
+        />
 
         <EntryFormButton isLoading={isLoading} canSave={canSave} isEditMode={isEditMode} />
       </Stack>

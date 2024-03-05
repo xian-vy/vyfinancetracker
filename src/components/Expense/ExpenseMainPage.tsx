@@ -1,32 +1,19 @@
-import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  Divider,
-  Grid,
-  Hidden,
-  Paper,
-  Stack,
-  TablePagination,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Dialog, DialogContent, Grid, Paper, useTheme } from "@mui/material";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { Timestamp } from "firebase/firestore";
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { filterDataByDateRange } from "../../helper/GenericTransactionHelper";
-import { generateExpenseList } from "../../helper/ReportHelper";
-import { TimestamptoDate } from "../../helper/date";
-import { ThemeColor, getFilterTitle } from "../../helper/utils";
-import { FilterTimeframe } from "../../constants/timeframes";
 import { operation_types, txn_types } from "../../constants/collections";
+import { SORT_TYPE } from "../../constants/constants";
+import { FORM_WIDTH } from "../../constants/size";
+import { FilterTimeframe } from "../../constants/timeframes";
 import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { useCategoryContext } from "../../contextAPI/CategoryContext";
 import { useTransactionLogsContext } from "../../contextAPI/TransactionLogsContext";
 import { getCategoryAndAccountTypeDescription } from "../../firebase/utils";
+import { filterDataByDateRange } from "../../helper/GenericTransactionHelper";
+import { TimestamptoDate } from "../../helper/date";
 import { useTablePagination } from "../../hooks/paginationHook";
 import useSnackbarHook from "../../hooks/snackbarHook";
 import ExpenseModel from "../../models/ExpenseModel";
@@ -36,14 +23,12 @@ import { RootState } from "../../redux/store";
 import ExpensebyCategoryTrend from "../Charts/Expenses/ExpensebyCategoryTrend";
 import DeleteConfirmationDialog from "../Dialog/DeleteConfirmationDialog";
 import UploadingDialog from "../Dialog/UploadingDialog";
+import EntryFormSkeleton from "../Skeleton/EntryFormSkeleton";
 import GenericChartSkeleton from "../Skeleton/GenericChartSkeleton";
 import GenericTableSkeleton from "../Skeleton/GenericTableSkeleton";
-import ExpenseFileUpload from "./ExpenseFileUpload";
 import ExpenseList from "./ExpenseList";
-import ExpenseListTableHeader from "./ExpenseListTableHeader";
-import { FORM_WIDTH } from "../../constants/size";
-import EntryFormSkeleton from "../Skeleton/EntryFormSkeleton";
-import { SORT_TYPE } from "../../constants/constants";
+import ExpenseListFooter from "./ExpenseListFooter";
+import ExpenseListHeader from "./ExpenseListHeader";
 const ExpenseForm = React.lazy(() => import("./ExpenseForm"));
 
 const ExpenseMainPage = () => {
@@ -67,16 +52,8 @@ const ExpenseMainPage = () => {
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } = useTablePagination();
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const [editedExpense, setEditedExpense] = useState<ExpenseModel>({
-    id: "",
-    description: "",
-    amount: 0,
-    account_id: "",
-    date: Timestamp.now(),
-    category_id: "",
-  });
+  const [editedExpense, setEditedExpense] = useState({} as ExpenseModel);
   const [selectedTimeframe, setSelectedTimeframe] = useState(FilterTimeframe.Year);
 
   const expenses = useSelector((state: RootState) => state.expenses.expenses);
@@ -134,7 +111,7 @@ const ExpenseMainPage = () => {
   }, [filteredExpenses]);
 
   /// FILTER  ////////////////////////////////////////////////////////////////////
-  const handleFilter = (filterOption: FilterTimeframe, startDate?: Date, endDate?: Date) => {
+  const handleDateFilterChange = (filterOption: FilterTimeframe, startDate?: Date, endDate?: Date) => {
     if (startDate && endDate) {
       setStartDate(startDate);
       setEndDate(endDate);
@@ -221,92 +198,47 @@ const ExpenseMainPage = () => {
     <Grid container spacing={{ xs: 1, sm: 1.5, lg: 2 }} pb={{ xs: 10, md: 5 }} ref={gridContainerRef}>
       <Grid item xs={12} lg={12}>
         <Paper elevation={isDarkMode ? 1 : 0} sx={{ borderRadius: 4 }} variant={isDarkMode ? "elevation" : "outlined"}>
-          {isUploading && !uploadCancelled ? <GenericChartSkeleton /> : <ExpensebyCategoryTrend title="Expenses" />}
+          {isUploading && !uploadCancelled ? (
+            <GenericChartSkeleton />
+          ) : (
+            <ExpensebyCategoryTrend
+              title="Expenses"
+              onDateFilterChange={handleDateFilterChange}
+              onCategoryChange={handleCategoryChange}
+            />
+          )}
         </Paper>
       </Grid>
 
       <Grid item xs={12}>
         <Paper sx={{ borderRadius: 4, p: 1 }} variant={isDarkMode ? "elevation" : "outlined"}>
-          <ExpenseListTableHeader
+          <ExpenseListHeader
             onSearch={handleSearchChange}
             onformOpen={openExpenseForm}
-            onfilterChange={handleFilter}
-            onCategoryChange={handleCategoryChange}
-            selectedCategory={selectedCategory}
             onSortChange={handleSortChange}
           />
 
           {isUploading && !uploadCancelled ? (
             <GenericTableSkeleton />
           ) : (
-            <>
-              <ExpenseList
-                filteredExpenses={paginatedExpenses}
-                onDeleteExpense={handleDeleteClick}
-                onEditExpense={handleEditExpense}
-              />
-            </>
+            <ExpenseList
+              filteredExpenses={paginatedExpenses}
+              onDeleteExpense={handleDeleteClick}
+              onEditExpense={handleEditExpense}
+            />
           )}
 
-          <Grid
-            container
-            direction="row"
-            alignContent="center"
-            justifyContent="space-between"
-            alignItems="center"
-            flexWrap="wrap"
-          >
-            <Stack direction="row" alignItems="center" height="100%">
-              <ExpenseFileUpload />
-              <Divider orientation="vertical" sx={{ height: 12, border: `solid 1px #666`, mx: 1.5 }} />
-              <FileDownloadOutlinedIcon
-                sx={{ fontSize: "16px" }}
-                onClick={() =>
-                  generateExpenseList(
-                    filteredExpenses,
-                    categories,
-                    accountType,
-                    getFilterTitle(selectedTimeframe, startDate || null, endDate || null)
-                  )
-                }
-              />
-
-              <Stack direction="row">
-                <Hidden smDown>
-                  <Button
-                    component="span"
-                    color="inherit"
-                    onClick={() =>
-                      generateExpenseList(
-                        filteredExpenses,
-                        categories,
-                        accountType,
-                        getFilterTitle(selectedTimeframe, startDate || null, endDate || null)
-                      )
-                    }
-                    sx={{
-                      color: ThemeColor(theme),
-                      minWidth: { xs: 35, md: 40 },
-                      textTransform: "none",
-                      fontSize: "12px",
-                    }}
-                  >
-                    Export
-                  </Button>
-                </Hidden>
-              </Stack>
-            </Stack>
-            <TablePagination
-              component="div"
-              count={filteredAndSortedExpenses.length}
-              page={filteredAndSortedExpenses.length <= 0 ? 0 : page}
-              onPageChange={handleChangePage}
-              rowsPerPage={rowsPerPage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              labelRowsPerPage={isSmallScreen ? "" : "Rows per Page:"}
-              rowsPerPageOptions={[10, 50, 100, 300]}
-            />
-          </Grid>
+          <ExpenseListFooter
+            filteredAndSortedExpenses={filteredAndSortedExpenses}
+            filteredExpenses={filteredExpenses}
+            startDate={startDate}
+            endDate={endDate}
+            selectedTimeframe={selectedTimeframe}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            handleChangePage={handleChangePage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+          />
         </Paper>
       </Grid>
 

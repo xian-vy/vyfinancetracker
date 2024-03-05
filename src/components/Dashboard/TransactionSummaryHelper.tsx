@@ -94,9 +94,9 @@ export const determinePercentageIcon = (percentageIncrease: number, currentSUM: 
   return isNaN(percentageIncrease) || percentageIncrease === 0 ? (
     <></>
   ) : currentSUM > prevSUM ? (
-    <NorthIcon sx={{ color: determinePercentageColor(percentageIncrease), fontSize: "12px" }} />
+    <NorthIcon sx={{ color: determinePercentageColor(percentageIncrease), fontSize: "16px" }} />
   ) : (
-    <SouthIcon sx={{ color: determinePercentageColor(percentageIncrease), fontSize: "12px" }} />
+    <SouthIcon sx={{ color: determinePercentageColor(percentageIncrease), fontSize: "16px" }} />
   );
 };
 

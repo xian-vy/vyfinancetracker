@@ -22,7 +22,7 @@ import IncomeTrend from "../Charts/Income/IncomebyCategoryTrend";
 import DeleteConfirmationDialog from "../Dialog/DeleteConfirmationDialog";
 import LoadingDialog from "../Dialog/LoadingDialog";
 import IncomeList from "./IncomeList";
-import IncomeTableHeader from "./IncomeTableHeader";
+import IncomeListHeader from "./IncomeListHeader";
 import EntryFormSkeleton from "../Skeleton/EntryFormSkeleton";
 import { SORT_TYPE } from "../../constants/constants";
 const IncomeForm = React.lazy(() => import("./IncomeForm"));
@@ -64,7 +64,7 @@ const IncomeMainPage = () => {
   );
   //BUDGET FORM MODAL//////////////////////////////////////////////////////////////////////////
 
-  const openBudgetForm = () => {
+  const openIncomeForm = () => {
     setIsIncomeFormOpen(true);
   };
 
@@ -124,7 +124,7 @@ const IncomeMainPage = () => {
     setIsIncomeFormOpen(true);
   };
 
-  const handleFilterOption = (filterOption: FilterTimeframe, startDate?: Date, endDate?: Date) => {
+  const handleDateFilterChange = (filterOption: FilterTimeframe, startDate?: Date, endDate?: Date) => {
     if (startDate && endDate) {
       setStartDate(startDate);
       setEndDate(endDate);
@@ -149,17 +149,13 @@ const IncomeMainPage = () => {
       <Grid container spacing={{ xs: 1, sm: 1.5, lg: 2 }} pb={{ xs: 10, md: 5 }} ref={gridContainerRef}>
         <Grid item xs={12} lg={12}>
           <Paper sx={{ borderRadius: 4 }} variant={isDarkMode ? "elevation" : "outlined"}>
-            <IncomeTrend incomes={incomeSlice} />
+            <IncomeTrend incomes={incomeSlice} onDateFilterChange={handleDateFilterChange} />
           </Paper>
         </Grid>
 
         <Grid item xs={12} lg={12}>
           <Paper sx={{ p: 1, borderRadius: 4 }} variant={isDarkMode ? "elevation" : "outlined"}>
-            <IncomeTableHeader
-              onOpenForm={openBudgetForm}
-              onfilterChange={handleFilterOption}
-              onSortChange={handleSortChange}
-            />
+            <IncomeListHeader onOpenForm={openIncomeForm} onSortChange={handleSortChange} />
             <IncomeList
               income={filteredByTimeframe}
               onDeleteIncome={handleDeleteClick}

@@ -9,6 +9,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
   IconButton,
   List,
   ListItemText,
@@ -78,13 +79,13 @@ const ExpenseListDialog = ({
         open={open}
         onClose={onClose}
         PaperProps={{
-          sx: { borderRadius: 4, background: isDarkMode ? "#1e1e1e" : "inherit" },
+          sx: { borderRadius: 4, background: isDarkMode ? "#1e1e1e" : "#fff" },
         }}
-        maxWidth="md"
+        maxWidth="sm"
         fullWidth
         transitionDuration={0}
       >
-        <DialogTitle sx={{ px: { xs: 1.5, sm: 2 }, py: 1 }}>
+        <DialogTitle sx={{ px: { xs: 2, sm: 3 }, py: 1.5 }}>
           <Box display="flex" justifyContent="space-between" alignItems="center">
             <Typography variant="h6">
               {"Items to " + actionType || "Update"} {"(" + selectedExpenses.length + ")"}
@@ -94,9 +95,8 @@ const ExpenseListDialog = ({
             </IconButton>
           </Box>
         </DialogTitle>
-        {/* Dialog  --------------------------------------------------------------------------------------------------*/}
-
-        <DialogContent dividers sx={{ px: { xs: 1, md: 3 }, py: 0 }}>
+        <Divider sx={{ mx: 2 }} />
+        <DialogContent sx={{ px: { xs: 1, md: 3 }, py: 0 }}>
           {/* List  --------------------------------------------------------------------------------------------------*/}
           <List
             sx={{
@@ -116,8 +116,9 @@ const ExpenseListDialog = ({
             })}
           </List>
         </DialogContent>
+        <Divider sx={{ mx: 2 }} />
         <DialogActions sx={{ display: "flex", flexDirection: "column" }}>
-          <Stack direction="column" justifyContent="center" sx={{ width: "100%", px: { xs: 0, sm: 1 } }}>
+          <Stack direction="column" justifyContent="center" sx={{ width: "100%", px: { xs: 1, sm: 2 } }}>
             {actionType === "update" && (
               <>
                 {/* Category  --------------------------------------------------------------------------------------------------*/}
@@ -163,14 +164,13 @@ const ExpenseListDialog = ({
               </>
             )}
           </Stack>
-          <Stack direction="row" justifyContent="center" mt={2}>
+          <Stack direction="row" justifyContent="center" mt={1}>
             <Button
               disabled={
                 selectedExpenses.length === 0 ||
                 (actionType === "update" ? !updateAccount && !updateCategory : false) ||
                 isLoading
               }
-              size="small"
               variant="outlined"
               color={actionType === "delete" ? "error" : "info"}
               endIcon={
@@ -183,7 +183,7 @@ const ExpenseListDialog = ({
                 )
               }
               onClick={handleMultipleUpdateDelete}
-              sx={{ width: 150 }}
+              sx={{ width: 200 }}
             >
               {isLoading ? (actionType === "delete" ? "Deleting" : "Updating") : actionType || "UPDATE"}{" "}
             </Button>

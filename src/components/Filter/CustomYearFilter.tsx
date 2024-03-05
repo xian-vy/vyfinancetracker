@@ -74,7 +74,6 @@ const CustomYearFilter = (props: Props) => {
             </LocalizationProvider>
 
             <Button
-              size="small"
               variant="outlined"
               component="span"
               color="inherit"

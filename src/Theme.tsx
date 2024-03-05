@@ -104,8 +104,8 @@ const commonComponents = {
     styleOverrides: {
       root: {
         "& svg": {
-          width: "18px",
-          height: "18px",
+          width: "20px",
+          height: "20px",
         },
       },
     },
@@ -174,6 +174,9 @@ let lightTheme = createTheme({
     mode: "light",
     background: {
       default: "#f6f7f9",
+    },
+    text: {
+      primary: "#000",
     },
   },
 });

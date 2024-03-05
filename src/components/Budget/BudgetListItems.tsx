@@ -62,15 +62,15 @@ export function BudgetListItems({
               </Typography>
               <Typography align="left" variant="caption" pl={1}>
                 Budget:{" "}
-                <strong style={{ fontSize: "0.75rem" }}>
+                <span style={{ fontSize: "0.75rem" }}>
                   {formatShortAmountWithCurrency(Math.round(totalBudgetAmount), false, true)}
-                </strong>
+                </span>
               </Typography>
               <Typography align="left" variant="caption" pl={1}>
                 Remaining:{" "}
-                <strong style={{ fontSize: "0.75rem", color: remainingBalance < 0 ? "salmon" : "inherit" }}>
+                <span style={{ fontSize: "0.75rem", color: remainingBalance < 0 ? "salmon" : "inherit" }}>
                   {formatShortAmountWithCurrency(remainingBalance, false, true)}
-                </strong>
+                </span>
               </Typography>
             </Stack>
           </Stack>

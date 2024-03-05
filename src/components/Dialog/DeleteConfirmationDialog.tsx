@@ -2,7 +2,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Dialog, DialogActions, DialogContent, IconButton, Typography, useTheme } from "@mui/material";
 import React from "react";
 import ClearIcon from "@mui/icons-material/Clear";
-
 interface Props {
   isDialogOpen: boolean;
   onClose: () => void;
@@ -19,10 +18,8 @@ const DeleteConfirmationDialog = (props: Props) => {
     <Dialog
       open={props.isDialogOpen}
       onClose={props.onClose}
-      maxWidth="xs"
-      fullWidth
       PaperProps={{
-        sx: { background: isDarkMode ? "#1e1e1e" : "#fff", borderRadius: 3 },
+        sx: { background: isDarkMode ? "#1e1e1e" : "#fff", borderRadius: 4, width: 340 },
       }}
     >
       <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ px: 2, py: 2 }}>
@@ -49,13 +46,14 @@ const DeleteConfirmationDialog = (props: Props) => {
             <strong>Date:</strong> {props.date}
           </Typography>
         )}
-        <DialogActions sx={{ display: "flex", justifyContent: "flex-end", mt: 2, mx: 1 }}>
+        <DialogActions sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
           <Button
-            size="small"
             variant="outlined"
             onClick={props.onDelete}
             color="error"
             endIcon={<ClearIcon fontSize="small" sx={{ color: theme.palette.error.main }} />}
+            fullWidth
+            sx={{ mx: 2 }}
           >
             Delete
           </Button>

@@ -211,24 +211,22 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
           InputLabelProps={{ shrink: true }}
         />
 
-        <Stack direction="row" justifyContent="center" alignItems="center" spacing={0.5}>
-          <EntryFormCategoryDropdown
-            label="Category"
-            category_id={newExpense.category_id || ""}
-            categories={categoryContext}
-            onChange={handleCategoryChange}
-            icons={CategoryIcons}
-            onAddNewCategory={() => setCategoryFormOpen(true)}
-          />
-          <EntryFormCategoryDropdown
-            label="Account Type"
-            category_id={newExpense.account_id || ""}
-            categories={accountType}
-            onChange={handleAccountsChange}
-            icons={AccountsIcons}
-            onAddNewCategory={() => setAccountFormOpen(true)}
-          />
-        </Stack>
+        <EntryFormCategoryDropdown
+          label="Category"
+          category_id={newExpense.category_id || ""}
+          categories={categoryContext}
+          onChange={handleCategoryChange}
+          icons={CategoryIcons}
+          onAddNewCategory={() => setCategoryFormOpen(true)}
+        />
+        <EntryFormCategoryDropdown
+          label="Account Type"
+          category_id={newExpense.account_id || ""}
+          categories={accountType}
+          onChange={handleAccountsChange}
+          icons={AccountsIcons}
+          onAddNewCategory={() => setAccountFormOpen(true)}
+        />
 
         <EntryFormButton isLoading={isLoading} canSave={canSave} isEditMode={isEditMode} />
       </Stack>

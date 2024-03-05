@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { FilterAndGroupBudget } from "../../../helper/BudgetHelper";
 import { getFilterTitle } from "../../../helper/utils";
 import { GroupTransactionByDateAndCategoriesWorker } from "../../../helper/workers/workerHelper";
-import { yearFilters } from "../../../constants/timeframes";
+import { FilterTimeframe, yearFilters } from "../../../constants/timeframes";
 import { txn_types } from "../../../constants/collections";
 import { useCategoryContext } from "../../../contextAPI/CategoryContext";
 import { useFilterHandlers } from "../../../hooks/filterHook";
@@ -13,11 +13,6 @@ import CustomYearFilter from "../../Filter/CustomYearFilter";
 import FilterBudgetExpenseTrend from "../../Filter/FilterBudgetExpenseTrend";
 import TrendByCategoryChart from "../TrendByCategoryChart";
 
-interface Props {
-  title: string;
-  type: string;
-}
-
 type chartDataType = {
   date: string;
   categories: {
@@ -26,8 +21,12 @@ type chartDataType = {
     color: string;
   }[];
 };
+interface Props {
+  title: string;
+  onDateFilterChange: (filterOption: FilterTimeframe, startDate: Date | undefined, endDate: Date | undefined) => void;
+}
 
-const BudgetByCategoryTrend: React.FC<Props> = ({ title, type }) => {
+const BudgetByCategoryTrend: React.FC<Props> = ({ title, onDateFilterChange }) => {
   const budgets = useSelector((state: RootState) => state.budget.budgets);
 
   const [selectedCategory, setSelectedCategory] = useState<string[]>(["All Categories"]);
@@ -47,6 +46,10 @@ const BudgetByCategoryTrend: React.FC<Props> = ({ title, type }) => {
     handleYearFilter,
     handleMonthFilter,
   } = useFilterHandlers();
+
+  useEffect(() => {
+    onDateFilterChange(filterOption, startDate || undefined, endDate || undefined);
+  }, [handleFilterOptionChange]);
 
   const { categories, loading } = useCategoryContext();
 

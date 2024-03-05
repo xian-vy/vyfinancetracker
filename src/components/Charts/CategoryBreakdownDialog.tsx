@@ -66,16 +66,12 @@ const CategoryBreakdownDialog = (props: Props) => {
             {props.txnType} {props.filterTitle}
           </Stack>
 
-          <Typography>
-            <span
-              style={{
-                color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit",
-                marginLeft: "5px",
-                fontWeight: "bold",
-              }}
-            >
-              {formatShortAmountWithCurrency(props.totalAmount, false, true)}
-            </span>
+          <Typography
+            component="div"
+            variant="h4"
+            sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit" }}
+          >
+            {formatShortAmountWithCurrency(props.totalAmount, false, true)}
           </Typography>
         </DialogTitle>
 
