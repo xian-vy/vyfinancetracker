@@ -1,14 +1,12 @@
 import { Add } from "@mui/icons-material";
-import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Backdrop,
   Box,
   Button,
   CircularProgress,
   Container,
-  Divider,
   IconButton,
-  List,
   Stack,
   TextField,
   Typography,
@@ -20,16 +18,15 @@ import { Timestamp } from "firebase/firestore";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { TimestamptoDate, currentDatetoDatePicker } from "../../helper/date";
-import { formatNumberWithoutCurrency, isValidInput } from "../../helper/utils";
-import AccountsIcons from "../../media/AccountsIcons";
-import SavingsIcons from "../../media/SavingsIcons";
-import { iconSizeXS } from "../../constants/size";
 import { operation_types, txn_types } from "../../constants/collections";
+import { iconSizeXS } from "../../constants/size";
 import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { useTransactionLogsContext } from "../../contextAPI/TransactionLogsContext";
-import { getCategoryAndAccountTypeDescription } from "../../firebase/utils";
+import { currentDatetoDatePicker } from "../../helper/date";
+import { formatNumberWithoutCurrency, isValidInput } from "../../helper/utils";
 import useSnackbarHook from "../../hooks/snackbarHook";
+import AccountsIcons from "../../media/AccountsIcons";
+import SavingsIcons from "../../media/SavingsIcons";
 import SavingGoalsContributionModel from "../../models/SavingGoalsContribution";
 import SavingGoalsModel from "../../models/SavingGoalsModel";
 import TransactionLogsModel from "../../models/TransactionLogsModel";
@@ -40,6 +37,8 @@ import {
 } from "../../redux/actions/savingsAction";
 import { RootState } from "../../redux/store";
 import EntryFormCategoryDropdown from "../GenericComponents/EntryFormCategoryDropdown";
+import SavingsContributionList from "./SavingsContributionList";
+
 interface Props {
   EditSavings: SavingGoalsModel;
   onCloseForm: () => void;
@@ -223,8 +222,12 @@ const SavingsContributionForm = (props: Props) => {
             {newSavings.description}
           </Typography>
         </Stack>
-
-        <Typography variant="body1">{formatNumberWithoutCurrency(goalAmount)}</Typography>
+        <Stack direction="row" alignItems="center">
+          <Typography variant="body1">{formatNumberWithoutCurrency(goalAmount)}</Typography>
+          <IconButton onClick={() => props.onCloseForm()} sx={{ mr: -1 }}>
+            <CloseIcon />
+          </IconButton>
+        </Stack>
       </Box>
 
       <Container maxWidth={false} style={{ padding: 0 }}>
@@ -303,54 +306,12 @@ const SavingsContributionForm = (props: Props) => {
           </Button>
         </Stack>
 
-        <>
-          {isFetching || loading ? (
-            <Box
-              sx={{
-                maxHeight: "245px",
-                overflowY: "auto",
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <CircularProgress size={20} />
-            </Box>
-          ) : (
-            <>
-              {matchingContributions.length > 0 && (
-                <Typography variant="body1" textAlign="center">
-                  Contributions
-                </Typography>
-              )}
-              <Box sx={{ maxHeight: "245px", overflowY: "auto" }}>
-                {matchingContributions.map((contribution, index) => {
-                  const accountType = getCategoryAndAccountTypeDescription(contribution.account_id, accountTypeContext);
-                  return (
-                    <List sx={{ py: 0.5 }} key={index}>
-                      <Stack direction="row" justifyContent="space-between">
-                        <Stack direction="column">
-                          <Typography variant="body1">{formatNumberWithoutCurrency(contribution.amount)}</Typography>
-                          <Typography variant="caption">
-                            {TimestamptoDate(contribution.date, "MMM dd, yyyy")}
-                          </Typography>
-                        </Stack>
-                        <Stack direction="row" justifyContent="flex-end" alignItems="center">
-                          <Typography variant="body1">{accountType}</Typography>
-                          <IconButton onClick={() => handleDelete(contribution)}>
-                            <HighlightOffOutlinedIcon fontSize="small" />
-                          </IconButton>
-                        </Stack>
-                      </Stack>
-                      <Divider />
-                    </List>
-                  );
-                })}
-              </Box>
-            </>
-          )}
-        </>
+        <SavingsContributionList
+          isFetching={isFetching}
+          loading={loading}
+          matchingContributions={matchingContributions}
+          onDelete={handleDelete}
+        />
       </Container>
       {SnackbarComponent}
     </>

@@ -16,7 +16,7 @@ import { formatShortAmountWithCurrency } from "../../helper/utils";
 import { PERCENTAGE_DECREASE } from "../../constants/componentTheme";
 import { RootState } from "../../redux/store";
 
-const BalanceByAccountTypeDetails = React.lazy(() => import("./BalanceByAccountTypeDetails"));
+const BalanceByAccountTypeBreakdown = React.lazy(() => import("./BalanceByAccountTypeBreakdown"));
 
 interface AccountDetails {
   balance: number;
@@ -62,19 +62,17 @@ const BalanceByAccountTypeDialog = (props: Props) => {
           }}
         >
           <Stack direction="row" alignItems="center">
-            {props.accountType} {props.filterTitle}
+            <Typography variant="body2">
+              {props.accountType} {props.filterTitle}
+            </Typography>
           </Stack>
 
-          <Typography
-            component="div"
-            variant="h4"
-            sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit" }}
-          >
+          <Typography variant="body2" sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit" }}>
             {formatShortAmountWithCurrency(props.totalAmount, false, true)}
           </Typography>
         </DialogTitle>
 
-        <DialogContent sx={{ px: 3, py: 0, backgroundColor: isDarkMode ? "#1e1e1e" : "#fff", height: 110 }}>
+        <DialogContent sx={{ px: 3, py: 0, backgroundColor: isDarkMode ? "#1e1e1e" : "#fff", height: 120 }}>
           <React.Suspense
             fallback={
               <Box display="flex" justifyContent="center" alignItems="center" height="100%">
@@ -82,7 +80,7 @@ const BalanceByAccountTypeDialog = (props: Props) => {
               </Box>
             }
           >
-            <BalanceByAccountTypeDetails accountDetails={props.accountDetails} />
+            <BalanceByAccountTypeBreakdown accountDetails={props.accountDetails} />
           </React.Suspense>
         </DialogContent>
         <DialogActions

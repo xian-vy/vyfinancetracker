@@ -8,7 +8,7 @@ import { AVATAR_SIZE_SM, iconSizeXS } from "../../constants/size";
 import { txn_summary } from "../../constants/collections";
 import { PERCENTAGE_DECREASE } from "../../constants/componentTheme";
 import { FilterTimeframe } from "../../constants/timeframes";
-import CategoryBreakdownDialog from "../Charts/CategoryBreakdownDialog";
+import TransactionOverviewDialog from "./TransactionOverviewDialog";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
@@ -38,7 +38,7 @@ interface Props {
   loading: boolean;
 }
 
-const TransactionSummaryItems = (props: Props) => {
+const TransactionOverviewItems = (props: Props) => {
   const isMasked = useSelector((state: RootState) => state.userAccount.hideBalances);
 
   const [expandedStates, setExpandedStates] = React.useState<Record<string, boolean>>({});
@@ -146,7 +146,7 @@ const TransactionSummaryItems = (props: Props) => {
         </IconButton>
       </Stack>
 
-      <CategoryBreakdownDialog
+      <TransactionOverviewDialog
         filterOption={props.filterOption}
         filterTitle={props.filterTitle}
         startDate={props.startDate}
@@ -162,4 +162,4 @@ const TransactionSummaryItems = (props: Props) => {
   );
 };
 
-export default TransactionSummaryItems;
+export default TransactionOverviewItems;

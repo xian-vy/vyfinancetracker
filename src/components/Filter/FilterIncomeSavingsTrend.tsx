@@ -8,7 +8,7 @@ import { ThemeColor, formatShortAmountWithCurrency } from "../../helper/utils";
 import { FilterTimeframe } from "../../constants/timeframes";
 import { iconSize, iconSizeXS } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
-import CategoryBreakdownDialog from "../Charts/CategoryBreakdownDialog";
+import TransactionOverviewDialog from "../Dashboard/TransactionOverviewDialog";
 import CustomIconButton from "../CustomIconButton";
 import TimeframeDrawerPopOver from "./TimeframeDrawerPopOver";
 import { useSelector } from "react-redux";
@@ -99,7 +99,7 @@ const FilterBudgetExpenseTrend = (props: Props) => {
         selectedTimeframe={filterOption}
       />
 
-      <CategoryBreakdownDialog
+      <TransactionOverviewDialog
         filterOption={filterOption}
         filterTitle={props.timeframe}
         startDate={props.startDate}

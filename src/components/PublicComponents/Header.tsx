@@ -85,8 +85,8 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
       <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
         <Container disableGutters maxWidth="sm" component="main" sx={{ pb: 0.5, px: 4 }}>
           <Stack direction="row" alignItems="center" justifyContent="center">
-            <img src={logo} alt="Logo" style={{ width: "28px", height: "28px" }} />
-            <Typography component="h2" align="center" ml={0.5} variant="h3">
+            <img src={logo} alt="Logo" style={{ width: "24px", height: "24px" }} />
+            <Typography component="h2" align="center" ml={0.5} variant="subtitle1">
               Finance Tracker
             </Typography>
           </Stack>

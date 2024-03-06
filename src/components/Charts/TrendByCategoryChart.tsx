@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Container, useMediaQuery, useTheme } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { formatShortAmountWithCurrency, hexToRGBA } from "../../helper/utils";
@@ -34,11 +34,22 @@ const TrendByCategoryChart = ({
   const theme = useTheme();
   const smScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const isDarkMode = theme.palette.mode === "dark";
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (filteredChartData) {
+      setLoading(true);
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
+    }
+  }, [formattedFilterOption]);
 
   return (
     <Container maxWidth={false} style={{ paddingLeft: 0, position: "relative" }}>
       <ResponsiveContainer width="100%" height={smScreen ? TXN_TREND_CHART_HEIGHT : TXN_TREND_CHART_HEIGHT_LG}>
-        {!filteredChartData ? (
+        {loading || !filteredChartData ? (
           <Box display="flex" justifyContent="center" alignItems="center">
             <CircularProgress size={20} />
           </Box>

@@ -1,9 +1,6 @@
-import AddIcon from "@mui/icons-material/Add";
-import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
-  Button,
   Checkbox,
   Collapse,
   FormControl,
@@ -18,16 +15,16 @@ import {
   Typography,
 } from "@mui/material";
 import { Timestamp } from "firebase/firestore";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CirclePicker } from "react-color";
+import { getRandomColor } from "../../firebase/defaultData";
 import { currentDatetoDatePicker } from "../../helper/date";
 import { isValidInput } from "../../helper/utils";
 import SavingsIcons from "../../media/SavingsIcons";
-import { getRandomColor } from "../../firebase/defaultData";
 import SavingGoalsModel from "../../models/SavingGoalsModel";
+import EntryFormButton from "../GenericComponents/EntryFormButton";
 import EntryFormDatePicker from "../GenericComponents/EntryFormDatePicker";
 import IconListComponent from "../Maintenance/IconListComponent";
-import EntryFormButton from "../GenericComponents/EntryFormButton";
 
 interface Props {
   onAddSavings: (savings: SavingGoalsModel) => void;

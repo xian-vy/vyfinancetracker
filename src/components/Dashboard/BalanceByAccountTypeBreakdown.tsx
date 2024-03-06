@@ -19,7 +19,7 @@ interface AccountDetails {
 interface Props {
   accountDetails: AccountDetails;
 }
-const BalanceByAccountTypeDetails = ({ accountDetails }: Props) => {
+const BalanceByAccountTypeBreakdown = ({ accountDetails }: Props) => {
   const breakdown = [
     {
       type: txn_types.Income,
@@ -72,12 +72,12 @@ const BalanceByAccountTypeDetails = ({ accountDetails }: Props) => {
               <Stack direction="row" alignItems="center">
                 {item.icon}
                 <Stack direction="column">
-                  <Typography variant="caption" ml={0.3} height={14}>
+                  <Typography variant="caption" ml={0.3} height={15}>
                     {item.type}
                   </Typography>
 
-                  <Stack direction="row" alignItems="center" height={12}>
-                    <svg width={maxAmount === 0 ? "0" : `${(item.amount / maxAmount) * maxWidth}px`} height="8">
+                  <Stack direction="row" alignItems="center" height={15}>
+                    <svg width={maxAmount === 0 ? "0" : `${(item.amount / maxAmount) * maxWidth}px`} height="10">
                       <rect
                         width="100%"
                         height="100%"
@@ -102,4 +102,4 @@ const BalanceByAccountTypeDetails = ({ accountDetails }: Props) => {
   );
 };
 
-export default React.memo(BalanceByAccountTypeDetails);
+export default React.memo(BalanceByAccountTypeBreakdown);

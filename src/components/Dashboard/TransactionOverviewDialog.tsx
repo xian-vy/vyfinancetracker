@@ -6,6 +6,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
   Stack,
   Typography,
 } from "@mui/material";
@@ -32,13 +33,13 @@ interface Props {
   isDarkMode: boolean;
 }
 
-const BalanceBreakdown = React.lazy(() => import("./BalanceBreakdown"));
-const TopBudgetsContainer = React.lazy(() => import("./Budget/TopBudgetsContainer"));
-const TopExpensesContainer = React.lazy(() => import("./Expenses/TopExpensesContainer"));
-const TopIncomeContainer = React.lazy(() => import("./Income/TopIncomeContainer"));
-const TopSavingsContributionsContainer = React.lazy(() => import("./Savings/TopSavingsContributionsContainer"));
+const TransactionOverviewBalanceBreakdown = React.lazy(() => import("./TransactionOverviewBalanceBreakdown"));
+const TopBudgetsContainer = React.lazy(() => import("../Charts/Budget/TopBudgetsContainer"));
+const TopExpensesContainer = React.lazy(() => import("../Charts/Expenses/TopExpensesContainer"));
+const TopIncomeContainer = React.lazy(() => import("../Charts/Income/TopIncomeContainer"));
+const TopSavingsContributionsContainer = React.lazy(() => import("../Charts/Savings/TopSavingsContributionsContainer"));
 
-const CategoryBreakdownDialog = (props: Props) => {
+const TransactionOverviewDialog = (props: Props) => {
   const powerSavingMode = useSelector((state: RootState) => state.powerSaving.enabled);
 
   return (
@@ -63,15 +64,13 @@ const CategoryBreakdownDialog = (props: Props) => {
           }}
         >
           <Stack direction="row" alignItems="center">
-            {props.txnType} {props.filterTitle}
+            <Typography variant="body2">
+              {props.txnType} {props.filterTitle}
+            </Typography>
           </Stack>
 
-          <Typography
-            component="div"
-            variant="h4"
-            sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit" }}
-          >
-            {formatShortAmountWithCurrency(props.totalAmount, false, true)}
+          <Typography variant="body2" sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit" }}>
+            {formatShortAmountWithCurrency(Math.round(props.totalAmount), false, true)}
           </Typography>
         </DialogTitle>
 
@@ -92,7 +91,7 @@ const CategoryBreakdownDialog = (props: Props) => {
             }
           >
             {props.txnType === txn_summary.Balance && (
-              <BalanceBreakdown
+              <TransactionOverviewBalanceBreakdown
                 networth={{
                   expenseSum: props.networth?.expenseSum || 0,
                   incomeSum: props.networth?.incomeSum || 0,
@@ -153,4 +152,4 @@ const CategoryBreakdownDialog = (props: Props) => {
   );
 };
 
-export default React.memo(CategoryBreakdownDialog);
+export default React.memo(TransactionOverviewDialog);

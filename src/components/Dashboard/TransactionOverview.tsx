@@ -14,7 +14,7 @@ import {
   determinePercentageStr,
   swiperBreakpointsConfig,
   typeIconColor,
-} from "./TransactionSummaryHelper";
+} from "./TransactionOverviewHelper";
 import { getFilterTitle } from "../../helper/utils";
 import { txn_summary } from "../../constants/collections";
 import { useFilterHandlers } from "../../hooks/filterHook";
@@ -23,7 +23,7 @@ import { RootState } from "../../redux/store";
 import GenericDialog from "../Dialog/GenericDialog";
 import FilterActionsComponent from "../Filter/FilterActionsComponent";
 import FilterTitleAndIcon from "../Filter/FilterTitleAndIcon";
-import TransactionSummaryItems from "./TransactionSummaryItems";
+import TransactionOverviewItems from "./TransactionOverviewItems";
 
 type sumByTransaction = {
   sum: number;
@@ -37,7 +37,7 @@ const paperStyle = {
   mb: 1,
 };
 
-const TransactionSummary = () => {
+const TransactionOverview = () => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
 
@@ -190,7 +190,7 @@ const TransactionSummary = () => {
             return (
               <SwiperSlide key={index}>
                 <Paper sx={paperStyle} variant={isDarkMode ? "elevation" : "outlined"}>
-                  <TransactionSummaryItems
+                  <TransactionOverviewItems
                     color={color}
                     icon={icon}
                     type={type}
@@ -248,4 +248,4 @@ const TransactionSummary = () => {
   );
 };
 
-export default React.memo(TransactionSummary);
+export default React.memo(TransactionOverview);

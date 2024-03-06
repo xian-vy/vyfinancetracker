@@ -3,7 +3,7 @@ import React from "react";
 import AllTransactionsTrendChartContainer from "./AllTransactionsTrendChartContainer";
 import BalanceByAccountType from "./BalanceByAccountType";
 import Shortcuts from "./Shortcuts";
-import TransactionSummary from "./TransactionSummary";
+import TransactionOverview from "./TransactionOverview";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -15,7 +15,7 @@ const Dashboard = () => {
         {/** TXN OVERVIEW -------------------------------------------------------------------------------------*/}
         <Grid item xs={12} sm={12} md={12} lg={12} style={{ overflow: "hidden" }}>
           <Paper sx={{ borderRadius: 4, px: 1, py: 1 }} variant={isDarkMode ? "elevation" : "outlined"}>
-            <TransactionSummary />
+            <TransactionOverview />
           </Paper>
         </Grid>
         <Grid item xs={12} lg={12}>
