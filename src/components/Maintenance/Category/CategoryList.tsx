@@ -1,15 +1,14 @@
 import { Add as AddIcon } from "@mui/icons-material";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Dialog, DialogContent, Grid, IconButton, Paper, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Backdrop, CircularProgress, Dialog, DialogContent, Grid, Paper, Typography, useTheme } from "@mui/material";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { Timestamp } from "firebase/firestore";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ThemeColor } from "../../../helper/utils";
-import CategoryIcons from "../../../media/CategoryIcons";
+import { ACTION_TYPES } from "../../../constants/constants";
 import { FORM_WIDTH, iconSizeXS } from "../../../constants/size";
 import { useCategoryContext } from "../../../contextAPI/CategoryContext";
+import { ThemeColor } from "../../../helper/utils";
 import { useActionPopover } from "../../../hooks/actionHook";
 import useSnackbarHook from "../../../hooks/snackbarHook";
 import CategoryModel from "../../../models/CategoryModel";
@@ -18,8 +17,9 @@ import { updateMultpleExpensesAction } from "../../../redux/actions/expenseActio
 import { RootState } from "../../../redux/store";
 import CustomIconButton from "../../CustomIconButton";
 import DeleteConfirmationDialog from "../../Dialog/DeleteConfirmationDialog";
-import LoadingDialog from "../../Dialog/LoadingDialog";
 import EntryFormSkeleton from "../../Skeleton/EntryFormSkeleton";
+import GenericListItem from "../GenericListItem";
+import CategoryIcons from "../../../media/CategoryIcons";
 const CategoryForm = React.lazy(() => import("./CategoryForm"));
 const CategoryList = () => {
   const { categories, deleteCategory: delCategory } = useCategoryContext();
@@ -120,30 +120,26 @@ const CategoryList = () => {
   const handleAction = async (option: string, category: CategoryModel) => {
     setEditCategory(category);
 
-    if (option == "Edit") {
+    if (option == ACTION_TYPES.Edit) {
       setEditMode(true);
       setFormOpen(true);
-    } else if (option == "Delete") {
+    } else if (option == ACTION_TYPES.Delete) {
       setDeleteFormOpen(true);
     }
     handleActionClose();
   };
 
   const { ActionPopover, handleActionOpen, handleActionClose } = useActionPopover({
-    actions: ["Edit", "Delete"],
+    actions: [ACTION_TYPES.Edit, ACTION_TYPES.Delete],
     handleAction,
     disabledCondition: (action: string, category: CategoryModel) =>
-      action === "Delete" && category.description === "Uncategorized",
+      action === ACTION_TYPES.Delete && category.description === "Uncategorized",
   });
 
   const handleAddCategory = () => {
     setEditMode(false);
     setFormOpen(true);
   };
-
-  function renderIcon(icon: React.ReactElement, color: string) {
-    return React.cloneElement(icon, { style: { color: color, fontSize: "18px" } });
-  }
 
   const handleSave = (data: { newCategory: string; msg: string }) => {
     setFormOpen(false);
@@ -153,10 +149,12 @@ const CategoryList = () => {
 
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
-  const smScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <div>
+      <Backdrop open={isLoading} sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Paper
         sx={{ borderRadius: 4, padding: 2, display: "flex", flexDirection: "column" }}
         variant={isDarkMode ? "elevation" : "outlined"}
@@ -176,44 +174,10 @@ const CategoryList = () => {
             <AddIcon sx={{ fontSize: iconSizeXS }} />
           </CustomIconButton>
         </Grid>
-        <div style={{ flexGrow: 1, overflow: "auto", paddingBottom: 1 }}>
-          <Grid container p={{ xs: 0, md: 1 }} gap={1} justifyContent="left" alignItems="left" px={{ xs: 0, md: 2 }}>
-            {categories.map((category) => {
-              const iconObject = CategoryIcons.find((icon) => icon.name === category.icon);
-              return (
-                <Paper
-                  key={category.id}
-                  sx={{
-                    pl: 1,
-                    py: 0,
-                    borderRadius: 6,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    backgroundColor: isDarkMode ? "#1e1e1e" : "#fff",
-                  }}
-                  variant="outlined"
-                >
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    {iconObject && renderIcon(iconObject.icon, category.color)}
-                    <Typography align="left" pl={1} variant={smScreen ? "caption" : "body1"}>
-                      <span style={{ flex: 1 }}>{category.description}</span>
-                    </Typography>
-                  </div>
 
-                  <IconButton
-                    sx={{ ml: 1, py: { xs: 0.5, md: 1 } }}
-                    onClick={(event) => handleActionOpen(event, category)}
-                  >
-                    <MoreHorizIcon fontSize="small" />
-                  </IconButton>
-                </Paper>
-              );
-            })}
-          </Grid>
-        </div>
+        <GenericListItem items={categories} onActionSelect={handleActionOpen} icons={CategoryIcons} />
       </Paper>
-      {ActionPopover}
+
       <Dialog
         open={isFormOpen}
         PaperProps={{
@@ -233,8 +197,7 @@ const CategoryList = () => {
         </DialogContent>
       </Dialog>
       {SnackbarComponent}
-      <LoadingDialog isLoading={isLoading} />
-
+      {ActionPopover}
       <DeleteConfirmationDialog
         isDialogOpen={deleteFormOpen}
         onClose={() => setDeleteFormOpen(false)}

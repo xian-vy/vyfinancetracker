@@ -1,16 +1,15 @@
 import AddIcon from "@mui/icons-material/Add";
+import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, Button, IconButton, Stack, TextField, Typography } from "@mui/material";
+import { Backdrop, Box, Button, CircularProgress, IconButton, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { CirclePicker } from "react-color";
-import AccountsIcons from "../../../media/AccountsIcons";
+import { v4 as uuidv4 } from "uuid";
 import { useAccountTypeContext } from "../../../contextAPI/AccountTypeContext";
 import { getRandomColor } from "../../../firebase/defaultData";
+import AccountsIcons from "../../../media/AccountsIcons";
 import AccountTypeModel from "../../../models/AccountTypeModel";
-import LoadingDialog from "../../Dialog/LoadingDialog";
 import IconListComponent from "../IconListComponent";
-import { v4 as uuidv4 } from "uuid";
-import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 
 interface Props {
   closeForm: () => void;
@@ -20,8 +19,7 @@ interface Props {
 }
 
 const AccountsForm: React.FC<Props> = ({ closeForm, editAccountType, isEditMode, onSave }) => {
-  const [open, setOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [isLoading, setIsLoading] = useState(false);
   const [duplicateDetected, setDuplicateDetected] = useState(false);
   const { accountType, addAccountType, updateAccountType } = useAccountTypeContext();
 
@@ -89,7 +87,6 @@ const AccountsForm: React.FC<Props> = ({ closeForm, editAccountType, isEditMode,
 
         if (isDuplicate) {
           setDuplicateDetected(!duplicateDetected);
-          setOpen(true);
           return;
         } else {
           if (isEditMode) {
@@ -109,6 +106,9 @@ const AccountsForm: React.FC<Props> = ({ closeForm, editAccountType, isEditMode,
 
   return (
     <>
+      <Backdrop open={isLoading} sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="h6"> Account Entry Form</Typography>
         <IconButton onClick={() => closeForm()} sx={{ mr: -1.5 }}>
@@ -150,7 +150,6 @@ const AccountsForm: React.FC<Props> = ({ closeForm, editAccountType, isEditMode,
           <CirclePicker color={color} onChange={handleColorChange} />
         </Box>
         <Button
-          size="small"
           variant="outlined"
           type="submit"
           color="inherit"
@@ -160,8 +159,6 @@ const AccountsForm: React.FC<Props> = ({ closeForm, editAccountType, isEditMode,
           {isEditMode ? "UPDATE" : "CREATE"}
         </Button>
       </Stack>
-
-      <LoadingDialog isLoading={isLoading} />
     </>
   );
 };

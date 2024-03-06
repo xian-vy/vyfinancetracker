@@ -1,17 +1,16 @@
 // ExpenseForm
 import AddIcon from "@mui/icons-material/Add";
+import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, Button, IconButton, Stack, TextField, Typography } from "@mui/material";
+import { Backdrop, Box, Button, CircularProgress, IconButton, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { CirclePicker } from "react-color";
-import CategoryIcons from "../../../media/CategoryIcons";
+import { v4 as uuidv4 } from "uuid";
 import { useCategoryContext } from "../../../contextAPI/CategoryContext";
 import { getRandomColor } from "../../../firebase/defaultData";
+import CategoryIcons from "../../../media/CategoryIcons";
 import CategoryModel from "../../../models/CategoryModel";
-import LoadingDialog from "../../Dialog/LoadingDialog";
 import IconListComponent from "../IconListComponent";
-import { v4 as uuidv4 } from "uuid";
-import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 
 interface Props {
   closeForm: () => void;
@@ -22,7 +21,7 @@ interface Props {
 }
 
 const BudgetForm: React.FC<Props> = ({ closeForm, editCategory, isEditMode, categoryContext, onSave }) => {
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [isLoading, setIsLoading] = useState(false);
   const [duplicateDetected, setDuplicateDetected] = useState(false);
   const [color, setColor] = useState("#000000");
   const { addCategory, updateCategory } = useCategoryContext();
@@ -109,6 +108,9 @@ const BudgetForm: React.FC<Props> = ({ closeForm, editCategory, isEditMode, cate
 
   return (
     <>
+      <Backdrop open={isLoading} sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="h6"> Category Entry Form</Typography>
         <IconButton onClick={() => closeForm()} sx={{ mr: -1.5 }}>
@@ -151,7 +153,6 @@ const BudgetForm: React.FC<Props> = ({ closeForm, editCategory, isEditMode, cate
           <CirclePicker color={color} onChange={handleColorChange} />
         </Box>
         <Button
-          size="small"
           variant="outlined"
           type="submit"
           color="inherit"
@@ -161,8 +162,6 @@ const BudgetForm: React.FC<Props> = ({ closeForm, editCategory, isEditMode, cate
           {isEditMode ? "UPDATE" : "CREATE"}
         </Button>
       </Stack>
-
-      <LoadingDialog isLoading={isLoading} />
     </>
   );
 };

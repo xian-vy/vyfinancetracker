@@ -1,17 +1,16 @@
 // ExpenseForm
 import AddIcon from "@mui/icons-material/Add";
+import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, Button, IconButton, Stack, TextField, Typography } from "@mui/material";
+import { Backdrop, Box, Button, CircularProgress, IconButton, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { CirclePicker } from "react-color";
-import IncomeSourceIcons from "../../../media/IncomeSourceIcons";
+import { v4 as uuidv4 } from "uuid";
 import { useIncomeSourcesContext } from "../../../contextAPI/IncomeSourcesContext";
 import { getRandomColor } from "../../../firebase/defaultData";
+import IncomeSourceIcons from "../../../media/IncomeSourceIcons";
 import IncomeSourcesModel from "../../../models/IncomeSourcesModel";
-import LoadingDialog from "../../Dialog/LoadingDialog";
 import IconListComponent from "../IconListComponent";
-import { v4 as uuidv4 } from "uuid";
-import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 
 interface Props {
   closeForm: () => void;
@@ -22,8 +21,7 @@ interface Props {
 }
 
 const IncomeSourceForm: React.FC<Props> = ({ closeForm, editIncomeSource, isEditMode, onSave }) => {
-  const [open, setOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [isLoading, setIsLoading] = useState(false);
   const [duplicateDetected, setDuplicateDetected] = useState(false);
   const { incomeSource, addIncomeSource, updateIncomeSource } = useIncomeSourcesContext();
 
@@ -93,7 +91,7 @@ const IncomeSourceForm: React.FC<Props> = ({ closeForm, editIncomeSource, isEdit
 
         if (isDuplicate) {
           setDuplicateDetected(!duplicateDetected);
-          setOpen(true);
+
           return;
         } else {
           if (isEditMode) {
@@ -113,6 +111,9 @@ const IncomeSourceForm: React.FC<Props> = ({ closeForm, editIncomeSource, isEdit
 
   return (
     <>
+      <Backdrop open={isLoading} sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="h6"> Income Source Entry Form</Typography>
         <IconButton onClick={() => closeForm()} sx={{ mr: -1.5 }}>
@@ -155,7 +156,6 @@ const IncomeSourceForm: React.FC<Props> = ({ closeForm, editIncomeSource, isEdit
         </Box>
 
         <Button
-          size="small"
           variant="outlined"
           type="submit"
           color="inherit"
@@ -165,8 +165,6 @@ const IncomeSourceForm: React.FC<Props> = ({ closeForm, editIncomeSource, isEdit
           {isEditMode ? "UPDATE" : "CREATE"}
         </Button>
       </Stack>
-
-      <LoadingDialog isLoading={isLoading} />
     </>
   );
 };

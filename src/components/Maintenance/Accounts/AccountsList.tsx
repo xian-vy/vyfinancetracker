@@ -1,14 +1,13 @@
 import { Add as AddIcon } from "@mui/icons-material";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
-import { Dialog, DialogContent, Grid, IconButton, Paper, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Backdrop, CircularProgress, Dialog, DialogContent, Grid, Paper, Typography, useTheme } from "@mui/material";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ThemeColor } from "../../../helper/utils";
-import AccountsIcons from "../../../media/AccountsIcons";
+import { ACTION_TYPES } from "../../../constants/constants";
 import { FORM_WIDTH, iconSizeXS } from "../../../constants/size";
 import { useAccountTypeContext } from "../../../contextAPI/AccountTypeContext";
+import { ThemeColor } from "../../../helper/utils";
 import { useActionPopover } from "../../../hooks/actionHook";
 import useSnackbarHook from "../../../hooks/snackbarHook";
 import AccountTypeModel from "../../../models/AccountTypeModel";
@@ -18,8 +17,9 @@ import { updateSavingsContributionAction } from "../../../redux/actions/savingsA
 import { RootState } from "../../../redux/store";
 import CustomIconButton from "../../CustomIconButton";
 import DeleteConfirmationDialog from "../../Dialog/DeleteConfirmationDialog";
-import LoadingDialog from "../../Dialog/LoadingDialog";
 import EntryFormSkeleton from "../../Skeleton/EntryFormSkeleton";
+import GenericListItem from "../GenericListItem";
+import AccountsIcons from "../../../media/AccountsIcons";
 const AccountsForm = React.lazy(() => import("./AccountsForm"));
 
 const AccountsList = () => {
@@ -97,20 +97,20 @@ const AccountsList = () => {
   const handleAction = async (option: string, ptype: AccountTypeModel) => {
     seteditAccountType(ptype);
 
-    if (option == "Edit") {
+    if (option == ACTION_TYPES.Edit) {
       setEditMode(true);
       setFormOpen(true);
-    } else if (option == "Delete") {
+    } else if (option == ACTION_TYPES.Delete) {
       setDeleteFormOpen(true);
     }
     handleActionClose();
   };
 
   const { ActionPopover, handleActionOpen, handleActionClose } = useActionPopover({
-    actions: ["Edit", "Delete"],
+    actions: [ACTION_TYPES.Edit, ACTION_TYPES.Delete],
     handleAction,
     disabledCondition: (action: string, accountType: AccountTypeModel) =>
-      action === "Delete" && accountType.description === "Uncategorized",
+      action === ACTION_TYPES.Delete && accountType.description === "Uncategorized",
   });
 
   const handleSave = (data: { newAccount: string; msg: string }) => {
@@ -122,14 +122,12 @@ const AccountsList = () => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
 
-  function renderIcon(icon: React.ReactElement, color: string) {
-    return React.cloneElement(icon, { style: { color: color, fontSize: "18px" } });
-  }
-  const smScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
   return (
     <div>
-      <>{SnackbarComponent}</>
+      <Backdrop open={isLoading} sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+
       <Paper
         sx={{ borderRadius: 4, padding: 2, display: "flex", flexDirection: "column" }}
         variant={isDarkMode ? "elevation" : "outlined"}
@@ -149,46 +147,12 @@ const AccountsList = () => {
             <AddIcon sx={{ fontSize: iconSizeXS }} />
           </CustomIconButton>
         </Grid>
-        <div style={{ flexGrow: 1, overflow: "auto", paddingBottom: 1 }}>
-          <Grid container p={{ xs: 0, md: 1 }} gap={1} justifyContent="left" alignItems="left" px={{ xs: 0, md: 2 }}>
-            {accountType.map((ptypes) => {
-              const iconObject = AccountsIcons.find((icon) => icon.name === ptypes.icon);
 
-              return (
-                <Paper
-                  key={ptypes.id}
-                  sx={{
-                    pl: 1,
-                    py: 0,
-                    borderRadius: 6,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    backgroundColor: isDarkMode ? "#1e1e1e" : "#fff",
-                  }}
-                  variant="outlined"
-                >
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    {iconObject && renderIcon(iconObject.icon, ptypes.color)}
-                    <Typography align="left" pl={1} variant={smScreen ? "caption" : "body1"}>
-                      <span style={{ flex: 1 }}>{ptypes.description}</span>
-                    </Typography>
-                  </div>
-                  <IconButton
-                    sx={{ ml: 1, py: { xs: 0.5, md: 1 } }}
-                    onClick={(event) => handleActionOpen(event, ptypes)}
-                  >
-                    <MoreHorizIcon fontSize="small" />
-                  </IconButton>
-                </Paper>
-              );
-            })}
-          </Grid>
-        </div>
+        <GenericListItem items={accountType} onActionSelect={handleActionOpen} icons={AccountsIcons} />
       </Paper>
 
       {ActionPopover}
-
+      {SnackbarComponent}
       <Dialog
         open={isFormOpen}
         PaperProps={{
@@ -206,8 +170,6 @@ const AccountsList = () => {
           </React.Suspense>
         </DialogContent>
       </Dialog>
-
-      <LoadingDialog isLoading={isLoading} />
 
       <DeleteConfirmationDialog
         isDialogOpen={deleteFormOpen}

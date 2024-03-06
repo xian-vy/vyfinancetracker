@@ -1,14 +1,12 @@
 import { Add as AddIcon } from "@mui/icons-material";
 import LocalAtmOutlinedIcon from "@mui/icons-material/LocalAtmOutlined";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Dialog, DialogContent, Grid, IconButton, Paper, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Backdrop, CircularProgress, Dialog, DialogContent, Grid, Paper, Typography, useTheme } from "@mui/material";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ThemeColor } from "../../../helper/utils";
-import IncomeSourceIcons from "../../../media/IncomeSourceIcons";
 import { FORM_WIDTH, iconSizeXS } from "../../../constants/size";
 import { useIncomeSourcesContext } from "../../../contextAPI/IncomeSourcesContext";
+import { ThemeColor } from "../../../helper/utils";
 import { useActionPopover } from "../../../hooks/actionHook";
 import useSnackbarHook from "../../../hooks/snackbarHook";
 import IncomeSourcesModel from "../../../models/IncomeSourcesModel";
@@ -16,8 +14,10 @@ import { updateincomeAction } from "../../../redux/actions/incomeAction";
 import { RootState } from "../../../redux/store";
 import CustomIconButton from "../../CustomIconButton";
 import DeleteConfirmationDialog from "../../Dialog/DeleteConfirmationDialog";
-import LoadingDialog from "../../Dialog/LoadingDialog";
 import EntryFormSkeleton from "../../Skeleton/EntryFormSkeleton";
+import GenericListItem from "../GenericListItem";
+import { ACTION_TYPES } from "../../../constants/constants";
+import IncomeSourceIcons from "../../../media/IncomeSourceIcons";
 const IncomeSourceForm = React.lazy(() => import("./IncomeSourceForm"));
 
 const IncomeSourceList = () => {
@@ -57,7 +57,7 @@ const IncomeSourceList = () => {
         );
       }
 
-      await deleteIncomeSources(editIncomeSource.id);
+      deleteIncomeSources(editIncomeSource.id);
 
       openSuccessSnackbar(`Income Source has been deleted`);
     } catch (error) {
@@ -70,20 +70,20 @@ const IncomeSourceList = () => {
 
   const handleAction = async (option: string, isource: IncomeSourcesModel) => {
     setIncomeSource(isource);
-    if (option == "Edit") {
+    if (option == ACTION_TYPES.Edit) {
       setEditMode(true);
       setFormOpen(true);
-    } else if (option == "Delete") {
+    } else if (option == ACTION_TYPES.Delete) {
       setDeleteFormOpen(true);
     }
     handleActionClose();
   };
 
   const { ActionPopover, handleActionOpen, handleActionClose } = useActionPopover({
-    actions: ["Edit", "Delete"],
+    actions: [ACTION_TYPES.Edit, ACTION_TYPES.Delete],
     handleAction,
     disabledCondition: (action: string, incomesource: IncomeSourcesModel) =>
-      action === "Delete" && incomesource.description === "Uncategorized",
+      action === ACTION_TYPES.Delete && incomesource.description === "Uncategorized",
   });
 
   const handleSave = (data: { newIncomeSource: string; msg: string }) => {
@@ -92,17 +92,15 @@ const IncomeSourceList = () => {
   };
   const { openSuccessSnackbar, SnackbarComponent } = useSnackbarHook();
 
-  function renderIcon(icon: React.ReactElement, color: string) {
-    return React.cloneElement(icon, { style: { color: color, fontSize: "18px" } });
-  }
-
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
-  const smScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <div>
-      <>{SnackbarComponent}</>
+      <Backdrop open={isLoading} sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+
       <Paper
         sx={{ borderRadius: 4, padding: 2, display: "flex", flexDirection: "column" }}
         variant={isDarkMode ? "elevation" : "outlined"}
@@ -122,46 +120,11 @@ const IncomeSourceList = () => {
             <AddIcon sx={{ fontSize: iconSizeXS }} />
           </CustomIconButton>
         </Grid>
-        <div style={{ flexGrow: 1, overflow: "auto", paddingBottom: 1 }}>
-          <Grid container p={{ xs: 0, md: 1 }} gap={1} justifyContent="left" alignItems="left" px={{ xs: 0, md: 2 }}>
-            {incomeSource.map((isource) => {
-              const iconObject = IncomeSourceIcons.find((icon) => icon.name === isource.icon);
-              return (
-                <Paper
-                  key={isource.id}
-                  sx={{
-                    pl: 1,
-                    py: 0,
-                    borderRadius: 6,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    backgroundColor: isDarkMode ? "#1e1e1e" : "#fff",
-                  }}
-                  variant="outlined"
-                >
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    {iconObject && renderIcon(iconObject.icon, isource.color)}
-                    <Typography align="left" pl={1} variant={smScreen ? "caption" : "body1"}>
-                      <span style={{ flex: 1 }}>{isource.description}</span>
-                    </Typography>
-                  </div>
-
-                  <IconButton
-                    sx={{ ml: 1, py: { xs: 0.5, md: 1 } }}
-                    onClick={(event) => handleActionOpen(event, isource)}
-                  >
-                    <MoreHorizIcon fontSize="small" />
-                  </IconButton>
-                </Paper>
-              );
-            })}
-          </Grid>
-        </div>
+        <GenericListItem items={incomeSource} onActionSelect={handleActionOpen} icons={IncomeSourceIcons} />
       </Paper>
 
       {ActionPopover}
-
+      {SnackbarComponent}
       <Dialog
         open={isFormOpen}
         PaperProps={{
@@ -179,7 +142,6 @@ const IncomeSourceList = () => {
           </React.Suspense>
         </DialogContent>
       </Dialog>
-      <LoadingDialog isLoading={isLoading} />
 
       <DeleteConfirmationDialog
         isDialogOpen={deleteFormOpen}
