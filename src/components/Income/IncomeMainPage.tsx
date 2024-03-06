@@ -1,18 +1,17 @@
-import { Dialog, DialogContent, Grid, Paper, useTheme } from "@mui/material";
+import { Backdrop, CircularProgress, Dialog, DialogContent, Grid, Paper, useTheme } from "@mui/material";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { Timestamp } from "firebase/firestore";
 import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { filterDataByDateRange } from "../../helper/GenericTransactionHelper";
-import { TimestamptoDate } from "../../helper/date";
-import { getFilterTitle } from "../../helper/utils";
-import { FORM_WIDTH } from "../../constants/size";
 import { operation_types, txn_types } from "../../constants/collections";
+import { SORT_TYPE } from "../../constants/constants";
+import { FORM_WIDTH } from "../../constants/size";
 import { FilterTimeframe } from "../../constants/timeframes";
 import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
 import { useTransactionLogsContext } from "../../contextAPI/TransactionLogsContext";
-import { getCategoryAndAccountTypeDescription } from "../../firebase/utils";
+import { filterDataByDateRange } from "../../helper/GenericTransactionHelper";
+import { getFilterTitle } from "../../helper/utils";
 import useSnackbarHook from "../../hooks/snackbarHook";
 import IncomeModel from "../../models/IncomeModel";
 import TransactionLogsModel from "../../models/TransactionLogsModel";
@@ -20,11 +19,9 @@ import { deleteincomeAction } from "../../redux/actions/incomeAction";
 import { RootState } from "../../redux/store";
 import IncomeTrend from "../Charts/Income/IncomebyCategoryTrend";
 import DeleteConfirmationDialog from "../Dialog/DeleteConfirmationDialog";
-import LoadingDialog from "../Dialog/LoadingDialog";
+import EntryFormSkeleton from "../Skeleton/EntryFormSkeleton";
 import IncomeList from "./IncomeList";
 import IncomeListHeader from "./IncomeListHeader";
-import EntryFormSkeleton from "../Skeleton/EntryFormSkeleton";
-import { SORT_TYPE } from "../../constants/constants";
 const IncomeForm = React.lazy(() => import("./IncomeForm"));
 const IncomeMainPage = () => {
   const location = useLocation();
@@ -146,6 +143,9 @@ const IncomeMainPage = () => {
   }, []);
   return (
     <>
+      <Backdrop open={isLoading} sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Grid container spacing={{ xs: 1, sm: 1.5, lg: 2 }} pb={{ xs: 10, md: 5 }} ref={gridContainerRef}>
         <Grid item xs={12} lg={12}>
           <Paper sx={{ borderRadius: 4 }} variant={isDarkMode ? "elevation" : "outlined"}>
@@ -188,7 +188,6 @@ const IncomeMainPage = () => {
 
       {SnackbarComponent}
 
-      <LoadingDialog isLoading={isLoading} />
       <DeleteConfirmationDialog
         isDialogOpen={deleteFormOpen}
         onClose={handleCloseForm}
