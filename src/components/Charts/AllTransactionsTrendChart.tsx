@@ -6,7 +6,7 @@ import { FilterAndGroupBudget } from "../../helper/BudgetHelper";
 import { FilterAndGroupExpense } from "../../helper/ExpenseHelper";
 import { FilterAndGroupIncome } from "../../helper/IncomeHelper";
 import { FilterAndGroupSavingsContribution } from "../../helper/SavingsHelper";
-import { formatShortAmountWithCurrency, hexToRGBA } from "../../helper/utils";
+import { formatAmountForChart, hexToRGBA } from "../../helper/utils";
 import { FilterAndGroupAllTransactionsWorker } from "../../helper/workers/workerHelper";
 import { txn_types } from "../../constants/collections";
 import { CHART_X_AXIS_STYLE, CHART_Y_AXIS_STYLE } from "../../constants/style";
@@ -247,7 +247,7 @@ const AllTransactionsTrendChart = (props: Props) => {
           <ComposedChart data={chartData} margin={{ top: 0, right: smScreen ? 10 : 25, bottom: 0, left: 0 }}>
             <YAxis
               stroke={isDarkMode ? "#ccc" : "#666"}
-              tickFormatter={(value) => formatShortAmountWithCurrency(value, false, true)}
+              tickFormatter={(value) => formatAmountForChart(value)}
               style={CHART_Y_AXIS_STYLE(smScreen, preferredFontSize)}
               axisLine={false}
               tickLine={false}

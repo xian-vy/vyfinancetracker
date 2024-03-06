@@ -7,7 +7,7 @@ import { FilterAndGroupContributions, FilterAndGroupSavingsContribution } from "
 import {
   ThemeColor,
   formatNumberWithoutCurrency,
-  formatShortAmountWithCurrency,
+  formatAmountForChart,
   getFilterTitle,
   hexToRGBA,
 } from "../../../helper/utils";
@@ -85,7 +85,7 @@ const SavingsTrend = () => {
 
             <YAxis
               stroke={ThemeColor(theme)}
-              tickFormatter={(value) => formatShortAmountWithCurrency(value, false, true)}
+              tickFormatter={(value) => formatAmountForChart(value)}
               style={CHART_Y_AXIS_STYLE(smScreen, preferredFontSize)}
               axisLine={false}
               tickLine={false}

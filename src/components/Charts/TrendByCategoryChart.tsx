@@ -2,12 +2,12 @@ import { Box, CircularProgress, Container, useMediaQuery, useTheme } from "@mui/
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { formatShortAmountWithCurrency, hexToRGBA } from "../../helper/utils";
-import { TXN_TREND_CHART_HEIGHT, TXN_TREND_CHART_HEIGHT_LG } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
+import { TXN_TREND_CHART_HEIGHT, TXN_TREND_CHART_HEIGHT_LG } from "../../constants/size";
+import { CHART_X_AXIS_STYLE, CHART_Y_AXIS_STYLE } from "../../constants/style";
+import { formatAmountForChart, hexToRGBA } from "../../helper/utils";
 import { RootState } from "../../redux/store";
 import TrendByCategoryTooltip from "./TrendByCategoryTooltip";
-import { CHART_X_AXIS_STYLE, CHART_Y_AXIS_STYLE } from "../../constants/style";
 interface filteredChartData {
   date: string;
   categories: {
@@ -68,7 +68,7 @@ const TrendByCategoryChart = ({
 
             <YAxis
               stroke={isDarkMode ? "#ccc" : "#666"}
-              tickFormatter={(value) => formatShortAmountWithCurrency(value, false, true)}
+              tickFormatter={(value) => formatAmountForChart(value)}
               style={CHART_Y_AXIS_STYLE(smScreen, preferredFontSize)}
               axisLine={false}
               tickLine={false}

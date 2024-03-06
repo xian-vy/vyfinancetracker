@@ -157,6 +157,25 @@ export function formatShortAmountWithCurrency(amount: number, isDecimal?: boolea
   return symbol + shortAmount;
 }
 
+export function formatAmountForChart(amount: number) {
+  const absoluteAmount = Math.abs(amount);
+
+  let shortAmount = "";
+  if (absoluteAmount >= 1e3 && absoluteAmount < 1e6) {
+    const formatted = (absoluteAmount / 1e3).toString();
+    shortAmount = `${formatted.split(".")[0]}k`;
+  } else if (absoluteAmount >= 1e6 && absoluteAmount < 1e9) {
+    const formatted = (absoluteAmount / 1e6).toString();
+    shortAmount = `${formatted.split(".")[0]}M`;
+  } else if (absoluteAmount < 1e3 && absoluteAmount >= 100) {
+    shortAmount = `${Math.floor(absoluteAmount / 100)}h`;
+  } else {
+    shortAmount = absoluteAmount.toString();
+  }
+
+  return shortAmount;
+}
+
 export const useResponsiveCharLimit = () => {
   const theme = useTheme();
   const isXsScreen = useMediaQuery(theme.breakpoints.down("sm"));
