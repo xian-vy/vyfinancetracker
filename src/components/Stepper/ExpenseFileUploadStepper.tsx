@@ -1,5 +1,15 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import {
+  Divider,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import { format } from "date-fns";
 import React from "react";
@@ -47,21 +57,22 @@ const sampleData = generateSampleData();
 export default function ExpenseFileUploadStepper({ closeForm }: { closeForm: () => void }) {
   return (
     <div style={{ position: "relative" }}>
-      <Box sx={{ width: "100%", height: "100%" }}>
+      <Box sx={{ width: "100%", height: "100%", px: 1 }}>
         <Stack direction="row" justifyContent="flex-end">
           <CloseIcon onClick={() => closeForm()} sx={{ cursor: "pointer" }} />
         </Stack>
-        <Typography variant="body2" gutterBottom sx={{ mt: 1 }}>
-          1 Upload max 500 expenses per session, only accepts excel files.
+        <Typography variant="body2" gutterBottom mt={1}>
+          {`1) Limit 500 expenses per upload, only accepts excel files.`}
         </Typography>
-        <Typography variant="body2" gutterBottom>
-          2 Description,account and category are optional, if blank, will be tagged as Uncategorized and can be changed
-          in app after upload.
+        <Typography variant="body2" gutterBottom mt={1}>
+          {`2) description,account and category are optional`}
         </Typography>
-        <Typography variant="body2" mb={1}>
-          3 Headers must be [description, amount, account, date, category] in no particular order.
+        <Typography variant="body2" my={1}>
+          {`3) Headers must be [ description, amount, account, date, category ] in no particular order.`}
         </Typography>
-        <Typography textAlign="center">Example with Allowed Date Formats</Typography>
+        <Divider>
+          <Typography textAlign="center">Example with Allowed Date Formats</Typography>
+        </Divider>
         <TableContainer>
           <Table aria-label="simple table" size="small">
             <TableHead>

@@ -217,14 +217,14 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
         title="Anonymous Account"
         content={
           <>
-            <Typography variant="body1" gutterBottom mt={2}>
+            <Typography variant="body1" gutterBottom mt={2} textAlign="center">
               Your data is binded to the current device and current sign in session.
             </Typography>
-            <Typography variant="body1" gutterBottom>
+            <Typography variant="body1" gutterBottom textAlign="center">
               When you sign out or in the event of an unexpected issue, your data will be lost.
             </Typography>
-            <Typography variant="body1">
-              We recommend linking account to sync/backup data automatically and to access your data across multiple
+            <Typography variant="body1" textAlign="center">
+              Link account in Settings to sync/backup data automatically and to access your data across multiple
               devices.
             </Typography>
           </>
