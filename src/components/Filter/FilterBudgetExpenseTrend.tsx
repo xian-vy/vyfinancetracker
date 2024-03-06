@@ -9,7 +9,7 @@ import { FilterTimeframe } from "../../constants/timeframes";
 import { iconSize, iconSizeXS } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
 import { useCategoryList } from "../../hooks/categoryListHook";
-import CategoryBreakdownDialog from "../Charts/CategoryBreakdownDialog";
+import TransactionOverviewDialog from "../Dashboard/TransactionOverviewDialog";
 import CustomIconButton from "../CustomIconButton";
 import TimeframeDrawerPopOver from "./TimeframeDrawerPopOver";
 
@@ -82,7 +82,7 @@ const FilterBudgetExpenseTrend = (props: Props) => {
                   marginLeft: "5px",
                 }}
               >
-                {formatShortAmountWithCurrency(props.totalAmount, false, true)}
+                {formatShortAmountWithCurrency(Math.round(props.totalAmount), false, true)}
               </span>
             </Typography>
           </Stack>
@@ -127,7 +127,7 @@ const FilterBudgetExpenseTrend = (props: Props) => {
       />
 
       {renderCategoryList()}
-      <CategoryBreakdownDialog
+      <TransactionOverviewDialog
         filterOption={filterOption}
         filterTitle={props.timeframe}
         startDate={props.startDate}

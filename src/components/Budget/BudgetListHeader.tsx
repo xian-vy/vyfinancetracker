@@ -33,10 +33,10 @@ export default function BudgetListHeader({
   };
 
   const totalRemaining = totalBudget - totalExpense;
-  const formattedBudget = formatShortAmountWithCurrency(totalBudget, false, true);
+  const formattedBudget = formatShortAmountWithCurrency(Math.round(totalBudget), false, true);
   const formattedExpense = formatShortAmountWithCurrency(totalExpense, false, true);
 
-  const formattedRemaining = formatShortAmountWithCurrency(totalRemaining, false, true);
+  const formattedRemaining = formatShortAmountWithCurrency(Math.round(totalRemaining), false, true);
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
