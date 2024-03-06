@@ -176,7 +176,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ editIncome, onCloseForm, isEdit
           inputProps={{ inputMode: "numeric" }}
           size="small"
           label="Amount"
-          value={newIncome.amount}
+          value={new Intl.NumberFormat("en-US").format(newIncome.amount)}
           onChange={(e) => {
             const value = e.target.value;
             if (isValidInput(value) && value.length <= 8) {

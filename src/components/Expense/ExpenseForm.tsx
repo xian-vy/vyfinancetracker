@@ -198,7 +198,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
           inputProps={{ inputMode: "numeric" }}
           size="small"
           label="Amount"
-          value={newExpense.amount}
+          value={new Intl.NumberFormat("en-US").format(newExpense.amount)}
           onChange={(e) => {
             const value = e.target.value;
             if (isValidInput(value) && value.length <= 8) {

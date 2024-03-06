@@ -159,7 +159,7 @@ const SavingsForm = (props: Props) => {
           inputProps={{ inputMode: "numeric" }}
           size="small"
           label="Goal Amount"
-          value={newSavings.targetAmount}
+          value={new Intl.NumberFormat("en-US").format(newSavings.targetAmount)}
           onChange={(e) => {
             const value = e.target.value;
             if (isValidInput(value) && value.length <= 8) {
