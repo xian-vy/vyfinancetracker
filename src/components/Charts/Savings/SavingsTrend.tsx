@@ -20,6 +20,7 @@ import { RootState } from "../../../redux/store";
 import CustomMonthFilter from "../../Filter/CustomMonthFilter";
 import CustomYearFilter from "../../Filter/CustomYearFilter";
 import FilterIncomeSavingsTrend from "../../Filter/FilterIncomeSavingsTrend";
+import { CHART_X_AXIS_STYLE, CHART_Y_AXIS_STYLE } from "../../../constants/style";
 
 function renderIcon(icon: React.ReactElement, color: string) {
   return React.cloneElement(icon, { style: { color: color, fontSize: iconSizeXS } });
@@ -85,15 +86,7 @@ const SavingsTrend = () => {
             <YAxis
               stroke={ThemeColor(theme)}
               tickFormatter={(value) => formatShortAmountWithCurrency(value, false, true)}
-              style={{
-                fontSize: smScreen
-                  ? preferredFontSize === "md"
-                    ? "0.6rem"
-                    : "0.5rem"
-                  : preferredFontSize === "md"
-                  ? "0.7rem"
-                  : "0.6rem",
-              }}
+              style={CHART_Y_AXIS_STYLE(smScreen, preferredFontSize)}
               axisLine={false}
               tickLine={false}
               width={smScreen ? 30 : undefined}
@@ -102,15 +95,7 @@ const SavingsTrend = () => {
             <XAxis
               dataKey="date"
               stroke={ThemeColor(theme)}
-              style={{
-                fontSize: smScreen
-                  ? preferredFontSize === "md"
-                    ? "0.7rem"
-                    : "0.6rem"
-                  : preferredFontSize === "md"
-                  ? "0.8rem"
-                  : "0.7rem",
-              }}
+              style={CHART_X_AXIS_STYLE(smScreen, preferredFontSize)}
               axisLine={false}
               tickLine={false}
             />

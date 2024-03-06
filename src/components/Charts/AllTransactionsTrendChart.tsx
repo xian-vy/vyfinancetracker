@@ -9,6 +9,7 @@ import { FilterAndGroupSavingsContribution } from "../../helper/SavingsHelper";
 import { formatShortAmountWithCurrency, hexToRGBA } from "../../helper/utils";
 import { FilterAndGroupAllTransactionsWorker } from "../../helper/workers/workerHelper";
 import { txn_types } from "../../constants/collections";
+import { CHART_X_AXIS_STYLE, CHART_Y_AXIS_STYLE } from "../../constants/style";
 import {
   BALANCE_THEME,
   BUDGET_THEME,
@@ -247,32 +248,15 @@ const AllTransactionsTrendChart = (props: Props) => {
             <YAxis
               stroke={isDarkMode ? "#ccc" : "#666"}
               tickFormatter={(value) => formatShortAmountWithCurrency(value, false, true)}
-              style={{
-                fontSize: smScreen
-                  ? preferredFontSize === "md"
-                    ? "0.6rem"
-                    : "0.5rem"
-                  : preferredFontSize === "md"
-                  ? "0.7rem"
-                  : "0.6rem",
-              }}
+              style={CHART_Y_AXIS_STYLE(smScreen, preferredFontSize)}
               axisLine={false}
               tickLine={false}
               width={smScreen ? 30 : undefined}
             />
-
             <XAxis
               dataKey="date"
               stroke={isDarkMode ? "#ccc" : "#666"}
-              style={{
-                fontSize: smScreen
-                  ? preferredFontSize === "md"
-                    ? "0.7rem"
-                    : "0.6rem"
-                  : preferredFontSize === "md"
-                  ? "0.8rem"
-                  : "0.7rem",
-              }}
+              style={CHART_X_AXIS_STYLE(smScreen, preferredFontSize)}
               axisLine={false}
               tickLine={false}
             />

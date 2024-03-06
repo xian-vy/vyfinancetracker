@@ -7,6 +7,7 @@ import { TXN_TREND_CHART_HEIGHT, TXN_TREND_CHART_HEIGHT_LG } from "../../constan
 import { txn_types } from "../../constants/collections";
 import { RootState } from "../../redux/store";
 import TrendByCategoryTooltip from "./TrendByCategoryTooltip";
+import { CHART_X_AXIS_STYLE, CHART_Y_AXIS_STYLE } from "../../constants/style";
 interface filteredChartData {
   date: string;
   categories: {
@@ -60,15 +61,7 @@ const TrendByCategoryChart = ({
             <XAxis
               dataKey="date"
               stroke={isDarkMode ? "#ccc" : "#666"}
-              style={{
-                fontSize: smScreen
-                  ? preferredFontSize === "md"
-                    ? "0.7rem"
-                    : "0.6rem"
-                  : preferredFontSize === "md"
-                  ? "0.8rem"
-                  : "0.7rem",
-              }}
+              style={CHART_X_AXIS_STYLE(smScreen, preferredFontSize)}
               axisLine={false}
               tickLine={false}
             />
@@ -76,15 +69,7 @@ const TrendByCategoryChart = ({
             <YAxis
               stroke={isDarkMode ? "#ccc" : "#666"}
               tickFormatter={(value) => formatShortAmountWithCurrency(value, false, true)}
-              style={{
-                fontSize: smScreen
-                  ? preferredFontSize === "md"
-                    ? "0.6rem"
-                    : "0.5rem"
-                  : preferredFontSize === "md"
-                  ? "0.7rem"
-                  : "0.6rem",
-              }}
+              style={CHART_Y_AXIS_STYLE(smScreen, preferredFontSize)}
               axisLine={false}
               tickLine={false}
               width={smScreen ? 35 : undefined}
