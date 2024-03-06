@@ -132,11 +132,12 @@ export async function generateExpenseList(
   const columnOrder = Object.keys(data[0]);
 
   const ws = utils.json_to_sheet(data, { header: columnOrder });
+  const generatedDate = `Generated-On-${format(new Date(), "yyyy-MMM-dd")}`;
 
   const wb = utils.book_new();
   utils.book_append_sheet(wb, ws, "Report");
 
-  writeFile(wb, `ExpenseList-${filterDate}.xlsx`);
+  writeFile(wb, `${filterDate}-Expenses-${generatedDate}.xlsx`);
 }
 
 export async function generateIncomeList(
@@ -170,9 +171,10 @@ export async function generateIncomeList(
   const columnOrder = Object.keys(data[0]);
 
   const ws = utils.json_to_sheet(data, { header: columnOrder });
+  const generatedDate = `Generated-On-${format(new Date(), "yyyy-MMM-dd")}`;
 
   const wb = utils.book_new();
   utils.book_append_sheet(wb, ws, "Report");
 
-  writeFile(wb, `IncomeList-${filterDate}.xlsx`);
+  writeFile(wb, `${filterDate}-Income-${generatedDate}.xlsx`);
 }
