@@ -19,7 +19,6 @@ import { useEffect, useRef, useState } from "react";
 import { CirclePicker } from "react-color";
 import { getRandomColor } from "../../firebase/defaultData";
 import { currentDatetoDatePicker } from "../../helper/date";
-import { isValidInput } from "../../helper/utils";
 import SavingsIcons from "../../media/SavingsIcons";
 import SavingGoalsModel from "../../models/SavingGoalsModel";
 import EntryFormButton from "../GenericComponents/EntryFormButton";
@@ -55,10 +54,9 @@ const SavingsForm = (props: Props) => {
     color: "",
   });
 
-  const amountRef = useRef<HTMLInputElement | null>(null);
   const savingdescriptionRef = useRef<HTMLInputElement | null>(null);
 
-  const canSave = Boolean(Number(amountRef.current?.value) > 0) && Boolean(savingdescriptionRef.current?.value !== "");
+  const canSave = newSavings.targetAmount > 0 && Boolean(savingdescriptionRef.current?.value !== "");
 
   const handleColorChange = (newColor: { hex: string }) => {
     setColor(newColor.hex);
@@ -153,7 +151,6 @@ const SavingsForm = (props: Props) => {
         />
 
         <TextField
-          inputRef={amountRef}
           required
           inputMode="numeric"
           inputProps={{ inputMode: "numeric" }}
@@ -163,10 +160,10 @@ const SavingsForm = (props: Props) => {
           onChange={(e) => {
             const value = e.target.value;
             const amount = parseFloat(value.replace(/,/g, ""));
-            if (isValidInput(value) && value.length <= 8) {
+            if (value.length <= 8) {
               setNewSavings({
                 ...newSavings,
-                targetAmount: amount || 0,
+                targetAmount: isNaN(amount) ? 0 : amount,
               });
             }
           }}

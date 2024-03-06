@@ -11,7 +11,6 @@ import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
 import { useTransactionLogsContext } from "../../contextAPI/TransactionLogsContext";
 import { currentDatetoDatePicker } from "../../helper/date";
-import { isValidInput } from "../../helper/utils";
 import AccountsIcons from "../../media/AccountsIcons";
 import IncomeSourceIcons from "../../media/IncomeSourceIcons";
 import AccountTypeModel from "../../models/AccountTypeModel";
@@ -180,10 +179,10 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ editIncome, onCloseForm, isEdit
           onChange={(e) => {
             const value = e.target.value;
             const amount = parseFloat(value.replace(/,/g, ""));
-            if (isValidInput(value) && value.length <= 8) {
+            if (value.length <= 8) {
               setIncome({
                 ...newIncome,
-                amount: amount || 0,
+                amount: isNaN(amount) ? 0 : amount,
               });
             }
           }}
