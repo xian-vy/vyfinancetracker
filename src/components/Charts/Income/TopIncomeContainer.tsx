@@ -7,7 +7,7 @@ import { FilterTimeframe } from "../../../constants/timeframes";
 import { useAccountTypeContext } from "../../../contextAPI/AccountTypeContext";
 import { useIncomeSourcesContext } from "../../../contextAPI/IncomeSourcesContext";
 import { RootState } from "../../../redux/store";
-import GenericHorizontalBarChart from "../GenericHorizontalBarChart";
+import TransactionOverviewBreakdown from "../TransactionOverviewBreakdown";
 interface Props {
   filterOption: FilterTimeframe;
   startDate: Date | null;
@@ -69,7 +69,7 @@ const TopIncomeContainer = ({ filterOption, startDate, endDate }: Props) => {
           </Link>
         </Breadcrumbs>
       </Box>
-      <GenericHorizontalBarChart groupedData={groupedData} />
+      <TransactionOverviewBreakdown groupedData={groupedData} />
     </>
   );
 };

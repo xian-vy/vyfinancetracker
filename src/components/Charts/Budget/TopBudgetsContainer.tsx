@@ -6,7 +6,7 @@ import { getCategoryDetails } from "../../../firebase/utils";
 import { FilterTimeframe } from "../../../constants/timeframes";
 import { useCategoryContext } from "../../../contextAPI/CategoryContext";
 import { RootState } from "../../../redux/store";
-import GenericHorizontalBarChart from "../GenericHorizontalBarChart";
+import TransactionOverviewBreakdown from "../TransactionOverviewBreakdown";
 
 interface Props {
   filterOption: FilterTimeframe;
@@ -34,7 +34,7 @@ const TopBudgetsContainer = ({ filterOption, startDate, endDate, selectedCategor
 
   return (
     <>
-      <GenericHorizontalBarChart groupedData={groupedData} />
+      <TransactionOverviewBreakdown groupedData={groupedData} />
     </>
   );
 };

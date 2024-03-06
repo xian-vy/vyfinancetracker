@@ -9,7 +9,7 @@ type groupedData = {
   icon: React.ReactElement;
 };
 
-const GenericHorizontalBarChart = ({ groupedData }: { groupedData: groupedData[] }) => {
+const TransactionOverviewBreakdown = ({ groupedData }: { groupedData: groupedData[] }) => {
   let aggregatedData = Object.values(groupedData).sort((a, b) => b.amount - a.amount);
 
   const maxAmount = Math.max(...aggregatedData.map((item) => item.amount));
@@ -45,7 +45,7 @@ const GenericHorizontalBarChart = ({ groupedData }: { groupedData: groupedData[]
   return (
     <>
       <Box ref={containerRef} width="100%" sx={{ height: "auto", minHeight: DASHBOARD_DIALOG, maxHeight: "auto" }}>
-        <Box sx={{ px: 1, overflowY: "auto" }}>
+        <Box sx={{ px: 1, overflowY: "auto", display: "flex", justifyContent: "center" }}>
           <Stack direction="column" alignItems="flex-start">
             {aggregatedData.map((item, index) => {
               return (
@@ -88,4 +88,4 @@ const GenericHorizontalBarChart = ({ groupedData }: { groupedData: groupedData[]
   );
 };
 
-export default React.memo(GenericHorizontalBarChart);
+export default React.memo(TransactionOverviewBreakdown);

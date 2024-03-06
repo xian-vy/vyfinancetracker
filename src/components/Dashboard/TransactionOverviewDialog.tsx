@@ -6,17 +6,16 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Divider,
   Stack,
   Typography,
 } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { formatShortAmountWithCurrency } from "../../helper/utils";
-import { DASHBOARD_DIALOG } from "../../constants/size";
 import { txn_summary } from "../../constants/collections";
 import { PERCENTAGE_DECREASE } from "../../constants/componentTheme";
+import { DASHBOARD_DIALOG } from "../../constants/size";
 import { FilterTimeframe } from "../../constants/timeframes";
+import { formatShortAmountWithCurrency } from "../../helper/utils";
 import { RootState } from "../../redux/store";
 
 interface Props {
@@ -33,7 +32,7 @@ interface Props {
   isDarkMode: boolean;
 }
 
-const TransactionOverviewBalanceBreakdown = React.lazy(() => import("./TransactionOverviewBalanceBreakdown"));
+const BalanceByAccountTypeBreakdown = React.lazy(() => import("./BalanceByAccountTypeBreakdown"));
 const TopBudgetsContainer = React.lazy(() => import("../Charts/Budget/TopBudgetsContainer"));
 const TopExpensesContainer = React.lazy(() => import("../Charts/Expenses/TopExpensesContainer"));
 const TopIncomeContainer = React.lazy(() => import("../Charts/Income/TopIncomeContainer"));
@@ -91,11 +90,11 @@ const TransactionOverviewDialog = (props: Props) => {
             }
           >
             {props.txnType === txn_summary.Balance && (
-              <TransactionOverviewBalanceBreakdown
+              <BalanceByAccountTypeBreakdown
                 networth={{
-                  expenseSum: props.networth?.expenseSum || 0,
-                  incomeSum: props.networth?.incomeSum || 0,
-                  contributionSum: props.networth?.contributionSum || 0,
+                  expense: props.networth?.expenseSum || 0,
+                  income: props.networth?.incomeSum || 0,
+                  savings: props.networth?.contributionSum || 0,
                 }}
               />
             )}

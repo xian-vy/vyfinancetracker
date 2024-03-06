@@ -8,40 +8,32 @@ import { iconSizeSM } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
 import { EXPENSES_THEME, INCOME_THEME, SAVINGS_THEME_DARK } from "../../constants/componentTheme";
 
-interface AccountDetails {
-  balance: number;
-  income: number;
-  expense: number;
-  savings: number;
-  color: string;
-  icon: string;
-}
 interface Props {
-  accountDetails: AccountDetails;
+  networth: { expense: number; income: number; savings: number };
 }
-const BalanceByAccountTypeBreakdown = ({ accountDetails }: Props) => {
+const BalanceByAccountTypeBreakdown = ({ networth }: Props) => {
   const breakdown = [
     {
       type: txn_types.Income,
-      amount: accountDetails.income,
+      amount: networth.income,
       color: INCOME_THEME,
       icon: <PaidIcon sx={{ fontSize: iconSizeSM, color: INCOME_THEME }} />,
     },
     {
       type: txn_types.Expenses,
-      amount: accountDetails.expense,
+      amount: networth.expense,
       color: EXPENSES_THEME,
       icon: <LocalMallIcon sx={{ fontSize: iconSizeSM, color: EXPENSES_THEME }} />,
     },
     {
       type: txn_types.Savings,
-      amount: accountDetails.savings,
+      amount: networth.savings,
       color: SAVINGS_THEME_DARK,
       icon: <SavingsIcon sx={{ fontSize: iconSizeSM, color: SAVINGS_THEME_DARK }} />,
     },
   ];
 
-  const maxAmount = Math.max(accountDetails.income, accountDetails.expense, accountDetails.savings);
+  const maxAmount = Math.max(networth.income, networth.expense, networth.savings);
 
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [maxWidth, setMaxWidth] = React.useState(0);
@@ -64,7 +56,7 @@ const BalanceByAccountTypeBreakdown = ({ accountDetails }: Props) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
   return (
-    <Box ref={containerRef} overflow="hidden" sx={{ px: 1 }}>
+    <Box ref={containerRef} overflow="hidden" sx={{ px: 1, display: "flex", justifyContent: "center" }}>
       <Stack direction="column">
         {breakdown.map((item, index) => (
           <div key={index}>

@@ -223,7 +223,11 @@ const BalanceByAccountType = () => {
                           </Stack>
 
                           <BalanceByAccountTypeDialog
-                            accountDetails={accountDetails}
+                            networth={{
+                              income: accountDetails.income,
+                              expense: accountDetails.expense,
+                              savings: accountDetails.savings,
+                            }}
                             openDialog={expandedStates[accountType] || false}
                             onDialogClose={() => handleExpandClick(accountType)}
                             accountType={accountType}

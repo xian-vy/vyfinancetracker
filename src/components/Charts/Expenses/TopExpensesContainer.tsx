@@ -6,7 +6,7 @@ import { getCategoryDetails, getAccountsDetails } from "../../../firebase/utils"
 import { useCategoryContext } from "../../../contextAPI/CategoryContext";
 import { useAccountTypeContext } from "../../../contextAPI/AccountTypeContext";
 import { RootState } from "../../../redux/store";
-import GenericHorizontalBarChart from "../GenericHorizontalBarChart";
+import TransactionOverviewBreakdown from "../TransactionOverviewBreakdown";
 type groupedData = {
   category: string;
   amount: number;
@@ -75,7 +75,7 @@ const TopExpensesContainer = ({ filterOption, startDate, endDate, selectedCatego
           </Link>
         </Breadcrumbs>
       </Box>
-      <GenericHorizontalBarChart groupedData={groupedData} />
+      <TransactionOverviewBreakdown groupedData={groupedData} />
     </>
   );
 };

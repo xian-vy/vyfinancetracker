@@ -18,21 +18,13 @@ import { RootState } from "../../redux/store";
 
 const BalanceByAccountTypeBreakdown = React.lazy(() => import("./BalanceByAccountTypeBreakdown"));
 
-interface AccountDetails {
-  balance: number;
-  income: number;
-  expense: number;
-  savings: number;
-  color: string;
-  icon: string;
-}
 interface Props {
   filterTitle: string;
   accountType: string;
   totalAmount: number;
   openDialog: boolean;
   onDialogClose: () => void;
-  accountDetails: AccountDetails;
+  networth: { expense: number; income: number; savings: number };
 }
 
 const BalanceByAccountTypeDialog = (props: Props) => {
@@ -80,7 +72,7 @@ const BalanceByAccountTypeDialog = (props: Props) => {
               </Box>
             }
           >
-            <BalanceByAccountTypeBreakdown accountDetails={props.accountDetails} />
+            <BalanceByAccountTypeBreakdown networth={props.networth} />
           </React.Suspense>
         </DialogContent>
         <DialogActions
