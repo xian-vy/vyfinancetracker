@@ -20,13 +20,15 @@ import { ThemeColor, formatShortAmountWithCurrency, hexToRGBA, toTitleCase } fro
 import SavingsIcons from "../../media/SavingsIcons";
 import SavingGoalsModel from "../../models/SavingGoalsModel";
 import { iconSizeSM } from "../../constants/size";
+import { useActionPopover } from "../../hooks/actionHook";
+import { ACTION_TYPES } from "../../constants/constants";
 
 export function SavingsItems({
-  handleMoreIconClick,
   savings,
+  onActionSelect,
 }: {
-  handleMoreIconClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, savings: SavingGoalsModel) => void;
   savings: SavingGoalsModel;
+  onActionSelect: (action: string, savings: SavingGoalsModel) => void;
 }) {
   const [expandedSavingsId, setExpandedSavingsId] = useState<string | null>(null);
 
@@ -51,8 +53,18 @@ export function SavingsItems({
   function renderIcon(icon: React.ReactElement, color: string) {
     return React.cloneElement(icon, { style: { color: color, fontSize: iconSizeSM } });
   }
+
+  const handleAction = (action: string, savings: SavingGoalsModel) => {
+    onActionSelect(action, savings);
+    handleActionClose();
+  };
+  const { ActionPopover, handleActionOpen, handleActionClose } = useActionPopover({
+    actions: [ACTION_TYPES.AddContribution, ACTION_TYPES.Edit, ACTION_TYPES.Delete],
+    handleAction,
+  });
   return (
     <Grid item xs={12} sm={6} md={4} lg={4} xl={3} key={savings.id}>
+      {ActionPopover}
       <Paper
         sx={{
           borderRadius: 4,
@@ -77,7 +89,7 @@ export function SavingsItems({
               </Tooltip>
             </Stack>
 
-            <IconButton onClick={(event) => handleMoreIconClick(event, savings)} sx={{ mr: -1 }}>
+            <IconButton onClick={(event) => handleActionOpen(event, savings)} sx={{ mr: -1 }}>
               <MoreHorizOutlinedIcon fontSize="small" />
             </IconButton>
           </Stack>
@@ -174,17 +186,10 @@ export function SavingsItems({
           >
             {/** NOTE----------------------------------------------------------------------------*/}
 
-            <Box display="flex" alignItems="center" my={2}>
-              <Box flex="1">
-                <Divider />
-              </Box>
-              <Box mx={2}>
-                <Typography variant="body1">Notes</Typography>
-              </Box>
-              <Box flex="1">
-                <Divider />
-              </Box>
-            </Box>
+            <Divider>
+              <Typography variant="body1">Notes</Typography>
+            </Divider>
+
             <Typography textAlign="left" variant="body1">
               {savings.notes}
             </Typography>

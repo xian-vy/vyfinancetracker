@@ -1,13 +1,11 @@
 import { Add } from "@mui/icons-material";
 import {
+  Backdrop,
+  CircularProgress,
   Dialog,
   DialogContent,
   Grid,
-  List,
-  ListItemButton,
-  ListItemText,
   Paper,
-  Popover,
   Stack,
   Typography,
   useTheme,
@@ -17,11 +15,11 @@ import { Timestamp } from "firebase/firestore";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { TimestamptoDate } from "../../helper/date";
-import { ThemeColor } from "../../helper/utils";
-import { FORM_WIDTH, iconSizeXS } from "../../constants/size";
 import { operation_types, txn_types } from "../../constants/collections";
+import { ACTION_TYPES } from "../../constants/constants";
+import { FORM_WIDTH, iconSizeXS } from "../../constants/size";
 import { useTransactionLogsContext } from "../../contextAPI/TransactionLogsContext";
+import { ThemeColor } from "../../helper/utils";
 import useSnackbarHook from "../../hooks/snackbarHook";
 import SavingGoalsModel from "../../models/SavingGoalsModel";
 import TransactionLogsModel from "../../models/TransactionLogsModel";
@@ -35,10 +33,9 @@ import { RootState } from "../../redux/store";
 import SavingsTrend from "../Charts/Savings/SavingsTrend";
 import CustomIconButton from "../CustomIconButton";
 import DeleteConfirmationDialog from "../Dialog/DeleteConfirmationDialog";
-import LoadingDialog from "../Dialog/LoadingDialog";
 import FilterSavings from "../Filter/FilterSavings";
-import { SavingsItems } from "./SavingsItems";
 import EntryFormSkeleton from "../Skeleton/EntryFormSkeleton";
+import { SavingsItems } from "./SavingsItems";
 const SavingsForm = React.lazy(() => import("./SavingsForm"));
 const SavingsContributionForm = React.lazy(() => import("./SavingsContributionForm"));
 const SavingsMainPage = () => {
@@ -48,37 +45,18 @@ const SavingsMainPage = () => {
   const [editMode, setEditMode] = useState(false);
   const [savingsFormOpen, setSavingsFormOpen] = useState(false);
   const [contributionFormOpen, setContributionFormOpen] = useState(openForm || false);
-  const [actionOpen, setActionOpen] = useState(false);
-  const [action, setAction] = useState("Edit");
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [filterOption, setFilterOption] = useState("In Progress");
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const savingsSlice = useSelector((state: RootState) => state.savings.savings);
   const [deleteFormOpen, setDeleteFormOpen] = useState(false);
   const { openSuccessSnackbar, SnackbarComponent } = useSnackbarHook();
-
   const filteredSavings = savingsSlice.filter((saving) => {
     return saving.status === filterOption;
   });
 
   const { saveLogs } = useTransactionLogsContext();
-
-  const [editedSavings, setEditedSavings] = useState<SavingGoalsModel>({
-    id: "",
-    description: "",
-    notes: "",
-    targetAmount: 0,
-    currentAmount: 0,
-    startDate: Timestamp.now(),
-    endDate: Timestamp.now(),
-    status: "In Progress",
-    autoContributionAmount: 0,
-    contributionFrequency: "",
-    autoContributionStatus: 0,
-    color: "",
-    icon: "",
-  });
+  const [editedSavings, setEditedSavings] = useState({} as SavingGoalsModel);
 
   const handleCloseForm = () => {
     setContributionFormOpen(false);
@@ -130,26 +108,15 @@ const SavingsMainPage = () => {
     }, 300);
   };
 
-  const handleActionClose = () => {
-    setAnchorEl(null);
-    setActionOpen(false);
-  };
-  const handleMoreIconClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, savings: SavingGoalsModel) => {
-    setAnchorEl(event.currentTarget);
-    setActionOpen(!actionOpen);
+  const handleActionSelect = async (option: string, savings: SavingGoalsModel) => {
     setEditedSavings(savings);
-  };
 
-  const handleAction = async (option: string) => {
-    setAction(option);
-    handleActionClose();
-
-    if (option == "Edit" && editedSavings) {
+    if (option == ACTION_TYPES.Edit && editedSavings) {
       setSavingsFormOpen(true);
       setEditMode(true);
-    } else if (option == "Add Contribution") {
+    } else if (option == ACTION_TYPES.AddContribution) {
       setContributionFormOpen(true);
-    } else if (option == "Delete") {
+    } else if (option == ACTION_TYPES.Delete) {
       setDeleteFormOpen(true);
     }
   };
@@ -195,6 +162,9 @@ const SavingsMainPage = () => {
   }, []);
   return (
     <>
+      <Backdrop open={isLoading} sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Grid container spacing={{ xs: 1, sm: 1.5, lg: 2 }} pb={{ xs: 10, md: 5 }} ref={gridContainerRef}>
         <Grid item xs={12} lg={12}>
           <Paper sx={{ borderRadius: 4 }} variant={isDarkMode ? "elevation" : "outlined"}>
@@ -223,7 +193,7 @@ const SavingsMainPage = () => {
               <Grid container padding={1} spacing={2} paddingTop={2}>
                 {/** Savings Items Container------------------------------------------------------------------------*/}
                 {filteredSavings.map((savings) => (
-                  <SavingsItems key={savings.id} handleMoreIconClick={handleMoreIconClick} savings={savings} />
+                  <SavingsItems key={savings.id} onActionSelect={handleActionSelect} savings={savings} />
                 ))}
               </Grid>
             </Stack>
@@ -263,29 +233,6 @@ const SavingsMainPage = () => {
           </React.Suspense>
         </DialogContent>
       </Dialog>
-
-      <Popover
-        open={actionOpen}
-        anchorEl={anchorEl}
-        onClose={handleActionClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-      >
-        <List>
-          {["Add Contribution", "Edit", "Delete"].map((action) => (
-            <ListItemButton key={action} onClick={() => handleAction(action)}>
-              <ListItemText primary={action} />
-            </ListItemButton>
-          ))}
-        </List>
-      </Popover>
-      <LoadingDialog isLoading={isLoading} />
 
       <DeleteConfirmationDialog
         isDialogOpen={deleteFormOpen}

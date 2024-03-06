@@ -17,3 +17,9 @@ export enum SORT_TYPE {
   date = "Date",
   amount = "Amount",
 }
+
+export enum ACTION_TYPES {
+  AddContribution = "Add Contribution",
+  Edit = "Edit",
+  Delete = "Delete",
+}
