@@ -16,8 +16,8 @@ const features = [
 ];
 const FeaturesIMG = () => {
   const [showFullImage, setShowFullImage] = useState({ open: false, img: "" });
-  const [currentImage, setCurrentImage] = useState(expensesLaptop);
-  const [currentMobileImage, setCurrentMobileImage] = useState(expensesMobile);
+  const [currentImage, setCurrentImage] = useState(dashboardLaptop);
+  const [currentMobileImage, setCurrentMobileImage] = useState(dashboardMobile);
 
   const handleBreadcrumbClick = (laptopImage: string, mobileImage: string) => {
     setCurrentImage(laptopImage);
@@ -61,7 +61,7 @@ const FeaturesIMG = () => {
             <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center" }}>
               <img
                 className="laptop"
-                loading={currentImage === expensesLaptop ? undefined : "lazy"}
+                loading={currentImage === dashboardLaptop ? undefined : "lazy"}
                 src={currentImage}
                 alt="laptop"
                 onClick={() => handleImageClick(currentImage)}
@@ -69,7 +69,7 @@ const FeaturesIMG = () => {
               />
               <img
                 className="mobile"
-                loading={currentMobileImage === expensesMobile ? undefined : "lazy"}
+                loading={currentMobileImage === dashboardMobile ? undefined : "lazy"}
                 src={currentMobileImage}
                 alt="mobile"
                 onClick={() => handleImageClick(currentMobileImage)}
