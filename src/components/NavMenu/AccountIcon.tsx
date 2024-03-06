@@ -129,7 +129,7 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   height: "1rem",
-                  fontSize: "0.7rem",
+                  fontSize: user?.isAnonymous ? "0.85rem" : "0.7rem",
                 }}
               >
                 {email}

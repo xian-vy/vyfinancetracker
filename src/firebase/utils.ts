@@ -3,7 +3,7 @@ import AccountsIcons from "../media/AccountsIcons";
 import CategoryIcons from "../media/CategoryIcons";
 import IncomeSourceIcons from "../media/IncomeSourceIcons";
 import SavingsIcons from "../media/SavingsIcons";
-import { getUserDocRef } from "../firebase/UsersService";
+import { getUserDocRef } from "./UsersService";
 import AccountTypeModel from "../models/AccountTypeModel";
 import CategoryModel from "../models/CategoryModel";
 import IncomeSourcesModel from "../models/IncomeSourcesModel";

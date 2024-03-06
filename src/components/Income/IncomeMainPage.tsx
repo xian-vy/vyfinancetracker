@@ -8,7 +8,6 @@ import { operation_types, txn_types } from "../../constants/collections";
 import { SORT_TYPE } from "../../constants/constants";
 import { FORM_WIDTH } from "../../constants/size";
 import { FilterTimeframe } from "../../constants/timeframes";
-import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
 import { useTransactionLogsContext } from "../../contextAPI/TransactionLogsContext";
 import { filterDataByDateRange } from "../../helper/GenericTransactionHelper";
 import { getFilterTitle } from "../../helper/utils";
@@ -39,8 +38,6 @@ const IncomeMainPage = () => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const [selectedTimeframe, setSelectedTimeframe] = useState(FilterTimeframe.Year);
   const [sortBy, setSortBy] = useState(SORT_TYPE.date);
-
-  const { incomeSource } = useIncomeSourcesContext();
 
   const incomeSlice = useSelector((state: RootState) => state.income.income);
 
