@@ -179,10 +179,11 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ editIncome, onCloseForm, isEdit
           value={new Intl.NumberFormat("en-US").format(newIncome.amount)}
           onChange={(e) => {
             const value = e.target.value;
+            const amount = parseFloat(value.replace(/,/g, ""));
             if (isValidInput(value) && value.length <= 8) {
               setIncome({
                 ...newIncome,
-                amount: parseFloat(value) || 0,
+                amount: amount || 0,
               });
             }
           }}

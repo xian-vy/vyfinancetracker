@@ -162,10 +162,11 @@ const SavingsForm = (props: Props) => {
           value={new Intl.NumberFormat("en-US").format(newSavings.targetAmount)}
           onChange={(e) => {
             const value = e.target.value;
+            const amount = parseFloat(value.replace(/,/g, ""));
             if (isValidInput(value) && value.length <= 8) {
               setNewSavings({
                 ...newSavings,
-                targetAmount: parseFloat(value) || 0,
+                targetAmount: amount || 0,
               });
             }
           }}

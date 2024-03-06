@@ -201,10 +201,11 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
           value={new Intl.NumberFormat("en-US").format(newExpense.amount)}
           onChange={(e) => {
             const value = e.target.value;
+            const amount = parseFloat(value.replace(/,/g, ""));
             if (isValidInput(value) && value.length <= 8) {
               setNewExpense({
                 ...newExpense,
-                amount: parseFloat(value) || 0,
+                amount: amount || 0,
               });
             }
           }}
