@@ -116,7 +116,7 @@ const IncomeSourceForm: React.FC<Props> = ({ closeForm, editIncomeSource, isEdit
       </Backdrop>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="h6"> Income Source Entry Form</Typography>
-        <IconButton onClick={() => closeForm()} sx={{ mr: -1.5 }}>
+        <IconButton onClick={() => closeForm()} sx={{ mr: -1 }}>
           <CloseIcon />
         </IconButton>
       </Box>

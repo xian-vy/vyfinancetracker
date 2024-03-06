@@ -113,7 +113,7 @@ const BudgetForm: React.FC<Props> = ({ closeForm, editCategory, isEditMode, cate
       </Backdrop>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="h6"> Category Entry Form</Typography>
-        <IconButton onClick={() => closeForm()} sx={{ mr: -1.5 }}>
+        <IconButton onClick={() => closeForm()} sx={{ mr: -1 }}>
           <CloseIcon />
         </IconButton>
       </Box>

@@ -6,6 +6,7 @@ import {
   Button,
   CircularProgress,
   Container,
+  Divider,
   IconButton,
   Stack,
   TextField,
@@ -214,7 +215,7 @@ const SavingsContributionForm = (props: Props) => {
       <Backdrop open={loading} sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <CircularProgress color="inherit" />
       </Backdrop>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2} pt={2} px={1}>
+      <Box display="flex" justifyContent="space-between" alignItems="center" pt={1} px={1}>
         <Stack direction="row" alignItems="center" width="85%">
           {iconObject && renderIcon(iconObject.icon, color)}
 
@@ -222,13 +223,17 @@ const SavingsContributionForm = (props: Props) => {
             {newSavings.description}
           </Typography>
         </Stack>
-        <Stack direction="row" alignItems="center">
-          <Typography variant="body1">{formatNumberWithoutCurrency(goalAmount)}</Typography>
-          <IconButton onClick={() => props.onCloseForm()} sx={{ mr: -1 }}>
-            <CloseIcon />
-          </IconButton>
-        </Stack>
+
+        <IconButton onClick={() => props.onCloseForm()} sx={{ mr: -1 }}>
+          <CloseIcon />
+        </IconButton>
       </Box>
+      <Divider sx={{ mb: 2 }}>
+        <Typography variant="body1">
+          {"Goal: "}
+          {formatNumberWithoutCurrency(goalAmount)}
+        </Typography>
+      </Divider>
 
       <Container maxWidth={false} style={{ padding: 0 }}>
         <Stack
