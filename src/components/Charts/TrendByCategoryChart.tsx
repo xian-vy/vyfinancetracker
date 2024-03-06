@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { formatShortAmountWithCurrency, hexToRGBA } from "../../helper/utils";
-import { TXN_TREND_CHART_HEIGHT } from "../../constants/size";
+import { TXN_TREND_CHART_HEIGHT, TXN_TREND_CHART_HEIGHT_LG } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
 import { RootState } from "../../redux/store";
 import TrendByCategoryTooltip from "./TrendByCategoryTooltip";
@@ -37,7 +37,7 @@ const TrendByCategoryChart = ({
 
   return (
     <Container maxWidth={false} style={{ paddingLeft: 0, position: "relative" }}>
-      <ResponsiveContainer width="100%" height={TXN_TREND_CHART_HEIGHT}>
+      <ResponsiveContainer width="100%" height={smScreen ? TXN_TREND_CHART_HEIGHT : TXN_TREND_CHART_HEIGHT_LG}>
         {!filteredChartData ? (
           <Box display="flex" justifyContent="center" alignItems="center">
             <CircularProgress size={20} />

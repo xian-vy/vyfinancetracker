@@ -39,9 +39,9 @@ export default function SignIn() {
             src={logo}
             onClick={() => navigate(HOME)}
             alt="Logo"
-            style={{ width: "24px", height: "24px", cursor: "pointer", padding: 0 }}
+            style={{ width: "28px", height: "28px", cursor: "pointer", padding: 0 }}
           />
-          <Typography component="h1" align="center" ml={0.5} sx={{ fontSize: "0.9rem", fontWeight: "bold" }}>
+          <Typography component="h1" align="center" ml={0.5} variant="h3">
             Sign In
           </Typography>
         </Stack>

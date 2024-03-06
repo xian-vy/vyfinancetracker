@@ -161,7 +161,7 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
             flexDirection: "row",
           }}
         >
-          <Typography variant="caption">
+          <Typography sx={{ fontSize: "0.6rem" }}>
             To keep your data synced across devices,Link your account in Settings
           </Typography>
           <InfoOutlinedIcon
@@ -179,7 +179,7 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
 
       {!collapsedDrawer &&
         (isLoading ? (
-          <Stack direction="row" px={3} my={1} justifyContent="space-between">
+          <Stack direction="row" px={3} my={0.5} justifyContent="space-between">
             <Skeleton variant="text" sx={{ mr: 1, flexGrow: 1 }} />
             <Skeleton variant="circular" height={18} width={18} />
           </Stack>

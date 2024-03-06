@@ -49,7 +49,7 @@ const BalanceByAccountTypeDetails = ({ accountDetails }: Props) => {
   React.useEffect(() => {
     const updateMaxWidth = () => {
       if (containerRef.current) {
-        setMaxWidth(containerRef.current.offsetWidth * 0.7);
+        setMaxWidth(containerRef.current.offsetWidth * 0.72);
       }
     };
 

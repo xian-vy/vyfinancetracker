@@ -24,7 +24,7 @@ const GenericHorizontalBarChart = ({ groupedData }: { groupedData: groupedData[]
   React.useEffect(() => {
     const updateMaxWidth = () => {
       if (containerRef.current) {
-        setMaxWidth(containerRef.current.offsetWidth * 0.6);
+        setMaxWidth(containerRef.current.offsetWidth * 0.72);
       }
     };
 

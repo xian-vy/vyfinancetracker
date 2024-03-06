@@ -13,12 +13,10 @@ import {
 } from "@mui/material";
 import React from "react";
 import { iconSizeSM } from "../../constants/size";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import PrivacyAndTerms from "./PrivacyAndTerms";
-import { Link, Location, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const AccountIcon = React.lazy(() => import("./AccountIcon"));
 type MenuItemsType = {
@@ -54,7 +52,6 @@ const DrawerNav = ({
   const isDarkMode = theme.palette.mode === "dark";
   const location = useLocation();
 
-  const powerSavingMode = useSelector((state: RootState) => state.powerSaving.enabled);
   const isMdScreen = useMediaQuery(theme.breakpoints.up("md"));
   const isXSScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -101,7 +98,7 @@ const DrawerNav = ({
           <AccountIcon isLoading={isLoading} collapsedDrawer={collapsedDrawer} />
         </React.Suspense>
         {menuItems.map((item) => (
-          <List key={item.key} sx={{ mx: collapsedDrawer ? 1 : 3, height: "30px", pt: 0, mt: 1 }}>
+          <List key={item.key} sx={{ mx: collapsedDrawer ? 1 : 3, height: "28px", pt: 0, mt: 0.5 }}>
             <ListItem disablePadding sx={{ minWidth: collapsedDrawer ? "40px" : "auto" }}>
               <ListItemButton
                 component={Link}
@@ -113,8 +110,8 @@ const DrawerNav = ({
                         ? "1px solid #333"
                         : "1px solid #ccc"
                       : "solid 1px transparent",
-                  py: 0.4,
-                  borderRadius: 4,
+                  py: 0,
+                  borderRadius: 3,
                   display: "flex",
                   justifyContent: "center",
                   px: collapsedDrawer ? 0.5 : 2,

@@ -11,7 +11,7 @@ import {
   getFilterTitle,
   hexToRGBA,
 } from "../../../helper/utils";
-import { TXN_TREND_CHART_HEIGHT, iconSizeXS } from "../../../constants/size";
+import { TXN_TREND_CHART_HEIGHT, TXN_TREND_CHART_HEIGHT_LG, iconSizeXS } from "../../../constants/size";
 import { txn_summary } from "../../../constants/collections";
 import { yearFilters } from "../../../constants/timeframes";
 import { getSavingsDetails, getSavingsIDByDescription } from "../../../firebase/utils";
@@ -78,7 +78,7 @@ const SavingsTrend = () => {
       />
 
       <Container maxWidth={false} style={{ paddingLeft: 0, position: "relative" }}>
-        <ResponsiveContainer width="100%" height={TXN_TREND_CHART_HEIGHT}>
+        <ResponsiveContainer width="100%" height={smScreen ? TXN_TREND_CHART_HEIGHT : TXN_TREND_CHART_HEIGHT_LG}>
           <BarChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" stroke={isDarkMode ? "#333" : "#ccc"} vertical={false} />
 
