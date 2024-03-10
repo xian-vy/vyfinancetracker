@@ -140,6 +140,22 @@ const BalanceByAccountType = () => {
   const iconMap = useMemo(() => new Map(AccountsIcons.map((icon) => [icon.name, icon.icon])), [AccountsIcons]);
   const filterTitle = getFilterTitle(filterOption, startDate, endDate);
 
+  const sortedData = useMemo(() => {
+    if (!data) return [];
+    return Object.entries(data).sort((a, b) => {
+      const balanceA = a[1].balance;
+      const balanceB = b[1].balance;
+
+      return balanceA < 0 && balanceB < 0
+        ? balanceA - balanceB
+        : balanceA < 0
+        ? 1
+        : balanceB < 0
+        ? -1
+        : balanceB - balanceA;
+    });
+  }, [data]);
+
   return (
     <>
       <Container maxWidth={false} sx={{ p: 1 }}>
@@ -164,81 +180,64 @@ const BalanceByAccountType = () => {
               },
             }}
           >
-            {data &&
-              Object.entries(data)
-                .sort((a, b) => {
-                  const balanceA = (a[1] as AccountDetails).balance;
-                  const balanceB = (b[1] as AccountDetails).balance;
-
-                  return balanceA < 0 && balanceB < 0
-                    ? balanceA - balanceB
-                    : balanceA < 0
-                    ? 1
-                    : balanceB < 0
-                    ? -1
-                    : balanceB - balanceA;
-                })
-                .map(([accountType, details]: [string, unknown]) => {
-                  const accountDetails = details as AccountDetails;
-
-                  const categoryIcon = iconMap.get(accountDetails.icon);
-
-                  return (
-                    <SwiperSlide key={accountType} style={swiperSlideStyle}>
-                      <Paper sx={paperStyle} variant={isDarkMode ? "elevation" : "outlined"}>
-                        <Stack direction="column">
-                          <Stack direction="row" justifyContent="space-between">
-                            <Stack direction="row" mr={{ xs: 2, md: 3, lg: 4 }}>
-                              {categoryIcon &&
-                                renderIcon(
-                                  categoryIcon,
-                                  isDarkMode ? accountDetails.color || "#ccc" : accountDetails.color || ""
-                                )}
-                              <Typography variant="body1" ml={0.5} sx={{ whiteSpace: "nowrap" }}>
-                                {accountType}
-                              </Typography>
-                            </Stack>
-                            <Typography
-                              variant="h4"
-                              style={{ color: accountDetails.balance < 0 ? PERCENTAGE_DECREASE : "inherit" }}
-                              sx={typographyStyle}
-                            >
-                              {isMasked ? "****" : formatNumberWithoutCurrency(accountDetails.balance)}
-                            </Typography>
-                          </Stack>
-
-                          <Stack direction="row" alignItems="flex-end" justifyContent="flex-end">
-                            {/* Expand More Icon -----------------------------------------------------------------------*/}
-
-                            <IconButton
-                              onClick={() => handleExpandClick(accountType)}
-                              sx={{
-                                transform: expandedStates[accountType] ? "rotate(180deg)" : "none",
-                                transition: "transform 0.3s",
-                                mr: -1.5,
-                              }}
-                            >
-                              <ExpandMoreIcon />
-                            </IconButton>
-                          </Stack>
-
-                          <BalanceByAccountTypeDialog
-                            networth={{
-                              income: accountDetails.income,
-                              expense: accountDetails.expense,
-                              savings: accountDetails.savings,
-                            }}
-                            openDialog={expandedStates[accountType] || false}
-                            onDialogClose={() => handleExpandClick(accountType)}
-                            accountType={accountType}
-                            totalAmount={accountDetails.balance}
-                            filterTitle={filterTitle}
-                          />
+            {sortedData.map(([accountType, accountDetails]: [string, AccountDetails]) => {
+              const categoryIcon = iconMap.get(accountDetails.icon);
+              return (
+                <SwiperSlide key={accountType} style={swiperSlideStyle}>
+                  <Paper sx={paperStyle} variant={isDarkMode ? "elevation" : "outlined"}>
+                    <Stack direction="column">
+                      <Stack direction="row" justifyContent="space-between">
+                        <Stack direction="row" mr={{ xs: 2, md: 3, lg: 4 }}>
+                          {categoryIcon &&
+                            renderIcon(
+                              categoryIcon,
+                              isDarkMode ? accountDetails.color || "#ccc" : accountDetails.color || ""
+                            )}
+                          <Typography variant="body1" ml={0.5} sx={{ whiteSpace: "nowrap" }}>
+                            {accountType}
+                          </Typography>
                         </Stack>
-                      </Paper>
-                    </SwiperSlide>
-                  );
-                })}
+                        <Typography
+                          variant="h4"
+                          style={{ color: accountDetails.balance < 0 ? PERCENTAGE_DECREASE : "inherit" }}
+                          sx={typographyStyle}
+                        >
+                          {isMasked ? "****" : formatNumberWithoutCurrency(accountDetails.balance)}
+                        </Typography>
+                      </Stack>
+
+                      <Stack direction="row" alignItems="flex-end" justifyContent="flex-end">
+                        {/* Expand More Icon -----------------------------------------------------------------------*/}
+
+                        <IconButton
+                          onClick={() => handleExpandClick(accountType)}
+                          sx={{
+                            transform: expandedStates[accountType] ? "rotate(180deg)" : "none",
+                            transition: "transform 0.3s",
+                            mr: -1.5,
+                          }}
+                        >
+                          <ExpandMoreIcon />
+                        </IconButton>
+                      </Stack>
+
+                      <BalanceByAccountTypeDialog
+                        networth={{
+                          income: accountDetails.income,
+                          expense: accountDetails.expense,
+                          savings: accountDetails.savings,
+                        }}
+                        openDialog={expandedStates[accountType] || false}
+                        onDialogClose={() => handleExpandClick(accountType)}
+                        accountType={accountType}
+                        totalAmount={accountDetails.balance}
+                        filterTitle={filterTitle}
+                      />
+                    </Stack>
+                  </Paper>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         )}
       </Box>
