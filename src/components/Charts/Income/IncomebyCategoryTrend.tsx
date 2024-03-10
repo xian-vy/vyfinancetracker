@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { FilterAndGroupIncome } from "../../../helper/IncomeHelper";
 import { getFilterTitle } from "../../../helper/utils";
 import { GroupTransactionByDateAndCategoriesWorker } from "../../../helper/workers/workerHelper";
 import { FilterTimeframe, yearFilters } from "../../../constants/timeframes";
@@ -11,6 +10,7 @@ import CustomMonthFilter from "../../Filter/CustomMonthFilter";
 import CustomYearFilter from "../../Filter/CustomYearFilter";
 import FilterIncomeSavingsTrend from "../../Filter/FilterIncomeSavingsTrend";
 import TrendByCategoryChart from "../TrendByCategoryChart";
+import { FilterAndGroupData } from "../../../helper/GenericTransactionHelper";
 
 type chartDataType = {
   date: string;
@@ -50,7 +50,7 @@ const IncomebyCategoryTrend: React.FC<ExpenseTrendProps> = ({ incomes, onDateFil
   );
 
   const filteredIncome = useMemo(
-    () => FilterAndGroupIncome(filterOption, incomes, incomeSource, startDate || undefined, endDate || undefined, true),
+    () => FilterAndGroupData(filterOption, incomes, incomeSource, startDate || undefined, endDate || undefined, true),
     [filterOption, incomes, incomeSource, startDate, endDate]
   );
 

@@ -78,7 +78,7 @@ type FetchResult<T> = {
   initialData: T[];
   firstFetch: boolean;
 };
-const fetchInitialData = async <T,>(
+const fetchInitialData = async <T>(
   collectionRef: CollectionReference,
   collectionName: string,
   persistenceID: string,
@@ -116,7 +116,7 @@ const fetchInitialData = async <T,>(
   return { initialData, firstFetch };
 };
 
-const fetchNewData = async <T,>(
+const fetchNewData = async <T>(
   collectionRef: CollectionReference,
   collectionName: string,
   persistenceID: string,
@@ -154,7 +154,7 @@ const fetchNewData = async <T,>(
   return newData;
 };
 
-const decryptAndMapData = async <T,>(
+const decryptAndMapData = async <T>(
   doc: QueryDocumentSnapshot<DocumentData>,
   data: DocumentData,
   key: CryptoKey,

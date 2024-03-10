@@ -2,14 +2,7 @@ import { Box, Checkbox, CircularProgress, Typography, useMediaQuery, useTheme } 
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { Bar, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { FilterAndGroupBudget } from "../../helper/BudgetHelper";
-import { FilterAndGroupExpense } from "../../helper/ExpenseHelper";
-import { FilterAndGroupIncome } from "../../helper/IncomeHelper";
-import { FilterAndGroupSavingsContribution } from "../../helper/SavingsHelper";
-import { formatAmountForChart, hexToRGBA } from "../../helper/utils";
-import { FilterAndGroupAllTransactionsWorker } from "../../helper/workers/workerHelper";
 import { txn_types } from "../../constants/collections";
-import { CHART_X_AXIS_STYLE, CHART_Y_AXIS_STYLE } from "../../constants/style";
 import {
   BALANCE_THEME,
   BUDGET_THEME,
@@ -21,9 +14,15 @@ import {
   SAVINGS_THEME,
   SAVINGS_THEME_DARK,
 } from "../../constants/componentTheme";
+import { CHART_X_AXIS_STYLE, CHART_Y_AXIS_STYLE } from "../../constants/style";
 import { FilterTimeframe, yearFilters } from "../../constants/timeframes";
 import { useCategoryContext } from "../../contextAPI/CategoryContext";
 import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
+import { FilterAndGroupBudget } from "../../helper/BudgetHelper";
+import { FilterAndGroupData } from "../../helper/GenericTransactionHelper";
+import { FilterAndGroupSavingsContribution } from "../../helper/SavingsHelper";
+import { formatAmountForChart, hexToRGBA } from "../../helper/utils";
+import { FilterAndGroupAllTransactionsWorker } from "../../helper/workers/workerHelper";
 import { RootState } from "../../redux/store";
 import AllTransactionsTrendChartTooltip from "./AllTransactionsTrendChartTooltip";
 
@@ -135,7 +134,7 @@ const AllTransactionsTrendChart = (props: Props) => {
   ];
   const filteredExpense = useMemo(
     () =>
-      FilterAndGroupExpense(
+      FilterAndGroupData(
         props.filterOption,
         expenses,
         categories,
@@ -148,7 +147,7 @@ const AllTransactionsTrendChart = (props: Props) => {
 
   const filteredIncome = useMemo(
     () =>
-      FilterAndGroupIncome(
+      FilterAndGroupData(
         props.filterOption,
         income,
         incomeSource,

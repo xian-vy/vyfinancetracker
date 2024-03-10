@@ -16,15 +16,14 @@ import {
 } from "@mui/material";
 import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { FilterAndGroupBudget } from "../../helper/BudgetHelper";
-import { FilterAndGroupExpense } from "../../helper/ExpenseHelper";
-import { FilterAndGroupIncome } from "../../helper/IncomeHelper";
-import { generateSingleReport } from "../../helper/ReportHelper";
-import { FilterAndGroupSavingsContribution } from "../../helper/SavingsHelper";
-import { ThemeColor, formatNumberWithoutCurrency, getFilterTitle } from "../../helper/utils";
 import { txn_types } from "../../constants/collections";
 import { useCategoryContext } from "../../contextAPI/CategoryContext";
 import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
+import { FilterAndGroupBudget } from "../../helper/BudgetHelper";
+import { FilterAndGroupData } from "../../helper/GenericTransactionHelper";
+import { generateSingleReport } from "../../helper/ReportHelper";
+import { FilterAndGroupSavingsContribution } from "../../helper/SavingsHelper";
+import { ThemeColor, formatNumberWithoutCurrency, getFilterTitle } from "../../helper/utils";
 import { useFilterHandlers } from "../../hooks/filterHook";
 import { RootState } from "../../redux/store";
 import FilterActionsComponent from "../Filter/FilterActionsComponent";
@@ -66,14 +65,7 @@ const ReportGridTable = () => {
 
   const data: filteredData[] = useMemo(() => {
     if (type === txn_types.Expenses) {
-      return FilterAndGroupExpense(
-        filterOption,
-        expense,
-        categories,
-        startDate || undefined,
-        endDate || undefined,
-        true
-      );
+      return FilterAndGroupData(filterOption, expense, categories, startDate || undefined, endDate || undefined, true);
     } else if (type === txn_types.Budget) {
       return FilterAndGroupBudget(filterOption, budget, categories, startDate || undefined, endDate || undefined, true);
     } else if (type === txn_types.Savings) {
@@ -86,14 +78,7 @@ const ReportGridTable = () => {
         true
       );
     } else if (type === txn_types.Income) {
-      return FilterAndGroupIncome(
-        filterOption,
-        income,
-        incomeSource,
-        startDate || undefined,
-        endDate || undefined,
-        true
-      );
+      return FilterAndGroupData(filterOption, income, incomeSource, startDate || undefined, endDate || undefined, true);
     } else {
       return [];
     }

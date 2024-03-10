@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { FilterAndGroupExpense } from "../../../helper/ExpenseHelper";
+import { txn_types } from "../../../constants/collections";
+import { FilterTimeframe, yearFilters } from "../../../constants/timeframes";
+import { useCategoryContext } from "../../../contextAPI/CategoryContext";
+import { FilterAndGroupData } from "../../../helper/GenericTransactionHelper";
 import { getFilterTitle } from "../../../helper/utils";
 import { GroupTransactionByDateAndCategoriesWorker } from "../../../helper/workers/workerHelper";
-import { FilterTimeframe, yearFilters } from "../../../constants/timeframes";
-import { txn_types } from "../../../constants/collections";
-import { useCategoryContext } from "../../../contextAPI/CategoryContext";
 import { useFilterHandlers } from "../../../hooks/filterHook";
 import { RootState } from "../../../redux/store";
 import CustomMonthFilter from "../../Filter/CustomMonthFilter";
@@ -66,7 +66,7 @@ const ExpensebyCategoryTrend: React.FC<Props> = ({ title, onDateFilterChange, on
   );
 
   const filteredExpenses = useMemo(
-    () => FilterAndGroupExpense(filterOption, expenses, categories, startDate || undefined, endDate || undefined, true),
+    () => FilterAndGroupData(filterOption, expenses, categories, startDate || undefined, endDate || undefined, true),
     [filterOption, expenses, categories, startDate, endDate]
   );
 
