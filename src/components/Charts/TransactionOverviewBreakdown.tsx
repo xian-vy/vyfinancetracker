@@ -24,7 +24,7 @@ const TransactionOverviewBreakdown = ({ groupedData }: { groupedData: groupedDat
   React.useEffect(() => {
     const updateMaxWidth = () => {
       if (containerRef.current) {
-        setMaxWidth(containerRef.current.offsetWidth * 0.72);
+        setMaxWidth(containerRef.current.offsetWidth * 0.65);
       }
     };
 
