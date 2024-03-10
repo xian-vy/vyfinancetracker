@@ -31,7 +31,6 @@ const FilterBudgetExpenseTrend = (props: Props) => {
   const isDarkMode = theme.palette.mode === "dark";
   const [filterOpen, setFilterOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [filterOption, setFilterOption] = useState<FilterTimeframe>(props.filterOption);
   const [breakdownOpen, setBreakdownOpen] = useState(false);
 
   const handleFilterClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -45,7 +44,6 @@ const FilterBudgetExpenseTrend = (props: Props) => {
   };
 
   const handleFilterOptionChange = (option: FilterTimeframe) => {
-    setFilterOption(option);
     props.onFilterChange(option);
     handleFilterClose();
   };
@@ -96,11 +94,11 @@ const FilterBudgetExpenseTrend = (props: Props) => {
         anchorEl={anchorEl}
         handleFilterClose={handleFilterClose}
         handleFilterOptionChange={handleFilterOptionChange}
-        selectedTimeframe={filterOption}
+        selectedTimeframe={props.filterOption}
       />
 
       <TransactionOverviewDialog
-        filterOption={filterOption}
+        filterOption={props.filterOption}
         filterTitle={props.timeframe}
         startDate={props.startDate}
         endDate={props.endDate}
