@@ -185,7 +185,7 @@ const AllTransactionsTrendChart = (props: Props) => {
   const [chartData, setChartData] = useState<chartDataType[] | undefined>(undefined);
 
   const worker = useMemo(
-    () => new Worker(new URL("../../helper/workers/allTrendChartWorker", import.meta.url)),
+    () => new Worker(new URL("../../helper/workers/workers", import.meta.url)),
     [filteredExpense, filteredIncome, filteredBudget, filteredSavingsContribution, categories, incomeSource]
   );
 

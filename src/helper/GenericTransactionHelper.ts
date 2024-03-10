@@ -23,7 +23,6 @@ export type TransactionTypes =
   | BudgetItemsModel
   | SavingGoalsModel
   | SavingGoalsContributionModel;
-export type TransactionWithoutSavingsTypes = ExpenseModel | IncomeModel | BudgetItemsModel;
 
 /* First Aggregation --------------------------------------------*/
 export const filterDataByDateRange = <T extends TransactionTypes>(
@@ -158,7 +157,9 @@ export function GroupDataByCategory<T extends Partial<GroupDataType>>(
 
 /* Final Aggregation --------------------------------------------*/
 //only for expense and income
-export const FilterAndGroupData = <T extends TransactionWithoutSavingsTypes>(
+export const FilterAndGroupData = <
+  T extends Exclude<TransactionTypes, SavingGoalsModel | SavingGoalsContributionModel>
+>(
   filterTimeframe: string,
   data: T[],
   categories: CategoriesType[],
@@ -193,7 +194,9 @@ type GroupedDataByIdResult = {
   icon: React.ReactElement;
 };
 
-export function groupDataByIdWithIcons<T extends TransactionWithoutSavingsTypes>(
+export function groupDataByIdWithIcons<
+  T extends Exclude<TransactionTypes, SavingGoalsModel | SavingGoalsContributionModel>
+>(
   getDetailsFunction: (categories: CategoriesType[], id: string) => any,
   categories: CategoriesType[],
   dataFilteredByTimeframe: T[],
@@ -233,16 +236,14 @@ export function groupDataByIdWithIcons<T extends TransactionWithoutSavingsTypes>
 
 // -----------------------for dashboard overview SUM----------------------------//
 
-export function sumDataByTimeframe<T extends TransactionTypes>(
+export function sumDataByTimeframe<T extends Exclude<TransactionTypes, SavingGoalsModel>>(
   txnData: T[],
-  dateProperty: keyof T,
-  amountProperty: keyof T,
   timeframe: FilterTimeframe,
   dateStart?: Date,
   dateEnd?: Date
 ) {
   if (timeframe === FilterTimeframe.AllTime) {
-    const sum = txnData.reduce((total, amount) => total + (amount[amountProperty] as number), 0);
+    const sum = txnData.reduce((total, item) => total + item.amount, 0);
     return { sum, prevSum: sum, prevDate: null };
   }
   //filter base on timeframe/date
@@ -255,21 +256,17 @@ export function sumDataByTimeframe<T extends TransactionTypes>(
   } = getPreviousTimeframe(timeframe, dateStart, dateEnd);
 
   const filteredData = txnData.filter((data) => {
-    const date = new Date(
-      (data[dateProperty] as Timestamp).seconds * 1000 + (data[dateProperty] as Timestamp).nanoseconds / 1e6
-    );
+    const date = new Date(data.date.seconds * 1000 + data.date.nanoseconds / 1e6);
     return date >= startDate && date <= endDate;
   });
 
   const prevFilteredData = txnData.filter((data) => {
-    const date = new Date(
-      (data[dateProperty] as Timestamp).seconds * 1000 + (data[dateProperty] as Timestamp).nanoseconds / 1e6
-    );
+    const date = new Date(data.date.seconds * 1000 + data.date.nanoseconds / 1e6);
     return date >= prevStartDate && date <= prevEndDate;
   });
 
-  const sum = filteredData.reduce((total, amount) => total + (amount[amountProperty] as number), 0);
-  const prevSum = prevFilteredData.reduce((total, amount) => total + (amount[amountProperty] as number), 0);
+  const sum = filteredData.reduce((total, item) => total + item.amount, 0);
+  const prevSum = prevFilteredData.reduce((total, item) => total + item.amount, 0);
 
   return { sum, prevSum, prevDate };
 }
@@ -298,7 +295,7 @@ export function countDataByTimeframe<T extends TransactionTypes>(
   return count;
 }
 
-interface FilteredItem {
+export interface FilteredItem {
   date: string;
   totalAmount: number;
   category?: string;

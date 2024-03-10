@@ -76,24 +76,12 @@ const TransactionOverview = () => {
     endDate || undefined
   );
 
-  const workerIncome = useMemo(
-    () => new Worker(new URL("../../helper/workers/transactionSummarySumWorker", import.meta.url)),
-    []
-  );
-  const workerSavings = useMemo(
-    () => new Worker(new URL("../../helper/workers/transactionSummarySumWorker", import.meta.url)),
-    []
-  );
+  const workerIncome = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), []);
+  const workerSavings = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), []);
 
-  const workerExpense = useMemo(
-    () => new Worker(new URL("../../helper/workers/transactionSummarySumWorker", import.meta.url)),
-    []
-  );
+  const workerExpense = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), []);
 
-  const workerBudget = useMemo(
-    () => new Worker(new URL("../../helper/workers/transactionSummarySumWorker", import.meta.url)),
-    []
-  );
+  const workerBudget = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), []);
 
   // necessary to populate/do worker function on first load
   useEffect(() => {

@@ -103,7 +103,7 @@ const BalanceByAccountType = () => {
   const [data, setData] = useState<AccountDetails[] | undefined>(undefined);
 
   const worker = useMemo(
-    () => new Worker(new URL("../../helper/workers/accountBalanceWorker", import.meta.url)),
+    () => new Worker(new URL("../../helper/workers/workers", import.meta.url)),
     [incomeData, expenseData, contributionData, accountType]
   );
 

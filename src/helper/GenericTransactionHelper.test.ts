@@ -208,7 +208,7 @@ describe("Generic sumDataByTimeframe function", () => {
   });
   it("should sum expenses by `All Time` timeframe", () => {
     //All Time
-    const expenseSumByTimeframe = sumDataByTimeframe(filteredExpenses, "date", "amount", FilterTimeframe.AllTime);
+    const expenseSumByTimeframe = sumDataByTimeframe(filteredExpenses, FilterTimeframe.AllTime);
     expect(expenseSumByTimeframe).toBeDefined();
   });
 
@@ -224,7 +224,7 @@ describe("Generic sumDataByTimeframe function", () => {
       endDate: new Date(new Date().getFullYear() - 1, 11, 31, 23, 59, 59, 999),
     });
 
-    const expenseSumByTimeframe = sumDataByTimeframe(filteredExpenses, "date", "amount", FilterTimeframe.Year);
+    const expenseSumByTimeframe = sumDataByTimeframe(filteredExpenses, FilterTimeframe.Year);
     expect(getStartAndEndDate).toHaveBeenCalled();
     expect(getPreviousTimeframe).toHaveBeenCalled();
     expect(expenseSumByTimeframe).toBeDefined();

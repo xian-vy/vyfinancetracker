@@ -60,10 +60,7 @@ const ExpensebyCategoryTrend: React.FC<Props> = ({ title, onDateFilterChange, on
   }, [selectedCategory]);
 
   const { categories } = useCategoryContext();
-  const worker = useMemo(
-    () => new Worker(new URL("../../../helper/workers/trendChartWorker", import.meta.url)),
-    [expenses]
-  );
+  const worker = useMemo(() => new Worker(new URL("../../../helper/workers/workers", import.meta.url)), [expenses]);
 
   const filteredExpenses = useMemo(
     () => FilterAndGroupData(filterOption, expenses, categories, startDate || undefined, endDate || undefined, true),

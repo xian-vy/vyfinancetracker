@@ -44,10 +44,7 @@ const IncomebyCategoryTrend: React.FC<ExpenseTrendProps> = ({ incomes, onDateFil
   }, [handleFilterOptionChange]);
 
   const { incomeSource } = useIncomeSourcesContext();
-  const worker = useMemo(
-    () => new Worker(new URL("../../../helper/workers/trendChartWorker", import.meta.url)),
-    [incomes]
-  );
+  const worker = useMemo(() => new Worker(new URL("../../../helper/workers/workers", import.meta.url)), [incomes]);
 
   const filteredIncome = useMemo(
     () => FilterAndGroupData(filterOption, incomes, incomeSource, startDate || undefined, endDate || undefined, true),
