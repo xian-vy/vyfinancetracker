@@ -165,6 +165,13 @@ const ExpenseListDialog = ({
             )}
           </Stack>
           <Stack direction="row" justifyContent="center" mt={1}>
+            {actionType === "delete" && (
+              <Typography color="orange" textAlign="center">
+                Clicking Delete will permanently remove all Items without confirmation
+              </Typography>
+            )}
+          </Stack>
+          <Stack direction="row" justifyContent="center" mt={1}>
             <Button
               disabled={
                 selectedExpenses.length === 0 ||
