@@ -10,6 +10,7 @@ import {
   formatAmountForChart,
   getFilterTitle,
   hexToRGBA,
+  useResponsiveCharLimit,
 } from "../../../helper/utils";
 import { TXN_TREND_CHART_HEIGHT, TXN_TREND_CHART_HEIGHT_LG, iconSizeXS } from "../../../constants/size";
 import { txn_summary } from "../../../constants/collections";
@@ -28,6 +29,8 @@ function renderIcon(icon: React.ReactElement, color: string) {
 const SavingsTrend = () => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
+  const charLimit = useResponsiveCharLimit();
+
   const {
     filterOption,
     customMonthOpen,
@@ -109,7 +112,11 @@ const SavingsTrend = () => {
                   }
                   return (
                     <Paper elevation={3} sx={{ padding: 2 }}>
-                      <Typography color="text.primary" variant="h6" textAlign="left">{` ${formattedDate}`}</Typography>
+                      <Typography
+                        color="text.primary"
+                        variant="h6"
+                        textAlign="center"
+                      >{` ${formattedDate}`}</Typography>
                       {payload.map((item, index) => {
                         // Generate allSavingsItems for the current date
                         const allSavingsItems =
@@ -118,17 +125,24 @@ const SavingsTrend = () => {
                         // Ensure dataKey is a string and extract the savings item index
                         const matchResult = String(item.dataKey).match(/\[(\d+)\]/);
                         const savingsItemIndex = matchResult ? parseInt(matchResult[1]) : 0;
+                        const description = allSavingsItems[savingsItemIndex];
 
-                        const savingsId = getSavingsIDByDescription(allSavingsItems[savingsItemIndex] || "", savings);
+                        const savingsId = getSavingsIDByDescription(description || "", savings);
 
                         const { color, categoryIcon } = getSavingsDetails(savings, savingsId || "");
 
                         return (
                           <Stack direction="row" key={index} alignItems="center">
                             {renderIcon(categoryIcon?.icon || <DoNotDisturbAltIcon />, color || "")}
-                            <Typography color="text.primary" textAlign="left" sx={{ ml: 0.5 }}>{`${
-                              allSavingsItems[savingsItemIndex]
-                            }: ${formatNumberWithoutCurrency(Number(item?.value))}`}</Typography>
+                            <Typography color="text.primary" textAlign="left" sx={{ ml: 0.5 }}>
+                              {description && description.length > charLimit
+                                ? description.substring(0, charLimit - 15) + ".."
+                                : description}{" "}
+                            </Typography>
+
+                            <Typography color="text.primary" textAlign="left" ml={1}>
+                              {formatNumberWithoutCurrency(Number(item?.value))}
+                            </Typography>
                           </Stack>
                         );
                       })}

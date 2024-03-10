@@ -82,7 +82,7 @@ const AllTransactionsTrendChartTooltip: React.FC<TrendTooltipProps> = ({
                     {icon}
                     <Stack direction="row" justifyContent="space-between" width="100%" ml={0.5}>
                       <Typography>{title}</Typography>
-                      <Typography>{formatNumberWithoutCurrency(Number(entry.value))}</Typography>
+                      <Typography ml={1.5}>{formatNumberWithoutCurrency(Number(entry.value))}</Typography>
                     </Stack>
                   </Stack>
                 )

@@ -1,6 +1,6 @@
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import React from "react";
-import { formatShortAmountWithCurrency, hexToRGBA } from "../../helper/utils";
+import { formatShortAmountWithCurrency, hexToRGBA, useResponsiveCharLimit } from "../../helper/utils";
 import { DASHBOARD_DIALOG } from "../../constants/size";
 type groupedData = {
   category: string;
@@ -41,6 +41,7 @@ const TransactionOverviewBreakdown = ({ groupedData }: { groupedData: groupedDat
 
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
+  const charLimit = useResponsiveCharLimit();
 
   return (
     <>
@@ -56,7 +57,9 @@ const TransactionOverviewBreakdown = ({ groupedData }: { groupedData: groupedDat
                       {item.icon && renderIcon(item.icon, isDarkMode ? item.color : item.color || "")}
                       <Stack direction="column">
                         <Typography variant="caption" ml={0.5} height={14}>
-                          {item.category}
+                          {item.category.length > charLimit
+                            ? item.category.substring(0, charLimit) + ".."
+                            : item.category}
                         </Typography>
                         {/* Amount and Progress ------------------------------------------------------------- */}
                         <Stack direction="row" alignItems="center" ml={0.5}>
