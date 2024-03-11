@@ -1,25 +1,16 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { getFilterTitle } from "../../../helper/utils";
-import { GroupTransactionByDateAndCategoriesWorker } from "../../../helper/workers/workerHelper";
-import { FilterTimeframe, yearFilters } from "../../../constants/timeframes";
+import React, { useEffect, useMemo } from "react";
 import { txn_types } from "../../../constants/collections";
+import { FilterTimeframe, yearFilters } from "../../../constants/timeframes";
 import { useIncomeSourcesContext } from "../../../contextAPI/IncomeSourcesContext";
+import { FilterAndGroupData } from "../../../helper/GenericTransactionHelper";
+import { getFilterTitle } from "../../../helper/utils";
 import { useFilterHandlers } from "../../../hooks/filterHook";
+import useTrendByCategoryChart from "../../../hooks/trendByCategoryChartHook";
 import IncomeModel from "../../../models/IncomeModel";
 import CustomMonthFilter from "../../Filter/CustomMonthFilter";
 import CustomYearFilter from "../../Filter/CustomYearFilter";
 import FilterIncomeSavingsTrend from "../../Filter/FilterIncomeSavingsTrend";
 import TrendByCategoryChart from "../TrendByCategoryChart";
-import { FilterAndGroupData } from "../../../helper/GenericTransactionHelper";
-
-type chartDataType = {
-  date: string;
-  categories: {
-    category: string | undefined;
-    total: number;
-    color: string;
-  }[];
-};
 
 interface ExpenseTrendProps {
   incomes: IncomeModel[];
@@ -44,44 +35,22 @@ const IncomebyCategoryTrend: React.FC<ExpenseTrendProps> = ({ incomes, onDateFil
   }, [handleFilterOptionChange]);
 
   const { incomeSource } = useIncomeSourcesContext();
-  const worker = useMemo(() => new Worker(new URL("../../../helper/workers/workers", import.meta.url)), [incomes]);
 
   const filteredIncome = useMemo(
     () => FilterAndGroupData(filterOption, incomes, incomeSource, startDate || undefined, endDate || undefined, true),
     [filterOption, incomes, incomeSource, startDate, endDate]
   );
 
-  const [chartData, setChartData] = useState<chartDataType[] | undefined>(undefined);
-
-  // necessary to populate/do worker function on first load
-  useEffect(() => {
-    return () => {
-      worker.terminate();
-    };
-  }, [worker]);
-
-  useEffect(() => {
-    let isMounted = true;
-    GroupTransactionByDateAndCategoriesWorker(worker, filteredIncome, incomeSource, filterOption).then((data) => {
-      if (isMounted) {
-        setChartData(data as chartDataType[]);
-      }
-    });
-    return () => {
-      isMounted = false;
-    };
-  }, [filteredIncome, incomeSource, filterOption]);
-
-  const allIncomeSources = Array.from(
-    new Set(chartData?.flatMap((item) => item.categories.map((source) => source.category)))
-  );
   const formattedFilterOption = getFilterTitle(filterOption, startDate, endDate);
   const includeDateFilter = yearFilters.includes(filterOption);
 
-  const totalAmount =
-    chartData
-      ?.flatMap((item) => item.categories)
-      .reduce((acc: number, curr: { total: number }) => acc + curr.total, 0) || 0;
+  const { filteredChartData, allCategories, totalAmount } = useTrendByCategoryChart({
+    transactionData: filteredIncome,
+    categories: incomeSource,
+    selectedTimeframe: filterOption,
+    filterByCategory: false,
+  });
+
   return (
     <>
       <FilterIncomeSavingsTrend
@@ -96,8 +65,8 @@ const IncomebyCategoryTrend: React.FC<ExpenseTrendProps> = ({ incomes, onDateFil
       />
 
       <TrendByCategoryChart
-        filteredChartData={chartData || undefined}
-        allCategories={allIncomeSources}
+        filteredChartData={filteredChartData || undefined}
+        allCategories={allCategories}
         formattedFilterOption={formattedFilterOption}
         type={txn_types.Income}
         includeDateFilter={includeDateFilter}

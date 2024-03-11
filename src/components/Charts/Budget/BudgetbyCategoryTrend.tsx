@@ -1,26 +1,18 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
+import { txn_types } from "../../../constants/collections";
+import { FilterTimeframe, yearFilters } from "../../../constants/timeframes";
+import { useCategoryContext } from "../../../contextAPI/CategoryContext";
 import { FilterAndGroupBudget } from "../../../helper/BudgetHelper";
 import { getFilterTitle } from "../../../helper/utils";
-import { GroupTransactionByDateAndCategoriesWorker } from "../../../helper/workers/workerHelper";
-import { FilterTimeframe, yearFilters } from "../../../constants/timeframes";
-import { txn_types } from "../../../constants/collections";
-import { useCategoryContext } from "../../../contextAPI/CategoryContext";
 import { useFilterHandlers } from "../../../hooks/filterHook";
+import useTrendByCategoryChart from "../../../hooks/trendByCategoryChartHook";
 import { RootState } from "../../../redux/store";
 import CustomMonthFilter from "../../Filter/CustomMonthFilter";
 import CustomYearFilter from "../../Filter/CustomYearFilter";
 import FilterBudgetExpenseTrend from "../../Filter/FilterBudgetExpenseTrend";
 import TrendByCategoryChart from "../TrendByCategoryChart";
 
-type chartDataType = {
-  date: string;
-  categories: {
-    category: string | undefined;
-    total: number;
-    color: string;
-  }[];
-};
 interface Props {
   title: string;
   onDateFilterChange: (filterOption: FilterTimeframe, startDate: Date | undefined, endDate: Date | undefined) => void;
@@ -53,68 +45,24 @@ const BudgetByCategoryTrend: React.FC<Props> = ({ title, onDateFilterChange }) =
 
   const { categories, loading } = useCategoryContext();
 
-  const worker = useMemo(() => new Worker(new URL("../../../helper/workers/workers", import.meta.url)), [budgets]);
-
   const filteredBudget = useMemo(
     () => FilterAndGroupBudget(filterOption, budgets, categories, startDate || undefined, endDate || undefined, true),
     [filterOption, budgets, categories, startDate, endDate]
   );
 
-  const [chartData, setChartData] = useState<chartDataType[] | undefined>(undefined);
-
-  // necessary to populate/do worker function on first load
-  useEffect(() => {
-    return () => {
-      worker.terminate();
-    };
-  }, [worker]);
-
-  useEffect(() => {
-    let isMounted = true;
-    GroupTransactionByDateAndCategoriesWorker(worker, filteredBudget, categories, filterOption).then((data) => {
-      if (isMounted) {
-        setChartData(data as chartDataType[]);
-      }
-    });
-    return () => {
-      isMounted = false;
-    };
-  }, [filteredBudget, categories, filterOption]);
-
-  const filteredChartData = useMemo(() => {
-    if (chartData) {
-      if (selectedCategory.includes("All Categories")) {
-        return chartData;
-      }
-      return chartData
-        .map((data) => ({
-          ...data,
-          categories: data.categories.filter((category) => selectedCategory.includes(category.category || "")),
-        }))
-        .filter((data) => data.categories.length > 0);
-    }
-  }, [chartData, selectedCategory]);
-
-  // useEffect(() => {
-  //   console.log("chartData", chartData);
-
-  //   return () => {
-  //     console.log("Unmounted");
-  //   };
-  // }, [chartData]);
-
-  const allCategories = Array.from(
-    new Set(filteredChartData?.flatMap((data) => data.categories.map((category) => category.category)))
-  );
   const formattedFilterOption = getFilterTitle(filterOption, startDate, endDate);
 
   //dont include the formattedFilterOption(ex: Jan 2024) if Week/Month Filters
 
   const includeDateFilter = yearFilters.includes(filterOption);
-  const totalAmount =
-    filteredChartData
-      ?.flatMap((item) => item.categories)
-      .reduce((acc: number, curr: { total: number }) => acc + curr.total, 0) || 0;
+
+  const { filteredChartData, allCategories, totalAmount } = useTrendByCategoryChart({
+    transactionData: filteredBudget,
+    categories: categories,
+    selectedCategory: selectedCategory,
+    selectedTimeframe: filterOption,
+  });
+
   return (
     <>
       <FilterBudgetExpenseTrend

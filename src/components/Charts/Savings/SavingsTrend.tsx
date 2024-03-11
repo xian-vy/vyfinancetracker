@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { txn_summary, txn_types } from "../../../constants/collections";
 import { yearFilters } from "../../../constants/timeframes";
-import { FilterAndGroupData, GroupTransactionByDateAndCategories } from "../../../helper/GenericTransactionHelper";
+import { FilterAndGroupData } from "../../../helper/GenericTransactionHelper";
 import { getFilterTitle } from "../../../helper/utils";
 import { useFilterHandlers } from "../../../hooks/filterHook";
+import useTrendByCategoryChart from "../../../hooks/trendByCategoryChartHook";
 import { RootState } from "../../../redux/store";
 import CustomMonthFilter from "../../Filter/CustomMonthFilter";
 import CustomYearFilter from "../../Filter/CustomYearFilter";
@@ -27,28 +28,28 @@ const SavingsTrend = () => {
   const savings = useSelector((state: RootState) => state.savings.savings);
   const savingsContributions = useSelector((state: RootState) => state.savingsContribution.contribution);
 
-  const filteredContributions = FilterAndGroupData(
-    filterOption,
-    savingsContributions,
-    savings,
-    startDate || undefined,
-    endDate || undefined,
-    true
+  const filteredContributions = useMemo(
+    () =>
+      FilterAndGroupData(
+        filterOption,
+        savingsContributions,
+        savings,
+        startDate || undefined,
+        endDate || undefined,
+        true
+      ),
+    [filterOption, savingsContributions, savings, startDate, endDate]
   );
-
-  const chartData = GroupTransactionByDateAndCategories(filteredContributions, savings, filterOption);
 
   const formattedFilterOption = getFilterTitle(filterOption, startDate, endDate);
   const includeDateFilter = yearFilters.includes(filterOption);
 
-  const allSavingsCategories = Array.from(
-    new Set(chartData?.flatMap((item) => item.categories.map((source) => source.category)))
-  );
-
-  const totalAmount =
-    chartData
-      ?.flatMap((item) => item.categories)
-      .reduce((acc: number, curr: { total: number }) => acc + curr.total, 0) || 0;
+  const { filteredChartData, allCategories, totalAmount } = useTrendByCategoryChart({
+    transactionData: filteredContributions,
+    categories: savings,
+    selectedTimeframe: filterOption,
+    filterByCategory: false,
+  });
 
   return (
     <>
@@ -64,8 +65,8 @@ const SavingsTrend = () => {
       />
 
       <TrendByCategoryChart
-        filteredChartData={chartData || undefined}
-        allCategories={allSavingsCategories}
+        filteredChartData={filteredChartData || undefined}
+        allCategories={allCategories}
         formattedFilterOption={formattedFilterOption}
         type={txn_types.Savings}
         includeDateFilter={includeDateFilter}
