@@ -37,30 +37,17 @@ const PendingWrites = () => {
     parseInt(localStorage.getItem("pendingWritesCount" + persistenceID) || "0", 10)
   );
 
-  const [lastSyncTimestamp, setLasySyncTimestamp] = useState(getLastSync());
+  const [lastSyncTimestamp, setLasySyncTimestamp] = useState(getLastSync(persistenceID));
 
   const { categories } = useCategoryContext();
   const { accountType } = useAccountTypeContext();
   const { incomeSource } = useIncomeSourcesContext();
 
-  const [isSyncing, setIsSyncing] = useState(false);
   const [showSyncingAnimation, setShowSyncingAnimation] = useState(false);
 
   const startSyncing = () => {
-    setIsSyncing(true);
     setShowSyncingAnimation(true);
-    setTimeout(() => {
-      if (!isSyncing) {
-        setShowSyncingAnimation(false);
-        setLasySyncTimestamp(Timestamp.now());
-        setLastSync(Timestamp.now());
-      }
-    }, 1000);
-  };
-  const endSyncing = () => {
-    setIsSyncing(false);
-
-    setTimeout(() => {
+    setTimeout(async () => {
       setShowSyncingAnimation(false);
     }, 1000);
   };
@@ -94,7 +81,10 @@ const PendingWrites = () => {
     if (localPendingWrites > 0) {
       startSyncing();
     } else {
-      endSyncing();
+      //sync is up to date
+      const now = Timestamp.now();
+      setLasySyncTimestamp(now);
+      setLastSync(now, persistenceID);
     }
   };
 
