@@ -2,7 +2,7 @@ import PublishedWithChangesOutlinedIcon from "@mui/icons-material/PublishedWithC
 import SyncOutlinedIcon from "@mui/icons-material/SyncOutlined";
 import SyncProblemOutlinedIcon from "@mui/icons-material/SyncProblemOutlined";
 import { Stack, Tooltip, Typography } from "@mui/material";
-import { collection, getDocsFromCache, query, waitForPendingWrites } from "firebase/firestore";
+import { Timestamp, collection, getDocsFromCache, query, waitForPendingWrites } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { collections as Col } from "../../constants/collections";
@@ -13,6 +13,7 @@ import { db } from "../../firebase";
 import { getUserDocRef } from "../../firebase/UsersService";
 import { RootState } from "../../redux/store";
 import "./spin.css";
+import { getLastSync, setLastSync } from "../../localstorage/lastsync";
 const collections = [
   Col.Expenses,
   Col.Budgets,
@@ -35,6 +36,9 @@ const PendingWrites = () => {
   const [pendingWrites, setPendingWrites] = useState(
     parseInt(localStorage.getItem("pendingWritesCount" + persistenceID) || "0", 10)
   );
+
+  const [lastSyncTimestamp, setLasySyncTimestamp] = useState(getLastSync());
+
   const { categories } = useCategoryContext();
   const { accountType } = useAccountTypeContext();
   const { incomeSource } = useIncomeSourcesContext();
@@ -48,6 +52,8 @@ const PendingWrites = () => {
     setTimeout(() => {
       if (!isSyncing) {
         setShowSyncingAnimation(false);
+        setLasySyncTimestamp(Timestamp.now());
+        setLastSync(Timestamp.now());
       }
     }, 1000);
   };
@@ -118,37 +124,44 @@ const PendingWrites = () => {
   }, [expenses, budgets, income, savings, savingsContribution, categories, accountType, incomeSource]);
 
   return (
-    <Stack direction="row" alignItems="center" justifyContent="center" my={1}>
-      {showSyncingAnimation ? (
-        <>
-          <Typography variant="caption" mr={0.5}>
-            Syncing in progress..
-          </Typography>
-          <SyncOutlinedIcon
-            sx={{
-              color: "green",
-              animation: "spin 1s linear infinite",
-              fontSize: "16px",
-            }}
-          />
-        </>
-      ) : (
-        <>
-          <Typography variant="caption" mr={0.5}>
-            {pendingWrites > 0
-              ? `${pendingWrites} unsynced data ${pendingWrites === 1 ? "change" : "changes"}`
-              : "All transaction data synced"}
-          </Typography>
-          {pendingWrites > 0 ? (
-            <Tooltip title="Open network to sync and backup data">
-              <SyncProblemOutlinedIcon sx={{ color: "darkorange", fontSize: "16px" }} />
-            </Tooltip>
-          ) : (
-            <PublishedWithChangesOutlinedIcon sx={{ color: "green", fontSize: "16px" }} />
-          )}
-        </>
-      )}
-    </Stack>
+    <>
+      <Stack direction="row" alignItems="center" justifyContent="center" mt={1}>
+        {showSyncingAnimation ? (
+          <>
+            <Typography variant="caption" mr={0.5}>
+              Syncing in progress..
+            </Typography>
+            <SyncOutlinedIcon
+              sx={{
+                color: "green",
+                animation: "spin 1s linear infinite",
+                fontSize: "16px",
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <Typography variant="caption" mr={0.5}>
+              {pendingWrites > 0
+                ? `${pendingWrites} unsynced data ${pendingWrites === 1 ? "change" : "changes"}`
+                : "All transaction data synced"}
+            </Typography>
+            {pendingWrites > 0 ? (
+              <Tooltip title="Open network to sync and backup data">
+                <SyncProblemOutlinedIcon sx={{ color: "darkorange", fontSize: "16px" }} />
+              </Tooltip>
+            ) : (
+              <PublishedWithChangesOutlinedIcon sx={{ color: "green", fontSize: "16px" }} />
+            )}
+          </>
+        )}
+      </Stack>
+      <Stack mb={1} direction="column" alignItems="center" justifyContent="center">
+        <Typography sx={{ fontSize: "0.65rem", color: "#999" }}>
+          Last Synced at {lastSyncTimestamp ? lastSyncTimestamp.toDate().toLocaleString() : "Never"}
+        </Typography>
+      </Stack>
+    </>
   );
 };
 
