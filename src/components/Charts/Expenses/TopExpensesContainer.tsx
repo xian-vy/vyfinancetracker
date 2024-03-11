@@ -32,24 +32,22 @@ const TopExpensesContainer = ({ filterOption, startDate, endDate, selectedCatego
     [expenses, startDate, endDate, filterOption, categories, accountType]
   );
 
-  let groupedData: groupedData[] = [];
+  const groupedData = useMemo(() => {
+    let result: groupedData[] = [];
 
-  switch (filter) {
-    case "Category":
-      groupedData = groupDataByIdWithIcons(
-        getCategoryDetails,
-        categories,
-        expenseData,
-        "category_id",
-        selectedCategories
-      );
-      break;
-    case "Account":
-      groupedData = groupDataByIdWithIcons(getAccountsDetails, accountType, expenseData, "account_id");
-      break;
-    default:
-      break;
-  }
+    switch (filter) {
+      case "Category":
+        result = groupDataByIdWithIcons(getCategoryDetails, categories, expenseData, "category_id", selectedCategories);
+        break;
+      case "Account":
+        result = groupDataByIdWithIcons(getAccountsDetails, accountType, expenseData, "account_id");
+        break;
+      default:
+        break;
+    }
+
+    return result;
+  }, [filter, categories, expenseData, accountType, selectedCategories]);
 
   return (
     <>

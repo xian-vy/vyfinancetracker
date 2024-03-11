@@ -32,18 +32,22 @@ const TopIncomeContainer = ({ filterOption, startDate, endDate }: Props) => {
     [income, startDate, endDate, filterOption, incomeSource, accountType]
   );
 
-  let groupedData: groupedData[] = [];
+  const groupedData = useMemo(() => {
+    let result: groupedData[] = [];
 
-  switch (filter) {
-    case "Source":
-      groupedData = groupDataByIdWithIcons(getIncomeSourceDetails, incomeSource, incomeData, "category_id");
-      break;
-    case "Account":
-      groupedData = groupDataByIdWithIcons(getAccountsDetails, accountType, incomeData, "account_id");
-      break;
-    default:
-      break;
-  }
+    switch (filter) {
+      case "Source":
+        result = groupDataByIdWithIcons(getIncomeSourceDetails, incomeSource, incomeData, "category_id");
+        break;
+      case "Account":
+        result = groupDataByIdWithIcons(getAccountsDetails, accountType, incomeData, "account_id");
+        break;
+      default:
+        break;
+    }
+
+    return result;
+  }, [filter, incomeSource, incomeData, accountType]);
 
   return (
     <>

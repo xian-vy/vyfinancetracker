@@ -24,12 +24,9 @@ const TopBudgetsContainer = ({ filterOption, startDate, endDate, selectedCategor
     [budgets, startDate, endDate, filterOption, categories]
   );
 
-  const groupedData = groupDataByIdWithIcons(
-    getCategoryDetails,
-    categories,
-    budgetData,
-    "category_id",
-    selectedCategories
+  const groupedData = useMemo(
+    () => groupDataByIdWithIcons(getCategoryDetails, categories, budgetData, "category_id", selectedCategories),
+    [budgetData, categories, selectedCategories]
   );
 
   return (

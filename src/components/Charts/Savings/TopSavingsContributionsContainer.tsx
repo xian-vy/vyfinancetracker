@@ -31,19 +31,22 @@ const TopSavingsContributionsContainer = ({ filterOption, startDate, endDate }: 
     [savingsContributions, startDate, endDate, filterOption]
   );
 
-  let groupedData: groupedData[] = [];
+  const groupedData = useMemo(() => {
+    let result: groupedData[] = [];
 
-  switch (filter) {
-    case "Contribution":
-      groupedData = groupDataByIdWithIcons(getSavingsDetails, savings, savingsContributionsData, "savingsId");
-      break;
-    case "Account":
-      groupedData = groupDataByIdWithIcons(getAccountsDetails, accountType, savingsContributionsData, "account_id");
+    switch (filter) {
+      case "Contribution":
+        result = groupDataByIdWithIcons(getSavingsDetails, savings, savingsContributionsData, "savingsId");
+        break;
+      case "Account":
+        result = groupDataByIdWithIcons(getAccountsDetails, accountType, savingsContributionsData, "account_id");
+        break;
+      default:
+        break;
+    }
 
-      break;
-    default:
-      break;
-  }
+    return result;
+  }, [filter, savings, savingsContributionsData, accountType]);
 
   return (
     <>
