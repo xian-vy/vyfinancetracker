@@ -1,13 +1,10 @@
 import { Box, Breadcrumbs, Link } from "@mui/material";
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { filterDataByDateRange } from "../../../helper/GenericTransactionHelper";
-import {
-  GroupSavingsWithContributions,
-  GroupSavingsWithContributionsByAccountType,
-} from "../../../helper/SavingsHelper";
 import { FilterTimeframe } from "../../../constants/timeframes";
 import { useAccountTypeContext } from "../../../contextAPI/AccountTypeContext";
+import { getAccountsDetails, getSavingsDetails } from "../../../firebase/utils";
+import { filterDataByDateRange, groupDataByIdWithIcons } from "../../../helper/GenericTransactionHelper";
 import { RootState } from "../../../redux/store";
 import TransactionOverviewBreakdown from "../TransactionOverviewBreakdown";
 
@@ -38,12 +35,11 @@ const TopSavingsContributionsContainer = ({ filterOption, startDate, endDate }: 
 
   switch (filter) {
     case "Contribution":
-      groupedData = Object.values(GroupSavingsWithContributions(savings, savingsContributionsData));
+      groupedData = groupDataByIdWithIcons(getSavingsDetails, savings, savingsContributionsData, "savingsId");
       break;
     case "Account":
-      groupedData = Object.values(
-        GroupSavingsWithContributionsByAccountType(savings, savingsContributionsData, accountType)
-      );
+      groupedData = groupDataByIdWithIcons(getAccountsDetails, accountType, savingsContributionsData, "account_id");
+
       break;
     default:
       break;

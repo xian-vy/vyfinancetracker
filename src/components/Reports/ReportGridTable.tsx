@@ -22,7 +22,6 @@ import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
 import { FilterAndGroupBudget } from "../../helper/BudgetHelper";
 import { FilterAndGroupData } from "../../helper/GenericTransactionHelper";
 import { generateSingleReport } from "../../helper/ReportHelper";
-import { FilterAndGroupSavingsContribution } from "../../helper/SavingsHelper";
 import { ThemeColor, formatNumberWithoutCurrency, getFilterTitle } from "../../helper/utils";
 import { useFilterHandlers } from "../../hooks/filterHook";
 import { RootState } from "../../redux/store";
@@ -60,7 +59,7 @@ const ReportGridTable = () => {
   const budget = useSelector((state: RootState) => state.budget.budgets);
   const expense = useSelector((state: RootState) => state.expenses.expenses);
   const income = useSelector((state: RootState) => state.income.income);
-  const savingsContributions = useSelector((state: RootState) => state.savingsContribution.contribution);
+  const contributions = useSelector((state: RootState) => state.savingsContribution.contribution);
   const savings = useSelector((state: RootState) => state.savings.savings);
 
   const data: filteredData[] = useMemo(() => {
@@ -69,12 +68,12 @@ const ReportGridTable = () => {
     } else if (type === txn_types.Budget) {
       return FilterAndGroupBudget(filterOption, budget, categories, startDate || undefined, endDate || undefined, true);
     } else if (type === txn_types.Savings) {
-      return FilterAndGroupSavingsContribution(
+      return FilterAndGroupData(
         filterOption,
-        savingsContributions,
+        contributions,
+        savings,
         startDate || undefined,
         endDate || undefined,
-        savings,
         true
       );
     } else if (type === txn_types.Income) {
@@ -89,7 +88,7 @@ const ReportGridTable = () => {
     budget,
     income,
     categories,
-    savingsContributions,
+    contributions,
     savings,
     incomeSource,
     startDate,

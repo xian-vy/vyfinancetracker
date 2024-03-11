@@ -20,7 +20,6 @@ import { useCategoryContext } from "../../contextAPI/CategoryContext";
 import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
 import { FilterAndGroupBudget } from "../../helper/BudgetHelper";
 import { FilterAndGroupData } from "../../helper/GenericTransactionHelper";
-import { FilterAndGroupSavingsContribution } from "../../helper/SavingsHelper";
 import { formatAmountForChart, hexToRGBA } from "../../helper/utils";
 import { FilterAndGroupAllTransactionsWorker } from "../../helper/workers/workerHelper";
 import { RootState } from "../../redux/store";
@@ -46,6 +45,7 @@ const AllTransactionsTrendChart = (props: Props) => {
   const income = useSelector((state: RootState) => state.income.income);
   const expenses = useSelector((state: RootState) => state.expenses.expenses);
   const savingsContributions = useSelector((state: RootState) => state.savingsContribution.contribution);
+  const savings = useSelector((state: RootState) => state.savings.savings);
   const budgets = useSelector((state: RootState) => state.budget.budgets);
   const [isExpenseChecked, setIsExpenseChecked] = useState(true);
   const [isBudgetChecked, setIsBudgetChecked] = useState(true);
@@ -160,9 +160,10 @@ const AllTransactionsTrendChart = (props: Props) => {
 
   const filteredSavingsContribution = useMemo(
     () =>
-      FilterAndGroupSavingsContribution(
+      FilterAndGroupData(
         props.filterOption,
         savingsContributions,
+        savings,
         props.startDate || undefined,
         props.endDate || undefined
       ),

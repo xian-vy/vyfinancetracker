@@ -120,7 +120,7 @@ export function GroupData<T extends Partial<GroupDataType>>(
 export function GroupDataByCategory<T extends Partial<GroupDataType>>(
   txnData: T[],
   dateFormat: string,
-  sourceContext: any[],
+  sourceContext: CategoriesType[],
   isMonth?: boolean,
   isWeek?: boolean
 ) {
@@ -155,28 +155,53 @@ export function GroupDataByCategory<T extends Partial<GroupDataType>>(
   return finalData;
 }
 
+// Helper function to get the ID to check against categoryIds/SavingsId ---/
+// Special case for savings
+
+function hasCategoryId<T extends object>(item: T): item is T & { category_id: string } {
+  return "category_id" in item;
+}
+
+// Define a type guard to check if an item has a savingsId
+function hasSavingsId<T extends object>(item: T): item is T & { savingsId: string } {
+  return "savingsId" in item;
+}
+
+function getCategoryId<T extends object>(item: T): string {
+  if (hasCategoryId(item)) {
+    return item.category_id || "";
+  } else if (hasSavingsId(item)) {
+    return item.savingsId || "";
+  }
+  return "";
+}
+
 /* Final Aggregation --------------------------------------------*/
-//only for expense and income
-export const FilterAndGroupData = <
-  T extends Exclude<TransactionTypes, SavingGoalsModel | SavingGoalsContributionModel>
->(
+
+export const FilterAndGroupData = <T extends Exclude<TransactionTypes, SavingGoalsModel>>(
   filterTimeframe: string,
   data: T[],
-  categories: CategoriesType[],
+  categories: CategoriesType[], //works with SavingGoalsModel too same fields as categories
   dateStart?: Date,
   dateEnd?: Date,
   groupbyCategory?: boolean
 ): FilteredItem[] => {
   const isMonth = monthFilters.includes(filterTimeframe as FilterTimeframe);
-
   const isWeek = weekFilters.includes(filterTimeframe as FilterTimeframe);
 
   const filteredData = filterDataByDateRange(data, "date", filterTimeframe, dateStart, dateEnd);
-  const mappedItems = filteredData.map((item) => ({
-    date: item.date,
-    category_id: item.category_id,
-    amount: item.amount,
-  }));
+
+  const mappedItems = filteredData.map((item) => {
+    const categoryId = getCategoryId(item);
+    if (!categoryId) {
+      throw new Error("Item does not have a valid identifier for grouping.");
+    }
+    return {
+      date: item.date,
+      category_id: categoryId,
+      amount: item.amount,
+    };
+  });
 
   if (groupbyCategory) {
     return GroupDataByCategory(mappedItems, getDateFormat(filterTimeframe), categories, isMonth, isWeek);
@@ -194,9 +219,7 @@ type GroupedDataByIdResult = {
   icon: React.ReactElement;
 };
 
-export function groupDataByIdWithIcons<
-  T extends Exclude<TransactionTypes, SavingGoalsModel | SavingGoalsContributionModel>
->(
+export function groupDataByIdWithIcons<T extends Exclude<TransactionTypes, SavingGoalsModel>>(
   getDetailsFunction: (categories: CategoriesType[], id: string) => any,
   categories: CategoriesType[],
   dataFilteredByTimeframe: T[],
@@ -213,7 +236,7 @@ export function groupDataByIdWithIcons<
   const categoryIds = new Set(filteredcategory.map((item) => item.id));
 
   const filteredData = selectedCategories
-    ? dataFilteredByTimeframe.filter((item) => categoryIds.has(item.category_id || ""))
+    ? dataFilteredByTimeframe.filter((item) => categoryIds.has(getCategoryId(item)))
     : dataFilteredByTimeframe;
 
   return filteredData.reduce((accumulator, item) => {
@@ -301,16 +324,16 @@ export interface FilteredItem {
   category?: string;
 }
 
-//For expense, budget and income trend by category
+//For expense, budget,savings and income trend by category
 export const GroupTransactionByDateAndCategories = <T extends CategoriesType>(
-  items: FilteredItem[],
+  filteredAndGroupedData: FilteredItem[],
   categoryContext: T[],
   filterOption: FilterTimeframe
 ) => {
   // Create a new array that contains all unique dates
-  const allDates = Array.from(new Set(items.map((item) => item.date)));
+  const allDates = Array.from(new Set(filteredAndGroupedData.map((item) => item.date)));
   const result = allDates.map((date) => {
-    const itemsOnDate = items.filter((item) => item.date === date);
+    const itemsOnDate = filteredAndGroupedData.filter((item) => item.date === date);
 
     const categoriesOnDate = Array.from(new Set(itemsOnDate.map((item) => item.category)));
 

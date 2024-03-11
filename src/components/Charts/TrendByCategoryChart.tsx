@@ -27,7 +27,7 @@ const TrendByCategoryChart = ({
   allCategories: (string | undefined)[];
   formattedFilterOption: string;
   includeDateFilter: boolean;
-  type: txn_types.Income | txn_types.Expenses | txn_types.Budget;
+  type: txn_types.Income | txn_types.Expenses | txn_types.Budget | txn_types.Savings;
 }) => {
   const powerSavingMode = useSelector((state: RootState) => state.powerSaving.enabled);
   const preferredFontSize = useSelector((state: RootState) => state.fontSize.size);

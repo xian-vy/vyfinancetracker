@@ -8,6 +8,7 @@ import AccountTypeModel from "../models/AccountTypeModel";
 import CategoryModel from "../models/CategoryModel";
 import IncomeSourcesModel from "../models/IncomeSourcesModel";
 import SavingGoalsModel from "../models/SavingGoalsModel";
+import { CategoriesType } from "../helper/GenericTransactionHelper";
 
 export const hasInternetConnection = async () => {
   try {
@@ -25,23 +26,16 @@ export const hasInternetConnection = async () => {
   }
 };
 
-type ModelProps = {
-  id?: string;
-  description: string;
-  color: string;
-  icon?: string;
-};
-
-export const getCategoryAndAccountTypeDescription = (id: string, model: ModelProps[]) => {
+export const getCategoryAndAccountTypeDescription = (id: string, model: CategoriesType[]) => {
   const Model = model.find((modelname) => modelname.id === id);
   return Model ? Model.description : "";
 };
 
-export const getColorbyDescription = (description: string, category: ModelProps[]) => {
+export const getColorbyDescription = (description: string, category: CategoriesType[]) => {
   const Category = category.find((category) => category.description === description);
   return Category ? Category.color : "";
 };
-export const getCategoriesIDByDescription = (description: string, category: ModelProps[]) => {
+export const getCategoriesIDByDescription = (description: string, category: CategoriesType[]) => {
   const Category = category.find((category) => category.description === description);
   return Category ? Category.id : "";
 };
@@ -62,8 +56,8 @@ export const getCategoryDetails = (context: CategoryModel[], id: string) => {
   return { data, color, categoryIcon, description };
 };
 
-export const getSavingsDetails = (context: SavingGoalsModel[], savingsid: string) => {
-  const data = context.find((data) => data.id === savingsid);
+export const getSavingsDetails = <K extends Partial<CategoriesType>>(savings: K[], savingsid: string) => {
+  const data = savings.find((data) => data.id === savingsid);
   const color = data?.color;
   const categoryIcon = SavingsIcons.find((icon) => icon.name === data?.icon);
   const description = data?.description;

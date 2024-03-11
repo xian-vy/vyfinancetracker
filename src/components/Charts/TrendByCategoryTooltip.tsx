@@ -17,7 +17,15 @@ import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
 import { formatNumberWithoutCurrency } from "../../helper/utils";
 import { iconSizeXS } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
-import { getCategoriesIDByDescription, getCategoryDetails, getIncomeSourceDetails } from "../../firebase/utils";
+import {
+  getCategoriesIDByDescription,
+  getCategoryDetails,
+  getIncomeSourceDetails,
+  getSavingsDetails,
+  getSavingsIDByDescription,
+} from "../../firebase/utils";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 interface CategoryData {
   category: string | undefined;
@@ -37,7 +45,7 @@ interface FilteredChartData {
 interface TrendTooltipProps {
   filteredChartData: FilteredChartData[];
   payload: any[];
-  type: txn_types.Income | txn_types.Expenses | txn_types.Budget;
+  type: txn_types.Income | txn_types.Expenses | txn_types.Budget | txn_types.Savings;
   formattedFilterOption: string;
   includeDateFilter: boolean;
 }
@@ -54,6 +62,7 @@ const TrendByCategoryTooltip: React.FC<TrendTooltipProps> = ({
 }) => {
   const { categories } = useCategoryContext();
   const { incomeSource } = useIncomeSourcesContext();
+  const savings = useSelector((state: RootState) => state.savings.savings);
 
   if (payload && payload.length > 0) {
     const date = payload[0].payload.date;
@@ -98,6 +107,9 @@ const TrendByCategoryTooltip: React.FC<TrendTooltipProps> = ({
               } else if (type === txn_types.Expenses || type === txn_types.Budget) {
                 categoryID = getCategoriesIDByDescription(categoryData.category || "", categories);
                 ({ color, categoryIcon } = getCategoryDetails(categories, categoryID || ""));
+              } else if (type === txn_types.Savings) {
+                categoryID = getSavingsIDByDescription(categoryData.category || "", savings);
+                ({ color, categoryIcon } = getSavingsDetails(savings, categoryID || ""));
               }
               return (
                 <TableRow key={index}>
