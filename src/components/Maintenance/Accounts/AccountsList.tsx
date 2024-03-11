@@ -2,7 +2,7 @@ import { Add as AddIcon } from "@mui/icons-material";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import { Backdrop, CircularProgress, Dialog, DialogContent, Grid, Paper, Typography, useTheme } from "@mui/material";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ACTION_TYPES } from "../../../constants/constants";
 import { FORM_WIDTH, iconSizeXS } from "../../../constants/size";
@@ -10,6 +10,7 @@ import { useAccountTypeContext } from "../../../contextAPI/AccountTypeContext";
 import { ThemeColor } from "../../../helper/utils";
 import { useActionPopover } from "../../../hooks/actionHook";
 import useSnackbarHook from "../../../hooks/snackbarHook";
+import AccountsIcons from "../../../media/AccountsIcons";
 import AccountTypeModel from "../../../models/AccountTypeModel";
 import { updateExpenseAction } from "../../../redux/actions/expenseAction";
 import { updateincomeAction } from "../../../redux/actions/incomeAction";
@@ -19,7 +20,6 @@ import CustomIconButton from "../../CustomIconButton";
 import DeleteConfirmationDialog from "../../Dialog/DeleteConfirmationDialog";
 import EntryFormSkeleton from "../../Skeleton/EntryFormSkeleton";
 import GenericListItem from "../GenericListItem";
-import AccountsIcons from "../../../media/AccountsIcons";
 const AccountsForm = React.lazy(() => import("./AccountsForm"));
 
 const AccountsList = () => {
@@ -39,7 +39,7 @@ const AccountsList = () => {
     setFormOpen(true);
   };
 
-  const handleDeleteAccountType = async () => {
+  const handleDeleteAccountType = useCallback(async () => {
     try {
       setIsLoading(true);
       const ExpensesWithSameAccount = expenses.filter((expense) => {
@@ -92,7 +92,7 @@ const AccountsList = () => {
       setDeleteFormOpen(false);
       setIsLoading(false);
     }
-  };
+  }, [accountType, expenses, income, editAccountType, savingsContributions, deleteAccountType]);
 
   const handleAction = async (option: string, ptype: AccountTypeModel) => {
     seteditAccountType(ptype);

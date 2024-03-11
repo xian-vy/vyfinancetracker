@@ -3,7 +3,7 @@ import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import { Backdrop, CircularProgress, Dialog, DialogContent, Grid, Paper, Typography, useTheme } from "@mui/material";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { Timestamp } from "firebase/firestore";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ACTION_TYPES } from "../../../constants/constants";
 import { FORM_WIDTH, iconSizeXS } from "../../../constants/size";
@@ -11,6 +11,7 @@ import { useCategoryContext } from "../../../contextAPI/CategoryContext";
 import { ThemeColor } from "../../../helper/utils";
 import { useActionPopover } from "../../../hooks/actionHook";
 import useSnackbarHook from "../../../hooks/snackbarHook";
+import CategoryIcons from "../../../media/CategoryIcons";
 import CategoryModel from "../../../models/CategoryModel";
 import { updatebudgetAction } from "../../../redux/actions/budgetAction";
 import { updateMultpleExpensesAction } from "../../../redux/actions/expenseAction";
@@ -19,10 +20,9 @@ import CustomIconButton from "../../CustomIconButton";
 import DeleteConfirmationDialog from "../../Dialog/DeleteConfirmationDialog";
 import EntryFormSkeleton from "../../Skeleton/EntryFormSkeleton";
 import GenericListItem from "../GenericListItem";
-import CategoryIcons from "../../../media/CategoryIcons";
 const CategoryForm = React.lazy(() => import("./CategoryForm"));
 const CategoryList = () => {
-  const { categories, deleteCategory: delCategory } = useCategoryContext();
+  const { categories, deleteCategory } = useCategoryContext();
   const [isFormOpen, setFormOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [deleteFormOpen, setDeleteFormOpen] = useState(false);
@@ -32,7 +32,7 @@ const CategoryList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [editCategory, setEditCategory] = useState<CategoryModel>({} as CategoryModel);
 
-  const handleDeleteCategory = async () => {
+  const handleDeleteCategory = useCallback(async () => {
     try {
       setIsLoading(true);
 
@@ -47,8 +47,8 @@ const CategoryList = () => {
           (budgetItem) => budgetItem.category_id === uncategorizedId
         );
 
-        //Uncategorized already exists, remove the budget with id == editCategory.id,
-        //update the amount existing Uncategorized amount
+        //Uncategorized already exists, remove the budget instead then
+        //add the amount from removed budget the amount of existing Uncategorized amount
         if (uncategorizedBudgetItem) {
           const toBeDeletedBudgetItemIndex = budgetItem.budgets.findIndex(
             (item) => item.category_id === editCategory.id
@@ -106,7 +106,7 @@ const CategoryList = () => {
         })
       );
 
-      delCategory(editCategory.id);
+      deleteCategory(editCategory.id);
 
       openSuccessSnackbar(`Category has been deleted`);
     } catch (error) {
@@ -115,7 +115,7 @@ const CategoryList = () => {
       setDeleteFormOpen(false);
       setIsLoading(false);
     }
-  };
+  }, [categories, budgets, expenses, editCategory, deleteCategory]);
 
   const handleAction = async (option: string, category: CategoryModel) => {
     setEditCategory(category);

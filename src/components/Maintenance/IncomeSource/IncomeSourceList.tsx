@@ -2,13 +2,15 @@ import { Add as AddIcon } from "@mui/icons-material";
 import LocalAtmOutlinedIcon from "@mui/icons-material/LocalAtmOutlined";
 import { Backdrop, CircularProgress, Dialog, DialogContent, Grid, Paper, Typography, useTheme } from "@mui/material";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ACTION_TYPES } from "../../../constants/constants";
 import { FORM_WIDTH, iconSizeXS } from "../../../constants/size";
 import { useIncomeSourcesContext } from "../../../contextAPI/IncomeSourcesContext";
 import { ThemeColor } from "../../../helper/utils";
 import { useActionPopover } from "../../../hooks/actionHook";
 import useSnackbarHook from "../../../hooks/snackbarHook";
+import IncomeSourceIcons from "../../../media/IncomeSourceIcons";
 import IncomeSourcesModel from "../../../models/IncomeSourcesModel";
 import { updateincomeAction } from "../../../redux/actions/incomeAction";
 import { RootState } from "../../../redux/store";
@@ -16,8 +18,6 @@ import CustomIconButton from "../../CustomIconButton";
 import DeleteConfirmationDialog from "../../Dialog/DeleteConfirmationDialog";
 import EntryFormSkeleton from "../../Skeleton/EntryFormSkeleton";
 import GenericListItem from "../GenericListItem";
-import { ACTION_TYPES } from "../../../constants/constants";
-import IncomeSourceIcons from "../../../media/IncomeSourceIcons";
 const IncomeSourceForm = React.lazy(() => import("./IncomeSourceForm"));
 
 const IncomeSourceList = () => {
@@ -35,7 +35,7 @@ const IncomeSourceList = () => {
     setFormOpen(true);
   };
 
-  const handleDeleteIncomeSource = async () => {
+  const handleDeleteIncomeSource = useCallback(async () => {
     try {
       const IncomeWithSameCategory = income.filter((inc) => {
         return inc.category_id === editIncomeSource.id;
@@ -66,7 +66,7 @@ const IncomeSourceList = () => {
       setDeleteFormOpen(false);
       setIsLoading(false);
     }
-  };
+  }, [incomeSource, income, editIncomeSource, deleteIncomeSources]);
 
   const handleAction = async (option: string, isource: IncomeSourcesModel) => {
     setIncomeSource(isource);
