@@ -22,13 +22,12 @@ import { RootState } from "../../redux/store";
 import ExpensebyCategoryTrend from "../Charts/Expenses/ExpensebyCategoryTrend";
 import DeleteConfirmationDialog from "../Dialog/DeleteConfirmationDialog";
 import UploadingDialog from "../Dialog/UploadingDialog";
-import EntryFormSkeleton from "../Skeleton/EntryFormSkeleton";
 import GenericChartSkeleton from "../Skeleton/GenericChartSkeleton";
 import GenericTableSkeleton from "../Skeleton/GenericTableSkeleton";
+import ExpenseForm from "./ExpenseForm";
 import ExpenseList from "./ExpenseList";
 import ExpenseListFooter from "./ExpenseListFooter";
 import ExpenseListHeader from "./ExpenseListHeader";
-const ExpenseForm = React.lazy(() => import("./ExpenseForm"));
 
 const ExpenseMainPage = () => {
   const location = useLocation();
@@ -249,16 +248,14 @@ const ExpenseMainPage = () => {
         transitionDuration={powerSavingMode ? 0 : undefined}
       >
         <DialogContent sx={{ px: 3, py: 1 }}>
-          <React.Suspense fallback={<EntryFormSkeleton />}>
-            <ExpenseForm
-              categoryContext={categories}
-              accountType={accountType}
-              onUpdateExpense={handleUpdateExpense}
-              editExpense={editedExpense}
-              isEditMode={editMode}
-              onCloseForm={handleCloseForm}
-            />
-          </React.Suspense>
+          <ExpenseForm
+            categoryContext={categories}
+            accountType={accountType}
+            onUpdateExpense={handleUpdateExpense}
+            editExpense={editedExpense}
+            isEditMode={editMode}
+            onCloseForm={handleCloseForm}
+          />
         </DialogContent>
       </Dialog>
 

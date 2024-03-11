@@ -36,7 +36,7 @@ import DeleteConfirmationDialog from "../Dialog/DeleteConfirmationDialog";
 import FilterSavings from "../Filter/FilterSavings";
 import EntryFormSkeleton from "../Skeleton/EntryFormSkeleton";
 import { SavingsItems } from "./SavingsItems";
-const SavingsForm = React.lazy(() => import("./SavingsForm"));
+import SavingsForm from "./SavingsForm";
 const SavingsContributionForm = React.lazy(() => import("./SavingsContributionForm"));
 const SavingsMainPage = () => {
   const location = useLocation();
@@ -209,14 +209,12 @@ const SavingsMainPage = () => {
         transitionDuration={powerSavingMode ? 0 : undefined}
       >
         <DialogContent sx={{ px: 3, py: 1 }}>
-          <React.Suspense fallback={<EntryFormSkeleton items={6} />}>
-            <SavingsForm
-              onAddSavings={handleAddSavings}
-              EditSavings={editedSavings}
-              isEditMode={editMode}
-              onCloseForm={handleCloseForm}
-            />
-          </React.Suspense>
+          <SavingsForm
+            onAddSavings={handleAddSavings}
+            EditSavings={editedSavings}
+            isEditMode={editMode}
+            onCloseForm={handleCloseForm}
+          />
         </DialogContent>
       </Dialog>
 

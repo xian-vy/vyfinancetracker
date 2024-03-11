@@ -24,7 +24,7 @@ import SavingGoalsModel from "../../models/SavingGoalsModel";
 import EntryFormButton from "../GenericComponents/EntryFormButton";
 import EntryFormDatePicker from "../GenericComponents/EntryFormDatePicker";
 import IconListComponent from "../Maintenance/IconListComponent";
-
+import React from "react";
 interface Props {
   onAddSavings: (savings: SavingGoalsModel) => void;
   EditSavings: SavingGoalsModel;

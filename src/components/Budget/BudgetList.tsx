@@ -11,6 +11,7 @@ import BudgetListHeader from "./BudgetListHeader";
 import { FilterExpenseAndBudgetbyCategory } from "./BudgetListHelper";
 import { BudgetListItems } from "./BudgetListItems";
 import { FilterTimeframe } from "../../constants/timeframes";
+import BudgetForm from "./BudgetForm";
 
 interface Props {
   selectedTimeframe: FilterTimeframe;
@@ -18,8 +19,6 @@ interface Props {
   endDate: Date | null;
   URLopenForm: boolean;
 }
-
-const BudgetForm = React.lazy(() => import("./BudgetForm"));
 
 const BudgetList = ({ selectedTimeframe, startDate, endDate, URLopenForm }: Props) => {
   const [isBudgetFormOpen, setIsBudgetFormOpen] = useState(URLopenForm || false);
@@ -79,13 +78,11 @@ const BudgetList = ({ selectedTimeframe, startDate, endDate, URLopenForm }: Prop
         transitionDuration={powerSavingMode ? 0 : undefined}
       >
         <DialogContent sx={{ px: { xs: 2, md: 3 }, py: { xs: 1, lg: 1 }, background: isDarkMode ? "#1e1e1e" : "#fff" }}>
-          <React.Suspense fallback={<EntryFormSkeleton />}>
-            <BudgetForm
-              onCloseForm={() => {
-                setIsBudgetFormOpen(false);
-              }}
-            />
-          </React.Suspense>
+          <BudgetForm
+            onCloseForm={() => {
+              setIsBudgetFormOpen(false);
+            }}
+          />
         </DialogContent>
       </Dialog>
     </Stack>

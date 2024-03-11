@@ -18,10 +18,9 @@ import { deleteincomeAction } from "../../redux/actions/incomeAction";
 import { RootState } from "../../redux/store";
 import IncomeTrend from "../Charts/Income/IncomebyCategoryTrend";
 import DeleteConfirmationDialog from "../Dialog/DeleteConfirmationDialog";
-import EntryFormSkeleton from "../Skeleton/EntryFormSkeleton";
+import IncomeForm from "./IncomeForm";
 import IncomeList from "./IncomeList";
 import IncomeListHeader from "./IncomeListHeader";
-const IncomeForm = React.lazy(() => import("./IncomeForm"));
 const IncomeMainPage = () => {
   const location = useLocation();
   const { openForm } = location.state || {};
@@ -172,14 +171,12 @@ const IncomeMainPage = () => {
         transitionDuration={powerSavingMode ? 0 : undefined}
       >
         <DialogContent sx={{ px: 3, py: 1 }}>
-          <React.Suspense fallback={<EntryFormSkeleton />}>
-            <IncomeForm
-              editIncome={income}
-              onCloseForm={handleCloseForm}
-              isEditMode={editMode}
-              onUpdate={handleSaveUpdate}
-            />
-          </React.Suspense>
+          <IncomeForm
+            editIncome={income}
+            onCloseForm={handleCloseForm}
+            isEditMode={editMode}
+            onUpdate={handleSaveUpdate}
+          />
         </DialogContent>
       </Dialog>
 
