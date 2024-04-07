@@ -6,8 +6,7 @@ import { TransactionTypes } from "../helper/GenericTransactionHelper";
 import { getUserDocRef } from "./UsersService";
 
 type ReturnType<T> = {
-  item?: T;
-  id?: string;
+  item: T | null;
   error: string | null;
 };
 interface Props<T> {
@@ -21,7 +20,7 @@ export const createSingleDocument = async <T extends TransactionTypes & { lastMo
   collectionName,
 }: Props<T>): Promise<ReturnType<T>> => {
   try {
-    const { id, ...newItem } = item;
+    const { ...newItem } = item;
     const key = await retrieveKeySecurely();
     if (!key) {
       throw new Error("Missing encryption key.");
@@ -33,14 +32,14 @@ export const createSingleDocument = async <T extends TransactionTypes & { lastMo
     const userDocRef = await getUserDocRef();
     const collectionRef = collection(userDocRef, collectionName);
     const docRef = doc(collectionRef);
-    const newId = docRef.id;
+    newItem.id = docRef.id;
 
     const encryptedData64 = await encryptAndConvertToBase64(newItem, key);
     setDoc(docRef, { encryptedData: encryptedData64, lastModified: now });
 
-    return { id: newId, error: null };
+    return { item: newItem, error: null };
   } catch (error) {
-    return { error: `error creating document ${error}` };
+    return { item: null, error: `error creating document ${error}` };
   }
 };
 /****** SINGLE DOCUMENT UPDATE *********************************************************/
@@ -64,21 +63,21 @@ export const updateSingleDocument = async <T extends TransactionTypes & { lastMo
     const document = await getDocFromCache(Ref);
 
     if (!document.exists()) {
-      return { error: "error updating document, Item not found" };
+      return { item: null, error: "error updating document, Item not found" };
     }
     const encryptedDataBase64 = document.data().encryptedData;
 
     //decrypt
     const decryptedData = await decryptFromBase64(encryptedDataBase64.encryptedDataBase64, key, encryptedDataBase64.iv);
-    const updatedIncome = { ...decryptedData, ...newItem };
+    const updatedItem = { ...decryptedData, ...newItem };
     //re encrypt
-    const updatedEncryptedDataBase64 = await encryptAndConvertToBase64(updatedIncome, key);
+    const updatedEncryptedDataBase64 = await encryptAndConvertToBase64(updatedItem, key);
 
     updateDoc(Ref, { encryptedData: updatedEncryptedDataBase64, lastModified: now });
 
-    return { error: null };
+    return { item: updatedItem, error: null };
   } catch (error) {
-    return { error: `error updating document ${error}` };
+    return { item: null, error: `error updating document ${error}` };
   }
 };
 
@@ -104,7 +103,7 @@ export const deleteSingleDocument = async <T extends TransactionTypes & { lastMo
     const document = await getDocFromCache(Ref);
 
     if (!document.exists()) {
-      return { error: "error deleting document, Item not found" };
+      return { item: null, error: "error deleting document, Item not found" };
     }
     const encryptedDataBase64 = document.data().encryptedData;
 
@@ -115,8 +114,8 @@ export const deleteSingleDocument = async <T extends TransactionTypes & { lastMo
     const updatedEncryptedDataBase64 = await encryptAndConvertToBase64(updatedIncome, key);
 
     updateDoc(Ref, { encryptedData: updatedEncryptedDataBase64, lastModified: now });
-    return { error: null };
+    return { item: updatedIncome, error: null };
   } catch (error) {
-    return { error: `error deleting document ${error}` };
+    return { item: null, error: `error deleting document ${error}` };
   }
 };

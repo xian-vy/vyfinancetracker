@@ -10,16 +10,24 @@ import {
   updateMultipleExpenses,
 } from "../../firebase/ExpenseService";
 import { Dispatch } from "react";
+import { createSingleDocument, deleteSingleDocument, updateSingleDocument } from "../../firebase/GenericCrud";
+import { collections } from "../../constants/collections";
 
 export const fetchExpenses = createAsyncThunk("expenses/fetchExpenses", async () => {
   return getExpenses();
 });
 
-export const addExpenseAction = createAsyncThunk("expenses/addExpense", async (expenseData: ExpenseModel) => {
-  const id = await addExpensetoFirestore(expenseData);
-  expenseData.id = id;
-  return expenseData;
-});
+export const addExpenseAction = createAsyncThunk(
+  "expenses/addExpense",
+  async (expenseData: ExpenseModel, { rejectWithValue }) => {
+    const { item, error } = await createSingleDocument({ item: expenseData, collectionName: collections.Expenses });
+    if (!item) {
+      return rejectWithValue({ error: error });
+    }
+    expenseData.id = item.id;
+    return expenseData;
+  }
+);
 
 export const addExpenseToStateAction = (expenseData: ExpenseModel) => {
   return async (dispatch: Dispatch<any>) => {
@@ -40,15 +48,27 @@ export const setUploadProgressAction = (progress: number) => ({
   payload: progress,
 });
 
-export const updateExpenseAction = createAsyncThunk("expenses/updateExpense", async (expenseData: ExpenseModel) => {
-  updateExpensetoFirestore(expenseData);
-  return expenseData;
-});
+export const updateExpenseAction = createAsyncThunk(
+  "expenses/updateExpense",
+  async (expenseData: ExpenseModel, { rejectWithValue }) => {
+    const { error } = await updateSingleDocument({ item: expenseData, collectionName: collections.Expenses });
+    if (error) {
+      return rejectWithValue({ error: error });
+    }
+    return expenseData;
+  }
+);
 
-export const deleteExpenseAction = createAsyncThunk("expenses/deleteExpense", async (expense: ExpenseModel) => {
-  deleteExpensetoFirestore(expense);
-  return expense;
-});
+export const deleteExpenseAction = createAsyncThunk(
+  "expenses/deleteExpense",
+  async (expense: ExpenseModel, { rejectWithValue }) => {
+    const { error } = await deleteSingleDocument({ item: expense, collectionName: collections.Expenses });
+    if (error) {
+      return rejectWithValue({ error: error });
+    }
+    return expense;
+  }
+);
 
 export const updateMultpleExpensesAction = createAsyncThunk(
   "expenses/updateMultipleExpenses",
