@@ -7,7 +7,7 @@ import { toggleDarkMode } from "../../redux/reducer/themeSlice";
 import { RootState } from "../../redux/store";
 
 const iconStyle = (): any => ({
-  fontSize: 20,
+  fontSize: 16,
   color: "#f58e8a",
   mx: 0.5,
   cursor: "pointer",
@@ -24,7 +24,7 @@ const SimpleThemeToggle = () => {
   };
 
   return (
-    <Stack direction="row" justifyContent="center" mb={3}>
+    <Stack direction="row" justifyContent="center" mb={2}>
       {currentMode ? (
         <DarkModeOutlinedIcon sx={iconStyle()} onClick={() => handleDarkMode(false)} />
       ) : (
