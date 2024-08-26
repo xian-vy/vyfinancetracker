@@ -1,16 +1,14 @@
-import { Dialog, DialogContent, Divider, Stack, ThemeProvider, Typography, useMediaQuery } from "@mui/material";
+import { Dialog, DialogContent, Divider, Stack, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
 import React, { useState } from "react";
-import { PRIVACY_POLICY, TERMS_OF_USE, TNCandPrivacyPolicyDialog } from "../../constants/routes";
-import { darkTheme, lightTheme } from "../../Theme";
 import { useSelector } from "react-redux";
+import { PRIVACY_POLICY, TERMS_OF_USE, TNCandPrivacyPolicyDialog } from "../../constants/routes";
 import { RootState } from "../../redux/store";
 const About = React.lazy(() => import("../PublicComponents/About"));
 
 const Footer = () => {
   const [openAbout, setOpenAbout] = useState(false);
   const darktheme = useSelector((state: RootState) => state.theme.darkMode);
-  const systemThemeIsDark = useMediaQuery("(prefers-color-scheme: dark)");
 
   const [agreementDialog, setAgreementDialog] = React.useState<{ open: boolean; doc: string | null }>({
     open: false,
@@ -67,7 +65,7 @@ const Footer = () => {
         open={openAbout}
         onClose={() => setOpenAbout(false)}
         PaperProps={{
-          sx: { borderRadius: 2, background: "#1e1e1e", height: "auto", width: 250 },
+          sx: { borderRadius: 1, background: darktheme ? "#1e1e1e" : "#fff", height: "auto", width: 250 },
         }}
         slotProps={{
           backdrop: {
@@ -89,18 +87,14 @@ const Footer = () => {
         </DialogContent>
       </Dialog>
 
-      <ThemeProvider
-        theme={darktheme === null ? (systemThemeIsDark ? darkTheme : lightTheme) : darktheme ? darkTheme : lightTheme}
-      >
-        <Dialog open={agreementDialog.open} maxWidth="md" fullWidth>
-          <React.Suspense fallback={<div>loading...</div>}>
-            <TNCandPrivacyPolicyDialog
-              selectedDoc={agreementDialog.doc}
-              onClose={() => setAgreementDialog({ open: false, doc: PRIVACY_POLICY })}
-            />
-          </React.Suspense>
-        </Dialog>
-      </ThemeProvider>
+      <Dialog open={agreementDialog.open} maxWidth="md" fullWidth>
+        <React.Suspense fallback={<div>loading...</div>}>
+          <TNCandPrivacyPolicyDialog
+            selectedDoc={agreementDialog.doc}
+            onClose={() => setAgreementDialog({ open: false, doc: PRIVACY_POLICY })}
+          />
+        </React.Suspense>
+      </Dialog>
     </>
   );
 };
