@@ -1,13 +1,12 @@
+import PersonIcon from "@mui/icons-material/Person";
 import { Box, Button, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { signInAnonymous } from "../../helper/AuthHelper";
-import { ReactComponent as Incognito } from "../../media/incognito.svg";
-import GenericDialog from "../Dialog/GenericDialog";
-import { SIGNIN_NETWORK_ERROR_MESSAGE } from "../../constants/errors";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { SIGNIN_NETWORK_ERROR_MESSAGE } from "../../constants/errors";
+import { signInAnonymous } from "../../helper/AuthHelper";
 import { setIsSigningIn } from "../../redux/reducer/userAccountSlice";
 import { RootState } from "../../redux/store";
-
+import GenericDialog from "../Dialog/GenericDialog";
 const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; promptAgreementMsg: () => void }) => {
   const [networkError, setNetworkError] = useState(false);
   const dispatch = useDispatch();
@@ -40,7 +39,7 @@ const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean
           onClick={signIn}
           fullWidth
           disabled={isSigningIn}
-          startIcon={<Incognito fill="#ccc" style={{ width: "22px", height: "22px" }} />}
+          startIcon={<PersonIcon sx={{ fontSize: 18 }} />}
           sx={{ textTransform: "none", fontSize: { xs: "0.7rem", lg: "0.75rem" } }}
         >
           Continue Anonymously

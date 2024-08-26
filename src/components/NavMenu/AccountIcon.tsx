@@ -1,6 +1,7 @@
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
+import PersonIcon from "@mui/icons-material/Person";
 import {
   Avatar,
   Box,
@@ -19,10 +20,9 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { signOutWithGoogle } from "../../helper/AuthHelper";
-import incognito from "../../media/incognito.svg";
 import { iconSizeXS } from "../../constants/size";
 import { getPersistenceID } from "../../firebase/UsersService";
+import { signOutWithGoogle } from "../../helper/AuthHelper";
 import { RootState } from "../../redux/store";
 import GenericDialog from "../Dialog/GenericDialog";
 import SignOutConfirmationDialog from "../Dialog/SignOutConfirmationDialog";
@@ -100,11 +100,7 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
           }}
           onClick={(event) => handleClick(event)}
         >
-          {user?.isAnonymous ? (
-            <img src={incognito} alt="Anonymous Icon" style={{ width: "20px", height: "20px" }} />
-          ) : !photoURL ? (
-            firstLetter
-          ) : null}
+          {user?.isAnonymous ? <PersonIcon sx={{ fontSize: 18 }} /> : !photoURL ? firstLetter : null}
         </Avatar>
 
         {!collapsedDrawer && (
