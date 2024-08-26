@@ -1,10 +1,10 @@
-import { Box, CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
+import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { darkTheme, darkThemeLGfont, lightTheme, lightThemeLGfont } from "../Theme";
-import { drawerWidth } from "../constants/size";
 import { HOME } from "../constants/routes";
+import { drawerWidth } from "../constants/size";
 import { RootState } from "../redux/store";
 import NavigationMain from "./NavMenu/NavigationMain";
 
@@ -13,7 +13,6 @@ interface ProtectedRouteProps {
 }
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ redirectPath = HOME }) => {
-  const deviceTheme = useMediaQuery("(prefers-color-scheme: dark)");
   const darktheme = useSelector((state: RootState) => state.theme.darkMode);
   const preferredFontSize = useSelector((state: RootState) => state.fontSize.size);
 
@@ -28,17 +27,9 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ redirectPath = H
     <ThemeProvider
       theme={
         preferredFontSize !== "md"
-          ? darktheme === null
-            ? deviceTheme
-              ? darkTheme
-              : lightTheme
-            : darktheme
+          ? darktheme
             ? darkTheme
             : lightTheme
-          : darktheme === null
-          ? deviceTheme
-            ? darkThemeLGfont
-            : lightThemeLGfont
           : darktheme
           ? darkThemeLGfont
           : lightThemeLGfont
