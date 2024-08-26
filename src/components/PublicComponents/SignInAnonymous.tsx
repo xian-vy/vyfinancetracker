@@ -11,6 +11,7 @@ const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean
   const [networkError, setNetworkError] = useState(false);
   const dispatch = useDispatch();
   const isSigningIn = useSelector((state: RootState) => state.userAccount.isSigningIn);
+  const darktheme = useSelector((state: RootState) => state.theme.darkMode);
 
   const signIn = async () => {
     if (!hasAgreed) {
@@ -41,7 +42,11 @@ const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean
           fullWidth
           disabled={isSigningIn}
           startIcon={<PersonIcon sx={{ fontSize: 18 }} />}
-          sx={{ textTransform: "none", fontSize: { xs: "0.7rem", lg: "0.75rem" } }}
+          sx={{
+            textTransform: "none",
+            fontSize: { xs: "0.7rem", lg: "0.75rem" },
+            border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #999",
+          }}
         >
           Continue Anonymously
         </Button>

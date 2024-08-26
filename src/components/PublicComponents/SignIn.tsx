@@ -41,7 +41,7 @@ export default function SignIn() {
             alt="Logo"
             style={{ width: "24px", height: "24px", cursor: "pointer", padding: 0 }}
           />
-          <Typography component="h1" align="center" ml={0.5} variant="subtitle1">
+          <Typography component="h1" align="center" ml={0.8} variant="subtitle1" fontWeight={500}>
             Sign In
           </Typography>
         </Stack>
@@ -51,7 +51,7 @@ export default function SignIn() {
           promptAgreementMsg={() => openSuccessSnackbar("You must agree to privacy and terms to continue.", true)}
         />
 
-        <Divider sx={{ my: 1, width: "86%", fontSize: "0.7rem" }}>Or</Divider>
+        <Divider sx={{ my: 1, width: "100%", fontSize: "0.7rem" }}>Or</Divider>
 
         <SignInAnonymous
           hasAgreed={agreeToTerms}
