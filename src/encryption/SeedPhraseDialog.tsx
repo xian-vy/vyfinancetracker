@@ -107,7 +107,7 @@ const SeedPhraseDialog = ({
         maxWidth="md"
         fullWidth
         PaperProps={{
-          sx: { borderRadius: 2, background: isDarkMode ? "#1e1e1e" : "#fff" },
+          sx: { borderRadius: 1, background: isDarkMode ? "#1e1e1e" : "#fff" },
         }}
         slotProps={{
           backdrop: {

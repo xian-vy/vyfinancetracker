@@ -32,11 +32,12 @@ const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean
   };
   return (
     <>
-      <Box display="flex" px={2} flexDirection="column" alignItems="center" justifyContent="center" width={250}>
+      <Box display="flex" px={2} flexDirection="column" alignItems="center" justifyContent="center" width={270}>
         <Button
           variant="outlined"
           color="inherit"
           onClick={signIn}
+          size="large"
           fullWidth
           disabled={isSigningIn}
           startIcon={<PersonIcon sx={{ fontSize: 18 }} />}

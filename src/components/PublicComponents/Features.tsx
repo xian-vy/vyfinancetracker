@@ -1,4 +1,4 @@
-import { BackupOutlined, EnergySavingsLeafOutlined, LanOutlined, LockOutlined } from "@mui/icons-material";
+import { BackupOutlined, LanOutlined, LockOutlined, Devices } from "@mui/icons-material";
 import { Grid, Paper, Stack, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
@@ -14,14 +14,14 @@ const featuresData = [
     IconComponent: BackupOutlined,
   },
   {
-    description: "Power Saving Mode",
-    details: "Reduce animations and visual effects to conserve battery life.",
-    IconComponent: EnergySavingsLeafOutlined,
+    description: "Cross Platform",
+    details: "Access and manage your data across multiple devices.",
+    IconComponent: Devices,
   },
 
   {
     description: "Offline First",
-    details: "Work seamlessly even without an internet connection.",
+    details: "Work seamlessly even without internet. Your data is synced automatically when you reconnect.",
     IconComponent: LanOutlined,
   },
 ];
@@ -55,8 +55,8 @@ const Features = () => {
                 alignItems: "center",
               }}
             >
-              <feature.IconComponent sx={{ fontSize: { xs: "18px", md: "22px" }, mb: 1, color: "#d86c70" }} />
-              <Typography sx={{ fontSize: { xs: "0.8rem", lg: "0.85rem" }, mb: 1 }}>{feature.description}</Typography>
+              <feature.IconComponent sx={{ fontSize: { xs: "18px", md: "22px" }, mb: 0.5, color: "#d86c70" }} />
+              <Typography sx={{ fontSize: { xs: "0.8rem", lg: "0.85rem" }, mb: 0.5 }}>{feature.description}</Typography>
               <Typography textAlign="left" sx={{ fontSize: { xs: "0.75rem", lg: "0.8rem" }, color: "#888" }}>
                 {feature.details}
               </Typography>

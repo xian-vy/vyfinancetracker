@@ -73,11 +73,11 @@ const FeaturesIMG = () => {
                 borderRadius: 2,
               }}
             >
-              <Stack sx={{ background: darktheme ? "#333" : "#666", p: 0.2, borderRadius: 3 }}>
+              <Stack sx={{ background: darktheme ? "#333" : "#444", p: 0.2, borderRadius: 3 }}>
                 <Stack
                   sx={{
                     background: darktheme ? "#000" : "#666",
-                    p: { xs: 1.5, md: 2, lg: 2 },
+                    p: { xs: 1.5, xl: 2 },
                     height: { xs: 200, sm: 300, md: 350, lg: 400 },
                     position: "relative",
                     borderRadius: 3,
@@ -105,7 +105,7 @@ const FeaturesIMG = () => {
         open={showFullImage.open}
         onClose={() => setShowFullImage({ open: false, img: "" })}
         maxWidth="lg"
-        PaperProps={{ sx: { borderRadius: 3, m: 1 } }}
+        PaperProps={{ sx: { borderRadius: 3, m: 1, background: darktheme ? "#333" : "#666" } }}
       >
         <Stack
           direction="row"
@@ -120,7 +120,7 @@ const FeaturesIMG = () => {
             <Stack
               sx={{
                 background: darktheme ? "#000" : "#666",
-                p: { xs: 1.5, md: 2, lg: 2 },
+                p: { xs: 1 },
                 maxHeight: { xs: 400, sm: 700, md: 800, lg: 800 },
                 position: "relative",
                 borderRadius: 3,
@@ -133,14 +133,12 @@ const FeaturesIMG = () => {
                 onClick={(e) => e.stopPropagation()}
                 style={{ width: "100%", height: "100%" }}
               />
-              <Stack direction="row" justifyContent="center" width="100%" mt={1}>
-                <IconButton
-                  onClick={() => setShowFullImage({ open: false, img: "" })}
-                  sx={{ background: "#ccc", width: 30, height: 30 }}
-                >
-                  <CloseIcon fontSize="large" sx={{ color: "#666" }} />
-                </IconButton>
-              </Stack>
+              <IconButton
+                onClick={() => setShowFullImage({ open: false, img: "" })}
+                sx={{ background: "#ccc", width: 24, height: 24, position: "absolute", top: 15, right: 15 }}
+              >
+                <CloseIcon sx={{ color: "#666", fontSize: 18 }} />
+              </IconButton>
             </Stack>
           </Stack>
         </Stack>

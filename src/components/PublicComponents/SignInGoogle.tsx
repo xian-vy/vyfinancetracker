@@ -32,12 +32,13 @@ const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; p
   };
   return (
     <>
-      <Box display="flex" px={2} flexDirection="column" alignItems="center" justifyContent="center" width={250}>
+      <Box display="flex" px={2} flexDirection="column" alignItems="center" justifyContent="center" width={270}>
         <Button
           variant="outlined"
           color="inherit"
           onClick={signIn}
           fullWidth
+          size="large"
           disabled={isSigningIn}
           startIcon={<GoogleIcon style={{ fontSize: "20px" }} />}
           sx={{ textTransform: "none", fontSize: { xs: "0.7rem", lg: "0.75rem" } }}

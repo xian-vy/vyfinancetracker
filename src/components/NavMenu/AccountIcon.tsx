@@ -91,7 +91,7 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
         <Avatar
           src={photoURL || undefined}
           style={{
-            backgroundColor: user?.isAnonymous ? "#333" : photoURL ? undefined : "#00897b",
+            backgroundColor: isDarkMode ? "#333" : "#ccc",
             color: user?.isAnonymous ? "#fff" : "inherit",
             width: 30,
             height: 30,
@@ -100,7 +100,11 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
           }}
           onClick={(event) => handleClick(event)}
         >
-          {user?.isAnonymous ? <PersonIcon sx={{ fontSize: 18 }} /> : !photoURL ? firstLetter : null}
+          {user?.isAnonymous ? (
+            <PersonIcon sx={{ fontSize: 18, color: isDarkMode ? "#ccc" : "#666" }} />
+          ) : !photoURL ? (
+            firstLetter
+          ) : null}
         </Avatar>
 
         {!collapsedDrawer && (
