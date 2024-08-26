@@ -1,83 +1,70 @@
-import {
-  BackupOutlined,
-  CachedOutlined,
-  CategoryOutlined,
-  EnergySavingsLeafOutlined,
-  LockOutlined,
-} from "@mui/icons-material";
-import { Box, Grow, Stack, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-
+import { BackupOutlined, EnergySavingsLeafOutlined, LanOutlined, LockOutlined } from "@mui/icons-material";
+import { Grid, Paper, Stack, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 const featuresData = [
   {
     description: "End to End Encryption",
+    details: "Data is encrypted using AES encryption, ensuring robust security and data privacy.",
     IconComponent: LockOutlined,
   },
   {
     description: "Backup and sync",
+    details: "Sync data to the cloud and access from any device.",
     IconComponent: BackupOutlined,
   },
   {
     description: "Power Saving Mode",
+    details: "Reduce animations and visual effects to conserve battery life.",
     IconComponent: EnergySavingsLeafOutlined,
   },
 
   {
-    description: "Customizable colors and icons",
-    IconComponent: CategoryOutlined,
-  },
-  {
-    description: "Cache optimized for minimal data usage",
-    IconComponent: CachedOutlined,
+    description: "Offline First",
+    details: "Work seamlessly even without an internet connection.",
+    IconComponent: LanOutlined,
   },
 ];
 
 const Features = () => {
-  const [visibleIndex, setVisibleIndex] = useState(-1);
+  const darkmode = useSelector((state: RootState) => state.theme.darkMode);
 
-  useEffect(() => {
-    let timerId: NodeJS.Timeout | null = null;
-    if (visibleIndex < featuresData.length - 1) {
-      timerId = setTimeout(() => {
-        setVisibleIndex((prevIndex) => prevIndex + 1);
-      }, 200);
-    }
-    return () => {
-      if (timerId) clearTimeout(timerId);
-    };
-  }, [visibleIndex]);
   return (
-    <div>
-      <Stack
-        direction="row"
-        alignItems="flex-start"
-        justifyContent="center"
-        flexWrap="wrap"
-        sx={{ maxWidth: { xs: "90%", sm: "80%", md: "56%", lg: "50%", xl: "55%", margin: "auto" } }}
-      >
+    <Stack
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      width="100%"
+      my={{ xs: 2, sm: 3, md: 4 }}
+      mx="auto"
+    >
+      <Grid container spacing={1.5} maxWidth="md" px={2}>
         {featuresData.map((feature, index) => (
-          <Box key={index}>
-            <Grow
-              in={index <= visibleIndex}
-              style={{ transformOrigin: "0  0  0", border: `solid   1px #333`, padding: 2 }}
-              timeout={200}
+          <Grid item container xs={6} md={3} key={index}>
+            <Paper
+              variant="outlined"
+              sx={{
+                border: darkmode ? "solid 1px #2a2a2a" : "solid 1px  #ccc",
+                borderRadius: 2,
+                p: 2,
+                minHeight: 130,
+                height: "auto",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}
             >
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-                sx={{ m: { xs: 0.3, lg: 0.5 }, borderRadius: 4, px: 1 }}
-              >
-                <Typography sx={{ fontSize: { xs: "0.75rem", lg: "0.85rem" } }} mx={1}>
-                  {feature.description}
-                </Typography>
-                <feature.IconComponent sx={{ fontSize: { xs: "14px", sm: "16px", lg: "20px" }, mr: 0.5 }} />
-              </Stack>
-            </Grow>
-          </Box>
+              <feature.IconComponent sx={{ fontSize: { xs: "18px", md: "22px" }, mb: 1, color: "#d86c70" }} />
+              <Typography sx={{ fontSize: { xs: "0.8rem", lg: "0.85rem" }, mb: 1 }}>{feature.description}</Typography>
+              <Typography textAlign="left" sx={{ fontSize: { xs: "0.75rem", lg: "0.8rem" }, color: "#888" }}>
+                {feature.details}
+              </Typography>
+            </Paper>
+          </Grid>
         ))}
-      </Stack>
-    </div>
+      </Grid>
+    </Stack>
   );
 };
 

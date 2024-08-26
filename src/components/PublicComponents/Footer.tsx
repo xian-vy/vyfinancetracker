@@ -18,15 +18,9 @@ const Footer = () => {
   });
   return (
     <>
-      <Stack
-        direction="column"
-        sx={{
-          px: { xs: 4, md: 8, lg: 10 },
-          width: "100%",
-        }}
-      >
-        <Divider sx={{ mt: 1, mx: "auto", width: { xs: "96%", sm: "90%", md: "50%", xl: "55%" } }} />
-        <Stack direction="row" justifyContent="center" mt={0.5}>
+      <Stack direction="column" maxWidth="md" m="auto" width="100%" p={2}>
+        <Divider sx={{ mt: 1, mx: "auto", width: "100%" }} />
+        <Stack direction="row" justifyContent="center" mt={1}>
           <Link
             onClick={() => setAgreementDialog({ open: true, doc: PRIVACY_POLICY })}
             sx={{
@@ -61,7 +55,7 @@ const Footer = () => {
             About
           </Link>
         </Stack>
-        <Stack direction="row" justifyContent="center">
+        <Stack direction="row" justifyContent="center" mt={0.5}>
           <Typography textAlign="center" sx={{ fontSize: { xs: "0.6rem", lg: "0.65rem" } }}>
             {"Copyright © "}
             {"Vy Finance Tracker"} {new Date().getFullYear()}

@@ -2,12 +2,13 @@ import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { Box, Button, Container, Dialog, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../../media/logo.svg";
-import androidIcon from "../../media/platforms/android.png";
-import iosIcon from "../../media/platforms/apple.png";
-import windowsIcon from "../../media/platforms/windows.png";
+import androidIcon from "../../media/platforms/android.svg";
+import { useSelector } from "react-redux";
 import { SIGN_IN_PATH } from "../../constants/routes";
 import useSnackbarHook from "../../hooks/snackbarHook";
+import iosIcon from "../../media/platforms/apple.png";
+import windowsIcon from "../../media/platforms/windows.png";
+import { RootState } from "../../redux/store";
 interface ChoiceResult {
   outcome: "accepted" | "dismissed";
   platform: string;
@@ -15,6 +16,8 @@ interface ChoiceResult {
 const InstallTutorial = React.lazy(() => import("./InstallTutorial/InstallTutorial"));
 
 const Header = ({ appInstalled }: { appInstalled: boolean }) => {
+  const darktheme = useSelector((state: RootState) => state.theme.darkMode);
+
   const navigate = useNavigate();
   const [openTutorial, setOpenTutorial] = useState(false);
   const { openSuccessSnackbar, SnackbarComponent } = useSnackbarHook();
@@ -84,14 +87,31 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
     <>
       <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
         <Container disableGutters maxWidth="sm" component="main" sx={{ pb: 0.5, px: 4 }}>
-          <Stack direction="row" alignItems="center" justifyContent="center">
-            <img src={logo} alt="Logo" style={{ width: "24px", height: "24px" }} />
-            <Typography component="h2" align="center" ml={0.5} variant="subtitle1">
-              Finance Tracker
-            </Typography>
-          </Stack>
-          <Typography component="h3" align="center" variant="body1">
-            A progressive web app - free personal finance tracker
+          <Typography
+            component="h1"
+            align="center"
+            sx={{
+              fontSize: { xs: "1.6rem", md: "2rem" },
+              lineHeight: { xs: "2rem", md: "2.2rem" },
+              fontWeight: 800,
+              // backgroundImage: `url(${mesh})`,
+              // WebkitBackgroundClip: "text",
+              // WebkitTextFillColor: "transparent",
+              color: "#d86c70",
+              // color: darktheme ? "#ccc" : "#000",
+            }}
+          >
+            Vy Finance Tracker
+          </Typography>
+          <Typography
+            component="h2"
+            align="center"
+            sx={{
+              fontSize: "0.85rem",
+              fontWeight: 400,
+            }}
+          >
+            Expense, Budget, Income and Savings Tracker
           </Typography>
         </Container>
 
@@ -100,8 +120,13 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             <Button
               variant="outlined"
               color="inherit"
-              size="small"
-              sx={{ textTransform: "capitalize", width: 100, fontSize: { xs: "0.7rem", lg: "0.75rem" } }}
+              size="medium"
+              sx={{
+                textTransform: "capitalize",
+                width: 130,
+                fontSize: { xs: "0.7rem", lg: "0.75rem" },
+                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #999",
+              }}
               onClick={handleStartClick}
             >
               Start Now
@@ -115,13 +140,14 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             <Button
               variant="outlined"
               color="inherit"
-              size="small"
+              size="medium"
               sx={{
                 display: "flex",
-                width: 100,
+                width: 130,
                 alignItems: "center",
                 textTransform: "capitalize",
                 fontSize: { xs: "0.7rem", lg: "0.75rem" },
+                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #999",
               }}
               onClick={handleInstallClick}
             >
