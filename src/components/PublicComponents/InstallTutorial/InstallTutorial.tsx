@@ -10,9 +10,12 @@ import { getOperatingSystem } from "../../../helper/utils";
 import InstallAndroid from "./InstallAndroid";
 import InstallIOS from "./InstallIOS";
 import InstallWindows from "./InstallWindows";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 const InstallTutorial = ({ onDialogClose }: { onDialogClose: () => void }) => {
   const platform = getOperatingSystem();
+  const darktheme = useSelector((state: RootState) => state.theme.darkMode);
 
   let instruction: JSX.Element | null = null;
 
@@ -80,7 +83,7 @@ const InstallTutorial = ({ onDialogClose }: { onDialogClose: () => void }) => {
 
   return (
     <>
-      <DialogTitle align="right" sx={{ pb: 0, pt: 1, backgroundColor: "#1e1e1e" }}>
+      <DialogTitle align="right" sx={{ pb: 0, pt: 1, background: darktheme ? "#1e1e1e" : "#fff" }}>
         <IconButton
           color="inherit"
           onClick={() => {
@@ -97,7 +100,7 @@ const InstallTutorial = ({ onDialogClose }: { onDialogClose: () => void }) => {
         sx={{
           px: 3,
           py: 2,
-          backgroundColor: "#1e1e1e",
+          background: darktheme ? "#1e1e1e" : "#fff",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
