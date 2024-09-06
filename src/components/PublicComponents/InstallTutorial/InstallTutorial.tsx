@@ -39,7 +39,7 @@ const InstallTutorial = ({ onDialogClose }: { onDialogClose: () => void }) => {
     case "Android":
       instruction = (
         <>
-          <Stack direction="row" justifyContent="center" alignItems="center" my={0.5}>
+          <Stack direction="row" justifyContent="flex-start" alignItems="center" my={0.5}>
             <Typography variant="body2" textAlign="center" mr={1}>
               Step 1 - tap the menu
             </Typography>
@@ -99,11 +99,11 @@ const InstallTutorial = ({ onDialogClose }: { onDialogClose: () => void }) => {
       <DialogContent
         sx={{
           px: 3,
-          py: 2,
+          py: 3,
           background: darktheme ? "#1e1e1e" : "#fff",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          alignItems: "flex-start",
         }}
       >
         {instruction}
