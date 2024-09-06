@@ -64,21 +64,23 @@ const TransactionOverviewDialog = (props: Props) => {
             pb: 2,
           }}
         >
-          <Stack direction="row" justifyContent="flex-end" mr={-2} width="100%" mb={1}>
+          <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%" mb={1}>
+            <Typography variant="body2">
+              {props.txnType} {props.filterTitle}
+            </Typography>
             <IconButton size="small" onClick={() => props.onDialogClose()}>
               <CloseIcon />
             </IconButton>
           </Stack>
           <Divider sx={{ width: "100%", mb: 2 }} />
-          <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
-            <Typography variant="body2">
-              {props.txnType} {props.filterTitle}
-            </Typography>
 
-            <Typography variant="body2" sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit" }}>
-              {formatShortAmountWithCurrency(Math.round(props.totalAmount), false, true)}
-            </Typography>
-          </Stack>
+          <Typography
+            textAlign="center"
+            variant="body2"
+            sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit", fontWeight: "bold" }}
+          >
+            {formatShortAmountWithCurrency(Math.round(props.totalAmount), false, true)}
+          </Typography>
         </DialogTitle>
 
         <DialogContent

@@ -1,5 +1,5 @@
 import TuneIcon from "@mui/icons-material/Tune";
-import { Box, Button, Container, Dialog, DialogContent, IconButton, Stack, useTheme } from "@mui/material";
+import { Box, Button, Container, Dialog, DialogContent, IconButton, Stack, Typography, useTheme } from "@mui/material";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React from "react";
@@ -60,7 +60,8 @@ const CustomYearFilter = (props: Props) => {
               gap: "15px",
             }}
           >
-            <Stack direction="row" justifyContent="flex-end" mr={-1}>
+            <Stack direction="row" justifyContent="space-between" alignItems="center" mr={-1}>
+              <Typography variant="body2">Filter by Year</Typography>
               <IconButton size="small" onClick={handleCloseForm}>
                 <CloseIcon />
               </IconButton>

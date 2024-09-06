@@ -1,5 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, Button, Container, Dialog, DialogContent, IconButton, Stack, useTheme } from "@mui/material";
+import { Box, Button, Container, Dialog, DialogContent, IconButton, Stack, Typography, useTheme } from "@mui/material";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React from "react";
@@ -44,7 +44,7 @@ const CustomMontFilter = (props: Props) => {
       open={props.isFormOpen}
       onClose={handleCloseForm}
       PaperProps={{
-        sx: { borderRadius: 2, background: isDarkMode ? "#1e1e1e" : "#fff", width: 350 },
+        sx: { borderRadius: 2, background: isDarkMode ? "#1e1e1e" : "#fff", width: 300 },
       }}
     >
       <DialogContent sx={{ px: 0, pb: 3, pt: 2 }}>
@@ -57,7 +57,8 @@ const CustomMontFilter = (props: Props) => {
               gap: "15px",
             }}
           >
-            <Stack direction="row" justifyContent="flex-end" mr={-1}>
+            <Stack direction="row" justifyContent="space-between" alignItems="center" mr={-1}>
+              <Typography variant="body2">Filter by Month</Typography>
               <IconButton size="small" onClick={handleCloseForm}>
                 <CloseIcon />
               </IconButton>

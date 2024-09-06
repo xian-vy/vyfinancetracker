@@ -48,30 +48,27 @@ const BalanceByAccountTypeDialog = (props: Props) => {
       >
         <DialogTitle
           sx={{
-            display: "flex",
-            flexDirection: "column",
             backgroundColor: isDarkMode ? "#1e1e1e" : "#fff",
-            alignItems: "center",
             pb: 2,
           }}
         >
-          <Stack direction="row" justifyContent="flex-end" mr={-2} width="100%" mb={1}>
+          <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%" mb={1}>
+            <Typography variant="body2">
+              {props.accountType} {props.filterTitle}
+            </Typography>
             <IconButton size="small" onClick={() => props.onDialogClose()}>
               <CloseIcon />
             </IconButton>
           </Stack>
           <Divider sx={{ width: "100%", mb: 2 }} />
-          <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
-            <Stack direction="row" alignItems="center">
-              <Typography variant="body2">
-                {props.accountType} {props.filterTitle}
-              </Typography>
-            </Stack>
 
-            <Typography variant="body2" sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit" }}>
-              {formatShortAmountWithCurrency(props.totalAmount, false, true)}
-            </Typography>
-          </Stack>
+          <Typography
+            textAlign="center"
+            variant="body2"
+            sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit", fontWeight: "bold" }}
+          >
+            {formatShortAmountWithCurrency(props.totalAmount, false, true)}
+          </Typography>
         </DialogTitle>
 
         <DialogContent sx={{ px: 3, py: 0, backgroundColor: isDarkMode ? "#1e1e1e" : "#fff", height: 135 }}>
