@@ -78,7 +78,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             sx={{
               fontSize: { xs: "1.6rem", md: "1.8rem" },
               lineHeight: { xs: "2rem", md: "2rem" },
-              fontWeight: 600,
+              fontWeight: 500,
               // backgroundImage: `url(${mesh})`,
               // WebkitBackgroundClip: "text",
               // WebkitTextFillColor: "transparent",
