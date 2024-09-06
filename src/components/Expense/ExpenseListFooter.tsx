@@ -87,7 +87,7 @@ const ExpenseListFooter = ({
           rowsPerPage={rowsPerPage}
           onRowsPerPageChange={handleChangeRowsPerPage}
           labelRowsPerPage={isSmallScreen ? "" : "Rows per Page:"}
-          rowsPerPageOptions={[10, 50, 100, 300]}
+          rowsPerPageOptions={[5, 10, 50, 100, 300]}
         />
       </Grid>
     </div>

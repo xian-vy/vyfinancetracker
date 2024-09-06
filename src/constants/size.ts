@@ -10,7 +10,7 @@ export const TXN_TREND_CHART_HEIGHT_LG = 300;
 
 export const DASHBOARD_DIALOG = 200;
 
-export const TABLE_HEIGHT = 520;
+export const TABLE_HEIGHT = 260;
 export const FIXED_SIZE = 52;
 
 export const AVATAR_SIZE = {

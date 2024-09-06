@@ -92,7 +92,7 @@ const IncomeList: React.FC<Props> = ({ income, onDeleteIncome, onEditIncome, sor
           onPageChange={handleChangePage}
           rowsPerPage={rowsPerPage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-          rowsPerPageOptions={[10, 50, 100, 200]}
+          rowsPerPageOptions={[5, 10, 50, 100, 300]}
           labelRowsPerPage={smScreen ? "" : "Rows per Page:"}
         />
       </Stack>
