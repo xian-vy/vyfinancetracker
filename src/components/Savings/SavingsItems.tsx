@@ -1,7 +1,6 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import {
-  Box,
   CardContent,
   Collapse,
   Divider,

@@ -1,17 +1,10 @@
 // actions/expenseActions
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import ExpenseModel from "../../models/ExpenseModel";
-import {
-  addExpensetoFirestore,
-  deleteExpensetoFirestore,
-  deleteMultipleExpenses,
-  getExpenses,
-  updateExpensetoFirestore,
-  updateMultipleExpenses,
-} from "../../firebase/ExpenseService";
 import { Dispatch } from "react";
-import { createSingleDocument, deleteSingleDocument, updateSingleDocument } from "../../firebase/GenericCrud";
 import { collections } from "../../constants/collections";
+import { deleteMultipleExpenses, getExpenses, updateMultipleExpenses } from "../../firebase/ExpenseService";
+import { createSingleDocument, deleteSingleDocument, updateSingleDocument } from "../../firebase/GenericCrud";
+import ExpenseModel from "../../models/ExpenseModel";
 
 export const fetchExpenses = createAsyncThunk("expenses/fetchExpenses", async () => {
   return getExpenses();

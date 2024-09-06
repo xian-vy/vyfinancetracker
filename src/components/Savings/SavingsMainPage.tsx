@@ -111,12 +111,12 @@ const SavingsMainPage = () => {
   const handleActionSelect = async (option: string, savings: SavingGoalsModel) => {
     setEditedSavings(savings);
 
-    if (option == ACTION_TYPES.Edit && editedSavings) {
+    if (option === ACTION_TYPES.Edit && editedSavings) {
       setSavingsFormOpen(true);
       setEditMode(true);
-    } else if (option == ACTION_TYPES.AddContribution) {
+    } else if (option === ACTION_TYPES.AddContribution) {
       setContributionFormOpen(true);
-    } else if (option == ACTION_TYPES.Delete) {
+    } else if (option === ACTION_TYPES.Delete) {
       setDeleteFormOpen(true);
     }
   };

@@ -70,10 +70,10 @@ const IncomeSourceList = () => {
 
   const handleAction = async (option: string, isource: IncomeSourcesModel) => {
     setIncomeSource(isource);
-    if (option == ACTION_TYPES.Edit) {
+    if (option === ACTION_TYPES.Edit) {
       setEditMode(true);
       setFormOpen(true);
-    } else if (option == ACTION_TYPES.Delete) {
+    } else if (option === ACTION_TYPES.Delete) {
       setDeleteFormOpen(true);
     }
     handleActionClose();
