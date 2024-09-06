@@ -1,14 +1,13 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Dialog, Link, Stack } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import budgetDark from "../../media/features/budget-dark.png";
 import budgetLight from "../../media/features/budget-light.png";
-import expenseDark from "../../media/features/expenses-dark.png";
-import expenseLight from "../../media/features/expenses-light.png";
 import dashboardDark from "../../media/features/dashboard-dark.png";
 import dashboardLight from "../../media/features/dashboard-light.png";
-import { useSelector } from "react-redux";
+import expenseDark from "../../media/features/expenses-dark.png";
+import expenseLight from "../../media/features/expenses-light.png";
 import { RootState } from "../../redux/store";
 const features = [
   { name: "Expenses", laptopImg: expenseLight, laptopImgDark: expenseDark },
@@ -116,11 +115,11 @@ const FeaturesIMG = () => {
             borderRadius: 2,
           }}
         >
-          <Stack sx={{ background: darktheme ? "#333" : "#666", p: 0.2, borderRadius: 3 }}>
+          <Stack sx={{ background: darktheme ? "#333" : "#555", p: 0.2, borderRadius: 3 }}>
             <Stack
               sx={{
                 background: darktheme ? "#000" : "#666",
-                p: { xs: 1 },
+                p: { xs: 1.5, xl: 2 },
                 maxHeight: { xs: 400, sm: 700, md: 800, lg: 800 },
                 position: "relative",
                 borderRadius: 3,
@@ -133,12 +132,21 @@ const FeaturesIMG = () => {
                 onClick={(e) => e.stopPropagation()}
                 style={{ width: "100%", height: "100%" }}
               />
-              <IconButton
+
+              <CloseIcon
+                sx={{
+                  color: darktheme ? "#333" : "#fff",
+                  fontSize: 24,
+                  position: "absolute",
+                  top: 15,
+                  right: 15,
+                  cursor: "pointer",
+                  background: darktheme ? "#fff" : "#333",
+                  borderRadius: "50%",
+                  p: 0.5,
+                }}
                 onClick={() => setShowFullImage({ open: false, img: "" })}
-                sx={{ background: "#ccc", width: 24, height: 24, position: "absolute", top: 15, right: 15 }}
-              >
-                <CloseIcon sx={{ color: "#666", fontSize: 18 }} />
-              </IconButton>
+              />
             </Stack>
           </Stack>
         </Stack>
