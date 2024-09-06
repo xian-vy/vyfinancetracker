@@ -46,7 +46,7 @@ const TransactionOverviewBreakdown = ({ groupedData }: { groupedData: groupedDat
   return (
     <>
       <Box ref={containerRef} width="100%" sx={{ height: "auto", minHeight: DASHBOARD_DIALOG, maxHeight: "auto" }}>
-        <Box sx={{ px: 1, overflowY: "auto", display: "flex", justifyContent: "center" }}>
+        <Box sx={{ overflowY: "auto", display: "flex", justifyContent: "flex-start" }}>
           <Stack direction="column" alignItems="flex-start">
             {aggregatedData.map((item, index) => {
               return (

@@ -6,6 +6,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
+  IconButton,
   Stack,
   Typography,
 } from "@mui/material";
@@ -17,7 +19,7 @@ import { DASHBOARD_DIALOG } from "../../constants/size";
 import { FilterTimeframe } from "../../constants/timeframes";
 import { formatShortAmountWithCurrency } from "../../helper/utils";
 import { RootState } from "../../redux/store";
-
+import CloseIcon from "@mui/icons-material/Close";
 interface Props {
   filterOption: FilterTimeframe;
   filterTitle: string;
@@ -47,7 +49,7 @@ const TransactionOverviewDialog = (props: Props) => {
         open={props.openDialog}
         onClose={() => props.onDialogClose()}
         PaperProps={{
-          sx: { borderRadius: 3 },
+          sx: { borderRadius: 2 },
         }}
         fullWidth
         maxWidth="xs"
@@ -56,21 +58,27 @@ const TransactionOverviewDialog = (props: Props) => {
         <DialogTitle
           sx={{
             display: "flex",
-            justifyContent: "space-between",
+            flexDirection: "column",
             backgroundColor: props.isDarkMode ? "#1e1e1e" : "#fff",
             alignItems: "center",
             pb: 2,
           }}
         >
-          <Stack direction="row" alignItems="center">
+          <Stack direction="row" justifyContent="flex-end" mr={-2} width="100%" mb={1}>
+            <IconButton size="small" onClick={() => props.onDialogClose()}>
+              <CloseIcon />
+            </IconButton>
+          </Stack>
+          <Divider sx={{ width: "100%", mb: 2 }} />
+          <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
             <Typography variant="body2">
               {props.txnType} {props.filterTitle}
             </Typography>
-          </Stack>
 
-          <Typography variant="body2" sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit" }}>
-            {formatShortAmountWithCurrency(Math.round(props.totalAmount), false, true)}
-          </Typography>
+            <Typography variant="body2" sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit" }}>
+              {formatShortAmountWithCurrency(Math.round(props.totalAmount), false, true)}
+            </Typography>
+          </Stack>
         </DialogTitle>
 
         <DialogContent
@@ -78,8 +86,8 @@ const TransactionOverviewDialog = (props: Props) => {
             px: 3,
             py: 0,
             backgroundColor: props.isDarkMode ? "#1e1e1e" : "#fff",
-            minHeight: props.txnType === txn_summary.Balance ? 100 : DASHBOARD_DIALOG + 60, //allowance for breadcrumbs
-            maxHeight: props.txnType === txn_summary.Balance ? 250 : { xs: 250, md: 350, lg: 500 },
+            minHeight: props.txnType === txn_summary.Balance ? 130 : DASHBOARD_DIALOG + 60, //allowance for breadcrumbs
+            maxHeight: props.txnType === txn_summary.Balance ? 280 : { xs: 250, md: 350, lg: 500 },
           }}
         >
           <React.Suspense
@@ -130,22 +138,6 @@ const TransactionOverviewDialog = (props: Props) => {
             )}
           </React.Suspense>
         </DialogContent>
-        <DialogActions
-          sx={{
-            backgroundColor: props.isDarkMode ? "#1e1e1e" : "#fff",
-          }}
-        >
-          <Button
-            size="small"
-            color="inherit"
-            onClick={(event) => {
-              event.stopPropagation();
-              props.onDialogClose();
-            }}
-          >
-            Close
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );

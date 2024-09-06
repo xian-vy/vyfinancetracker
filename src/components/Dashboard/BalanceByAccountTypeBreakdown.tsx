@@ -56,7 +56,7 @@ const BalanceByAccountTypeBreakdown = ({ networth }: Props) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
   return (
-    <Box ref={containerRef} overflow="hidden" sx={{ px: 1, display: "flex", justifyContent: "center" }}>
+    <Box ref={containerRef} overflow="hidden" sx={{ px: 0, display: "flex", justifyContent: "flex-start" }}>
       <Stack direction="column">
         {breakdown.map((item, index) => (
           <div key={index}>

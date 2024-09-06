@@ -6,6 +6,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
+  IconButton,
   Stack,
   Typography,
   useTheme,
@@ -15,7 +17,7 @@ import { useSelector } from "react-redux";
 import { formatShortAmountWithCurrency } from "../../helper/utils";
 import { PERCENTAGE_DECREASE } from "../../constants/componentTheme";
 import { RootState } from "../../redux/store";
-
+import CloseIcon from "@mui/icons-material/Close";
 const BalanceByAccountTypeBreakdown = React.lazy(() => import("./BalanceByAccountTypeBreakdown"));
 
 interface Props {
@@ -37,7 +39,7 @@ const BalanceByAccountTypeDialog = (props: Props) => {
       <Dialog
         open={props.openDialog}
         PaperProps={{
-          sx: { borderRadius: 3 },
+          sx: { borderRadius: 2 },
         }}
         onClose={() => props.onDialogClose()}
         fullWidth
@@ -47,24 +49,32 @@ const BalanceByAccountTypeDialog = (props: Props) => {
         <DialogTitle
           sx={{
             display: "flex",
-            justifyContent: "space-between",
+            flexDirection: "column",
             backgroundColor: isDarkMode ? "#1e1e1e" : "#fff",
             alignItems: "center",
             pb: 2,
           }}
         >
-          <Stack direction="row" alignItems="center">
-            <Typography variant="body2">
-              {props.accountType} {props.filterTitle}
+          <Stack direction="row" justifyContent="flex-end" mr={-2} width="100%" mb={1}>
+            <IconButton size="small" onClick={() => props.onDialogClose()}>
+              <CloseIcon />
+            </IconButton>
+          </Stack>
+          <Divider sx={{ width: "100%", mb: 2 }} />
+          <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
+            <Stack direction="row" alignItems="center">
+              <Typography variant="body2">
+                {props.accountType} {props.filterTitle}
+              </Typography>
+            </Stack>
+
+            <Typography variant="body2" sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit" }}>
+              {formatShortAmountWithCurrency(props.totalAmount, false, true)}
             </Typography>
           </Stack>
-
-          <Typography variant="body2" sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit" }}>
-            {formatShortAmountWithCurrency(props.totalAmount, false, true)}
-          </Typography>
         </DialogTitle>
 
-        <DialogContent sx={{ px: 3, py: 0, backgroundColor: isDarkMode ? "#1e1e1e" : "#fff", height: 120 }}>
+        <DialogContent sx={{ px: 3, py: 0, backgroundColor: isDarkMode ? "#1e1e1e" : "#fff", height: 135 }}>
           <React.Suspense
             fallback={
               <Box display="flex" justifyContent="center" alignItems="center" height="100%">
@@ -75,22 +85,6 @@ const BalanceByAccountTypeDialog = (props: Props) => {
             <BalanceByAccountTypeBreakdown networth={props.networth} />
           </React.Suspense>
         </DialogContent>
-        <DialogActions
-          sx={{
-            backgroundColor: isDarkMode ? "#1e1e1e" : "#fff",
-          }}
-        >
-          <Button
-            size="small"
-            color="inherit"
-            onClick={(event) => {
-              event.stopPropagation();
-              props.onDialogClose();
-            }}
-          >
-            Close
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );

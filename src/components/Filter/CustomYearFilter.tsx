@@ -1,10 +1,11 @@
 import TuneIcon from "@mui/icons-material/Tune";
-import { Box, Button, Container, Dialog, DialogContent, useTheme } from "@mui/material";
+import { Box, Button, Container, Dialog, DialogContent, IconButton, Stack, useTheme } from "@mui/material";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface Props {
   isFormOpen: boolean;
@@ -46,10 +47,10 @@ const CustomYearFilter = (props: Props) => {
       open={props.isFormOpen}
       onClose={handleCloseForm}
       PaperProps={{
-        sx: { borderRadius: 4, background: isDarkMode ? "#1e1e1e" : "#fff", width: 300 },
+        sx: { borderRadius: 2, background: isDarkMode ? "#1e1e1e" : "#fff", width: 300 },
       }}
     >
-      <DialogContent sx={{ px: 0, py: 3 }}>
+      <DialogContent sx={{ px: 0, pb: 3, pt: 2 }}>
         <Container maxWidth="xs">
           <Box
             component="form"
@@ -59,6 +60,11 @@ const CustomYearFilter = (props: Props) => {
               gap: "15px",
             }}
           >
+            <Stack direction="row" justifyContent="flex-end" mr={-1}>
+              <IconButton size="small" onClick={handleCloseForm}>
+                <CloseIcon />
+              </IconButton>
+            </Stack>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
                 label={"Select Year"}
@@ -73,13 +79,7 @@ const CustomYearFilter = (props: Props) => {
               />
             </LocalizationProvider>
 
-            <Button
-              variant="outlined"
-              component="span"
-              color="inherit"
-              endIcon={<TuneIcon />}
-              onClick={handleFormSubmit}
-            >
+            <Button variant="outlined" component="span" color="inherit" onClick={handleFormSubmit}>
               FILTER
             </Button>
           </Box>

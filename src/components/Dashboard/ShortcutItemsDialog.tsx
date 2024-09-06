@@ -68,7 +68,7 @@ const ShortcutItemsDialog = ({ open, type, onClose, context, favorites, onAddFav
       <Dialog
         open={open}
         PaperProps={{
-          sx: { borderRadius: 4 },
+          sx: { borderRadius: 2 },
         }}
         onClose={onClose}
         fullWidth
