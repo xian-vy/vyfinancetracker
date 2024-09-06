@@ -1,27 +1,27 @@
-import { BackupOutlined, LanOutlined, LockOutlined, Devices } from "@mui/icons-material";
+import { Equalizer, LanOutlined, LockOutlined, Devices } from "@mui/icons-material";
 import { Grid, Paper, Stack, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 const featuresData = [
   {
     description: "End to End Encryption",
-    details: "Data is encrypted using AES encryption, ensuring robust security and data privacy.",
+    details: "Using AES encryption for data at rest and firebase built in encryption for data in transit.",
     IconComponent: LockOutlined,
   },
   {
-    description: "Backup and sync",
-    details: "Sync data to the cloud and access from any device.",
-    IconComponent: BackupOutlined,
+    description: "Visualize your data",
+    details: "Analyze your finances using charts to easily understand your financial health.",
+    IconComponent: Equalizer,
   },
   {
     description: "Cross Platform",
-    details: "Access and manage your data across multiple devices.",
+    details: "Access and manage your finances with one account across multiple devices.",
     IconComponent: Devices,
   },
 
   {
     description: "Offline First",
-    details: "Work seamlessly even without internet. Your data is synced automatically when you reconnect.",
+    details: "Work seamlessly even without internet. Your data will be synced when you reconnect.",
     IconComponent: LanOutlined,
   },
 ];
@@ -56,8 +56,8 @@ const Features = () => {
               }}
             >
               <feature.IconComponent sx={{ fontSize: { xs: "18px", md: "22px" }, mb: 0.5, color: "#d86c70" }} />
-              <Typography sx={{ fontSize: { xs: "0.8rem", lg: "0.85rem" }, mb: 0.5 }}>{feature.description}</Typography>
-              <Typography textAlign="left" sx={{ fontSize: { xs: "0.75rem", lg: "0.8rem" }, color: "#888" }}>
+              <Typography sx={{ fontSize: { xs: "0.7rem", lg: "0.75rem" }, mb: 0.5 }}>{feature.description}</Typography>
+              <Typography textAlign="left" sx={{ fontSize: { xs: "0.7rem", lg: "0.75rem" }, color: "#888" }}>
                 {feature.details}
               </Typography>
             </Paper>
