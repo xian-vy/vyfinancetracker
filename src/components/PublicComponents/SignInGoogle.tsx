@@ -29,6 +29,8 @@ const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; p
       } else {
         console.error(error.message);
       }
+    } finally {
+      dispatch(setIsSigningIn(false));
     }
   };
   return (
