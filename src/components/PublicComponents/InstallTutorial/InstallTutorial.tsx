@@ -25,11 +25,11 @@ const InstallTutorial = ({ onDialogClose }: { onDialogClose: () => void }) => {
     case "Linux":
       instruction = (
         <>
-          <Stack direction="row" justifyContent="center" alignItems="center" my={1}>
-            <Typography variant="body2" mr={1}>
+          <Stack direction="row" justifyContent="flex-start" alignItems="center" my={1}>
+            <Typography textAlign="center" mr={1} sx={{ fontSize: { xs: "0.75rem", sm: "0.85rem" } }}>
               Click the install badge in the url to install app
             </Typography>
-            <InstallDesktopIcon />
+            <InstallDesktopIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />
           </Stack>
           <InstallWindows />
         </>
@@ -40,16 +40,16 @@ const InstallTutorial = ({ onDialogClose }: { onDialogClose: () => void }) => {
       instruction = (
         <>
           <Stack direction="row" justifyContent="flex-start" alignItems="center" my={0.5}>
-            <Typography variant="body2" textAlign="center" mr={1}>
+            <Typography textAlign="center" mr={1} sx={{ fontSize: { xs: "0.75rem", sm: "0.85rem" } }}>
               Step 1 - tap the menu
             </Typography>
-            <MoreVertOutlinedIcon />
+            <MoreVertOutlinedIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />
           </Stack>
           <Stack direction="row" justifyContent="center" alignItems="center" mt={0.5} mb={2}>
-            <Typography variant="body2" textAlign="center" mr={1}>
+            <Typography textAlign="center" mr={1} sx={{ fontSize: { xs: "0.75rem", sm: "0.85rem" } }}>
               Step 2 - Install or Add to Homescreen
             </Typography>
-            <InstallMobileIcon />
+            <InstallMobileIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />
           </Stack>
 
           <InstallAndroid />
@@ -60,17 +60,17 @@ const InstallTutorial = ({ onDialogClose }: { onDialogClose: () => void }) => {
     case "iOS":
       instruction = (
         <>
-          <Stack direction="row" justifyContent="center" alignItems="center" my={0.5}>
-            <Typography variant="body2" textAlign="center" mr={1}>
+          <Stack direction="row" justifyContent="flex-start" alignItems="center" my={0.5}>
+            <Typography textAlign="center" mr={1} sx={{ fontSize: { xs: "0.75rem", sm: "0.85rem" } }}>
               Step 1 - tap the share icon
             </Typography>
-            <IosShareOutlinedIcon />
+            <IosShareOutlinedIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />
           </Stack>
           <Stack direction="row" justifyContent="center" alignItems="center" mt={0.5} mb={2}>
-            <Typography variant="body2" textAlign="center" mr={1}>
-              Step 2 - choose Add to Homescreen
+            <Typography textAlign="center" mr={1} sx={{ fontSize: { xs: "0.75rem", sm: "0.85rem" } }}>
+              Step 2 - tap Add to Homescreen
             </Typography>
-            <AddBoxOutlinedIcon />
+            <AddBoxOutlinedIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />
           </Stack>
 
           <InstallIOS />
@@ -98,7 +98,7 @@ const InstallTutorial = ({ onDialogClose }: { onDialogClose: () => void }) => {
 
       <DialogContent
         sx={{
-          px: 3,
+          px: { xs: 2, sm: 3 },
           py: 3,
           background: darktheme ? "#1e1e1e" : "#fff",
           display: "flex",
