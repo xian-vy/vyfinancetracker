@@ -148,7 +148,17 @@ const PendingWrites = () => {
       </Stack>
       <Stack mb={1} direction="column" alignItems="center" justifyContent="center">
         <Typography sx={{ fontSize: "0.65rem", color: "#999" }}>
-          Last Synced at {lastSyncTimestamp ? lastSyncTimestamp.toDate().toLocaleString() : "Never"}
+          Last Synced at{" "}
+          {lastSyncTimestamp
+            ? lastSyncTimestamp.toDate().toLocaleString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "2-digit",
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+              })
+            : "Never"}
         </Typography>
       </Stack>
     </>
