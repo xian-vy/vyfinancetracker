@@ -8,7 +8,7 @@ export const TXN_SUMMARY_CHART_HEIGHT = 85;
 export const TXN_TREND_CHART_HEIGHT = 260;
 export const TXN_TREND_CHART_HEIGHT_LG = 300;
 
-export const DASHBOARD_DIALOG = 200;
+export const DASHBOARD_DIALOG = 100;
 
 export const TABLE_HEIGHT = 260;
 export const FIXED_SIZE = 52;

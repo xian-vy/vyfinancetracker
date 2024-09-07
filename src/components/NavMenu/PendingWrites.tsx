@@ -32,7 +32,7 @@ const PendingWrites = () => {
   const savings = useSelector((state: RootState) => state.savings.savings);
   const savingsContribution = useSelector((state: RootState) => state.savingsContribution.contribution);
   const persistenceID = useSelector((state: RootState) => state.auth.persistentId);
-
+  const isDarkMode = useSelector((state: RootState) => state.theme.darkMode);
   const [pendingWrites, setPendingWrites] = useState(
     parseInt(localStorage.getItem("pendingWritesCount" + persistenceID) || "0", 10)
   );
@@ -147,7 +147,7 @@ const PendingWrites = () => {
         )}
       </Stack>
       <Stack mb={1} direction="column" alignItems="center" justifyContent="center">
-        <Typography sx={{ fontSize: "0.65rem", color: "#999" }}>
+        <Typography sx={{ fontSize: "0.65rem", color: isDarkMode ? "#999" : "#333" }}>
           Last Synced at{" "}
           {lastSyncTimestamp
             ? lastSyncTimestamp.toDate().toLocaleString("en-US", {

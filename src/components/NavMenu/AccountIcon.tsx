@@ -91,7 +91,7 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
         <Avatar
           src={photoURL || undefined}
           style={{
-            backgroundColor: isDarkMode ? "#333" : "#ccc",
+            backgroundColor: isDarkMode ? "#333" : "#eaeaea",
             color: user?.isAnonymous ? "#fff" : "inherit",
             width: 30,
             height: 30,

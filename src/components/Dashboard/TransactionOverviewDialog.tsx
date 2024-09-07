@@ -1,9 +1,8 @@
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
-  Button,
   CircularProgress,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
   Divider,
@@ -17,9 +16,8 @@ import { txn_summary } from "../../constants/collections";
 import { PERCENTAGE_DECREASE } from "../../constants/componentTheme";
 import { DASHBOARD_DIALOG } from "../../constants/size";
 import { FilterTimeframe } from "../../constants/timeframes";
-import { formatShortAmountWithCurrency } from "../../helper/utils";
+import { formatNumberWithoutCurrency } from "../../helper/utils";
 import { RootState } from "../../redux/store";
-import CloseIcon from "@mui/icons-material/Close";
 interface Props {
   filterOption: FilterTimeframe;
   filterTitle: string;
@@ -79,17 +77,18 @@ const TransactionOverviewDialog = (props: Props) => {
             variant="body2"
             sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit", fontWeight: "bold" }}
           >
-            {formatShortAmountWithCurrency(Math.round(props.totalAmount), false, true)}
+            {formatNumberWithoutCurrency(Math.round(props.totalAmount))}
           </Typography>
         </DialogTitle>
 
         <DialogContent
           sx={{
             px: 3,
-            py: 0,
+            pt: 0,
+            pb: 2,
             backgroundColor: props.isDarkMode ? "#1e1e1e" : "#fff",
             minHeight: props.txnType === txn_summary.Balance ? 130 : DASHBOARD_DIALOG + 60, //allowance for breadcrumbs
-            maxHeight: props.txnType === txn_summary.Balance ? 280 : { xs: 250, md: 350, lg: 500 },
+            maxHeight: props.txnType === txn_summary.Balance ? 280 : "auto",
           }}
         >
           <React.Suspense

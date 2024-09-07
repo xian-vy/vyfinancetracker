@@ -1,9 +1,8 @@
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
-  Button,
   CircularProgress,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
   Divider,
@@ -14,10 +13,9 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { formatShortAmountWithCurrency } from "../../helper/utils";
 import { PERCENTAGE_DECREASE } from "../../constants/componentTheme";
+import { formatNumberWithoutCurrency } from "../../helper/utils";
 import { RootState } from "../../redux/store";
-import CloseIcon from "@mui/icons-material/Close";
 const BalanceByAccountTypeBreakdown = React.lazy(() => import("./BalanceByAccountTypeBreakdown"));
 
 interface Props {
@@ -67,7 +65,7 @@ const BalanceByAccountTypeDialog = (props: Props) => {
             variant="body2"
             sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit", fontWeight: "bold" }}
           >
-            {formatShortAmountWithCurrency(props.totalAmount, false, true)}
+            {formatNumberWithoutCurrency(props.totalAmount)}
           </Typography>
         </DialogTitle>
 
