@@ -175,7 +175,7 @@ let lightTheme = createTheme({
   palette: {
     mode: "light",
     background: {
-      default: "#f6f7f9",
+      default: "#fff",
     },
     text: {
       primary: "#000",

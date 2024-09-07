@@ -79,11 +79,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               fontSize: { xs: "1.6rem", md: "1.8rem" },
               lineHeight: { xs: "2rem", md: "2rem" },
               fontWeight: 500,
-              // backgroundImage: `url(${mesh})`,
-              // WebkitBackgroundClip: "text",
-              // WebkitTextFillColor: "transparent",
-
-              color: darktheme ? "#ccc" : "#1e1e1e",
+              color: darktheme ? "#ccc" : "#333",
             }}
           >
             Vy Finance Tracker
@@ -109,9 +105,9 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               sx={{
                 textTransform: "capitalize",
                 width: 130,
-                background: darktheme ? "inherit" : "#eee",
+
                 fontSize: { xs: "0.7rem", lg: "0.75rem" },
-                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #999",
+                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
               }}
               onClick={handleStartClick}
             >
@@ -131,10 +127,10 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
                 display: "flex",
                 width: 130,
                 alignItems: "center",
-                background: darktheme ? "inherit" : "#eee",
+
                 textTransform: "capitalize",
                 fontSize: { xs: "0.7rem", lg: "0.75rem" },
-                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #999",
+                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
               }}
               onClick={handleInstallClick}
             >

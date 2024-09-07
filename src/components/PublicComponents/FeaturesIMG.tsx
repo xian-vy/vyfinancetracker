@@ -72,18 +72,21 @@ const FeaturesIMG = () => {
                 borderRadius: 2,
               }}
             >
-              <Stack sx={{ background: darktheme ? "#333" : "#444", p: 0.2, borderRadius: 3 }}>
+              <Stack sx={{ background: darktheme ? "#333" : "#555", p: 0.2, borderRadius: 3 }}>
                 <Stack
                   sx={{
                     background: darktheme ? "#000" : "#666",
-                    p: { xs: 1.5, xl: 2 },
-                    height: { xs: 200, sm: 300, md: 350, lg: 400 },
+                    py: { xs: 1.5, lg: 2 },
+                    px: { xs: 0.7, lg: 1 },
+                    height: { xs: 200, sm: 350, md: 400, lg: 450 },
                     position: "relative",
                     borderRadius: 3,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
                   <img
-                    // loading={currentImage === dashboardDark ? undefined : "lazy"}
                     src={currentImage}
                     style={{
                       width: "auto",
@@ -119,7 +122,8 @@ const FeaturesIMG = () => {
             <Stack
               sx={{
                 background: darktheme ? "#000" : "#666",
-                p: { xs: 1.5, xl: 2 },
+                py: { xs: 2, lg: 3 },
+                px: { xs: 0.7, lg: 1 },
                 maxHeight: { xs: 400, sm: 700, md: 800, lg: 800 },
                 position: "relative",
                 borderRadius: 3,
@@ -136,12 +140,12 @@ const FeaturesIMG = () => {
               <CloseIcon
                 sx={{
                   color: darktheme ? "#333" : "#fff",
-                  fontSize: 24,
+                  fontSize: { xs: 20, md: 24, lg: 30 },
                   position: "absolute",
-                  top: 15,
-                  right: 15,
+                  top: { xs: 10, md: 15, lg: 20 },
+                  right: { xs: 10, md: 15, lg: 20 },
                   cursor: "pointer",
-                  background: darktheme ? "#fff" : "#333",
+                  background: darktheme ? "#ccc" : "#555",
                   borderRadius: "50%",
                   p: 0.5,
                 }}

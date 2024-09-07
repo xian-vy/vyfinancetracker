@@ -43,7 +43,7 @@ export default function MainPage() {
   return (
     <Stack
       sx={{
-        background: `linear-gradient(to bottom, ${darktheme ? "#0c0c0c" : "#e1e1e1"} 50%, transparent 50%)`,
+        background: `linear-gradient(to bottom, ${darktheme ? "#0c0c0c" : "#fff"} 50%, transparent 50%)`,
         height: { xs: 600, sm: 700, lg: 800 },
         zIndex: 2,
       }}
