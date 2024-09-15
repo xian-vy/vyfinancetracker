@@ -1,6 +1,8 @@
 import { Theme, useTheme } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { FilterTimeframe } from "../constants/timeframes";
+import { operation_types, txn_types } from "../constants/collections";
+import { Timestamp } from "firebase/firestore";
 
 export const isProduction = process.env.NODE_ENV === "production";
 
@@ -235,3 +237,14 @@ export function hexToRGBA(hex: string, alpha = 0.6) {
   let b = parseInt(hex.slice(5, 7), 16);
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
+
+export const createSwapLog = (id: string, type: txn_types, categoryId: string, accountId: string, amount: number) => ({
+  txn_id: "",
+  txn_ref_id: id,
+  txn_type: type,
+  operation: operation_types.Create,
+  category_id: categoryId,
+  account_id: accountId,
+  amount,
+  lastModified: Timestamp.now(),
+});
