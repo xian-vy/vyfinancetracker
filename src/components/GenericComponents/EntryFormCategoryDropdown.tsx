@@ -17,6 +17,7 @@ interface IconsList {
 
 interface SelectDropdownProps {
   label: string;
+  increaseLabel?: boolean;
   category_id: string;
   onChange: (category_id: string) => void;
   categories: CategoryModel[];
@@ -30,6 +31,7 @@ function renderIcon(icon: React.ReactElement, color: string) {
 
 const EntryFormCategoryDropdown = ({
   label,
+  increaseLabel,
   category_id,
   onChange,
   categories,
@@ -59,7 +61,7 @@ const EntryFormCategoryDropdown = ({
 
   return (
     <FormControl fullWidth>
-      <InputLabel id={`${label}-select-label`} shrink>
+      <InputLabel id={`${label}-select-label`} shrink sx={{ fontSize: increaseLabel ? 15 : 13 }}>
         {label}
       </InputLabel>
       <Select
