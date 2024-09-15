@@ -68,6 +68,11 @@ const categories = [
     icon: "ShoppingBasket",
   },
   {
+    description: "Swap Account",
+    color: "#8bc34a",
+    icon: "Swap Account",
+  },
+  {
     description: "Uncategorized",
     color: "#607d8b",
     icon: "Uncategorized",
@@ -94,6 +99,11 @@ const incomesources = [
     description: "Freelance/Contract Work",
     color: "#9c27b0",
     icon: "Freelance",
+  },
+  {
+    description: "Swap Account",
+    color: "#8bc34a",
+    icon: "Swap Account",
   },
   {
     description: "Uncategorized",

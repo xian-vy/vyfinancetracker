@@ -37,6 +37,7 @@ import OtherHousesOutlinedIcon from "@mui/icons-material/OtherHousesOutlined";
 import LiveHelpOutlinedIcon from "@mui/icons-material/LiveHelpOutlined";
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
+import SwapVert from "@mui/icons-material/SwapVert";
 
 import React from "react";
 
@@ -79,6 +80,7 @@ const CategoryIcons = [
   { name: "Celebration", icon: <CelebrationOutlinedIcon /> },
   { name: "House", icon: <OtherHousesOutlinedIcon /> },
   { name: "No Icon", icon: <DoNotDisturbAltIcon /> },
+  { name: "Swap Account", icon: <SwapVert /> },
   { name: "Uncategorized", icon: <LiveHelpOutlinedIcon /> },
 ];
 

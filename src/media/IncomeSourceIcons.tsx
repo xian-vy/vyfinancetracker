@@ -11,6 +11,7 @@ import DirectionsCarFilledOutlinedIcon from "@mui/icons-material/DirectionsCarFi
 import LocalAtmOutlinedIcon from "@mui/icons-material/LocalAtmOutlined";
 import LiveHelpOutlinedIcon from "@mui/icons-material/LiveHelpOutlined";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
+import SwapVert from "@mui/icons-material/SwapVert";
 
 import React from "react";
 
@@ -28,6 +29,7 @@ const IncomeSourceIcons = [
   { name: "Dollar", icon: <LocalAtmOutlinedIcon /> },
   { name: "No Icon", icon: <DoNotDisturbAltIcon /> },
   { name: "Uncategorized", icon: <LiveHelpOutlinedIcon /> },
+  { name: "Swap Account", icon: <SwapVert /> },
 ];
 
 export default IncomeSourceIcons;
