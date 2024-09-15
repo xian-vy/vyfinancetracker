@@ -186,8 +186,8 @@ const SwapAccount = (props: Props) => {
                 const value = e.target.value;
                 const amount = parseFloat(value.replace(/,/g, ""));
                 if (value.length <= 8) {
-                  setIncome((prevIncome) => ({ ...prevIncome, amount }));
-                  setExpense((prevExpense) => ({ ...prevExpense, amount }));
+                  setIncome((prevIncome) => ({ ...prevIncome, amount: isNaN(amount) ? 0 : amount }));
+                  setExpense((prevExpense) => ({ ...prevExpense, amount: isNaN(amount) ? 0 : amount }));
                 }
               }}
               InputLabelProps={{ shrink: true, sx: { fontSize: 15 } }}
@@ -248,7 +248,7 @@ const SwapAccount = (props: Props) => {
                   const value = e.target.value;
                   const amount = parseFloat(value.replace(/,/g, ""));
                   if (value.length <= 8) {
-                    setExpenseFee((prevExpenseFee) => ({ ...prevExpenseFee, amount }));
+                    setExpenseFee((prevExpenseFee) => ({ ...prevExpenseFee, amount: isNaN(amount) ? 0 : amount }));
                   }
                 }}
                 InputLabelProps={{ shrink: true, sx: { fontSize: 15 } }}
