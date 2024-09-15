@@ -145,7 +145,7 @@ const BudgetForm: React.FC<Props> = ({ closeForm, editCategory, isEditMode, cate
           error={duplicateDetected}
           helperText={duplicateDetected ? "Category exists." : ""}
           FormHelperTextProps={{ style: { marginLeft: 0 } }}
-          disabled={newCategory.description === "Uncategorized"}
+          disabled={newCategory.description === "Uncategorized" || newCategory.description === "Swap Account"}
         />
 
         {IconSelectComponent}

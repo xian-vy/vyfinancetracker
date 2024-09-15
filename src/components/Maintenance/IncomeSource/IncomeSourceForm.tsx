@@ -148,7 +148,7 @@ const IncomeSourceForm: React.FC<Props> = ({ closeForm, editIncomeSource, isEdit
           error={duplicateDetected}
           helperText={duplicateDetected ? "Income Source exists." : ""}
           FormHelperTextProps={{ style: { marginLeft: 0 } }}
-          disabled={newIncomeSource.description === "Uncategorized"}
+          disabled={newIncomeSource.description === "Uncategorized" || newIncomeSource.description === "Swap Account"}
         />
         {IconSelectComponent}
         <Box display="flex" justifyContent="center">
