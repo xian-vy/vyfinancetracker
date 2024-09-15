@@ -79,7 +79,7 @@ const ExpenseListDialog = ({
         open={open}
         onClose={onClose}
         PaperProps={{
-          sx: { borderRadius: 4, background: isDarkMode ? "#1e1e1e" : "#fff" },
+          sx: { borderRadius: 1, background: isDarkMode ? "#1e1e1e" : "#fff" },
         }}
         maxWidth="sm"
         fullWidth
@@ -163,37 +163,28 @@ const ExpenseListDialog = ({
                 </Stack>
               </>
             )}
-          </Stack>
-          <Stack direction="row" justifyContent="center" mt={1}>
-            {actionType === "delete" && (
-              <Typography color="orange" textAlign="center">
-                Clicking Delete will permanently remove all Items without confirmation
-              </Typography>
-            )}
-          </Stack>
-          <Stack direction="row" justifyContent="center" mt={1}>
-            <Button
-              disabled={
-                selectedExpenses.length === 0 ||
-                (actionType === "update" ? !updateAccount && !updateCategory : false) ||
-                isLoading
-              }
-              variant="outlined"
-              color={actionType === "delete" ? "error" : "info"}
-              endIcon={
-                isLoading ? (
-                  <CircularProgress size={20} />
-                ) : actionType === "delete" ? (
-                  <ClearIcon fontSize="inherit" sx={{ color: theme.palette.error.main }} />
-                ) : (
-                  <CheckOutlinedIcon fontSize="inherit" />
-                )
-              }
-              onClick={handleMultipleUpdateDelete}
-              sx={{ width: 200 }}
-            >
-              {isLoading ? (actionType === "delete" ? "Deleting" : "Updating") : actionType || "UPDATE"}{" "}
-            </Button>
+
+            <Stack direction="row" mt={1} px={1} width="100%">
+              <Button
+                fullWidth
+                disabled={
+                  selectedExpenses.length === 0 ||
+                  (actionType === "update" ? !updateAccount && !updateCategory : false) ||
+                  isLoading
+                }
+                color={actionType === "delete" ? "error" : "info"}
+                endIcon={isLoading ? <CircularProgress size={20} /> : <></>}
+                onClick={handleMultipleUpdateDelete}
+              >
+                {isLoading
+                  ? actionType === "delete"
+                    ? "Deleting"
+                    : "Updating"
+                  : actionType === "delete"
+                  ? "Delete All without Confirmation"
+                  : "Update All"}
+              </Button>
+            </Stack>
           </Stack>
         </DialogActions>
       </Dialog>
