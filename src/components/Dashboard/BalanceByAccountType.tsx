@@ -1,5 +1,16 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Box, CircularProgress, Container, IconButton, Paper, Stack, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Container,
+  Dialog,
+  DialogContent,
+  IconButton,
+  Paper,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import "swiper/css";
@@ -13,8 +24,9 @@ import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { useFilterHandlers } from "../../hooks/filterHook";
 import { RootState } from "../../redux/store";
 import FilterActionsComponent from "../Filter/FilterActionsComponent";
-import FilterTitleAndIcon from "../Filter/FilterTitleAndIcon";
 import BalanceByAccountTypeDialog from "./BalanceByAccountTypeDialog";
+import BalanceByAccountTypeHeader from "./BalanceByAccountTypeHeader";
+import SwapAccount from "./SwapAccount";
 
 interface AccountDetails {
   balance: number;
@@ -64,6 +76,7 @@ const BalanceByAccountType = () => {
 
   const [expandedStates, setExpandedStates] = React.useState<Record<string, boolean>>({});
   const [loading, setLoading] = useState(false);
+  const [openSwapAccount, setOpenSwapAccount] = useState(false);
 
   const handleExpandClick = (accountType: string) => {
     setExpandedStates((prevState) => ({
@@ -156,10 +169,18 @@ const BalanceByAccountType = () => {
     });
   }, [data]);
 
+  const handleSwapOpen = () => {
+    setOpenSwapAccount(true);
+  };
+
   return (
     <>
       <Container maxWidth={false} sx={{ p: 1 }}>
-        <FilterTitleAndIcon timeframe={filterTitle} title="Account Balances" onfilterClick={handleFilterClick} />
+        <BalanceByAccountTypeHeader
+          onfilterClick={handleFilterClick}
+          onSwapClick={handleSwapOpen}
+          timeframe={filterTitle}
+        />
       </Container>
       <Box sx={{ minHeight: { xs: 90, md: 96 }, pt: 1, px: { xs: 0, md: 3 } }}>
         {!data || loading ? (
@@ -254,6 +275,8 @@ const BalanceByAccountType = () => {
         handleYearFilter={handleYearFilter}
         selectedTimeframe={filterOption}
       />
+
+      <SwapAccount openDialog={openSwapAccount} onDialogClose={() => setOpenSwapAccount(false)} />
     </>
   );
 };
