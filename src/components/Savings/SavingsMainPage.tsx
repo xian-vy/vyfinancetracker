@@ -204,7 +204,7 @@ const SavingsMainPage = () => {
       <Dialog
         open={savingsFormOpen}
         PaperProps={{
-          sx: { borderRadius: 4, background: isDarkMode ? "#1e1e1e" : "#fff", width: FORM_WIDTH },
+          sx: { borderRadius: 1, background: isDarkMode ? "#1e1e1e" : "#fff", width: FORM_WIDTH },
         }}
         transitionDuration={powerSavingMode ? 0 : undefined}
       >
@@ -221,7 +221,7 @@ const SavingsMainPage = () => {
       <Dialog
         open={contributionFormOpen}
         PaperProps={{
-          sx: { borderRadius: 4, background: isDarkMode ? "#1e1e1e" : "#fff", width: FORM_WIDTH },
+          sx: { borderRadius: 1, background: isDarkMode ? "#1e1e1e" : "#fff", width: FORM_WIDTH },
         }}
         onClose={() => setContributionFormOpen(false)}
       >

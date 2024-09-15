@@ -156,7 +156,7 @@ const AccountsList = () => {
       <Dialog
         open={isFormOpen}
         PaperProps={{
-          sx: { borderRadius: 4, width: FORM_WIDTH },
+          sx: { borderRadius: 1, width: FORM_WIDTH },
         }}
       >
         <DialogContent sx={{ px: 2, py: 1, backgroundColor: isDarkMode ? "#1e1e1e" : "#fff" }}>

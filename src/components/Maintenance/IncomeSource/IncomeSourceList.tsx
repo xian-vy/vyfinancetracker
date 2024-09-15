@@ -83,7 +83,8 @@ const IncomeSourceList = () => {
     actions: [ACTION_TYPES.Edit, ACTION_TYPES.Delete],
     handleAction,
     disabledCondition: (action: string, incomesource: IncomeSourcesModel) =>
-      action === ACTION_TYPES.Delete && incomesource.description === "Uncategorized",
+      action === ACTION_TYPES.Delete &&
+      (incomesource.description === "Uncategorized" || incomesource.description === "Swap Account"),
   });
 
   const handleSave = (data: { newIncomeSource: string; msg: string }) => {
@@ -128,7 +129,7 @@ const IncomeSourceList = () => {
       <Dialog
         open={isFormOpen}
         PaperProps={{
-          sx: { borderRadius: 4, width: FORM_WIDTH },
+          sx: { borderRadius: 1, width: FORM_WIDTH },
         }}
       >
         <DialogContent sx={{ px: 2, py: 1, backgroundColor: isDarkMode ? "#1e1e1e" : "#fff" }}>

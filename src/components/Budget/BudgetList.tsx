@@ -72,7 +72,7 @@ const BudgetList = ({ selectedTimeframe, startDate, endDate, URLopenForm }: Prop
       <Dialog
         open={isBudgetFormOpen}
         PaperProps={{
-          sx: { borderRadius: 4, margin: { xs: 0, sm: 1, md: 2 }, width: FORM_WIDTH },
+          sx: { borderRadius: 1, margin: { xs: 0, sm: 1, md: 2 }, width: FORM_WIDTH },
           background: isDarkMode ? "#1e1e1e" : "#fff",
         }}
         transitionDuration={powerSavingMode ? 0 : undefined}

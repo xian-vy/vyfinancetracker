@@ -243,7 +243,7 @@ const ExpenseMainPage = () => {
       <Dialog
         open={isExpenseFormOpen}
         PaperProps={{
-          sx: { borderRadius: 4, background: isDarkMode ? "#1e1e1e" : "#fff", width: FORM_WIDTH },
+          sx: { borderRadius: 1, background: isDarkMode ? "#1e1e1e" : "#fff", width: FORM_WIDTH },
         }}
         transitionDuration={powerSavingMode ? 0 : undefined}
       >
