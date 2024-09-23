@@ -193,9 +193,6 @@ export const FilterAndGroupData = <T extends Exclude<TransactionTypes, SavingGoa
 
   const mappedItems = filteredData.map((item) => {
     const categoryId = getCategoryId(item);
-    if (!categoryId) {
-      throw new Error("Item does not have a valid identifier for grouping.");
-    }
     return {
       date: item.date,
       category_id: categoryId,
