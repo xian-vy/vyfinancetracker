@@ -66,22 +66,24 @@ const SwapAccount = (props: Props) => {
     account_id: accountType[1]?.id,
   });
 
+  const isCategoriesLoading = loadingAccounts && loadingCategories && loadingIncomeSource;
+
   useEffect(() => {
-    if (!loadingAccounts || !loadingCategories || loadingIncomeSource) {
+    if (!isCategoriesLoading) {
       //find default category for Swap Account
-      const category_id =
-        categories.find((c) => {
-          return c.description === "Swap Account";
-        })?.id || "";
-      const income_source =
-        incomeSource.find((c) => {
-          return c.description === "Swap Account";
-        })?.id || "";
+      const swapAccountCategory = categories.find((category) => {
+        return category.description === "Swap Account";
+      })?.id;
+      const swapAccountIncomeSource = incomeSource.find((category) => {
+        return category.description === "Swap Account";
+      })?.id;
+      const category_id = swapAccountCategory || "";
+      const income_source = swapAccountIncomeSource || "";
       setExpense((prevExpense) => ({ ...prevExpense, account_id: accountType[0]?.id, category_id }));
       setExpenseFee((prevExpense) => ({ ...prevExpense, account_id: accountType[0]?.id, category_id }));
       setIncome((prevIncome) => ({ ...prevIncome, account_id: accountType[1]?.id, category_id: income_source }));
     }
-  }, [accountType, categories, incomeSource, loadingAccounts, loadingCategories, loadingIncomeSource]);
+  }, [accountType, categories, incomeSource, isCategoriesLoading]);
 
   const sourceAccount = getAccountsDetails(accountType, expense.account_id);
   const destinationAccount = getAccountsDetails(accountType, income.account_id);
@@ -175,6 +177,25 @@ const SwapAccount = (props: Props) => {
                 </Typography>
               </Stack>
             </Stack>
+            <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1} width="100%">
+              <EntryFormCategoryDropdown
+                increaseLabel
+                label="Source Account"
+                category_id={expense.account_id}
+                categories={accountType}
+                onChange={handleSourceAccountChange}
+                icons={AccountsIcons}
+              />
+
+              <EntryFormCategoryDropdown
+                increaseLabel
+                label="Destination Account"
+                category_id={income.account_id}
+                categories={accountType}
+                onChange={handleDestinationAccountChange}
+                icons={AccountsIcons}
+              />
+            </Stack>
             <TextField
               fullWidth
               inputMode="numeric"
@@ -216,25 +237,6 @@ const SwapAccount = (props: Props) => {
               }}
               InputLabelProps={{ shrink: true, sx: { fontSize: 15 } }}
             />
-            <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1} width="100%">
-              <EntryFormCategoryDropdown
-                increaseLabel
-                label="Source Account"
-                category_id={expense.account_id}
-                categories={accountType}
-                onChange={handleSourceAccountChange}
-                icons={AccountsIcons}
-              />
-
-              <EntryFormCategoryDropdown
-                increaseLabel
-                label="Destination Account"
-                category_id={income.account_id}
-                categories={accountType}
-                onChange={handleDestinationAccountChange}
-                icons={AccountsIcons}
-              />
-            </Stack>
 
             <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1} width="100%">
               <TextField
