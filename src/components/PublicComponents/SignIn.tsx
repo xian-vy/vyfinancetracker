@@ -1,4 +1,4 @@
-import { Checkbox, Dialog, Divider, Link, Stack, ThemeProvider, useMediaQuery } from "@mui/material";
+import { Checkbox, Dialog, Divider, Link, Stack, ThemeProvider, useMediaQuery, useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import React from "react";
@@ -11,8 +11,11 @@ import SignInGoogle from "./SignInGoogle";
 import { useSelector } from "react-redux";
 import { darkTheme, lightTheme } from "../../Theme";
 import { RootState } from "../../redux/store";
+import SimpleThemeToggle from "./SimpleThemeToggle";
+import { ThemeColor } from "../../helper/utils";
 
 export default function SignIn() {
+  const theme = useTheme();
   const darktheme = useSelector((state: RootState) => state.theme.darkMode);
   const systemThemeIsDark = useMediaQuery("(prefers-color-scheme: dark)");
   const { openSuccessSnackbar, SnackbarComponent } = useSnackbarHook();
@@ -31,20 +34,33 @@ export default function SignIn() {
         alignItems: "center",
         justifyContent: "center",
         width: "100%",
+        position: "relative",
       }}
     >
-      <Box sx={{ mt: 1, width: 280, py: 1, px: 4, flexDirection: "column", display: "flex", alignItems: "center" }}>
-        <Stack direction="row" alignItems="center" justifyContent="center" mb={2}>
-          <img
-            src={logo}
-            onClick={() => navigate(HOME)}
-            alt="Logo"
-            style={{ width: "24px", height: "24px", cursor: "pointer", padding: 0 }}
-          />
-          <Typography component="h1" align="center" ml={0.8} variant="subtitle1" fontWeight={500}>
-            Sign In
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        width="100%"
+        px={{ xs: 2, md: 4 }}
+        py={2}
+        sx={{ position: "absolute", top: 0, left: 0 }}
+      >
+        <Stack direction="row" alignItems="center" justifyContent="center" mb={2} onClick={() => navigate(HOME)}>
+          <img src={logo} alt="Logo" style={{ width: "24px", height: "24px", cursor: "pointer", padding: 0 }} />
+          <Typography
+            variant="caption"
+            sx={{ cursor: "pointer", color: ThemeColor(theme), textDecoration: "none", ml: 1 }}
+          >
+            Home
           </Typography>
         </Stack>
+        <SimpleThemeToggle />
+      </Stack>
+      <Box sx={{ mt: 1, width: 280, py: 1, px: 4, flexDirection: "column", display: "flex", alignItems: "center" }}>
+        <Typography component="h1" align="center" ml={0.8} variant="subtitle1" fontWeight={500} mb={2}>
+          Sign In
+        </Typography>
 
         <SignInGoogle
           hasAgreed={agreeToTerms}
