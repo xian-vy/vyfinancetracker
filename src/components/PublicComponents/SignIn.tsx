@@ -13,7 +13,7 @@ import { darkTheme, lightTheme } from "../../Theme";
 import { RootState } from "../../redux/store";
 import SimpleThemeToggle from "./SimpleThemeToggle";
 import { ThemeColor } from "../../helper/utils";
-
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 export default function SignIn() {
   const theme = useTheme();
   const darktheme = useSelector((state: RootState) => state.theme.darkMode);
@@ -47,10 +47,10 @@ export default function SignIn() {
         sx={{ position: "absolute", top: 0, left: 0 }}
       >
         <Stack direction="row" alignItems="center" justifyContent="center" mb={2} onClick={() => navigate(HOME)}>
-          <img src={logo} alt="Logo" style={{ width: "24px", height: "24px", cursor: "pointer", padding: 0 }} />
+          <KeyboardArrowLeftIcon sx={{ fontSize: 16 }} />
           <Typography
             variant="caption"
-            sx={{ cursor: "pointer", color: ThemeColor(theme), textDecoration: "none", ml: 1 }}
+            sx={{ cursor: "pointer", color: ThemeColor(theme), textDecoration: "none", ml: 0.5 }}
           >
             Home
           </Typography>
@@ -58,9 +58,18 @@ export default function SignIn() {
         <SimpleThemeToggle />
       </Stack>
       <Box sx={{ mt: 1, width: 280, py: 1, px: 4, flexDirection: "column", display: "flex", alignItems: "center" }}>
-        <Typography component="h1" align="center" ml={0.8} variant="subtitle1" fontWeight={500} mb={2}>
-          Sign In
-        </Typography>
+        <Stack direction="row" alignItems="center" justifyContent="center" mb={2}>
+          <img
+            src={logo}
+            onClick={() => navigate(HOME)}
+            alt="Logo"
+            style={{ width: "24px", height: "24px", cursor: "pointer", padding: 0 }}
+          />
+
+          <Typography component="h1" align="center" ml={0.8} variant="subtitle1" fontWeight={500}>
+            Sign In
+          </Typography>
+        </Stack>
 
         <SignInGoogle
           hasAgreed={agreeToTerms}
