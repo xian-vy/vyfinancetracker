@@ -1,6 +1,6 @@
 import { CloseOutlined } from "@mui/icons-material";
 import EastIcon from "@mui/icons-material/East";
-import { Button, Dialog, DialogContent, DialogTitle, TextField, Typography } from "@mui/material";
+import { Button, Dialog, DialogContent, DialogTitle, IconButton, TextField, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { Timestamp } from "firebase/firestore";
@@ -158,7 +158,9 @@ const SwapAccount = (props: Props) => {
           sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}
         >
           <Typography variant="body1">Swap Accounts</Typography>
-          <CloseOutlined sx={{ cursor: "pointer", fontSize: 16 }} onClick={() => props.onDialogClose()} />
+          <IconButton size="small" onClick={() => props.onDialogClose()} sx={{ mr: -1 }}>
+            <CloseOutlined />
+          </IconButton>
         </DialogTitle>
         <DialogContent sx={{ px: { xs: 1, sm: 2 } }}>
           <Stack direction="column" justifyContent="center" alignItems="center" spacing={{ xs: 2, sm: 3 }} p={1}>

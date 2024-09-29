@@ -28,7 +28,7 @@ export default function GenericDialog({
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         PaperProps={{
-          sx: { background: isDarkMode ? "#1e1e1e" : "#666", borderRadius: 2 },
+          sx: { background: isDarkMode ? "#1e1e1e" : "#666", borderRadius: 1 },
         }}
       >
         <DialogTitle
