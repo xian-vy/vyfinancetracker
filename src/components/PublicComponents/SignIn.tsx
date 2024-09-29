@@ -57,7 +57,7 @@ export default function SignIn() {
         </Stack>
         <SimpleThemeToggle />
       </Stack>
-      <Box sx={{ mt: 1, width: 280, py: 1, px: 4, flexDirection: "column", display: "flex", alignItems: "center" }}>
+      <Box sx={{ mt: 1, width: 320, py: 1, px: 2, flexDirection: "column", display: "flex", alignItems: "center" }}>
         <Stack direction="row" alignItems="center" justifyContent="center" mb={2}>
           <img
             src={logo}
@@ -76,14 +76,14 @@ export default function SignIn() {
           promptAgreementMsg={() => openSuccessSnackbar("You must agree to privacy and terms to continue.", true)}
         />
 
-        <Divider sx={{ my: 1, width: "100%", fontSize: "0.7rem" }}>Or</Divider>
+        <Divider sx={{ my: 1, width: "90%", fontSize: "0.7rem" }}>Or</Divider>
 
         <SignInAnonymous
           hasAgreed={agreeToTerms}
           promptAgreementMsg={() => openSuccessSnackbar("You must agree to privacy and terms to continue.", true)}
         />
 
-        <Stack direction="column" alignItems="center" mt={3}>
+        <Stack direction="column" alignItems="center" mt={3} width="100%">
           <Stack direction="row" alignItems="center">
             <Checkbox
               checked={agreeToTerms}

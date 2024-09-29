@@ -25,6 +25,8 @@ const Footer = () => {
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: { xs: "0.7rem", lg: "0.75rem" },
+              color: "#f08b8f",
+              textDecoration: "none",
             }}
           >
             Privacy Policy
@@ -36,6 +38,8 @@ const Footer = () => {
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: { xs: "0.7rem", lg: "0.75rem" },
+              color: "#f08b8f",
+              textDecoration: "none",
             }}
           >
             Terms of Use
@@ -48,6 +52,8 @@ const Footer = () => {
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: { xs: "0.7rem", lg: "0.75rem" },
+              color: "#f08b8f",
+              textDecoration: "none",
             }}
           >
             About

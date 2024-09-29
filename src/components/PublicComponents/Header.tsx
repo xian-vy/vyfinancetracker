@@ -6,6 +6,9 @@ import { useSelector } from "react-redux";
 import { SIGN_IN_PATH } from "../../constants/routes";
 import useSnackbarHook from "../../hooks/snackbarHook";
 import { RootState } from "../../redux/store";
+import SimpleThemeToggle from "./SimpleThemeToggle";
+import logo from "../../media/logo.svg";
+
 interface ChoiceResult {
   outcome: "accepted" | "dismissed";
   platform: string;
@@ -70,30 +73,57 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
 
   return (
     <>
-      <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-        <Container disableGutters maxWidth="sm" component="main" sx={{ pb: 0.5, px: 4, mb: 2 }}>
-          <Typography
-            component="h1"
-            align="center"
-            sx={{
-              fontSize: { xs: "1.6rem", md: "1.8rem" },
-              lineHeight: { xs: "2rem", md: "2rem" },
-              fontWeight: 500,
-              color: darktheme ? "#ccc" : "#333",
-            }}
-          >
-            Vy Finance Tracker
-          </Typography>
+      <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" width="100%">
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          sx={{ width: "100%", px: { xs: 2, md: 4 } }}
+        >
+          <Stack direction="row" alignItems="center">
+            <img src={logo} alt="Logo" style={{ width: "24px", height: "24px", cursor: "pointer", padding: 0 }} />
+            <Typography
+              component="h1"
+              align="center"
+              sx={{
+                fontSize: { xs: "0.8rem", md: "1rem" },
+                lineHeight: { xs: "2rem", md: "2rem" },
+                fontWeight: 500,
+                color: darktheme ? "#ccc" : "#000",
+                ml: 1,
+              }}
+            >
+              Finance Tracker
+            </Typography>
+          </Stack>
+          <SimpleThemeToggle />
+        </Stack>
+        <Container disableGutters maxWidth="sm" component="main" sx={{ pb: 0.5, px: 4, my: 2 }}>
           <Typography
             component="h2"
             align="center"
             sx={{
-              fontSize: "0.85rem",
-              fontWeight: 400,
+              fontSize: { xs: "2rem", md: "2.5rem", lg: "3rem" },
+              lineHeight: { xs: "2rem", md: "2.8rem", lg: "3.2rem" },
+              fontWeight: 600,
+              color: darktheme ? "#ccc" : "#333",
               mt: 1,
+              mb: 2,
             }}
           >
             Expense, Budget, Income and Savings Tracker
+          </Typography>
+          <Typography
+            component="h1"
+            align="center"
+            sx={{
+              fontSize: { xs: "0.8rem", sm: "1rem" },
+              fontWeight: 400,
+              color: darktheme ? "#999" : "#333",
+              ml: 1,
+            }}
+          >
+            Manage finances in one app, for all devices.
           </Typography>
         </Container>
 
@@ -105,10 +135,10 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               size="medium"
               sx={{
                 textTransform: "capitalize",
-                width: 130,
-
-                fontSize: { xs: "0.7rem", lg: "0.75rem" },
-                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
+                width: { xs: 160, md: 180 },
+                fontSize: { xs: "0.75rem", lg: "0.8rem" },
+                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #999",
+                py: 0.7,
               }}
               onClick={handleStartClick}
             >
@@ -126,12 +156,12 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               size="medium"
               sx={{
                 display: "flex",
-                width: 130,
+                width: { xs: 160, md: 180 },
                 alignItems: "center",
-
+                py: 0.7,
                 textTransform: "capitalize",
-                fontSize: { xs: "0.7rem", lg: "0.75rem" },
-                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
+                fontSize: { xs: "0.75rem", lg: "0.8rem" },
+                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #999",
               }}
               onClick={handleInstallClick}
             >

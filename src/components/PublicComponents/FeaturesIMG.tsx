@@ -78,7 +78,7 @@ const FeaturesIMG = () => {
                     background: darktheme ? "#000" : "#666",
                     py: { xs: 1.5, lg: 2 },
                     px: { xs: 0.7, lg: 1 },
-                    height: { xs: 200, sm: 350, md: 400, lg: 450 },
+                    height: { xs: 220, sm: 350, md: 400, lg: 450 },
                     position: "relative",
                     borderRadius: 3,
                     display: "flex",

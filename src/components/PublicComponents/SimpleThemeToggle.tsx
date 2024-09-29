@@ -24,7 +24,7 @@ const SimpleThemeToggle = () => {
   };
 
   return (
-    <Stack direction="row" justifyContent="center" mb={2}>
+    <Stack direction="row" justifyContent="center">
       {currentMode ? (
         <DarkModeOutlinedIcon sx={iconStyle()} onClick={() => handleDarkMode(false)} />
       ) : (
