@@ -66,7 +66,7 @@ export function SavingsItems({
       {ActionPopover}
       <Paper
         sx={{
-          borderRadius: 4,
+          borderRadius: 2,
         }}
         variant={isDarkMode ? "elevation" : "outlined"}
       >

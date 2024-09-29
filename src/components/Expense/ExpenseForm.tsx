@@ -233,7 +233,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
       <Dialog
         open={categoryFormOpen}
         PaperProps={{
-          sx: { borderRadius: 4 },
+          sx: { borderRadius: 2 },
         }}
       >
         <DialogContent sx={{ px: 2, py: 1 }}>

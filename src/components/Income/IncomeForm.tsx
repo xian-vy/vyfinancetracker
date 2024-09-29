@@ -211,7 +211,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ editIncome, onCloseForm, isEdit
       <Dialog
         open={accountFormOpen}
         PaperProps={{
-          sx: { borderRadius: 4 },
+          sx: { borderRadius: 2 },
         }}
       >
         <React.Suspense fallback={<div>loading...</div>}>

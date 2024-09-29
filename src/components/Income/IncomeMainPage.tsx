@@ -144,13 +144,13 @@ const IncomeMainPage = () => {
       </Backdrop>
       <Grid container spacing={{ xs: 1, sm: 1.5, lg: 2 }} pb={{ xs: 10, md: 5 }} ref={gridContainerRef}>
         <Grid item xs={12} lg={12}>
-          <Paper sx={{ borderRadius: 4 }} variant={isDarkMode ? "elevation" : "outlined"}>
+          <Paper sx={{ borderRadius: 2 }} variant={isDarkMode ? "elevation" : "outlined"}>
             <IncomeTrend incomes={incomeSlice} onDateFilterChange={handleDateFilterChange} />
           </Paper>
         </Grid>
 
         <Grid item xs={12} lg={12}>
-          <Paper sx={{ p: 1, borderRadius: 4 }} variant={isDarkMode ? "elevation" : "outlined"}>
+          <Paper sx={{ p: 1, borderRadius: 2 }} variant={isDarkMode ? "elevation" : "outlined"}>
             <IncomeListHeader onOpenForm={openIncomeForm} onSortChange={handleSortChange} />
             <IncomeList
               income={filteredByTimeframe}

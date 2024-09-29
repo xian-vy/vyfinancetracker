@@ -34,14 +34,14 @@ const BudgetMainPage = () => {
         <Paper
           elevation={isDarkMode ? 1 : 0}
           style={{ padding: 0 }}
-          sx={{ borderRadius: 4 }}
+          sx={{ borderRadius: 2 }}
           variant={isDarkMode ? "elevation" : "outlined"}
         >
           <BudgetbyCategoryTrend title="Budget" onDateFilterChange={handleDateFilterChange} />
         </Paper>
       </Grid>
       <Grid item xs={12} lg={12}>
-        <Paper sx={{ borderRadius: 4, minHeight: 600 }} variant={isDarkMode ? "elevation" : "outlined"}>
+        <Paper sx={{ borderRadius: 2, minHeight: 600 }} variant={isDarkMode ? "elevation" : "outlined"}>
           <BudgetList
             URLopenForm={openForm}
             startDate={startDate}

@@ -195,7 +195,7 @@ const ExpenseMainPage = () => {
   return (
     <Grid container spacing={{ xs: 1, sm: 1.5, lg: 2 }} pb={{ xs: 10, md: 5 }} ref={gridContainerRef}>
       <Grid item xs={12} lg={12}>
-        <Paper elevation={isDarkMode ? 1 : 0} sx={{ borderRadius: 4 }} variant={isDarkMode ? "elevation" : "outlined"}>
+        <Paper elevation={isDarkMode ? 1 : 0} sx={{ borderRadius: 2 }} variant={isDarkMode ? "elevation" : "outlined"}>
           {isUploading && !uploadCancelled ? (
             <GenericChartSkeleton />
           ) : (
@@ -209,7 +209,7 @@ const ExpenseMainPage = () => {
       </Grid>
 
       <Grid item xs={12}>
-        <Paper sx={{ borderRadius: 4, p: 1 }} variant={isDarkMode ? "elevation" : "outlined"}>
+        <Paper sx={{ borderRadius: 2, p: 1 }} variant={isDarkMode ? "elevation" : "outlined"}>
           <ExpenseListHeader
             onSearch={handleSearchChange}
             onformOpen={openExpenseForm}

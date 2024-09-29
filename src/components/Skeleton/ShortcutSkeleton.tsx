@@ -25,7 +25,7 @@ const ShortcutSkeleton = () => {
             key={index}
             sx={{ display: { xs: index > 1 ? "none" : "block", md: "block" } }}
           >
-            <Paper sx={{ p: 1, borderRadius: 4 }}>
+            <Paper sx={{ p: 1, borderRadius: 2 }}>
               <Grid container spacing={1} justifyContent="start" p={1} alignItems="center">
                 <Skeleton variant="circular" width={20} height={20} sx={{ mr: 0.5 }} />
 

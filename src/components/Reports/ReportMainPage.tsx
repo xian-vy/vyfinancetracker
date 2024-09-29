@@ -9,14 +9,14 @@ const ReportMainPage = () => {
   return (
     <Box pb={{ xs: 10, md: 5 }}>
       <Paper
-        sx={{ borderRadius: 4, mb: { xs: 1, sm: 1.5, lg: 2 }, p: { xs: 1, sm: 0 } }}
+        sx={{ borderRadius: 2, mb: { xs: 1, sm: 1.5, lg: 2 }, p: { xs: 1, sm: 0 } }}
         variant={isDarkMode ? "elevation" : "outlined"}
       >
         <TransactionLogs />
       </Paper>
 
       <Paper
-        sx={{ borderRadius: 4, mb: { xs: 1, sm: 1.5, lg: 2 }, p: { xs: 1, sm: 0 } }}
+        sx={{ borderRadius: 2, mb: { xs: 1, sm: 1.5, lg: 2 }, p: { xs: 1, sm: 0 } }}
         variant={isDarkMode ? "elevation" : "outlined"}
       >
         <ReportGridTable />

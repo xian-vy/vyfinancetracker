@@ -18,7 +18,7 @@ const InstallAndroid = () => {
         minWidth: 260,
         height: 500,
         bgcolor: darktheme ? "#333" : "#ddd",
-        borderRadius: 4,
+        borderRadius: 2,
         p: 2,
       }}
     >

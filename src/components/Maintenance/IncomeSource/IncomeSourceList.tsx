@@ -103,7 +103,7 @@ const IncomeSourceList = () => {
       </Backdrop>
 
       <Paper
-        sx={{ borderRadius: 4, padding: 2, display: "flex", flexDirection: "column" }}
+        sx={{ borderRadius: 2, padding: 2, display: "flex", flexDirection: "column" }}
         variant={isDarkMode ? "elevation" : "outlined"}
       >
         <Grid container p={1} spacing={1} justifyContent="space-between" alignItems="center">

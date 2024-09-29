@@ -167,13 +167,13 @@ const SavingsMainPage = () => {
       </Backdrop>
       <Grid container spacing={{ xs: 1, sm: 1.5, lg: 2 }} pb={{ xs: 10, md: 5 }} ref={gridContainerRef}>
         <Grid item xs={12} lg={12}>
-          <Paper sx={{ borderRadius: 4 }} variant={isDarkMode ? "elevation" : "outlined"}>
+          <Paper sx={{ borderRadius: 2 }} variant={isDarkMode ? "elevation" : "outlined"}>
             <SavingsTrend />
           </Paper>
         </Grid>
         <Grid item xs={12} lg={12}>
           <Paper
-            sx={{ py: 1, px: { xs: 0, sm: 1, md: 2 }, minHeight: 600, borderRadius: 4 }}
+            sx={{ py: 1, px: { xs: 0, sm: 1, md: 2 }, minHeight: 600, borderRadius: 2 }}
             variant={isDarkMode ? "elevation" : "outlined"}
           >
             <Stack direction="column" mr={1}>

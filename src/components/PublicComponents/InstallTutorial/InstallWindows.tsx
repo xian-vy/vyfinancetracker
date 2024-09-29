@@ -16,7 +16,7 @@ const InstallWindows = () => {
         minWidth: { md: 750, lg: 1000, xl: 1200 },
         height: 400,
         bgcolor: darktheme ? "#333" : "#ddd",
-        borderRadius: 4,
+        borderRadius: 2,
         p: 2,
       }}
     >
