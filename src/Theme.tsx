@@ -24,13 +24,13 @@ const commonTypography = {
     fontSize: "0.8rem",
   },
   body1: {
-    fontSize: "0.8rem",
+    fontSize: "0.75rem",
   },
   body2: {
-    fontSize: "0.85rem",
+    fontSize: "0.8rem",
   },
   caption: {
-    fontSize: "0.75rem",
+    fontSize: "0.7rem",
   },
 };
 
