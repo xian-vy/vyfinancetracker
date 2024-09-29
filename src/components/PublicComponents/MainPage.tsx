@@ -62,7 +62,7 @@ export default function MainPage() {
         <Stack direction="row" justifyContent="center">
           <Header appInstalled={appInstalled} />
         </Stack>
-        <Stack direction="column">
+        <Stack direction="column" pb={{ xs: 2, lg: 4 }}>
           <FeaturesIMG />
           <Features />
         </Stack>

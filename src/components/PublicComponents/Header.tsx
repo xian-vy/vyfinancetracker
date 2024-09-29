@@ -71,7 +71,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
   return (
     <>
       <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-        <Container disableGutters maxWidth="sm" component="main" sx={{ pb: 0.5, px: 4 }}>
+        <Container disableGutters maxWidth="sm" component="main" sx={{ pb: 0.5, px: 4, mb: 2 }}>
           <Typography
             component="h1"
             align="center"
@@ -90,6 +90,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             sx={{
               fontSize: "0.85rem",
               fontWeight: 400,
+              mt: 1,
             }}
           >
             Expense, Budget, Income and Savings Tracker
