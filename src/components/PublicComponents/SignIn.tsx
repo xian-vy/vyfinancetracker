@@ -46,7 +46,7 @@ export default function SignIn() {
         py={2}
         sx={{ position: "absolute", top: 0, left: 0 }}
       >
-        <Stack direction="row" alignItems="center" justifyContent="center" mb={2} onClick={() => navigate(HOME)}>
+        <Stack direction="row" alignItems="center" justifyContent="center" onClick={() => navigate(HOME)}>
           <KeyboardArrowLeftIcon sx={{ fontSize: 16 }} />
           <Typography
             variant="caption"

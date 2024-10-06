@@ -86,9 +86,9 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               component="h1"
               align="center"
               sx={{
-                fontSize: { xs: "0.8rem", md: "1rem" },
+                fontSize: { xs: "0.8rem", md: "0.8rem" },
                 lineHeight: { xs: "2rem", md: "2rem" },
-                fontWeight: 500,
+                fontWeight: 400,
                 color: darktheme ? "#ccc" : "#000",
                 ml: 1,
               }}
@@ -103,8 +103,8 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             component="h2"
             align="center"
             sx={{
-              fontSize: { xs: "2rem", md: "2.5rem", lg: "3rem" },
-              lineHeight: { xs: "2rem", md: "2.8rem", lg: "3.2rem" },
+              fontSize: { xs: "2rem", md: "2.5rem" },
+              lineHeight: { xs: "2rem", md: "2.8rem" },
               fontWeight: 600,
               color: darktheme ? "#ccc" : "#333",
               mt: 1,
@@ -137,7 +137,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
                 textTransform: "capitalize",
                 width: { xs: 160, md: 180 },
                 fontSize: { xs: "0.75rem", lg: "0.8rem" },
-                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #999",
+                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
                 py: 0.7,
               }}
               onClick={handleStartClick}
@@ -161,7 +161,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
                 py: 0.7,
                 textTransform: "capitalize",
                 fontSize: { xs: "0.75rem", lg: "0.8rem" },
-                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #999",
+                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
               }}
               onClick={handleInstallClick}
             >
