@@ -81,7 +81,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
           sx={{ width: "100%", px: { xs: 2, md: 4 } }}
         >
           <Stack direction="row" alignItems="center">
-            <img src={logo} alt="Logo" style={{ width: "24px", height: "24px", cursor: "pointer", padding: 0 }} />
+            <img src={logo} alt="Logo" style={{ width: "20px", height: "20px", cursor: "pointer", padding: 0 }} />
             <Typography
               component="h1"
               align="center"
@@ -103,12 +103,11 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             component="h2"
             align="center"
             sx={{
-              fontSize: { xs: "2rem", md: "2.5rem" },
-              lineHeight: { xs: "2rem", md: "2.8rem" },
+              fontSize: { xs: "1.4rem", sm: "1.8rem", md: "2rem" },
+              lineHeight: { xs: "1.8rem", sm: "2rem", md: "2.5rem" },
               fontWeight: 600,
               color: darktheme ? "#ccc" : "#333",
-              mt: 1,
-              mb: 2,
+              my: 1,
             }}
           >
             Expense, Budget, Income and Savings Tracker
