@@ -3,7 +3,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../media/logoAnimate.svg";
 import { HOME } from "../../constants/routes";
-import { getOperatingSystem } from "../../helper/utils";
 
 const About = ({ isPrivate }: { isPrivate?: boolean | null }) => {
   const navigate = useNavigate();
@@ -16,44 +15,30 @@ const About = ({ isPrivate }: { isPrivate?: boolean | null }) => {
         style={{ width: "26px", height: "26px", cursor: "pointer", padding: 0, marginBottom: "5px" }}
       />
 
-      <Typography variant="caption" textAlign="center">
+      <Typography variant="body1" textAlign="center" gutterBottom>
         A progressive web app
       </Typography>
-      <Typography variant="caption" textAlign="center">
+      <Typography variant="body1" textAlign="center">
         built with
       </Typography>
-      <Typography variant="caption" textAlign="center">
+      <Typography variant="body1" textAlign="center">
         React, Typescript, Redux, MUI, Firebase, Recharts
       </Typography>
-      <Typography variant="caption" textAlign="center" mb={3}>
+      <Typography variant="body1" textAlign="center" mb={3}>
         and Web Crypto API
       </Typography>
 
-      <Stack direction="column" justifyContent="start" alignItems="center" mb={2} width="100%">
-        <Link variant="caption" href="mailto:xianvy0000@gmail.com" color="inherit" sx={{ cursor: "pointer" }}>
-          {"xianvy0000@gmail.com"}
+      <Stack direction="row" justifyContent="center" alignItems="center" mb={2} width="100%">
+        Developed By
+        <Link
+          variant="caption"
+          href="https://xianvy.vercel.app/"
+          target="_blank"
+          sx={{ cursor: "pointer", textDecoration: "none", mx: 0.5 }}
+        >
+          Xian
         </Link>
-        <Typography variant="caption" textAlign="center">
-          Feedback
-        </Typography>
       </Stack>
-      {(getOperatingSystem() === "Android" || getOperatingSystem() === "iOS") && (
-        <Stack direction="column" justifyContent="start" alignItems="center" mb={2}>
-          <Link
-            href="https://vyfinancetracker.web.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            color="inherit"
-            variant="caption"
-            sx={{ cursor: "pointer" }}
-          >
-            {"vyfinancetracker.web.app"}
-          </Link>
-          <Typography variant="caption" textAlign="center">
-            Website
-          </Typography>
-        </Stack>
-      )}
     </Stack>
   );
 };
