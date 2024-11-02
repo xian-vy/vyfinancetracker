@@ -12,10 +12,10 @@ const About = ({ isPrivate }: { isPrivate?: boolean | null }) => {
         src={logo}
         onClick={!isPrivate ? () => navigate(HOME) : undefined}
         alt="Logo"
-        style={{ width: "26px", height: "26px", cursor: "pointer", padding: 0, marginBottom: "5px" }}
+        style={{ width: "20px", height: "20px", cursor: "pointer", padding: 0, marginBottom: "5px" }}
       />
 
-      <Typography variant="body1" textAlign="center" gutterBottom>
+      <Typography variant="body1" textAlign="center">
         A progressive web app
       </Typography>
       <Typography variant="body1" textAlign="center">

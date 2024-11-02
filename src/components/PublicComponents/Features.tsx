@@ -38,9 +38,9 @@ const Features = () => {
       my={{ xs: 2, sm: 3, md: 4 }}
       mx="auto"
     >
-      <Grid container spacing={1.5} maxWidth="md" px={2}>
+      <Grid container spacing={2} maxWidth="md" px={2}>
         {featuresData.map((feature, index) => (
-          <Grid item container xs={6} md={3} key={index}>
+          <Grid item container xs={6}  sm={3} key={index} justifyContent="center">
             <Paper
               variant="outlined"
               sx={{
@@ -53,11 +53,12 @@ const Features = () => {
                 flexDirection: "column",
                 justifyContent: "flex-start",
                 alignItems: "center",
+                maxWidth:"200px"
               }}
             >
               <feature.IconComponent sx={{ fontSize: { xs: "18px", md: "22px" }, mb: 0.5, color: "#d86c70" }} />
-              <Typography sx={{ fontSize: { xs: "0.7rem", lg: "0.75rem" }, mb: 0.5 }}>{feature.description}</Typography>
-              <Typography textAlign="left" sx={{ fontSize: { xs: "0.7rem", lg: "0.75rem" }, color: "#888" }}>
+              <Typography textAlign="center" sx={{ fontSize: "0.75rem", mb: 0.5 }}>{feature.description}</Typography>
+              <Typography textAlign="left" sx={{ fontSize: "0.75rem", color: darkmode ? "#999" : "#666" }}>
                 {feature.details}
               </Typography>
             </Paper>

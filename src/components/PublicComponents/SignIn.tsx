@@ -2,18 +2,18 @@ import { Checkbox, Dialog, Divider, Link, Stack, ThemeProvider, useMediaQuery, u
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import logo from "../../media/logo.svg";
+import { darkTheme, lightTheme } from "../../Theme";
 import { HOME, PRIVACY_POLICY, TERMS_OF_USE, TNCandPrivacyPolicyDialog } from "../../constants/routes";
 import useSnackbarHook from "../../hooks/snackbarHook";
+import logo from "../../media/logo.svg";
+import { RootState } from "../../redux/store";
+import Footer from "./Footer";
+import Navigation from "./Navigation";
 import SignInAnonymous from "./SignInAnonymous";
 import SignInGoogle from "./SignInGoogle";
-import { useSelector } from "react-redux";
-import { darkTheme, lightTheme } from "../../Theme";
-import { RootState } from "../../redux/store";
-import SimpleThemeToggle from "./SimpleThemeToggle";
-import { ThemeColor } from "../../helper/utils";
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+
 export default function SignIn() {
   const theme = useTheme();
   const darktheme = useSelector((state: RootState) => state.theme.darkMode);
@@ -37,27 +37,8 @@ export default function SignIn() {
         position: "relative",
       }}
     >
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        width="100%"
-        px={{ xs: 2, md: 4 }}
-        py={2}
-        sx={{ position: "absolute", top: 0, left: 0 }}
-      >
-        <Stack direction="row" alignItems="center" justifyContent="center" onClick={() => navigate(HOME)}>
-          <KeyboardArrowLeftIcon sx={{ fontSize: 16 }} />
-          <Typography
-            variant="caption"
-            sx={{ cursor: "pointer", color: ThemeColor(theme), textDecoration: "none", ml: 0.5 }}
-          >
-            Home
-          </Typography>
-        </Stack>
-        <SimpleThemeToggle />
-      </Stack>
-      <Box sx={{ mt: 1, width: 320, py: 1, px: 2, flexDirection: "column", display: "flex", alignItems: "center" }}>
+      <Navigation />
+      <Box sx={{ my: 20, width: 320, py: 1, px: 2, flexDirection: "column", display: "flex", alignItems: "center" }}>
         <Stack direction="row" alignItems="center" justifyContent="center" mb={2}>
           <img
             src={logo}
@@ -96,7 +77,7 @@ export default function SignIn() {
               <Link
                 onClick={() => setAgreementDialog({ open: true, doc: PRIVACY_POLICY })}
                 underline="hover"
-                sx={{ cursor: "pointer" }}
+                sx={{ cursor: "pointer" ,color: "#d86c70", }}
               >
                 Privacy Policy
               </Link>{" "}
@@ -108,7 +89,7 @@ export default function SignIn() {
             <Link
               onClick={() => setAgreementDialog({ open: true, doc: TERMS_OF_USE })}
               underline="hover"
-              sx={{ cursor: "pointer" }}
+              sx={{ cursor: "pointer", color: "#d86c70", }}
             >
               Terms of Use
             </Link>
@@ -116,6 +97,7 @@ export default function SignIn() {
           </Typography>
         </Stack>
       </Box>
+      <Footer />
       {SnackbarComponent}
       <ThemeProvider
         theme={darktheme === null ? (systemThemeIsDark ? darkTheme : lightTheme) : darktheme ? darkTheme : lightTheme}

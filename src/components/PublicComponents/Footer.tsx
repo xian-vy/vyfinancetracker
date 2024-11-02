@@ -1,9 +1,16 @@
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import MailIcon from '@mui/icons-material/Mail';
+import TwitterIcon from '@mui/icons-material/Twitter';
 import { Dialog, DialogContent, Divider, Stack, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { PRIVACY_POLICY, TERMS_OF_USE, TNCandPrivacyPolicyDialog } from "../../constants/routes";
 import { RootState } from "../../redux/store";
+import SimpleThemeToggle from "./SimpleThemeToggle";
+import logo from "../../media/logo.svg";
+
 const About = React.lazy(() => import("../PublicComponents/About"));
 
 const Footer = () => {
@@ -14,52 +21,119 @@ const Footer = () => {
     open: false,
     doc: null,
   });
-  return (
-    <>
-      <Stack direction="column" maxWidth="md" m="auto" width="100%" p={2}>
-        <Divider sx={{ mt: 1, mx: "auto", width: "100%" }} />
-        <Stack direction="row" justifyContent="center" mt={1}>
+
+  const Privacy = () => {
+    return (
+      <Stack direction="column" alignItems="start" justifyContent="start" gap={1}>
+        <Typography variant="h3" mb={1}>
+          Privacy
+        </Typography>
           <Link
             onClick={() => setAgreementDialog({ open: true, doc: PRIVACY_POLICY })}
             sx={{
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: { xs: "0.7rem", lg: "0.75rem" },
-              color: "#f08b8f",
+              color: darktheme ? "#ccc" : "#000",
               textDecoration: "none",
             }}
           >
             Privacy Policy
           </Link>
-          <Link
-            ml={1.5}
+          <Link     
             onClick={() => setAgreementDialog({ open: true, doc: TERMS_OF_USE })}
             sx={{
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: { xs: "0.7rem", lg: "0.75rem" },
-              color: "#f08b8f",
+              color: darktheme ? "#ccc" : "#000",
               textDecoration: "none",
             }}
           >
             Terms of Use
           </Link>
-          <Link
-            ml={1.5}
+         
+    </Stack>
+    )
+  }
+
+  const Socials = () => {
+    return (
+      <Stack direction="column" alignItems="start" justifyContent="center" gap={1}>
+         <Typography variant="h3" mb={1}>
+          Socials
+        </Typography>
+          <Stack direction="row" gap={1} alignContent="center" justifyContent="center">
+              <FacebookIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#333", cursor: "pointer" }} />
+              <LinkedInIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#333", cursor: "pointer" }} />
+              <TwitterIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#333", cursor: "pointer" }} />
+          </Stack>
+          <Stack direction="row" alignContent="center" gap={1} sx={{height : 30}}>
+                  Theme
+                <SimpleThemeToggle />
+          </Stack>
+      </Stack>
+    )
+  }
+
+  const AppDetails = () => {
+    return (
+      <Stack direction="column" alignItems="start" justifyContent="start" gap={1}>
+        <Stack direction="column" alignItems="start" justifyContent="start" >
+           <Stack direction="row" justifyContent="center" alignItems="center" gap={1} mb={1} >
+                <img
+                  src={logo}
+                  alt="Logo"
+                  style={{
+                    width: "22px",
+                    height: "22px",
+
+                  }}
+                  />
+                <Typography variant="h3" >
+                    Vy Finance Tracker
+                </Typography>
+            </Stack>
+            <Typography variant="body2">
+               Personal Finance Tracker
+            </Typography>
+            <Stack direction="row" gap={0.5} alignItems="center">
+                <MailIcon sx={{ color: darktheme ? "#ccc" : "#333",fontSize:"16px"}} />
+                vyfinanceapp@gmail.com
+            </Stack>
+        </Stack>
+       
+        <Link
             component="div"
             onClick={() => setOpenAbout(true)}
             sx={{
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: { xs: "0.7rem", lg: "0.75rem" },
-              color: "#f08b8f",
+              color: darktheme ? "#ccc" : "#000",
               textDecoration: "none",
             }}
           >
             About
-          </Link>
+        </Link>
+      </Stack>
+    )
+  }
+
+  return (
+    <>
+      <Stack direction="column" width="100%" >
+        <Divider sx={{ mt: 1, mx: "auto", width: "100%" }} />
+        
+        <Stack py={2} px={{xs:3, sm:5}} gap={3} direction={{xs:"column",sm:"row"}} justifyContent="space-between" alignItems="start" width="100%" maxWidth="lg" mx="auto" mt={2}>
+            <AppDetails />
+            <Stack direction={{xs:"column",sm:"row"}} alignItems="start" gap={{xs:3,sm:6}}>
+                <Privacy />
+                <Socials />
+            </Stack>
         </Stack>
-        <Stack direction="row" justifyContent="center" mt={0.5}>
+
+        <Stack direction="row" justifyContent="center" mt={2}>
           <Typography textAlign="center" sx={{ fontSize: { xs: "0.6rem", lg: "0.65rem" } }}>
             {"Copyright © "}
             {"Vy Finance Tracker"} {new Date().getFullYear()}

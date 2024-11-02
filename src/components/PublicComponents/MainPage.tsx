@@ -8,7 +8,6 @@ import Features from "./Features";
 import FeaturesIMG from "./FeaturesIMG";
 import Footer from "./Footer";
 import Header from "./Header";
-import SimpleThemeToggle from "./SimpleThemeToggle";
 
 declare global {
   interface Navigator {
@@ -41,13 +40,7 @@ export default function MainPage() {
   }, [accntDeleted]);
 
   return (
-    <Stack
-      sx={{
-        background: `linear-gradient(to bottom, ${darktheme ? "#0c0c0c" : "#fff"} 50%, transparent 50%)`,
-        height: { xs: 800, sm: 950, lg: 1050 },
-        zIndex: 2,
-      }}
-    >
+
       <Box
         sx={{
           display: "flex",
@@ -71,6 +64,5 @@ export default function MainPage() {
 
         {SnackbarComponent}
       </Box>
-    </Stack>
   );
 }

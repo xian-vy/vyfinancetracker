@@ -15,16 +15,11 @@ const features = [
   { name: "Budget", laptopImg: budgetLight, laptopImgDark: budgetDark },
 ];
 const FeaturesIMG = () => {
-  const [showFullImage, setShowFullImage] = useState({ open: false, img: "" });
   const darktheme = useSelector((state: RootState) => state.theme.darkMode);
   const [currentImage, setCurrentImage] = useState(darktheme ? dashboardDark : dashboardLight);
 
   const handleBreadcrumbClick = (laptopImage: string) => {
     setCurrentImage(laptopImage);
-  };
-
-  const handleImageClick = (image: string) => {
-    setShowFullImage({ open: true, img: image });
   };
 
   useEffect(() => {
@@ -39,7 +34,6 @@ const FeaturesIMG = () => {
               {features.map((feature) => (
                 <Link
                   key={feature.name}
-                  href="#"
                   color="inherit"
                   onClick={() => handleBreadcrumbClick(darktheme ? feature.laptopImgDark : feature.laptopImg)}
                   sx={{
@@ -56,6 +50,7 @@ const FeaturesIMG = () => {
 
                     mx: { xs: 1, md: 1.5 },
                     fontWeight: 500,
+                    cursor: "pointer",
                   }}
                 >
                   {feature.name}
@@ -72,15 +67,15 @@ const FeaturesIMG = () => {
                 borderRadius: 2,
               }}
             >
-              <Stack sx={{ background: darktheme ? "#333" : "#555", p: 0.2, borderRadius: 3 }}>
+              <Stack sx={{ background: darktheme ? "#222" : "#333", p: 0.2, borderRadius: 2 }}>
                 <Stack
                   sx={{
-                    background: darktheme ? "#000" : "#666",
+                    background: darktheme ? "#101010" : "#444",
                     py: { xs: 1.5, lg: 2 },
                     px: { xs: 0.7, lg: 1 },
                     height: { xs: 220, sm: 350, md: 400, lg: 450 },
                     position: "relative",
-                    borderRadius: 3,
+                    borderRadius: 2,
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
@@ -95,7 +90,6 @@ const FeaturesIMG = () => {
                       WebkitTapHighlightColor: "transparent",
                     }}
                     alt="laptop"
-                    onClick={() => handleImageClick(currentImage)}
                   />
                 </Stack>
               </Stack>
@@ -103,58 +97,7 @@ const FeaturesIMG = () => {
           </Stack>
         </Box>
       </Stack>
-      <Dialog
-        open={showFullImage.open}
-        onClose={() => setShowFullImage({ open: false, img: "" })}
-        maxWidth="lg"
-        PaperProps={{ sx: { borderRadius: 3, m: 1, background: darktheme ? "#333" : "#666" } }}
-      >
-        <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          sx={{
-            mx: "auto",
-            borderRadius: 2,
-          }}
-        >
-          <Stack sx={{ background: darktheme ? "#333" : "#555", p: 0.2, borderRadius: 3 }}>
-            <Stack
-              sx={{
-                background: darktheme ? "#000" : "#666",
-                py: { xs: 2, lg: 3 },
-                px: { xs: 0.7, lg: 1 },
-                maxHeight: { xs: 400, sm: 700, md: 800, lg: 800 },
-                position: "relative",
-                borderRadius: 3,
-              }}
-            >
-              <img
-                src={showFullImage.img}
-                loading="lazy"
-                alt={`Vy Finance Tracker ${showFullImage.img}`}
-                onClick={(e) => e.stopPropagation()}
-                style={{ width: "100%", height: "100%" }}
-              />
-
-              <CloseIcon
-                sx={{
-                  color: darktheme ? "#333" : "#fff",
-                  fontSize: { xs: 20, md: 24, lg: 30 },
-                  position: "absolute",
-                  top: { xs: 10, md: 15, lg: 20 },
-                  right: { xs: 10, md: 15, lg: 20 },
-                  cursor: "pointer",
-                  background: darktheme ? "#ccc" : "#555",
-                  borderRadius: "50%",
-                  p: 0.5,
-                }}
-                onClick={() => setShowFullImage({ open: false, img: "" })}
-              />
-            </Stack>
-          </Stack>
-        </Stack>
-      </Dialog>
+   
     </>
   );
 };

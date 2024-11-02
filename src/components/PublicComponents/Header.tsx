@@ -1,13 +1,13 @@
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { Box, Button, Container, Dialog, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { SIGN_IN_PATH } from "../../constants/routes";
 import useSnackbarHook from "../../hooks/snackbarHook";
-import { RootState } from "../../redux/store";
-import SimpleThemeToggle from "./SimpleThemeToggle";
 import logo from "../../media/logo.svg";
+import { RootState } from "../../redux/store";
+import Navigation from "./Navigation";
 
 interface ChoiceResult {
   outcome: "accepted" | "dismissed";
@@ -74,55 +74,77 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
   return (
     <>
       <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" width="100%">
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          sx={{ width: "100%", px: { xs: 2, md: 4 } }}
-        >
-          <Stack direction="row" alignItems="center">
-            <img src={logo} alt="Logo" style={{ width: "20px", height: "20px", cursor: "pointer", padding: 0 }} />
-            <Typography
-              component="h1"
-              align="center"
-              sx={{
-                fontSize: { xs: "0.8rem", md: "0.8rem" },
-                lineHeight: { xs: "2rem", md: "2rem" },
-                fontWeight: 400,
-                color: darktheme ? "#ccc" : "#000",
-                ml: 1,
+       
+        <Navigation />
+     
+        <Container disableGutters maxWidth="md" component="main" sx={{ pb: 0.5, px: 4, my: 2 }}>
+
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+            my={{ xs: 2, sm: 3, md: 4 }}
+            gap={1}
+          >
+            <img
+              src={logo}
+              alt="Logo"
+              style={{
+                width: "16px",
+                height: "16px",
+
               }}
-            >
-              Finance Tracker
-            </Typography>
+              />
+           <Typography
+           variant="body2"
+            component="h1"
+            align="center"
+            sx={{
+              color: darktheme ? "#ccc" : "#333",
+              fontWeight:600
+            }}
+          >
+            VY FINANCE TRACKER
+          </Typography>
           </Stack>
-          <SimpleThemeToggle />
-        </Stack>
-        <Container disableGutters maxWidth="sm" component="main" sx={{ pb: 0.5, px: 4, my: 2 }}>
           <Typography
             component="h2"
             align="center"
             sx={{
-              fontSize: { xs: "1.4rem", sm: "1.8rem", md: "2rem" },
-              lineHeight: { xs: "1.8rem", sm: "2rem", md: "2.5rem" },
+              fontSize: { xs: "1.4rem", sm: "1.8rem", md: "2.5rem", xl: "3rem" },
+              lineHeight: { xs: "1.5rem", sm: "2rem", md: "2.8rem", xl: "3.2rem"  },
               fontWeight: 600,
               color: darktheme ? "#ccc" : "#333",
               my: 1,
             }}
           >
-            Expense, Budget, Income and Savings Tracker
+            Manage finances   in one app,
           </Typography>
           <Typography
-            component="h1"
+            component="h2"
+            align="center"
+            sx={{
+              fontSize: { xs: "1.4rem", sm: "1.8rem", md: "2.5rem", xl: "3rem" },
+              lineHeight: { xs: "1.5rem", sm: "2rem", md: "2.8rem", xl: "3.2rem"  },
+              fontWeight: 600,
+              color: darktheme ? "#ccc" : "#333",
+              my: 1,
+            }}
+          >
+          for all devices.
+          </Typography>
+          <Typography
+            component="h3"
             align="center"
             sx={{
               fontSize: { xs: "0.8rem", sm: "1rem" },
               fontWeight: 400,
-              color: darktheme ? "#999" : "#333",
+              color: darktheme ? "#bbb" : "#333",
               ml: 1,
             }}
           >
-            Manage finances in one app, for all devices.
+                Available offline and one the web.
           </Typography>
         </Container>
 
@@ -134,7 +156,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               size="medium"
               sx={{
                 textTransform: "capitalize",
-                width: { xs: 160, md: 180 },
+                width: { xs: 145, md: 160 },
                 fontSize: { xs: "0.75rem", lg: "0.8rem" },
                 border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
                 py: 0.7,
@@ -155,7 +177,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               size="medium"
               sx={{
                 display: "flex",
-                width: { xs: 160, md: 180 },
+                width: { xs: 145, md: 160 },
                 alignItems: "center",
                 py: 0.7,
                 textTransform: "capitalize",
