@@ -28,7 +28,7 @@ export default function SignIn() {
   return (
     <div
       style={{
-        height: "100vh",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -38,7 +38,7 @@ export default function SignIn() {
       }}
     >
       <Navigation />
-      <Box sx={{ my: 20, width: 320, py: 1, px: 2, flexDirection: "column", display: "flex", alignItems: "center" }}>
+      <Box sx={{ my: 20,minHeight: {xs:"50vh", sm:"auto"}, width: 320, py: 1, px: 2, flexDirection: "column", display: "flex", justifyContent: "center", alignItems: "center" }}>
         <Stack direction="row" alignItems="center" justifyContent="center" mb={2}>
           <img
             src={logo}
