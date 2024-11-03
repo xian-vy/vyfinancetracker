@@ -42,28 +42,28 @@ root.render(
 
 reportWebVitals();
 
-// if ("serviceWorker" in navigator) {
-//   window.addEventListener("load", () => {
-//     navigator.serviceWorker.register("/sw.js").then((registration) => {
-//       // Listen for updates
-//       if ("BroadcastChannel" in window) {
-//         const updateChannel = new BroadcastChannel("workbox");
-//         updateChannel.addEventListener("message", (event) => {
-//           if (event.data.type === "CACHE_UPDATED") {
-//             const { updatedURL } = event.data.payload;
-//             console.log(`A newer version of ${updatedURL} is available!`);
-//             // Show a notification to the user
-//             displayUpdateNotification();
-//           }
-//         });
-//       }
-//     });
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").then((registration) => {
+      // Listen for updates
+      if ("BroadcastChannel" in window) {
+        const updateChannel = new BroadcastChannel("workbox");
+        updateChannel.addEventListener("message", (event) => {
+          if (event.data.type === "CACHE_UPDATED") {
+            const { updatedURL } = event.data.payload;
+            console.log(`A newer version of ${updatedURL} is available!`);
+            // Show a notification to the user
+            displayUpdateNotification();
+          }
+        });
+      }
+    });
 
-//     let refreshing = false;
-//     navigator.serviceWorker.addEventListener("controllerchange", () => {
-//       if (refreshing) return;
-//       refreshing = true;
-//       displayUpdateNotification();
-//     });
-//   });
-// }
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (refreshing) return;
+      refreshing = true;
+      displayUpdateNotification();
+    });
+  });
+}

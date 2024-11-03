@@ -2,6 +2,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getTimeframetoLocalStorage } from "../../localstorage/timeframesettings";
 import { FilterTimeframe } from "../../constants/timeframes";
+import { COMPONENTS_WITH_TIMEFRAME } from "../../constants/constants";
 
 interface TimeframeState {
   value: FilterTimeframe;
@@ -16,6 +17,12 @@ export const timeframeSlice = createSlice({
   initialState,
   reducers: {
     setTimeframe: (state, action: PayloadAction<FilterTimeframe>) => {
+      //reset all components default time frame
+        if (state.value !== action.payload) {
+          for (const componentsTimeframe of Object.values(COMPONENTS_WITH_TIMEFRAME)) {
+            localStorage.setItem(componentsTimeframe + "_defaultTimeframe",action.payload );
+          }
+        }
       state.value = action.payload;
     },
   },

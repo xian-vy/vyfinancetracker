@@ -12,6 +12,7 @@ import CustomYearFilter from "../../Filter/CustomYearFilter";
 import FilterBudgetExpenseTrend from "../../Filter/FilterBudgetExpenseTrend";
 import TrendByCategoryChart from "../TrendByCategoryChart";
 import { FilterAndGroupData } from "../../../helper/GenericTransactionHelper";
+import { COMPONENTS_WITH_TIMEFRAME } from "../../../constants/constants";
 
 interface Props {
   title: string;
@@ -38,7 +39,7 @@ const ExpensebyCategoryTrend: React.FC<Props> = ({ title, onDateFilterChange, on
     handleCloseForm,
     handleYearFilter,
     handleMonthFilter,
-  } = useFilterHandlers();
+  } = useFilterHandlers(COMPONENTS_WITH_TIMEFRAME.EXPENSES);
 
   useEffect(() => {
     onDateFilterChange(filterOption, startDate || undefined, endDate || undefined);

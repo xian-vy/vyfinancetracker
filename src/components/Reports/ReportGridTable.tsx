@@ -27,6 +27,7 @@ import { useFilterHandlers } from "../../hooks/filterHook";
 import { RootState } from "../../redux/store";
 import FilterActionsComponent from "../Filter/FilterActionsComponent";
 import FilterReports from "../Filter/FilterReports";
+import { COMPONENTS_WITH_TIMEFRAME } from "../../constants/constants";
 
 interface filteredData {
   date: string;
@@ -47,7 +48,7 @@ const ReportGridTable = () => {
     handleCloseForm,
     handleYearFilter,
     handleMonthFilter,
-  } = useFilterHandlers();
+  } = useFilterHandlers(COMPONENTS_WITH_TIMEFRAME.REPORTS);
   const [type, setType] = useState(txn_types.Expenses);
 
   const handleTypeChange = (type: txn_types) => {

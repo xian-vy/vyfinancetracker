@@ -35,7 +35,7 @@ export default function Navigation() {
   return (
     <Box sx={{ display: 'flex', }}>
       <CssBaseline />
-      <AppBar variant='outlined' component="nav" sx={{ bgcolor: darktheme ? "#121212" : "#fff", borderLeft:"none", borderRight:"none"}}>
+      <AppBar elevation={0} variant='outlined' component="nav" sx={{ bgcolor: darktheme ? "#121212" : "#fff", borderLeft:"none", borderRight:"none"}}>
       <Toolbar>
       <Container maxWidth="lg" sx={{display:"flex", justifyContent:"space-between", alignItems:"center",px:0}}>      
               <Typography

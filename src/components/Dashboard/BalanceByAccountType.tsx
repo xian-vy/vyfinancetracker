@@ -3,25 +3,24 @@ import {
   Box,
   CircularProgress,
   Container,
-  Dialog,
-  DialogContent,
   IconButton,
   Paper,
   Stack,
   Typography,
-  useTheme,
+  useTheme
 } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { PERCENTAGE_DECREASE } from "../../constants/componentTheme";
+import { COMPONENTS_WITH_TIMEFRAME } from "../../constants/constants";
+import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { filterDataByDateRange } from "../../helper/GenericTransactionHelper";
 import { formatNumberWithoutCurrency, getFilterTitle } from "../../helper/utils";
 import { generateAccountsBalancesWorker } from "../../helper/workers/workerHelper";
-import AccountsIcons from "../../media/AccountsIcons";
-import { PERCENTAGE_DECREASE } from "../../constants/componentTheme";
-import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { useFilterHandlers } from "../../hooks/filterHook";
+import AccountsIcons from "../../media/AccountsIcons";
 import { RootState } from "../../redux/store";
 import FilterActionsComponent from "../Filter/FilterActionsComponent";
 import BalanceByAccountTypeDialog from "./BalanceByAccountTypeDialog";
@@ -68,7 +67,7 @@ const BalanceByAccountType = () => {
     handleCloseForm,
     handleYearFilter,
     handleMonthFilter,
-  } = useFilterHandlers();
+  } = useFilterHandlers(COMPONENTS_WITH_TIMEFRAME.DASHBOARD_ACCOUNT_BALANCES);
 
   function renderIcon(icon: React.ReactElement, color: string) {
     return React.cloneElement(icon, { style: { color: color, fontSize: "18px" } });

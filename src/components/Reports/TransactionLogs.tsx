@@ -9,6 +9,7 @@ import { RootState } from "../../redux/store";
 import FilterActionsComponent from "../Filter/FilterActionsComponent";
 import FilterTransactionLogs from "../Filter/FilterTransactionLogs";
 import TransactionLogsListVirtualized from "./TransactionLogsListVirtualized";
+import { COMPONENTS_WITH_TIMEFRAME } from "../../constants/constants";
 
 export const TransactionLogs = () => {
   const {
@@ -24,7 +25,7 @@ export const TransactionLogs = () => {
     handleCloseForm,
     handleYearFilter,
     handleMonthFilter,
-  } = useFilterHandlers();
+  } = useFilterHandlers(COMPONENTS_WITH_TIMEFRAME.TRANSACTION_LOGS);
 
   const [type, setType] = useState("All");
 

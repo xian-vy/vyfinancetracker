@@ -5,6 +5,7 @@ import { useFilterHandlers } from "../../hooks/filterHook";
 import AllTransactionsTrendChart from "../Charts/AllTransactionsTrendChart";
 import FilterActionsComponent from "../Filter/FilterActionsComponent";
 import FilterTitleAndIcon from "../Filter/FilterTitleAndIcon";
+import { COMPONENTS_WITH_TIMEFRAME } from "../../constants/constants";
 
 const AllTransactionsTrendChartContainer = () => {
   const {
@@ -21,7 +22,7 @@ const AllTransactionsTrendChartContainer = () => {
     handleFilterClose,
     handleMonthFilter,
     handleFilterClick,
-  } = useFilterHandlers();
+  } = useFilterHandlers(COMPONENTS_WITH_TIMEFRAME.DASHBOARD_TRENDS);
   const formattedFilterOption = getFilterTitle(filterOption, startDate, endDate);
 
   return (

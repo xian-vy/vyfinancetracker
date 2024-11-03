@@ -11,6 +11,7 @@ import CustomMonthFilter from "../../Filter/CustomMonthFilter";
 import CustomYearFilter from "../../Filter/CustomYearFilter";
 import FilterIncomeSavingsTrend from "../../Filter/FilterIncomeSavingsTrend";
 import TrendByCategoryChart from "../TrendByCategoryChart";
+import { COMPONENTS_WITH_TIMEFRAME } from "../../../constants/constants";
 
 interface ExpenseTrendProps {
   incomes: IncomeModel[];
@@ -28,7 +29,7 @@ const IncomebyCategoryTrend: React.FC<ExpenseTrendProps> = ({ incomes, onDateFil
     handleCloseForm,
     handleYearFilter,
     handleMonthFilter,
-  } = useFilterHandlers();
+  } = useFilterHandlers(COMPONENTS_WITH_TIMEFRAME.INCOME);
 
   useEffect(() => {
     onDateFilterChange(filterOption, startDate || undefined, endDate || undefined);

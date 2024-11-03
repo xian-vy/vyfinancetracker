@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { COMPONENTS_WITH_TIMEFRAME } from "../constants/constants";
 import { FilterTimeframe } from "../constants/timeframes";
-import { RootState } from "../redux/store";
+import { useTimeframePerComponent } from "./timeframePerComponentHook";
 
-export const useFilterHandlers = () => {
-  const defaultTimeframe = useSelector((state: RootState) => state.timeframe.value);
+export const useFilterHandlers = (component? : COMPONENTS_WITH_TIMEFRAME) => {
+  const defaultTimeframe = useTimeframePerComponent({  component })
+  
   const [filterOption, setFilterOption] = useState<FilterTimeframe>(defaultTimeframe);
 
   useEffect(() => {
@@ -24,6 +25,10 @@ export const useFilterHandlers = () => {
     } else if (option === FilterTimeframe.CustomMonth) {
       setcustomMonthOpen(true);
     } else {
+      //set default timeframe for components with filter timeframe
+      if (component) {
+        localStorage.setItem(component + "_defaultTimeframe", option);
+      }
       setFilterOption(option as FilterTimeframe);
     }
     handleFilterClose();

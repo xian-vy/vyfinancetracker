@@ -11,6 +11,7 @@ import CustomMonthFilter from "../../Filter/CustomMonthFilter";
 import CustomYearFilter from "../../Filter/CustomYearFilter";
 import FilterIncomeSavingsTrend from "../../Filter/FilterIncomeSavingsTrend";
 import TrendByCategoryChart from "../TrendByCategoryChart";
+import { COMPONENTS_WITH_TIMEFRAME } from "../../../constants/constants";
 
 const SavingsTrend = () => {
   const {
@@ -23,7 +24,7 @@ const SavingsTrend = () => {
     handleCloseForm,
     handleYearFilter,
     handleMonthFilter,
-  } = useFilterHandlers();
+  } = useFilterHandlers(COMPONENTS_WITH_TIMEFRAME.SAVINGS);
 
   const savings = useSelector((state: RootState) => state.savings.savings);
   const savingsContributions = useSelector((state: RootState) => state.savingsContribution.contribution);

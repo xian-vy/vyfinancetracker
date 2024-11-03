@@ -24,6 +24,7 @@ import GenericDialog from "../Dialog/GenericDialog";
 import FilterActionsComponent from "../Filter/FilterActionsComponent";
 import FilterTitleAndIcon from "../Filter/FilterTitleAndIcon";
 import TransactionOverviewItems from "./TransactionOverviewItems";
+import { COMPONENTS_WITH_TIMEFRAME } from "../../constants/constants";
 
 type sumByTransaction = {
   sum: number;
@@ -55,7 +56,7 @@ const TransactionOverview = () => {
     handleCloseForm,
     handleYearFilter,
     handleMonthFilter,
-  } = useFilterHandlers();
+  } = useFilterHandlers(COMPONENTS_WITH_TIMEFRAME.DASHBOARD_OVERVIEW);
 
   const budgetStore = useSelector((state: RootState) => state.budget.budgets);
   const incomeStore = useSelector((state: RootState) => state.income.income);

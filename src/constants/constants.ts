@@ -23,3 +23,15 @@ export enum ACTION_TYPES {
   Edit = "Edit",
   Delete = "Delete",
 }
+
+export enum COMPONENTS_WITH_TIMEFRAME {
+  DASHBOARD_OVERVIEW = "Overview",
+  DASHBOARD_ACCOUNT_BALANCES = "Balances",
+  DASHBOARD_TRENDS= "Trends",
+  EXPENSES = "Expenses",
+  BUDGETS = "Budgets",
+  INCOME = "Income",
+  SAVINGS = "Savings",
+  REPORTS = "Reports",
+  TRANSACTION_LOGS = "Transaction Logs",
+}
