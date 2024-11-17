@@ -110,28 +110,30 @@ const TransactionOverviewItems = (props: Props) => {
 
         <Stack direction="row" alignItems="center">
           {/* PERCENTAGE ICON  ----------------------------------------------------------------------*/}
-
-          <Stack direction="column">
-            { transactionSummary.currentSUM  !== null ? (
-                <Typography
-                textAlign="left"
-                variant="h4"
-                sx={{
-                  color: transactionSummary.currentSUM < 0 ? PERCENTAGE_DECREASE : "inherit",
-                }}
-              >
-                {/* AMOUNT  ---------------------------------------------------------------------------*/}
-                {isMasked 
-                  ? "****"
-                  : formatNumberWithoutCurrency(transactionSummary.currentSUM)}
-              </Typography>
-            ):(
-                <Skeleton animation="wave" variant="text" width={50} />
-            )}
-            
-           
-          </Stack>
-          { transactionSummary.percentageIcon}
+          { transactionSummary.currentSUM  !== null ? (
+            <>
+              <Stack direction="column">      
+                  <Typography
+                    textAlign="left"
+                    variant="h4"
+                    sx={{
+                      color: transactionSummary.currentSUM < 0 ? PERCENTAGE_DECREASE : "inherit",
+                    }}
+                  >
+                    {/* AMOUNT  ---------------------------------------------------------------------------*/}
+                    {isMasked 
+                      ? "****"
+                      : formatNumberWithoutCurrency(transactionSummary.currentSUM)}
+                  </Typography>           
+               </Stack>
+               {transactionSummary.percentageIcon}
+             </>
+                    ):(
+                      <Stack direction="row" alignItems="center" gap={1}>
+                        <Skeleton animation="wave" variant="text" width={50} />
+                        <Skeleton animation="wave" variant="text" width={10} />
+                      </Stack>
+                  )}          
         </Stack>
       </Stack>
 
