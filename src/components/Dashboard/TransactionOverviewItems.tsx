@@ -1,45 +1,76 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { Avatar, Box, CircularProgress, IconButton, Stack } from "@mui/material";
+import { Avatar, IconButton, Skeleton, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import React from "react";
-import { formatNumberWithoutCurrency } from "../../helper/utils";
-import { AVATAR_SIZE_SM, iconSizeXS } from "../../constants/size";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { txn_summary } from "../../constants/collections";
 import { PERCENTAGE_DECREASE } from "../../constants/componentTheme";
+import { AVATAR_SIZE_SM, iconSizeXS } from "../../constants/size";
 import { FilterTimeframe } from "../../constants/timeframes";
-import TransactionOverviewDialog from "./TransactionOverviewDialog";
-import { useSelector } from "react-redux";
+import { formatNumberWithoutCurrency } from "../../helper/utils";
 import { RootState } from "../../redux/store";
+import TransactionOverviewDialog from "./TransactionOverviewDialog";
+import { calculateCurrentSum, calculatePercentageIncrease, calculatePrevSum, determinePercentageColor, determinePercentageIcon, determinePercentageStr } from "./TransactionOverviewHelper";
 
-type sumByTransaction = {
-  sum: number;
-  prevSum: number;
-  prevDate: string;
-};
-interface Props {
+type TransactionSummaryType = {
+  currentSUM: number | null; 
+  prevSUM: number | null;
+  percentage: string | null;
+  percentageIcon: React.JSX.Element | null
+  percentagecolor : string | null
+} 
+type TransactionDataType = {
+  isDarkMode: boolean;
   color: string;
   icon: React.JSX.Element;
   type: txn_summary;
-  isDarkMode: boolean;
-  dataLoadStatus: Record<txn_summary, sumByTransaction | null>;
-  percentageIcon: React.JSX.Element;
-  currentSUM: number;
-  prevSUM: number;
-  percentagecolor: string;
-  filterOption: FilterTimeframe;
   prevDate: string;
-  percentageSTR: string;
+  filterOption: FilterTimeframe;
   filterTitle: string;
-  networth: { expenseSum?: number; incomeSum?: number; contributionSum?: number };
   startDate: Date | null;
   endDate: Date | null;
+};
+type SumAmountType = {
+  expenseSum: number; incomeSum: number; contributionSum: number; budgetSum: number
+  expensePrevSum: number; incomePrevSum: number; contributionPrevSum: number; budgetPrevSum: number
+}
+interface Props {
+  data: TransactionDataType;
+  sumAmounts : SumAmountType; 
+  networth: { expenseSum?: number; incomeSum?: number; contributionSum?: number };
   openInfoDialog: () => void;
-  loading: boolean;
 }
 
 const TransactionOverviewItems = (props: Props) => {
   const isMasked = useSelector((state: RootState) => state.userAccount.hideBalances);
+
+  const [transactionSummary, setTransactionSummary] = React.useState<TransactionSummaryType>({
+    currentSUM: null,
+    prevSUM : null,
+    percentage: null,
+    percentageIcon : null,
+    percentagecolor : null
+  });
+
+  useEffect(() => {
+    if (props.data.prevDate) {
+      const currentSUM = calculateCurrentSum(props.data.type, props.sumAmounts.incomeSum, props.sumAmounts.expenseSum, props.sumAmounts.contributionSum, props.sumAmounts.budgetSum);
+      const prevSUM = calculatePrevSum(props.data.type, props.sumAmounts.incomePrevSum, props.sumAmounts.expensePrevSum, props.sumAmounts.contributionPrevSum, props.sumAmounts.budgetPrevSum);
+      const percentageIncrease = calculatePercentageIncrease(currentSUM, prevSUM);
+      const percentagecolor = determinePercentageColor(percentageIncrease);
+      const percentageSTR = determinePercentageStr(percentageIncrease, currentSUM, prevSUM);
+      const percentageIcon = determinePercentageIcon(percentageIncrease, currentSUM, prevSUM);
+  
+      setTransactionSummary({
+        currentSUM,
+        prevSUM,
+        percentage: percentageSTR,
+        percentageIcon,
+        percentagecolor
+      });
+    }
+  }, [props]);
 
   const [expandedStates, setExpandedStates] = React.useState<Record<string, boolean>>({});
   const handleExpandClick = (accountType: string) => {
@@ -56,13 +87,13 @@ const TransactionOverviewItems = (props: Props) => {
           {/* Avatar/ICON --------------------------------------------------------------------------- */}
 
           <Stack direction="row" alignItems="center">
-            <Avatar sx={{ bgcolor: props.color }} style={AVATAR_SIZE_SM}>
-              {props.icon}
+            <Avatar sx={{ bgcolor: props.data.color }} style={AVATAR_SIZE_SM}>
+              {props.data.icon}
             </Avatar>
             <Typography variant="body1" ml={0.5}>
-              {props.type}
+              {props.data.type}
             </Typography>
-            {props.type === txn_summary.Balance && (
+            {props.data.type === txn_summary.Balance && (
               <InfoOutlinedIcon
                 onClick={props.openInfoDialog}
                 sx={{
@@ -70,7 +101,7 @@ const TransactionOverviewItems = (props: Props) => {
                   fontSize: iconSizeXS,
                   cursor: "pointer",
                   WebkitTapHighlightColor: "transparent",
-                  color: props.isDarkMode ? "#ccc" : "#666",
+                  color: props.data.isDarkMode ? "#ccc" : "#666",
                 }}
               />
             )}
@@ -81,63 +112,67 @@ const TransactionOverviewItems = (props: Props) => {
           {/* PERCENTAGE ICON  ----------------------------------------------------------------------*/}
 
           <Stack direction="column">
-            {/* Show loading if budget not ready since its calculated using web worker ----------*/}
-            {!props.dataLoadStatus[props.type] || props.loading ? (
-              <Box display="flex" justifyContent="center" alignItems="center">
-                <CircularProgress size={20} />
-              </Box>
-            ) : (
-              <Typography
+            { transactionSummary.currentSUM  !== null ? (
+                <Typography
                 textAlign="left"
                 variant="h4"
                 sx={{
-                  color: props.currentSUM < 0 ? PERCENTAGE_DECREASE : "inherit",
+                  color: transactionSummary.currentSUM < 0 ? PERCENTAGE_DECREASE : "inherit",
                 }}
               >
                 {/* AMOUNT  ---------------------------------------------------------------------------*/}
-
-                {isMasked && (props.type === txn_summary.Balance || props.type === txn_summary.Income)
+                {isMasked 
                   ? "****"
-                  : formatNumberWithoutCurrency(props.currentSUM)}
+                  : formatNumberWithoutCurrency(transactionSummary.currentSUM)}
               </Typography>
+            ):(
+                <Skeleton animation="wave" variant="text" width={50} />
             )}
+            
+           
           </Stack>
-          {(!props.dataLoadStatus[props.type] || !props.loading) && props.percentageIcon}
+          { transactionSummary.percentageIcon}
         </Stack>
       </Stack>
 
       {/* PERCENTAGE INCREASE/DECREASE  ---------------------------------------------------------------*/}
 
       <Stack direction="row" justifyContent="space-between" alignItems="center" mt={{ xs: 1, md: 2, lg: 3 }}>
+      { transactionSummary.percentage  !== null ? (
         <Typography
           variant="caption"
           sx={{
-            color: props.filterOption === FilterTimeframe.AllTime ? "transparent" : "inherit",
+            color: props.data.filterOption === FilterTimeframe.AllTime ? "transparent" : "inherit",
             ml: 1,
           }}
         >
-          {props.filterOption !== FilterTimeframe.AllTime && props.prevDate ? (
+          {props.data.filterOption !== FilterTimeframe.AllTime && props.data.prevDate ? (
             <>
-              <span style={{ color: props.percentagecolor }}>{props.percentageSTR}</span>
-              {` from ${props.prevDate} `}
-              {props.prevSUM === 0 || props.prevDate === ""
+              <span style={{ color: transactionSummary.percentagecolor  || ""}}>{transactionSummary.percentage || ""}</span>
+              {` from ${props.data.prevDate} `}
+              {transactionSummary.prevSUM === 0 || props.data.prevDate === ""
                 ? ""
                 : `(${
-                    isMasked && (props.type === txn_summary.Balance || props.type === txn_summary.Income)
+                    isMasked && (props.data.type === txn_summary.Balance || props.data.type === txn_summary.Income)
                       ? "****"
-                      : formatNumberWithoutCurrency(props.prevSUM)
+                      : formatNumberWithoutCurrency(transactionSummary.prevSUM || 0)
                   })`}
             </>
           ) : (
             ""
           )}
         </Typography>
+
+      ):(
+        <Skeleton animation="wave" variant="text" width={100} />
+      )}
+
         {/* Expand More Icon -----------------------------------------------------------------------*/}
 
         <IconButton
-          onClick={() => handleExpandClick(props.type)}
+          onClick={() => handleExpandClick(props.data.type)}
           sx={{
-            transform: expandedStates[props.type] ? "rotate(180deg)" : "none",
+            transform: expandedStates[props.data.type] ? "rotate(180deg)" : "none",
             transition: "transform 0.3s",
             mr: -1.6,
           }}
@@ -147,16 +182,16 @@ const TransactionOverviewItems = (props: Props) => {
       </Stack>
 
       <TransactionOverviewDialog
-        filterOption={props.filterOption}
-        filterTitle={props.filterTitle}
-        startDate={props.startDate}
-        endDate={props.endDate}
-        totalAmount={props.currentSUM}
-        txnType={props.type}
-        openDialog={expandedStates[props.type] || false}
-        onDialogClose={() => handleExpandClick(props.type)}
+        filterOption={props.data.filterOption}
+        filterTitle={props.data.filterTitle}
+        startDate={props.data.startDate}
+        endDate={props.data.endDate}
+        totalAmount={transactionSummary.currentSUM || 0}
+        txnType={props.data.type}
+        openDialog={expandedStates[props.data.type] || false}
+        onDialogClose={() => handleExpandClick(props.data.type)}
         networth={props.networth}
-        isDarkMode={props.isDarkMode}
+        isDarkMode={props.data.isDarkMode}
       />
     </div>
   );

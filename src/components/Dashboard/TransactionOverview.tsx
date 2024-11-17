@@ -1,30 +1,24 @@
-import { Box, Container, Paper, useTheme } from "@mui/material";
+import { Box, CircularProgress, Container, Paper, useTheme } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { distributeBudgetAmounts } from "../../helper/BudgetHelper";
-import {
-  calculateCurrentSum,
-  calculatePercentageIncrease,
-  calculatePrevSum,
-  determinePercentageColor,
-  determinePercentageIcon,
-  determinePercentageStr,
-  swiperBreakpointsConfig,
-  typeIconColor,
-} from "./TransactionOverviewHelper";
-import { getFilterTitle } from "../../helper/utils";
 import { txn_summary } from "../../constants/collections";
+import { COMPONENTS_WITH_TIMEFRAME } from "../../constants/constants";
+import { distributeBudgetAmounts } from "../../helper/BudgetHelper";
+import { getFilterTitle } from "../../helper/utils";
 import { useFilterHandlers } from "../../hooks/filterHook";
 import { useSumDataByTimeframe } from "../../hooks/sumDataByTimeframeHook";
 import { RootState } from "../../redux/store";
 import GenericDialog from "../Dialog/GenericDialog";
 import FilterActionsComponent from "../Filter/FilterActionsComponent";
 import FilterTitleAndIcon from "../Filter/FilterTitleAndIcon";
+import {
+  swiperBreakpointsConfig,
+  typeIconColor
+} from "./TransactionOverviewHelper";
 import TransactionOverviewItems from "./TransactionOverviewItems";
-import { COMPONENTS_WITH_TIMEFRAME } from "../../constants/constants";
 
 type sumByTransaction = {
   sum: number;
@@ -67,7 +61,6 @@ const TransactionOverview = () => {
   const [income, setIncome] = useState<sumByTransaction | null>(null);
   const [savings, setSavings] = useState<sumByTransaction | null>(null);
   const [expenses, setExpenses] = useState<sumByTransaction | null>(null);
-  const [loading, setLoading] = useState(false);
   const [openInfoDialog, setOpenInfoDialog] = React.useState(false);
 
   const { budgetItems } = distributeBudgetAmounts(
@@ -131,25 +124,26 @@ const TransactionOverview = () => {
     [expenseStore, filterOption, startDate, endDate]
   );
 
-  const dataLoadStatus: Record<txn_summary, sumByTransaction | null> = {
-    [txn_summary.Balance]: expenses && income && savings,
-    [txn_summary.Expenses]: expenses,
-    [txn_summary.Budget]: budget,
-    [txn_summary.Income]: income,
-    [txn_summary.Savings]: savings,
-  };
+  const isLoading = !budget || !income || !expenses || !savings;
 
-  //add loading every filter change after initial load
-  useEffect(() => {
-    if (dataLoadStatus) {
-      setLoading(true);
-
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    }
-  }, [filterOption]);
   const filterTitle = getFilterTitle(filterOption, startDate, endDate);
+
+  if (isLoading) {
+    return (
+      <>
+      <Container maxWidth={false} sx={{ p: 1 }}>
+        <FilterTitleAndIcon timeframe={filterTitle} title="Overview" onfilterClick={handleFilterClick} />
+      </Container>
+      <Box sx={{ display: 'flex', gap: 1 }}>
+        {Object.values(txn_summary).map((type) => (
+          <Paper key={type} sx={{ ...paperStyle,height:"120px", width:"300px",display:"flex",alignItems:"center",justifyContent:"center" }} variant={isDarkMode ? "elevation" : "outlined"}>
+            <CircularProgress size={15} />
+          </Paper>
+        ))}
+      </Box>
+      </>
+    );
+  }
   return (
     <>
       <Container maxWidth={false} sx={{ p: 1 }}>
@@ -159,49 +153,48 @@ const TransactionOverview = () => {
         <Swiper slidesPerGroup={1} spaceBetween={10} breakpoints={swiperBreakpointsConfig}>
           {Object.values(txn_summary).map((type, index) => {
             const { icon, color } = typeIconColor(type, theme, isDarkMode);
-            const incomeSum = income?.sum ?? 0;
-            const incomePrevSum = income?.prevSum ?? 0;
-            const expenseSum = expenses?.sum ?? 0;
-            const expensePrevSum = expenses?.prevSum ?? 0;
-            const budgetSum = budget?.sum ?? 0;
-            const budgetPrevSum = budget?.prevSum ?? 0;
-            const contributionSum = savings?.sum ?? 0;
-            const contributionPrevSum = savings?.prevSum ?? 0;
-            const prevDate = expenses?.prevDate ?? income?.prevDate ?? savings?.prevDate ?? "";
+            const incomeSum = income.sum;
+            const incomePrevSum = income.prevSum ;
+            const expenseSum = expenses.sum ;
+            const expensePrevSum = expenses.prevSum ;
+            const budgetSum = budget.sum ;
+            const budgetPrevSum = budget.prevSum ;
+            const contributionSum = savings.sum ;
+            const contributionPrevSum = savings.prevSum ;
+            const prevDate = expenses.prevDate ;
 
-            const currentSUM = calculateCurrentSum(type, incomeSum, expenseSum, contributionSum, budgetSum);
-            const prevSUM = calculatePrevSum(type, incomePrevSum, expensePrevSum, contributionPrevSum, budgetPrevSum);
-            const previousDate = prevDate;
-            const percentageIncrease = calculatePercentageIncrease(currentSUM, prevSUM);
-            const percentagecolor = determinePercentageColor(percentageIncrease);
-            const percentageSTR = determinePercentageStr(percentageIncrease, currentSUM, prevSUM);
-            const percentageIcon = determinePercentageIcon(percentageIncrease, currentSUM, prevSUM);
+        
             return (
               <SwiperSlide key={index}>
                 <Paper sx={paperStyle} variant={isDarkMode ? "elevation" : "outlined"}>
                   <TransactionOverviewItems
-                    color={color}
-                    icon={icon}
-                    type={type}
-                    isDarkMode={isDarkMode}
-                    dataLoadStatus={dataLoadStatus}
-                    percentageIcon={percentageIcon}
-                    currentSUM={currentSUM}
-                    prevSUM={prevSUM}
-                    percentagecolor={percentagecolor}
-                    filterOption={filterOption}
-                    prevDate={previousDate}
-                    percentageSTR={percentageSTR}
-                    filterTitle={filterTitle}
+                    data={{ 
+                      isDarkMode,
+                      color,
+                      icon,
+                      type, 
+                      prevDate ,
+                      filterOption,
+                      filterTitle ,
+                      startDate,
+                      endDate
+                    }}
                     networth={{
                       expenseSum: expenseSum || 0,
                       incomeSum: incomeSum || 0,
                       contributionSum: contributionSum || 0,
                     }}
-                    startDate={startDate}
-                    endDate={endDate}
+                    sumAmounts={{
+                      incomeSum: incomeSum ,
+                      expenseSum: expenseSum,
+                      contributionSum: contributionSum,
+                      budgetSum: budgetSum,
+                      incomePrevSum: incomePrevSum,
+                      expensePrevSum: expensePrevSum,
+                      contributionPrevSum: contributionPrevSum,
+                      budgetPrevSum: budgetPrevSum,
+                    }}                
                     openInfoDialog={() => setOpenInfoDialog(true)}
-                    loading={loading}
                   />
                 </Paper>
               </SwiperSlide>
