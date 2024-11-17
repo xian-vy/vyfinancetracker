@@ -134,7 +134,7 @@ const PendingWrites = () => {
             <Typography variant="caption" mr={0.5}>
               {pendingWrites > 0
                 ? `${pendingWrites} unsynced data ${pendingWrites === 1 ? "change" : "changes"}`
-                : "All transaction data synced"}
+                : "All data are in Sync"}
             </Typography>
             {pendingWrites > 0 ? (
               <Tooltip title="Open network to sync and backup data">
