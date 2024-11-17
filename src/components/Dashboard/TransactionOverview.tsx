@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Container, Paper, useTheme } from "@mui/material";
+import { Box, CircularProgress, Container, Paper, Stack, useTheme } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
@@ -130,18 +130,18 @@ const TransactionOverview = () => {
 
   if (isLoading) {
     return (
-      <>
-      <Container maxWidth={false} sx={{ p: 1 }}>
-        <FilterTitleAndIcon timeframe={filterTitle} title="Overview" onfilterClick={handleFilterClick} />
-      </Container>
-      <Box sx={{ display: 'flex', gap: 1 }}>
-        {Object.values(txn_summary).map((type) => (
-          <Paper key={type} sx={{ ...paperStyle,height:"120px", width:"300px",display:"flex",alignItems:"center",justifyContent:"center" }} variant={isDarkMode ? "elevation" : "outlined"}>
-            <CircularProgress size={15} />
-          </Paper>
-        ))}
-      </Box>
-      </>
+      <Stack sx={{width:"100%"}}>
+          <Container maxWidth={false} sx={{ p: 1 }}>
+            <FilterTitleAndIcon timeframe={filterTitle} title="Overview" onfilterClick={handleFilterClick} />
+          </Container>
+          <Box sx={{ display: 'flex', gap: 1,width:"100%" }}>
+            {Object.values(txn_summary).map((type) => (
+              <Paper key={type} sx={{ ...paperStyle, height : {xs:"95px",md:"110px",lg:"120px"}, minWidth:"300px",display:"flex",alignItems:"center",justifyContent:"center" }} variant={isDarkMode ? "elevation" : "outlined"}>
+                <CircularProgress size={15} />
+              </Paper>
+            ))}
+          </Box>
+      </Stack>
     );
   }
   return (
