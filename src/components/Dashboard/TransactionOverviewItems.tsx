@@ -38,7 +38,6 @@ type SumAmountType = {
 interface Props {
   data: TransactionDataType;
   sumAmounts : SumAmountType; 
-  networth: { expenseSum?: number; incomeSum?: number; contributionSum?: number };
   openInfoDialog: () => void;
 }
 
@@ -192,11 +191,15 @@ const TransactionOverviewItems = (props: Props) => {
         txnType={props.data.type}
         openDialog={expandedStates[props.data.type] || false}
         onDialogClose={() => handleExpandClick(props.data.type)}
-        networth={props.networth}
+        networth={{
+          expenseSum: props.sumAmounts.expenseSum || 0,
+          incomeSum: props.sumAmounts.incomeSum || 0,
+          contributionSum: props.sumAmounts.contributionSum || 0,
+        }}
         isDarkMode={props.data.isDarkMode}
       />
     </div>
   );
 };
 
-export default TransactionOverviewItems;
+export default React.memo(TransactionOverviewItems);

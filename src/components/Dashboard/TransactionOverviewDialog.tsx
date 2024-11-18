@@ -27,7 +27,7 @@ interface Props {
   totalAmount: number;
   openDialog: boolean;
   onDialogClose: () => void;
-  networth?: { expenseSum?: number; incomeSum?: number; contributionSum?: number };
+  networth?: { expenseSum: number; incomeSum: number; contributionSum: number };
   selectedCategories?: string[];
   isDarkMode: boolean;
 }

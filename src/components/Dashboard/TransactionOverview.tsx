@@ -28,7 +28,7 @@ type sumByTransaction = {
 const paperStyle = {
   px: { xs: 1.5, md: 2 },
   py: { xs: 1.5, md: 2 },
-  borderRadius: 3,
+  borderRadius: 2,
   mb: 1,
 };
 
@@ -43,6 +43,7 @@ const TransactionOverview = () => {
     startDate,
     anchorEl,
     filterOpen,
+    filterOptionHasSet,
     handleFilterClick,
     handleFilterClose,
     endDate,
@@ -70,12 +71,10 @@ const TransactionOverview = () => {
     endDate || undefined
   );
 
-  const workerIncome = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), []);
-  const workerSavings = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), []);
-
-  const workerExpense = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), []);
-
-  const workerBudget = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), []);
+  const workerIncome = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), [filterOption]);
+  const workerSavings = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), [filterOption]);
+  const workerExpense = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), [filterOption]);
+  const workerBudget = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), [filterOption]);
 
   // necessary to populate/do worker function on first load
   useEffect(() => {
@@ -124,11 +123,11 @@ const TransactionOverview = () => {
     [expenseStore, filterOption, startDate, endDate]
   );
 
-  const isLoading = !budget || !income || !expenses || !savings;
+  const isLoading = budget === null || income === null || expenses === null || savings === null;
 
   const filterTitle = getFilterTitle(filterOption, startDate, endDate);
 
-  if (isLoading) {
+  if (isLoading || !filterOptionHasSet) {
     return (
       <Stack sx={{width:"100%"}}>
           <Container maxWidth={false} sx={{ p: 1 }}>
@@ -144,6 +143,17 @@ const TransactionOverview = () => {
       </Stack>
     );
   }
+
+  const incomeSum = income.sum;
+  const incomePrevSum = income.prevSum ;
+  const expenseSum = expenses.sum ;
+  const expensePrevSum = expenses.prevSum ;
+  const budgetSum = budget.sum ;
+  const budgetPrevSum = budget.prevSum ;
+  const contributionSum = savings.sum ;
+  const contributionPrevSum = savings.prevSum ;
+  const prevDate = expenses.prevDate ;        
+
   return (
     <>
       <Container maxWidth={false} sx={{ p: 1 }}>
@@ -153,17 +163,6 @@ const TransactionOverview = () => {
         <Swiper slidesPerGroup={1} spaceBetween={10} breakpoints={swiperBreakpointsConfig}>
           {Object.values(txn_summary).map((type, index) => {
             const { icon, color } = typeIconColor(type, theme, isDarkMode);
-            const incomeSum = income.sum;
-            const incomePrevSum = income.prevSum ;
-            const expenseSum = expenses.sum ;
-            const expensePrevSum = expenses.prevSum ;
-            const budgetSum = budget.sum ;
-            const budgetPrevSum = budget.prevSum ;
-            const contributionSum = savings.sum ;
-            const contributionPrevSum = savings.prevSum ;
-            const prevDate = expenses.prevDate ;
-
-        
             return (
               <SwiperSlide key={index}>
                 <Paper sx={paperStyle} variant={isDarkMode ? "elevation" : "outlined"}>
@@ -178,11 +177,6 @@ const TransactionOverview = () => {
                       filterTitle ,
                       startDate,
                       endDate
-                    }}
-                    networth={{
-                      expenseSum: expenseSum || 0,
-                      incomeSum: incomeSum || 0,
-                      contributionSum: contributionSum || 0,
                     }}
                     sumAmounts={{
                       incomeSum: incomeSum ,
