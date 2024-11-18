@@ -12,6 +12,7 @@ import powerSavingSlice from "./powerSavingSlice";
 import fontSizeSlice from "./fontSizeSlice";
 
 import { savingsReducer, savingsContributionReducer } from "./savingsSlice";
+import debtReducer from "./debtSlice";
 
 const rootReducer = combineReducers({
   expenses: expenseReducer,
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   pendingSync: pendingSyncSlice,
   powerSaving: powerSavingSlice,
   fontSize: fontSizeSlice,
+  debt: debtReducer,
 });
 
 export default rootReducer;
