@@ -41,7 +41,9 @@ const BalanceByAccountTypeBreakdown = ({ networth }: Props) => {
   React.useEffect(() => {
     const updateMaxWidth = () => {
       if (containerRef.current) {
-        setMaxWidth(containerRef.current.offsetWidth * 0.65);
+        const containerWidth = containerRef.current.offsetWidth;
+        const maxWidth = containerWidth - 70; 
+        setMaxWidth(maxWidth);
       }
     };
 
@@ -61,7 +63,7 @@ const BalanceByAccountTypeBreakdown = ({ networth }: Props) => {
         {breakdown.map((item, index) => (
           <div key={index}>
             <Stack direction="column" justifyContent="flex-start" marginBottom={1}>
-              <Stack direction="row" alignItems="center">
+              <Stack direction="row" alignItems="center" gap={0.5}>
                 {item.icon}
                 <Stack direction="column">
                   <Typography variant="caption" ml={0.3} height={15}>
@@ -76,8 +78,8 @@ const BalanceByAccountTypeBreakdown = ({ networth }: Props) => {
                         fill={hexToRGBA(item.color)}
                         stroke={isDarkMode ? "#1e1e1e" : item.color}
                         strokeWidth={isDarkMode ? 1 : 0.3}
-                        rx={6}
-                        ry={6}
+                        rx={4}
+                        ry={4}
                       />
                     </svg>
                     <Typography variant="caption" ml={0.5}>

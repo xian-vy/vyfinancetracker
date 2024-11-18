@@ -1,7 +1,7 @@
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { formatShortAmountWithCurrency, hexToRGBA, useResponsiveCharLimit } from "../../helper/utils";
-import { DASHBOARD_DIALOG } from "../../constants/size";
+import { DASHBOARD_DIALOG, iconSizeSM } from "../../constants/size";
 type groupedData = {
   category: string;
   amount: number;
@@ -15,7 +15,7 @@ const TransactionOverviewBreakdown = ({ groupedData }: { groupedData: groupedDat
   const maxAmount = Math.max(...aggregatedData.map((item) => item.amount));
 
   function renderIcon(icon: React.ReactElement, color: string) {
-    return React.cloneElement(icon, { style: { color: color, fontSize: "20px" } });
+    return React.cloneElement(icon, { style: { color: color, fontSize: iconSizeSM } });
   }
 
   const [maxWidth, setMaxWidth] = React.useState(0);
@@ -24,7 +24,9 @@ const TransactionOverviewBreakdown = ({ groupedData }: { groupedData: groupedDat
   React.useEffect(() => {
     const updateMaxWidth = () => {
       if (containerRef.current) {
-        setMaxWidth(containerRef.current.offsetWidth * 0.65);
+        const containerWidth = containerRef.current.offsetWidth;
+        const maxWidth = containerWidth - 60; 
+        setMaxWidth(maxWidth);
       }
     };
 
@@ -70,8 +72,8 @@ const TransactionOverviewBreakdown = ({ groupedData }: { groupedData: groupedDat
                               fill={hexToRGBA(item.color)}
                               stroke={isDarkMode ? "#1e1e1e" : item.color}
                               strokeWidth={isDarkMode ? 1 : 0.3}
-                              rx={6}
-                              ry={6}
+                              rx={4}
+                              ry={4}
                             />
                           </svg>
                           <Typography variant="caption" ml={0.5}>
