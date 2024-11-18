@@ -13,6 +13,7 @@ export const SIGN_IN_PATH = "/signin";
 export const SIGN_UP_PATH = "/signup";
 export const TERMS_OF_USE = "/terms-of-use";
 export const PRIVACY_POLICY = "/privacy-policy";
+export const DEBT_PATH = "/debt";
 
 const ExpenseMainPage = React.lazy(() => import("../components/Expense/ExpenseMainPage"));
 const BudgetMainPage = React.lazy(() => import("../components/Budget/BudgetMainPage"));
@@ -28,6 +29,7 @@ const SignIn = React.lazy(() => import("../components/PublicComponents/SignIn"))
 const TermsAndConditions = React.lazy(() => import("../components/legal/TermsAndConditions/TermsAndConditionsV1"));
 const PrivacyPolicy = React.lazy(() => import("../components/legal/PrivacyPolicy/PrivacyPolicyV1"));
 export const TNCandPrivacyPolicyDialog = React.lazy(() => import("../components/legal/TNCandPrivacyPolicyDialog"));
+const DebtMainPage = React.lazy(() => import("../components/Debt/index"));
 
 export const routes = [
   {
@@ -87,5 +89,10 @@ export const routes = [
   {
     path: TIMEOUT_PATH,
     element: <TimeoutPage />,
+  },
+  {
+    path: DEBT_PATH,
+    element: <DebtMainPage />,
+    isPrivate: true,
   },
 ];

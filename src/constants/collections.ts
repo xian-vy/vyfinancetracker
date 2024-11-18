@@ -9,6 +9,7 @@ export enum collections {
   IncomeSources = "IncomeSources",
   Transaction_Logs = "TransactionLogs",
   Users = "Users",
+  Debt = "Debt",
 }
 
 export enum subcollections {
