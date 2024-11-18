@@ -1,4 +1,4 @@
-import { Paper, Skeleton, Stack } from "@mui/material";
+import { Paper, Skeleton, Stack, useTheme } from "@mui/material";
 import React from "react";
 
 const paperStyle = {
@@ -10,6 +10,9 @@ const paperStyle = {
   height : {xs:"95px",md:"110px",lg:"120px"},
 };
 const SummarySkeleton = ({ isAccountBalance }: { isAccountBalance?: boolean }) => {
+
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === "dark";
   return (
     <div style={{ height: "auto", padding: 15 }}>
       <Stack direction="row" justifyContent="space-between" mb={1}>
@@ -19,7 +22,7 @@ const SummarySkeleton = ({ isAccountBalance }: { isAccountBalance?: boolean }) =
       <Stack direction="row" spacing={2} sx={{ overflowX: "hidden" }} mt={2} px={1}>
         {[...Array(5)].map((_, index) => (
           <Stack key={index}>
-            <Paper sx={paperStyle} variant="outlined">
+            <Paper sx={paperStyle} variant={isDarkMode ? "elevation" : "outlined"}>
               <Stack direction="row" justifyContent="space-between" alignItems="center">
                 <Stack direction="row" alignItems="center">
                   <Skeleton
