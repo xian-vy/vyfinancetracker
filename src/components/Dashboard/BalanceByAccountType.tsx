@@ -46,6 +46,7 @@ const paperStyle = {
 const typographyStyle = {
   whiteSpace: "nowrap",
   ml: { xs: 0, sm: 0.5, md: 1, lg: 2, xl: 3 },
+  color: "#333"
 };
 
 const BalanceByAccountType = () => {
@@ -218,7 +219,7 @@ const BalanceByAccountType = () => {
                           </Typography>
                         </Stack>
                         <Typography
-                          variant="h4"
+                          variant="body2"
                           style={{ color: accountDetails.balance < 0 ? PERCENTAGE_DECREASE : "inherit" }}
                           sx={typographyStyle}
                         >

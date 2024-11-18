@@ -107,14 +107,14 @@ const TransactionOverviewItems = (props: Props) => {
           </Stack>
         </Stack>
 
-        <Stack direction="row" alignItems="center">
+        <Stack direction="row" alignItems="center" gap={1}> 
           {/* PERCENTAGE ICON  ----------------------------------------------------------------------*/}
           { transactionSummary.currentSUM  !== null ? (
             <>
               <Stack direction="column">      
                   <Typography
                     textAlign="left"
-                    variant="h4"
+                    variant="h5"
                     sx={{
                       color: transactionSummary.currentSUM < 0 ? PERCENTAGE_DECREASE : "inherit",
                     }}
