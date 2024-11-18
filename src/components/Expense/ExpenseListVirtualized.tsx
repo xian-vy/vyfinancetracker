@@ -75,7 +75,7 @@ const ExpenseListVirtualized: React.FC<ExpenseListVirtualizedProps> = ({
               sx={{
                 "&:hover": {
                   backgroundColor: hoverBgColor(theme),
-                  borderRadius: 3,
+                  borderRadius: 1,
                 },
                 pl: smScreen ? 0.5 : 1,
                 pr: smScreen ? 0 : 1,

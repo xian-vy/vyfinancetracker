@@ -145,7 +145,7 @@ const TransactionLogsListVirtualized = ({ logs, selectedTimeframe }: Props) => {
           sx={{
             "&:hover": {
               backgroundColor: hoverBgColor(theme),
-              borderRadius: 3,
+              borderRadius: 1,
             },
             px: 1,
             listStyle: "none",
