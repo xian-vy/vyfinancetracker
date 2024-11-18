@@ -39,7 +39,7 @@ const swiperSlideStyle = { display: "inline-block", width: "auto" };
 const paperStyle = {
   px: { xs: 1.5, sm: 2 },
   py: { xs: 1, md: 1.5 },
-  borderRadius: 3,
+  borderRadius: 2,
   mb: 1,
 };
 

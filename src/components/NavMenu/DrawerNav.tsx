@@ -111,7 +111,7 @@ const DrawerNav = ({
                         : "1px solid #ccc"
                       : "solid 1px transparent",
                   py: 0,
-                  borderRadius: 3,
+                  borderRadius: 2,
                   display: "flex",
                   justifyContent: "center",
                   px: collapsedDrawer ? 0.5 : 2,
