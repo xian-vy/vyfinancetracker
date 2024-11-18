@@ -102,9 +102,7 @@ const ExpenseList = (props: Props) => {
     handleResetStates();
   };
 
-  const handleCheckboxChange = React.useMemo(
-    () => (value: ExpenseModel) => (event: React.MouseEvent) => {
-      event.stopPropagation();
+  const handleCheckboxChange =   (value: ExpenseModel) => {   
       const currentIndex = selectedExpenses.indexOf(value);
       const newChecked = [...selectedExpenses];
 
@@ -114,10 +112,8 @@ const ExpenseList = (props: Props) => {
         newChecked.splice(currentIndex, 1);
       }
       setSelectedExpenses(newChecked);
-    },
-    [selectedExpenses]
-  );
-
+    }
+    
   useEffect(() => {
     if (!loading) {
       setNewCategoryId(categories[0]?.id || "");
