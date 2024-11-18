@@ -8,6 +8,7 @@ import { useAccountTypeContext } from "../../../contextAPI/AccountTypeContext";
 import { useIncomeSourcesContext } from "../../../contextAPI/IncomeSourcesContext";
 import { RootState } from "../../../redux/store";
 import TransactionOverviewBreakdown from "../TransactionOverviewBreakdown";
+import IncomeModel from "../../../models/IncomeModel";
 interface Props {
   filterOption: FilterTimeframe;
   startDate: Date | null;
@@ -27,7 +28,7 @@ const TopIncomeContainer = ({ filterOption, startDate, endDate }: Props) => {
   const { incomeSource } = useIncomeSourcesContext();
   const { accountType } = useAccountTypeContext();
 
-  const incomeData = useMemo(
+  const incomeData : IncomeModel[] = useMemo(
     () => filterDataByDateRange(income, "date", filterOption, startDate || undefined, endDate || undefined),
     [income, startDate, endDate, filterOption, incomeSource, accountType]
   );

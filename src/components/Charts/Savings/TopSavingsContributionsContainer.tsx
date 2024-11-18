@@ -7,6 +7,7 @@ import { getAccountsDetails, getSavingsDetails } from "../../../firebase/utils";
 import { filterDataByDateRange, groupDataByIdWithIcons } from "../../../helper/GenericTransactionHelper";
 import { RootState } from "../../../redux/store";
 import TransactionOverviewBreakdown from "../TransactionOverviewBreakdown";
+import SavingGoalsContributionModel from "../../../models/SavingGoalsContribution";
 
 interface Props {
   filterOption: FilterTimeframe;
@@ -25,7 +26,7 @@ const TopSavingsContributionsContainer = ({ filterOption, startDate, endDate }: 
   const { accountType } = useAccountTypeContext();
   const [filter, setFilter] = React.useState("Contribution");
 
-  const savingsContributionsData = useMemo(
+  const savingsContributionsData : SavingGoalsContributionModel[] = useMemo(
     () =>
       filterDataByDateRange(savingsContributions, "date", filterOption, startDate || undefined, endDate || undefined),
     [savingsContributions, startDate, endDate, filterOption]

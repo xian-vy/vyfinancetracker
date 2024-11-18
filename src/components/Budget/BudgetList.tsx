@@ -2,16 +2,16 @@ import { Dialog, DialogContent, Grid, Stack, useTheme } from "@mui/material";
 import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { FORM_WIDTH } from "../../constants/size";
+import { FilterTimeframe } from "../../constants/timeframes";
 import { filterBudgetByDateRange } from "../../helper/BudgetHelper";
 import { filterDataByDateRange } from "../../helper/GenericTransactionHelper";
 import { getFilterTitle } from "../../helper/utils";
+import ExpenseModel from "../../models/ExpenseModel";
 import { RootState } from "../../redux/store";
-import EntryFormSkeleton from "../Skeleton/EntryFormSkeleton";
+import BudgetForm from "./BudgetForm";
 import BudgetListHeader from "./BudgetListHeader";
 import { FilterExpenseAndBudgetbyCategory } from "./BudgetListHelper";
 import { BudgetListItems } from "./BudgetListItems";
-import { FilterTimeframe } from "../../constants/timeframes";
-import BudgetForm from "./BudgetForm";
 
 interface Props {
   selectedTimeframe: FilterTimeframe;
@@ -28,7 +28,7 @@ const BudgetList = ({ selectedTimeframe, startDate, endDate, URLopenForm }: Prop
   const expenses = useSelector((state: RootState) => state.expenses.expenses);
 
   const filteredExpense = useMemo(() => {
-    return filterDataByDateRange(expenses, "date", selectedTimeframe, startDate || undefined, endDate || undefined);
+    return filterDataByDateRange<ExpenseModel>(expenses, "date", selectedTimeframe, startDate || undefined, endDate || undefined);
   }, [expenses, selectedTimeframe, startDate, endDate]);
 
   const { budgetItems: filteredBudget } = useMemo(() => {

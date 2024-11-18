@@ -18,13 +18,15 @@ import CustomIconButton from "../../CustomIconButton";
 import DeleteConfirmationDialog from "../../Dialog/DeleteConfirmationDialog";
 import EntryFormSkeleton from "../../Skeleton/EntryFormSkeleton";
 import GenericListItem from "../GenericListItem";
+import ExpenseModel from "../../../models/ExpenseModel";
+import IncomeModel from "../../../models/IncomeModel";
 const IncomeSourceForm = React.lazy(() => import("./IncomeSourceForm"));
 
 const IncomeSourceList = () => {
   const { incomeSource, deleteIncomeSources } = useIncomeSourcesContext();
   const [deleteFormOpen, setDeleteFormOpen] = useState(false);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const income = useSelector((state: RootState) => state.income.income);
+  const income : IncomeModel[] = useSelector((state: RootState) => state.income.income);
   const [isLoading, setIsLoading] = useState(false);
   const [isFormOpen, setFormOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);

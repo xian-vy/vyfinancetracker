@@ -54,7 +54,7 @@ const ExpenseMainPage = () => {
   const [editedExpense, setEditedExpense] = useState({} as ExpenseModel);
   const [selectedTimeframe, setSelectedTimeframe] = useState(FilterTimeframe.Year);
 
-  const expenses = useSelector((state: RootState) => state.expenses.expenses);
+  const expenses : ExpenseModel[]  = useSelector((state: RootState) => state.expenses.expenses);
 
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 

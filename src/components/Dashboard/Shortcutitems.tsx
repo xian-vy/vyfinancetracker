@@ -27,6 +27,7 @@ import { EXPENSE_PATH, INCOME_PATH, SAVINGS_PATH } from "../../constants/routes"
 import { useCategoryContext } from "../../contextAPI/CategoryContext";
 import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
 import { RootState } from "../../redux/store";
+import SavingGoalsModel from "../../models/SavingGoalsModel";
 
 type genericModel = {
   id: string;
@@ -89,7 +90,7 @@ const Shortcutitems = ({
 
   const { categories } = useCategoryContext();
   const { incomeSource } = useIncomeSourcesContext();
-  const savingsSlice = useSelector((state: RootState) => state.savings.savings);
+  const savingsSlice : SavingGoalsModel[]= useSelector((state: RootState) => state.savings.savings);
 
   const savings = savingsSlice.map((item) => ({
     id: item.id,

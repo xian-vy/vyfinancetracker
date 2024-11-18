@@ -28,6 +28,10 @@ import {
 import { formatShortAmountWithCurrency, hoverBgColor, useResponsiveCharLimit } from "../../helper/utils";
 import TransactionLogsModel from "../../models/TransactionLogsModel";
 import { RootState } from "../../redux/store";
+import { BudgetItemsModel, BudgetModel } from "../../models/BudgetModel";
+import ExpenseModel from "../../models/ExpenseModel";
+import IncomeModel from "../../models/IncomeModel";
+import SavingGoalsModel from "../../models/SavingGoalsModel";
 
 function renderIcon(icon: React.ReactElement, color: string) {
   return React.cloneElement(icon, { style: { color: color, fontSize: iconSizeXS } });
@@ -54,11 +58,11 @@ const TransactionLogsListVirtualized = ({ logs, selectedTimeframe }: Props) => {
   const isDarkMode = theme.palette.mode === "dark";
   const charLimit = useResponsiveCharLimit();
 
-  const savings = useSelector((state: RootState) => state.savings.savings);
-  const income = useSelector((state: RootState) => state.income.income);
-  const expenses = useSelector((state: RootState) => state.expenses.expenses);
-  const budgets = useSelector((state: RootState) => state.budget.budgets);
-  const budgetItems = budgets.flatMap((budget) => budget.budgets);
+  const savings  : SavingGoalsModel[] = useSelector((state: RootState) => state.savings.savings);
+  const income   : IncomeModel[]= useSelector((state: RootState) => state.income.income);
+  const expenses  : ExpenseModel[]= useSelector((state: RootState) => state.expenses.expenses);
+  const budgets : BudgetModel[] = useSelector((state: RootState) => state.budget.budgets);
+  const budgetItems  : BudgetItemsModel[] = budgets.flatMap((budget) => budget.budgets);
 
   const { categories } = useCategoryContext();
   const { incomeSource } = useIncomeSourcesContext();

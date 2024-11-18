@@ -1,5 +1,4 @@
-import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
-import ClearIcon from "@mui/icons-material/Clear";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
   Button,
@@ -17,14 +16,13 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import React from "react";
 import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { useCategoryContext } from "../../contextAPI/CategoryContext";
 import AccountsIcons from "../../media/AccountsIcons";
 import CategoryIcons from "../../media/CategoryIcons";
 import ExpenseModel from "../../models/ExpenseModel";
 import EntryFormCategoryDropdown from "../GenericComponents/EntryFormCategoryDropdown";
-import React from "react";
-import CloseIcon from "@mui/icons-material/Close";
 
 const selectStyle = {
   boxShadow: "none",

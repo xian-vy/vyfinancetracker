@@ -26,6 +26,9 @@ import FilterActionsComponent from "../Filter/FilterActionsComponent";
 import BalanceByAccountTypeDialog from "./BalanceByAccountTypeDialog";
 import BalanceByAccountTypeHeader from "./BalanceByAccountTypeHeader";
 import SwapAccount from "./SwapAccount";
+import IncomeModel from "../../models/IncomeModel";
+import ExpenseModel from "../../models/ExpenseModel";
+import SavingGoalsContributionModel from "../../models/SavingGoalsContribution";
 
 interface AccountDetails {
   balance: number;
@@ -92,18 +95,18 @@ const BalanceByAccountType = () => {
   const { accountType } = useAccountTypeContext();
 
   const incomeData = useMemo(
-    () => filterDataByDateRange(incomeStore, "date", filterOption, startDate || undefined, endDate || undefined),
+    () => filterDataByDateRange<IncomeModel>(incomeStore, "date", filterOption, startDate || undefined, endDate || undefined),
     [incomeStore, filterOption, startDate, endDate]
   );
 
   const expenseData = useMemo(
-    () => filterDataByDateRange(expenseStore, "date", filterOption, startDate || undefined, endDate || undefined),
+    () => filterDataByDateRange<ExpenseModel>(expenseStore, "date", filterOption, startDate || undefined, endDate || undefined),
     [expenseStore, filterOption, startDate, endDate]
   );
 
   const contributionData = useMemo(
     () =>
-      filterDataByDateRange(
+      filterDataByDateRange<SavingGoalsContributionModel>(
         savingsContributionStore,
         "date",
         filterOption,

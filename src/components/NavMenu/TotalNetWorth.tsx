@@ -5,15 +5,18 @@ import { RootState } from "../../redux/store";
 import { Stack, Typography, Divider, useTheme, Tooltip } from "@mui/material";
 import { formatShortAmountWithCurrency } from "../../helper/utils";
 import { ReactComponent as Coin } from "../../media/coin.svg";
+import SavingGoalsContributionModel from "../../models/SavingGoalsContribution";
+import ExpenseModel from "../../models/ExpenseModel";
+import IncomeModel from "../../models/IncomeModel";
 
 const TotalNetWorth = ({ collapsedDrawer }: { collapsedDrawer: boolean }) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
   const isMasked = useSelector((state: RootState) => state.userAccount.hideBalances);
 
-  const savingsContribution = useSelector((state: RootState) => state.savingsContribution.contribution);
-  const expenses = useSelector((state: RootState) => state.expenses.expenses);
-  const income = useSelector((state: RootState) => state.income.income);
+  const savingsContribution : SavingGoalsContributionModel[] = useSelector((state: RootState) => state.savingsContribution.contribution);
+  const expenses : ExpenseModel[] = useSelector((state: RootState) => state.expenses.expenses);
+  const income : IncomeModel[]= useSelector((state: RootState) => state.income.income);
 
   const totalSavingsContribution = calculateTotalSum(savingsContribution, "amount");
   const totalExpenses = calculateTotalSum(expenses, "amount");

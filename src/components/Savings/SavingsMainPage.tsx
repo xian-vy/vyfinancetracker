@@ -48,7 +48,7 @@ const SavingsMainPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [filterOption, setFilterOption] = useState("In Progress");
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const savingsSlice = useSelector((state: RootState) => state.savings.savings);
+  const savingsSlice : SavingGoalsModel[] = useSelector((state: RootState) => state.savings.savings);
   const [deleteFormOpen, setDeleteFormOpen] = useState(false);
   const { openSuccessSnackbar, SnackbarComponent } = useSnackbarHook();
   const filteredSavings = savingsSlice.filter((saving) => {

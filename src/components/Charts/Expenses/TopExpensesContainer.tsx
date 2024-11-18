@@ -7,6 +7,7 @@ import { useCategoryContext } from "../../../contextAPI/CategoryContext";
 import { useAccountTypeContext } from "../../../contextAPI/AccountTypeContext";
 import { RootState } from "../../../redux/store";
 import TransactionOverviewBreakdown from "../TransactionOverviewBreakdown";
+import ExpenseModel from "../../../models/ExpenseModel";
 type groupedData = {
   category: string;
   amount: number;
@@ -27,7 +28,7 @@ const TopExpensesContainer = ({ filterOption, startDate, endDate, selectedCatego
   const { categories } = useCategoryContext();
   const { accountType } = useAccountTypeContext();
 
-  const expenseData = useMemo(
+  const expenseData : ExpenseModel[]= useMemo(
     () => filterDataByDateRange(expenses, "date", filterOption, startDate || undefined, endDate || undefined),
     [expenses, startDate, endDate, filterOption, categories, accountType]
   );

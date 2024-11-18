@@ -49,14 +49,14 @@ const SavingsContributionForm = (props: Props) => {
   const { id: savingsIDfromURL } = useParams();
   const powerSavingMode = useSelector((state: RootState) => state.powerSaving.enabled);
 
-  const savingsSlice = useSelector((state: RootState) => state.savings.savings);
-  const savingsfromURL = savingsSlice.find((saving) => saving.id === savingsIDfromURL);
+  const savingsSlice : SavingGoalsModel[] = useSelector((state: RootState) => state.savings.savings);
+  const savingsfromURL = savingsSlice.find((saving ) => saving.id === savingsIDfromURL);
   const initialSavings = savingsfromURL ? savingsfromURL : props.EditSavings;
 
-  const contributions = useSelector((state: RootState) => state.savingsContribution.contribution);
+  const contributions : SavingGoalsContributionModel[] = useSelector((state: RootState) => state.savingsContribution.contribution);
 
   const matchingContributions = contributions
-    .filter((contribution) => contribution.savingsId === initialSavings.id)
+    .filter((contribution ) => contribution.savingsId === initialSavings.id)
     .sort((a, b) => b.date.seconds - a.date.seconds);
 
   const { saveLogs } = useTransactionLogsContext();

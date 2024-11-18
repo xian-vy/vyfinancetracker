@@ -49,7 +49,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
   const expenses = useSelector((state: RootState) => state.expenses.expenses);
   const uniqueDescriptions = useMemo<string[]>(() => {
     const descriptionsSet = new Set<string>();
-    expenses.forEach((expense) => descriptionsSet.add(expense.description));
+    expenses.forEach((expense : ExpenseModel) => descriptionsSet.add(expense.description));
     return Array.from(descriptionsSet);
   }, [expenses]);
 

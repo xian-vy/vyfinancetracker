@@ -20,6 +20,9 @@ import CustomIconButton from "../../CustomIconButton";
 import DeleteConfirmationDialog from "../../Dialog/DeleteConfirmationDialog";
 import EntryFormSkeleton from "../../Skeleton/EntryFormSkeleton";
 import GenericListItem from "../GenericListItem";
+import ExpenseModel from "../../../models/ExpenseModel";
+import SavingGoalsContributionModel from "../../../models/SavingGoalsContribution";
+import IncomeModel from "../../../models/IncomeModel";
 const AccountsForm = React.lazy(() => import("./AccountsForm"));
 
 const AccountsList = () => {
@@ -28,9 +31,9 @@ const AccountsList = () => {
   const [editMode, setEditMode] = useState(false);
   const [deleteFormOpen, setDeleteFormOpen] = useState(false);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const expenses = useSelector((state: RootState) => state.expenses.expenses);
-  const savingsContributions = useSelector((state: RootState) => state.savingsContribution.contribution);
-  const income = useSelector((state: RootState) => state.income.income);
+  const expenses : ExpenseModel[] = useSelector((state: RootState) => state.expenses.expenses);
+  const savingsContributions : SavingGoalsContributionModel[] = useSelector((state: RootState) => state.savingsContribution.contribution);
+  const income : IncomeModel[]= useSelector((state: RootState) => state.income.income);
   const [isLoading, setIsLoading] = useState(false);
   const [editAccountType, seteditAccountType] = useState<AccountTypeModel>({} as AccountTypeModel);
 

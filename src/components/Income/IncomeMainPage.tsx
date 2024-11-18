@@ -52,7 +52,7 @@ const IncomeMainPage = () => {
   });
 
   const filteredByTimeframe = useMemo(
-    () => filterDataByDateRange(incomeSlice, "date", selectedTimeframe, startDate || undefined, endDate || undefined),
+    () => filterDataByDateRange<IncomeModel>(incomeSlice, "date", selectedTimeframe, startDate || undefined, endDate || undefined),
     [incomeSlice, selectedTimeframe, startDate, endDate]
   );
   //BUDGET FORM MODAL//////////////////////////////////////////////////////////////////////////

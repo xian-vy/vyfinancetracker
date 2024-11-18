@@ -20,6 +20,8 @@ import CustomIconButton from "../../CustomIconButton";
 import DeleteConfirmationDialog from "../../Dialog/DeleteConfirmationDialog";
 import EntryFormSkeleton from "../../Skeleton/EntryFormSkeleton";
 import GenericListItem from "../GenericListItem";
+import { BudgetModel } from "../../../models/BudgetModel";
+import ExpenseModel from "../../../models/ExpenseModel";
 const CategoryForm = React.lazy(() => import("./CategoryForm"));
 const CategoryList = () => {
   const { categories, deleteCategory } = useCategoryContext();
@@ -27,8 +29,8 @@ const CategoryList = () => {
   const [editMode, setEditMode] = useState(false);
   const [deleteFormOpen, setDeleteFormOpen] = useState(false);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const budgets = useSelector((state: RootState) => state.budget.budgets);
-  const expenses = useSelector((state: RootState) => state.expenses.expenses);
+  const budgets : BudgetModel[] = useSelector((state: RootState) => state.budget.budgets);
+  const expenses : ExpenseModel[] = useSelector((state: RootState) => state.expenses.expenses);
   const [isLoading, setIsLoading] = useState(false);
   const [editCategory, setEditCategory] = useState<CategoryModel>({} as CategoryModel);
 
