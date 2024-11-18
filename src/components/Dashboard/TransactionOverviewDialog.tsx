@@ -74,7 +74,7 @@ const TransactionOverviewDialog = (props: Props) => {
 
           <Typography
             textAlign="center"
-            variant="body2"
+            variant="h4"
             sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit", fontWeight: "bold" }}
           >
             {formatNumberWithoutCurrency(Math.round(props.totalAmount))}
