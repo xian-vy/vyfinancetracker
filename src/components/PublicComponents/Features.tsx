@@ -57,8 +57,8 @@ const Features = () => {
               }}
             >
               <feature.IconComponent sx={{ fontSize: { xs: "18px", md: "22px" }, mb: 0.5, color: "#d86c70" }} />
-              <Typography textAlign="center" sx={{ fontSize: "0.75rem", mb: 0.5 }}>{feature.description}</Typography>
-              <Typography textAlign="left" sx={{ fontSize: "0.75rem", color: darkmode ? "#999" : "#666" }}>
+              <Typography textAlign="center" sx={{ fontSize: "0.8rem", mb: 0.5 }}>{feature.description}</Typography>
+              <Typography textAlign="center" sx={{ fontSize: "0.8rem", color: darkmode ? "#999" : "#666" }}>
                 {feature.details}
               </Typography>
             </Paper>

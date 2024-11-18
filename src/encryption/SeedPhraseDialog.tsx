@@ -129,8 +129,7 @@ const SeedPhraseDialog = ({
             >
               Secret Recovery Phrase
               <HelpOutlineOutlinedIcon
-                fontSize="small"
-                sx={{ ml: 1, cursor: "pointer" }}
+                sx={{ ml: 1, cursor: "pointer",fontSize:16  }}
                 onClick={() => setOpenInfo(true)}
               />
             </Typography>
@@ -143,16 +142,16 @@ const SeedPhraseDialog = ({
                 sx={{ mb: 1, display: "flex", justifyContent: "center", alignItems: "center" }}
               >
                 Recovery Phrase Required
-                <LockOutlined fontSize="small" sx={{ ml: 1 }} />
+                <LockOutlined  sx={{ ml: 1, fontSize:16 }} />
               </Typography>
             </>
           ) : (
             <>
-              <Typography variant="body1" textAlign="center" mr={1}>
+              <Typography variant="body2" textAlign="center" mr={1}>
                 This phrase is required for accessing your account data if you change device or if data storage is
                 cleared.
               </Typography>
-              <Typography variant="body1" textAlign="center" mr={1} sx={{ color: "darkorange" }}>
+              <Typography variant="body2" textAlign="center" mr={1} sx={{ color: "darkorange" }}>
                 This is the only time you can backup your phrase.
               </Typography>
             </>
@@ -178,7 +177,7 @@ const SeedPhraseDialog = ({
             </Grid>
           ) : (
             <Stack p={1} direction="row" justifyContent="center" alignItems="center">
-              <Typography variant="subtitle1" mr={1}>
+              <Typography variant="body2" mr={1}>
                 {newSeedPhrase}
               </Typography>
               <IconButton onClick={handleCopy} aria-label="copy seed phrase">
