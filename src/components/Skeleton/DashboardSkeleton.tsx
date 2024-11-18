@@ -11,7 +11,7 @@ const DashboardSkeleton = () => {
     <Grid container spacing={{ xs: 1, sm: 1.5, lg: 2 }} pb={{ xs: 10, md: 5 }} style={{ overflow: "hidden" }}>
       {/**SUMMARY ---------------------------------------------------------------------------------------*/}
       <Grid item xs={12}>
-        <Paper sx={{ borderRadius: 2, px: 1, py: 1 }} variant={isDarkMode ? "elevation" : "outlined"}>
+        <Paper sx={{ borderRadius: 2, p:1 }} variant={isDarkMode ? "elevation" : "outlined"}>
           <SummarySkeleton />
         </Paper>
       </Grid>

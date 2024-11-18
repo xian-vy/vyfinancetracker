@@ -6,6 +6,8 @@ const paperStyle = {
   py: { xs: 1.5, md: 2 },
   borderRadius: 3,
   mb: 1,
+  minWidth : 300,
+  height : {xs:"95px",md:"110px",lg:"120px"},
 };
 const SummarySkeleton = ({ isAccountBalance }: { isAccountBalance?: boolean }) => {
   return (
@@ -14,10 +16,10 @@ const SummarySkeleton = ({ isAccountBalance }: { isAccountBalance?: boolean }) =
         <Skeleton animation="wave" variant="text" sx={{ height: 15, width: 80, ml: 1 }} />
         <Skeleton animation="wave" variant="text" sx={{ height: 15, width: 70, ml: 1 }} />
       </Stack>
-      <Stack direction="row" spacing={2} sx={{ overflowX: "hidden" }}>
+      <Stack direction="row" spacing={2} sx={{ overflowX: "hidden" }} mt={2} px={1}>
         {[...Array(5)].map((_, index) => (
           <Stack key={index}>
-            <Paper sx={paperStyle}>
+            <Paper sx={paperStyle} variant="outlined">
               <Stack direction="row" justifyContent="space-between" alignItems="center">
                 <Stack direction="row" alignItems="center">
                   <Skeleton
