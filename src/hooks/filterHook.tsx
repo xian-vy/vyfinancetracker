@@ -7,10 +7,11 @@ export const useFilterHandlers = (component? : COMPONENTS_WITH_TIMEFRAME) => {
   const defaultTimeframe = useTimeframePerComponent({  component })
   
   const [filterOption, setFilterOption] = useState<FilterTimeframe>(defaultTimeframe);
-
+  const [filterOptionHasSet, setFilterOptionHasSet] = useState(false);
   useEffect(() => {
     setFilterOption(defaultTimeframe);
-  }, [defaultTimeframe]);
+    setFilterOptionHasSet(true);
+  }, [defaultTimeframe,component]);
 
   const [filterOpen, setFilterOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -70,6 +71,7 @@ export const useFilterHandlers = (component? : COMPONENTS_WITH_TIMEFRAME) => {
     customYearOpen,
     startDate,
     endDate,
+    filterOptionHasSet,
     handleFilterOptionChange,
     handleCloseForm,
     handleFilterClose,
