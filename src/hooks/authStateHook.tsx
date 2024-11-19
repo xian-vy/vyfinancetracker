@@ -8,6 +8,7 @@ import { retryPromise } from "../firebase/utils";
 import { setIsAuthenticating, setPersistentId, setUser } from "../redux/reducer/authSlice";
 import { RootState } from "../redux/store";
 import { setIsSigningIn } from "../redux/reducer/userAccountSlice";
+import { fetchDebts } from "../redux/actions/debtAction";
 enum loadingStates {
   Intializing = "Intializing",
   Authenticating = "Authenticating",
@@ -109,11 +110,14 @@ export const useAuthState = () => {
         const { fetchExpenses } = await import("../redux/actions/expenseAction");
         const { fetchincome } = await import("../redux/actions/incomeAction");
         const { fetchSavings, fetchSavingsContributions } = await import("../redux/actions/savingsAction");
+        const { fetchDebts } = await import("../redux/actions/debtAction");
+
         dispatch(fetchExpenses());
         dispatch(fetchbudget());
         dispatch(fetchincome());
         dispatch(fetchSavings());
         dispatch(fetchSavingsContributions());
+        dispatch(fetchDebts());
       }
     };
 
