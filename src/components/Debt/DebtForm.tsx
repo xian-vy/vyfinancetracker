@@ -99,24 +99,25 @@ const EntryForm = ({handleCloseForm,debtProp} : EntryFormProps) => {
       };
 
   return (
-    <Stack direction="column" spacing={2} padding={1}>
+    <Stack direction="column" gap={2} px={1.5} py={2}>
 
-     
-        <FormControl>
-           <Typography textAlign="center">You want to</Typography>
-            <RadioGroup
-            aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue="Creditor"
-            name="radio-buttons-group"
-            value={newDebt.isCreditor ? "Creditor" : "Debtor"}
-            onChange={(e) => setNewDebt({ ...newDebt, isCreditor: !newDebt.isCreditor })}
-            row
-            sx={{display:"flex", justifyContent:"center"}}
-            >
-            <FormControlLabel  value="Creditor" control={<Radio size='small' />} label="Lend" />
-            <FormControlLabel value="Debtor" control={<Radio size='small' />} label="Borrow" />
-            </RadioGroup>
-        </FormControl>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1} mb={1}>  
+          <Typography textAlign="center">You want to</Typography>
+          <FormControl>
+              <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue="Creditor"
+              name="radio-buttons-group"
+              value={newDebt.isCreditor ? "Creditor" : "Debtor"}
+              onChange={(e) => setNewDebt({ ...newDebt, isCreditor: !newDebt.isCreditor })}
+              row
+              sx={{display:"flex", justifyContent:"center"}}
+              >
+              <FormControlLabel  value="Creditor" control={<Radio size='small' />} label="Lend" />
+              <FormControlLabel value="Debtor" control={<Radio size='small' />} label="Borrow" />
+              </RadioGroup>
+          </FormControl>
+        </Stack>
 
         <Stack direction="row" justifyContent="space-between" spacing={1}>
           <EntryFormDatePicker
@@ -137,7 +138,14 @@ const EntryForm = ({handleCloseForm,debtProp} : EntryFormProps) => {
             datefield="endDate"
           />
         </Stack>
-        <TextField value={newDebt.entity} onChange={(e) => setNewDebt({ ...newDebt, entity: e.target.value })} size='small' variant='outlined' type="text" fullWidth label={newDebt.isCreditor ? "Borrower Name" : "Lender Name"} />
+        <TextField value={newDebt.entity} 
+          onChange={(e) => {
+            if (e.target.value.length <= 30) {
+              setNewDebt({ ...newDebt, entity: e.target.value })
+            }
+          }
+        } 
+        size='small' variant='outlined' type="text" fullWidth label={newDebt.isCreditor ? "Borrower Name" : "Lender Name"} />
         <TextField  
           inputMode="numeric"
           inputProps={{ inputMode: "numeric" }}
@@ -162,7 +170,14 @@ const EntryForm = ({handleCloseForm,debtProp} : EntryFormProps) => {
           onAddNewCategory={handleCloseForm}
         />
 
-        <TextField value={newDebt.note} onChange={(e) => setNewDebt({ ...newDebt, note: e.target.value })} size='small' variant='outlined' type="text" fullWidth label='Notes' />
+        <TextField value={newDebt.note} 
+          onChange={(e) => {
+                if (e.target.value.length <= 40) {
+                  setNewDebt({ ...newDebt, note: e.target.value })
+                }
+              }
+            } 
+           size='small' variant='outlined' type="text" fullWidth label='Notes' />
 
        {/* <Stack direction="column" >
           <Typography variant='body1' textAlign="center">
