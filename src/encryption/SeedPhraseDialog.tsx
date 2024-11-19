@@ -20,6 +20,7 @@ import useSnackbarHook from "../hooks/snackbarHook";
 import ForgotSeedPhrase from "./ForgotSeedPhrase";
 import SeedPhraseInfo from "./SeedPhraseInfo";
 import { generateSeedPhrase } from "./keyhandling";
+import CheckIcon from "@mui/icons-material/Check";
 
 const SeedPhraseDialog = ({
   salt,
@@ -40,6 +41,7 @@ const SeedPhraseDialog = ({
   const [seedPhraseWords, setSeedPhraseWords] = useState<string[]>([]);
   const [isButtonDisabled, setIsButtonDisabled] = useState(salt ? false : true);
   const [newSeedPhrase, setNewSeedPhrase] = useState<string>("");
+  const [hasCopied, setHasCopied] = useState(false);
 
   useEffect(() => {
     if (!salt) {
@@ -52,6 +54,8 @@ const SeedPhraseDialog = ({
     try {
       await navigator.clipboard.writeText(newSeedPhrase);
       setIsButtonDisabled(false);
+      setHasCopied(true); 
+      setTimeout(() => setHasCopied(false), 1000);
     } catch (err) {
       console.error("Failed to copy text: ", err);
     }
@@ -176,16 +180,16 @@ const SeedPhraseDialog = ({
               ))}
             </Grid>
           ) : (
-            <Stack p={1} direction="row" justifyContent="center" alignItems="center">
+            <Stack p={1} gap={1} direction="row" justifyContent="center" alignItems="center">
               <Typography variant="body2" mr={1}>
                 {newSeedPhrase}
               </Typography>
-              <IconButton onClick={handleCopy} aria-label="copy seed phrase">
-                <ContentCopyIcon />
-              </IconButton>
-              <IconButton onClick={handleDownload} aria-label="download seed phrase">
-                <DownloadIcon />
-              </IconButton>
+              {hasCopied ? (
+                  <CheckIcon sx={{ fontSize: 16, cursor: "pointer" }} />
+                ) : (
+                  <ContentCopyIcon sx={{ fontSize: 16, cursor: "pointer" }} onClick={handleCopy} />
+                )}
+                <DownloadIcon sx={{fontSize:18, cursor:"pointer"}} onClick={handleDownload} />
             </Stack>
           )}
         </DialogContent>

@@ -23,7 +23,7 @@ const BudgetFormCategoryList = ({ categories, firstTextFieldRef, categoryAmounts
           <CircularProgress size={20} />
         </Box>
       ) : (
-        <List dense sx={{ height: { xs: 200, md: 150, lg: 180, xl: 250 }, overflowY: "auto" }}>
+        <List dense sx={{ height: { xs: 200, md: 150, lg: 170, xl: 180 }, overflowY: "auto" }}>
           {categories.map((category, index) => {
             const categoryIcon = CategoryIcons.find((icon) => icon.name === category?.icon);
 
