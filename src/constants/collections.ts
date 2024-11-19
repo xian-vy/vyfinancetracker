@@ -36,6 +36,7 @@ export enum txn_summary {
   Income = "Income",
   Budget = "Budget",
   Savings = "Saving Goals",
+  Debt = "Debt",
 }
 
 export enum operation_types {

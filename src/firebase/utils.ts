@@ -9,6 +9,10 @@ import CategoryModel from "../models/CategoryModel";
 import IncomeSourcesModel from "../models/IncomeSourcesModel";
 import SavingGoalsModel from "../models/SavingGoalsModel";
 import { CategoriesType } from "../helper/GenericTransactionHelper";
+import DebtModel from "../models/DebtModel";
+import { DEBT_THEME } from "../constants/componentTheme";
+import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
+import React from "react";
 
 export const hasInternetConnection = async () => {
   try {
@@ -62,6 +66,12 @@ export const getSavingsDetails = <K extends Partial<CategoriesType>>(savings: K[
   const categoryIcon = SavingsIcons.find((icon) => icon.name === data?.icon);
   const description = data?.description;
   return { data, color, categoryIcon, description };
+};
+
+export const getDebtDetails = () => {
+  const color = DEBT_THEME;
+  const categoryIcon = { icon: React.createElement(PriceChangeOutlinedIcon), name: "Debt" };
+  return {  color, categoryIcon };
 };
 
 export const getSavingsIDByDescription = (description: string, savings: SavingGoalsModel[]) => {

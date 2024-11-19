@@ -8,6 +8,8 @@ export const SAVINGS_THEME = "#b038b0";
 export const SAVINGS_THEME_DARK = "#9370db"; //mediumpurple
 export const BALANCE_THEME = "#666";
 export const BALANCE_THEME_DARK = "#999";
+export const DEBT_THEME = "#FFBF00";
+export const DEBT_THEME_DARK = "#FFBF00"; 
 
 //DASHBOARD PERCENTAGE
 export const PERCENTAGE_INCREASE = "#008000";
