@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import {
   BUDGET_PATH,
   DASHBOARD_PATH,
+  DEBT_PATH,
   EXPENSE_PATH,
   INCOME_PATH,
   MAINTENANCE_PATH,
@@ -25,7 +26,7 @@ import { RootState } from "../../redux/store";
 import SettingsForm from "../Settings/SettingsForm";
 import BottomNav from "./BottomNav";
 import DrawerNav from "./DrawerNav";
-
+import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
 const About = React.lazy(() => import("../PublicComponents/About"));
 
 const menuItems = [
@@ -53,6 +54,12 @@ const menuItems = [
     path: SAVINGS_PATH,
     icon: <SavingsOutlinedIcon sx={{ fontSize: iconSizeXS }} />,
     text: "Saving Goals",
+  },
+  {
+    key: "Debt",
+    path: DEBT_PATH,
+    icon: <PriceChangeOutlinedIcon sx={{ fontSize: iconSizeXS }} />,
+    text: "Debt",
   },
   {
     key: "Maintenance",
