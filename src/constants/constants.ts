@@ -20,6 +20,7 @@ export enum SORT_TYPE {
 
 export enum ACTION_TYPES {
   AddContribution = "Add Contribution",
+  MarkAsPaid = "Mark as Paid",
   Edit = "Edit",
   Delete = "Delete",
 }
@@ -34,4 +35,10 @@ export enum COMPONENTS_WITH_TIMEFRAME {
   SAVINGS = "Savings",
   REPORTS = "Reports",
   TRANSACTION_LOGS = "Transaction Logs",
+}
+
+
+export enum DEBT_STATUS {
+  InProgress = "In Progress",
+  Complete = "Completed"
 }
