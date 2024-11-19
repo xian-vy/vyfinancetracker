@@ -19,6 +19,7 @@ import {
   typeIconColor
 } from "./TransactionOverviewHelper";
 import TransactionOverviewItems from "./TransactionOverviewItems";
+import { generateDebtAmounts } from "../../helper/DebtHelper";
 
 type sumByTransaction = {
   sum: number;
@@ -57,11 +58,14 @@ const TransactionOverview = () => {
   const incomeStore = useSelector((state: RootState) => state.income.income);
   const expenseStore = useSelector((state: RootState) => state.expenses.expenses);
   const savingsContributionStore = useSelector((state: RootState) => state.savingsContribution.contribution);
+  const debtStore = useSelector((state: RootState) => state.debt.debt);
 
   const [budget, setBudget] = useState<sumByTransaction | null>(null);
   const [income, setIncome] = useState<sumByTransaction | null>(null);
   const [savings, setSavings] = useState<sumByTransaction | null>(null);
   const [expenses, setExpenses] = useState<sumByTransaction | null>(null);
+  const [debts, setDebts] = useState<sumByTransaction | null>(null);
+
   const [openInfoDialog, setOpenInfoDialog] = React.useState(false);
 
   const { budgetItems } = distributeBudgetAmounts(
@@ -71,10 +75,13 @@ const TransactionOverview = () => {
     endDate || undefined
   );
 
+  const debtItems = generateDebtAmounts(debtStore);
+
   const workerIncome = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), [filterOption]);
   const workerSavings = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), [filterOption]);
   const workerExpense = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), [filterOption]);
   const workerBudget = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), [filterOption]);
+  const workerDebt = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), [filterOption]);
 
   // necessary to populate/do worker function on first load
   useEffect(() => {
@@ -83,8 +90,9 @@ const TransactionOverview = () => {
       workerIncome.terminate();
       workerSavings.terminate();
       workerExpense.terminate();
+      workerDebt.terminate();
     };
-  }, [workerBudget, workerIncome, workerSavings, workerExpense]);
+  }, [workerBudget, workerIncome, workerSavings, workerExpense,workerDebt]);
 
   useSumDataByTimeframe(
     workerBudget,
@@ -122,7 +130,15 @@ const TransactionOverview = () => {
     endDate || undefined,
     [expenseStore, filterOption, startDate, endDate]
   );
-
+  useSumDataByTimeframe(
+    workerDebt,
+    debtItems,
+    setDebts,
+    filterOption,
+    startDate || undefined,
+    endDate || undefined,
+    [debtStore, filterOption, startDate, endDate]
+  );
   const isLoading = budget === null || income === null || expenses === null || savings === null;
 
   const filterTitle = getFilterTitle(filterOption, startDate, endDate);

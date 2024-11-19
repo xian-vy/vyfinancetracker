@@ -43,3 +43,24 @@ export const calculateDebtSumByDate = (data: DebtModel[], startDateProp: Date, e
 
     return  {total,borrowedPaid, borrowedNotPaid, lendedPaid, lendedNotPaid};
   }
+
+export const generateDebtAmounts = (data: DebtModel[])   => {
+  
+
+    // make borrowedPaid/lendedNotPaid negative amount 
+    
+    const finalData = data.map((item) =>  {
+        const borrowedPaid = item.isCreditor === false && item.status === DEBT_STATUS.Complete
+        const lendedNotPaid = item.isCreditor === true && item.status === DEBT_STATUS.InProgress
+
+        return {
+            ...item,
+            date : item.startDate,
+            amount : borrowedPaid ||  lendedNotPaid ? -item.amount : item.amount,
+        }
+
+    })
+
+    return finalData  
+
+  }
