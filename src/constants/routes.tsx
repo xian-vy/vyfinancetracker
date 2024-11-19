@@ -29,7 +29,7 @@ const SignIn = React.lazy(() => import("../components/PublicComponents/SignIn"))
 const TermsAndConditions = React.lazy(() => import("../components/legal/TermsAndConditions/TermsAndConditionsV1"));
 const PrivacyPolicy = React.lazy(() => import("../components/legal/PrivacyPolicy/PrivacyPolicyV1"));
 export const TNCandPrivacyPolicyDialog = React.lazy(() => import("../components/legal/TNCandPrivacyPolicyDialog"));
-const DebtMainPage = React.lazy(() => import("../components/Debt/index"));
+const DebtMainPage = React.lazy(() => import("../components/Debt/DebtMainPage"));
 
 export const routes = [
   {
