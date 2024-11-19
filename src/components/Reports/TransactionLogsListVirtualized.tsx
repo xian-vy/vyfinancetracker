@@ -22,16 +22,19 @@ import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
 import {
   getCategoryAndAccountTypeDescription,
   getCategoryDetails,
+  getDebtDetails,
   getIncomeSourceDetails,
   getSavingsDetails,
 } from "../../firebase/utils";
+import { generateDebtAmounts } from "../../helper/DebtHelper";
 import { formatShortAmountWithCurrency, hoverBgColor, useResponsiveCharLimit } from "../../helper/utils";
-import TransactionLogsModel from "../../models/TransactionLogsModel";
-import { RootState } from "../../redux/store";
 import { BudgetItemsModel, BudgetModel } from "../../models/BudgetModel";
+import DebtModel from "../../models/DebtModel";
 import ExpenseModel from "../../models/ExpenseModel";
 import IncomeModel from "../../models/IncomeModel";
 import SavingGoalsModel from "../../models/SavingGoalsModel";
+import TransactionLogsModel from "../../models/TransactionLogsModel";
+import { RootState } from "../../redux/store";
 
 function renderIcon(icon: React.ReactElement, color: string) {
   return React.cloneElement(icon, { style: { color: color, fontSize: iconSizeXS } });
@@ -63,6 +66,8 @@ const TransactionLogsListVirtualized = ({ logs, selectedTimeframe }: Props) => {
   const expenses  : ExpenseModel[]= useSelector((state: RootState) => state.expenses.expenses);
   const budgets : BudgetModel[] = useSelector((state: RootState) => state.budget.budgets);
   const budgetItems  : BudgetItemsModel[] = budgets.flatMap((budget) => budget.budgets);
+  const debts : DebtModel[] = useSelector((state: RootState) => state.debt.debt);
+  const debtItems : DebtModel[] = generateDebtAmounts(debts);
 
   const { categories } = useCategoryContext();
   const { incomeSource } = useIncomeSourcesContext();
@@ -72,7 +77,7 @@ const TransactionLogsListVirtualized = ({ logs, selectedTimeframe }: Props) => {
   const indexedIncome = useMemo(() => indexById(income), [income]);
   const indexedExpenses = useMemo(() => indexById(expenses), [expenses]);
   const indexedBudgets = useMemo(() => indexById(budgetItems), [budgets]);
-
+  const indexedDebts = useMemo(() => indexById(debtItems), [debts]);
   const rows = useMemo(() => {
     return logs.map((item, index) => {
       let color: string | undefined = "";
@@ -109,6 +114,12 @@ const TransactionLogsListVirtualized = ({ logs, selectedTimeframe }: Props) => {
         case txn_types.SavingsContribution:
           ({ color, categoryIcon, description: categoryDescription } = getSavingsDetails(savings, item.category_id));
           description = indexedSavings[item.txn_ref_id]?.description;
+          break;
+        case txn_types.Debt:
+          ({ color, categoryIcon } = getDebtDetails());
+          const isCreditor = indexedDebts[item.txn_ref_id]?.isCreditor;
+          const entity = indexedDebts[item.txn_ref_id]?.entity || "Deleted";
+          description = isCreditor ?  "Borrower: " : "Lender: " + entity;
           break;
         default:
           break;
