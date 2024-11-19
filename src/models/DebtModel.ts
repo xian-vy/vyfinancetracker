@@ -6,8 +6,8 @@ interface DebtModel {
   entity : string;
   note: string;
   amount: number;
-  startDate: Timestamp;
-  endDate: Timestamp;
+  date: Timestamp;
+  duedate: Timestamp;
   isCreditor: boolean;
   account_id : string;
   // rate: number;

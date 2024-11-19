@@ -101,13 +101,13 @@ export function DebtItems({
           <Stack direction="row" alignItems="center" justifyContent="space-between">
             <Typography variant="body1">Start Date</Typography>
             <Typography ml={1} variant="body1">
-              {TimestamptoDate(debtsProp.startDate, "MMM dd, yyyy")}
+              {TimestamptoDate(debtsProp.date, "MMM dd, yyyy")}
             </Typography>
           </Stack>
           <Stack direction="row" alignItems="center" justifyContent="space-between">
             <Typography variant="body1">Due Date</Typography>
             <Typography ml={1} variant="body1">
-              {TimestamptoDate(debtsProp.endDate, "MMM dd, yyyy")}
+              {TimestamptoDate(debtsProp.duedate, "MMM dd, yyyy")}
             </Typography>
           </Stack>
 

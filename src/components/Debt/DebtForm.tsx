@@ -33,8 +33,8 @@ const EntryForm = ({handleCloseForm,debtProp} : EntryFormProps) => {
       entity: "",
       note: "",
       amount: 0,
-      startDate: Timestamp.now(),
-      endDate: Timestamp.now(),
+      date: Timestamp.now(),
+      duedate: Timestamp.now(),
       status:DEBT_STATUS.InProgress,
       account_id :  accountType[0]?.id,
       isCreditor: true
@@ -43,8 +43,8 @@ const EntryForm = ({handleCloseForm,debtProp} : EntryFormProps) => {
       useEffect(() => {
         if (debtProp) {
           setNewDebt(debtProp);
-          setStartDate(new Date(debtProp.startDate.toDate()));
-          setEndDate(new Date(debtProp.endDate.toDate()));
+          setStartDate(new Date(debtProp.date.toDate()));
+          setEndDate(new Date(debtProp.duedate.toDate()));
         } 
       }, [debtProp]);
 
@@ -83,7 +83,7 @@ const EntryForm = ({handleCloseForm,debtProp} : EntryFormProps) => {
         } catch (error) {
           console.log(`Error ${debtProp ? "Updating" : "Adding"}  Debt`, error);
         } finally {
-          setNewDebt({ id: "", note: "",entity: "",account_id: "", amount: 0, startDate: Timestamp.now(), endDate: Timestamp.now(), status: DEBT_STATUS.InProgress, isCreditor: true });
+          setNewDebt({ id: "", note: "",entity: "",account_id: "", amount: 0, date: Timestamp.now(), duedate: Timestamp.now(), status: DEBT_STATUS.InProgress, isCreditor: true });
           setIsLoading(false);
         }
         setTimeout(() => {
@@ -126,7 +126,7 @@ const EntryForm = ({handleCloseForm,debtProp} : EntryFormProps) => {
             newData={newDebt}
             setNewData={setNewDebt}
             label="Start Date"
-            datefield="startDate"
+            datefield="date"
           />
 
           <EntryFormDatePicker
@@ -135,7 +135,7 @@ const EntryForm = ({handleCloseForm,debtProp} : EntryFormProps) => {
             newData={newDebt}
             setNewData={setNewDebt}
             label="Due Date"
-            datefield="endDate"
+            datefield="duedate"
           />
         </Stack>
         <TextField value={newDebt.entity} 
