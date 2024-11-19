@@ -1,4 +1,6 @@
 import { Add, CloseOutlined } from '@mui/icons-material';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
 import { Dialog, DialogContent, DialogTitle, Grid, Paper, Stack, Typography, useTheme } from '@mui/material';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { Timestamp } from 'firebase/firestore';
@@ -18,8 +20,8 @@ import DeleteConfirmationDialog from '../Dialog/DeleteConfirmationDialog';
 import FilterSavings from '../Filter/FilterSavings';
 import DebtForm from './DebtForm';
 import { DebtItems } from './DebtItems';
-import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import PaymentConfirmationDialog from './PaymentConfirmationDialog';
+import { de } from 'date-fns/locale';
 const DebtMainPage = () => {
     const theme = useTheme();
     const isDarkMode = theme.palette.mode === "dark";
@@ -29,6 +31,8 @@ const DebtMainPage = () => {
     const [filterOption, setFilterOption] = useState(DEBT_STATUS.InProgress);
     const [openForm, setOpenForm] = useState(false);
     const [deleteFormOpen, setDeleteFormOpen] = useState(false);
+    const [confirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
+
     const { saveLogs } = useTransactionLogsContext();
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
     
@@ -49,7 +53,7 @@ const DebtMainPage = () => {
             txn_type: txn_types.Savings,
             operation: operation_types.Delete,
             category_id: debtToEdit.id, //Debt id has no categories
-            account_id: "",
+            account_id: debtToEdit.account_id,
             amount: debtToEdit.amount,
             lastModified: Timestamp.now(),
           };
@@ -73,28 +77,32 @@ const DebtMainPage = () => {
       } else if (option === ACTION_TYPES.Delete) {
         setDeleteFormOpen(true);
       } else if (option === ACTION_TYPES.MarkAsPaid) {
-        await dispatch(updateDebtsAction({ ...debt, status: DEBT_STATUS.Complete }));
+        setConfirmationDialogOpen(true);
       }
     };
-    
-  const  handleCloseForm = () => {
+
+    const handleMarkAsPaid = async () => {
+      if (!debtToEdit) return;
+      await dispatch(updateDebtsAction({ ...debtToEdit, status: debtToEdit.status === DEBT_STATUS.Complete ? DEBT_STATUS.InProgress : DEBT_STATUS.Complete }));
+      setConfirmationDialogOpen(false)
+      setDebtToEdit(null);
+    }
+
+     const  handleCloseForm = () => {
       setOpenForm(false);
       setDebtToEdit(null);
     }
   return (
     <Grid container spacing={{ xs: 1, sm: 1.5, lg: 2 }} pb={{ xs: 10, md: 5 }}>
-    <Grid item xs={12} lg={12}>
-        <Paper
-        sx={{ py: 1, px: { xs: 0, sm: 1, md: 2 }, minHeight: 600, borderRadius: 2}}
-        variant={isDarkMode ? "elevation" : "outlined"}
-        
-        >
-            <Stack direction="column" mr={1}>
+        <Grid item xs={12} lg={12} >
+            <Paper
+            sx={{ py:1.5, px:3, minHeight: 600, borderRadius: 2}}
+            variant={isDarkMode ? "elevation" : "outlined"}    
+            > 
                 <Stack direction="row" justifyContent="space-between" alignItems="center">
-
                     <Stack direction="row" alignItems="center">
-                          <WalletOutlinedIcon sx={{ color: ThemeColor(theme), fontSize: 16 }} />
-                          <Typography ml={0.5} variant="h6"> Debts</Typography>
+                          <PriceChangeOutlinedIcon sx={{ color: ThemeColor(theme), fontSize: 16 }} />
+                          <Typography ml={0.5} variant="h6"> Debt</Typography>
                     </Stack>
                     <Stack direction="row" alignItems="center">
                         <FilterSavings filter={filterOption} onFilterChange={handleFilterChange} />
@@ -109,42 +117,49 @@ const DebtMainPage = () => {
                 </Stack>
                 
                 <Grid container padding={1} spacing={2} paddingTop={4}>
-                  <Stack direction="row" gap={0.5} justifyContent="center"  alignItems="center" width="100%">
-                      <InfoOutlinedIcon sx={{ color: ThemeColor(theme), fontSize: 14 }} />
-                      <Typography textAlign={"center"} variant='body1' >This feature is under development. Currently, you can create Basic debts for record purposes. No interest and payments will be made. </Typography>
-                  </Stack>
-                  {/** Savings Items Container------------------------------------------------------------------------*/}
-                  {filteredDebts.map((debt) => (
-                    <DebtItems key={debt.id} onActionSelect={handleActionSelect} debtsProp={debt} />
-                  ))}
-              </Grid>
-            </Stack>
-    </Paper>
-    </Grid>
+                    <Stack direction="row" gap={0.5} justifyContent="center"  alignItems="center" width="100%" mb={3}>
+                        <InfoOutlinedIcon sx={{ color: ThemeColor(theme), fontSize: 16 }} />
+                        <Typography textAlign={"center"} variant='body1' >This feature is under development. Currently, you can create Basic debts for record purposes. No interest and payments will be made. </Typography>
+                    </Stack>
+                    {/** Savings Items Container------------------------------------------------------------------------*/}
+                    {filteredDebts.map((debt) => (
+                      <DebtItems key={debt.id} onActionSelect={handleActionSelect} debtsProp={debt} />
+                    ))}
+              </Grid>      
+          </Paper>
+        </Grid>
 
-    <Dialog
-        open={openForm}
-        PaperProps={{
-          sx: { borderRadius: 1, background: isDarkMode ? "#1e1e1e" : "#fff", width: 350 },
-        }}
-        transitionDuration={powerSavingMode ? 0 : undefined}
-      >
-         <DialogTitle sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-           <Typography variant="body2">New Entry</Typography>
-           <CloseOutlined  sx={{ cursor: "pointer",fontSize:16 }} onClick={handleCloseForm} />
-         </DialogTitle>
-        <DialogContent sx={{ px: 3, py: 1 }}>
-          <DebtForm  debtProp={debtToEdit} handleCloseForm={handleCloseForm}/>
-        </DialogContent>
-      </Dialog>
+        <Dialog
+            open={openForm}
+            PaperProps={{
+              sx: { borderRadius: 1, background: isDarkMode ? "#1e1e1e" : "#fff", width: 350 },
+            }}
+            transitionDuration={powerSavingMode ? 0 : undefined}
+          >
+            <DialogTitle sx={{display: "flex", justifyContent: "space-between", alignItems: "center", pb:0}}>
+              <Typography variant="body2">New Entry</Typography>
+              <CloseOutlined  sx={{ cursor: "pointer",fontSize:16 }} onClick={handleCloseForm} />
+            </DialogTitle>
+            <DialogContent sx={{ px: 3, py: 1 }}>
+              <DebtForm  debtProp={debtToEdit} handleCloseForm={handleCloseForm}/>
+            </DialogContent>
+          </Dialog>
 
-      <DeleteConfirmationDialog
-        isDialogOpen={deleteFormOpen}
-        onClose={() => setDeleteFormOpen(false)}
-        onDelete={handleDeleteDebt}
-        description={debtToEdit?.note || ""}
-      />
+          <DeleteConfirmationDialog
+            isDialogOpen={deleteFormOpen}
+            onClose={() => setDeleteFormOpen(false)}
+            onDelete={handleDeleteDebt}
+            description={debtToEdit?.note || ""}
+          />
 
+          <PaymentConfirmationDialog
+            amount={debtToEdit?.amount || 0}
+            markAsPaid={debtToEdit?.status === DEBT_STATUS.Complete}
+            isCreditor={debtToEdit?.isCreditor || false}
+            isDialogOpen={confirmationDialogOpen}
+            onClose={() => setConfirmationDialogOpen(false)}
+            onAgreed={handleMarkAsPaid}
+          />
     </Grid>
   )
 }
