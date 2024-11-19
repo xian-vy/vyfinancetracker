@@ -13,11 +13,11 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { ACTION_TYPES } from "../../constants/constants";
+import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { TimestamptoDate } from "../../helper/date";
-import { formatShortAmountWithCurrency, toTitleCase } from "../../helper/utils";
+import { formatShortAmountWithCurrency } from "../../helper/utils";
 import { useActionPopover } from "../../hooks/actionHook";
 import DebtModel from "../../models/DebtModel";
-import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 
 export function DebtItems({
   debtsProp,
