@@ -27,6 +27,7 @@ export enum txn_types {
   Budget = "Budget",
   Savings = "Savings",
   SavingsContribution = "Savings Contribution",
+  Debt = "Debt",
 }
 
 export enum txn_summary {
