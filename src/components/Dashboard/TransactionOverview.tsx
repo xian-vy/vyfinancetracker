@@ -140,7 +140,7 @@ const TransactionOverview = () => {
     endDate || undefined,
     [debtStore, filterOption, startDate, endDate]
   );
-  const isLoading = budget === null || income === null || expenses === null || savings === null;
+  const isLoading = budget === null || income === null || expenses === null || savings === null || debts === null;
 
   const filterTitle = getFilterTitle(filterOption, startDate, endDate);
 
@@ -169,8 +169,9 @@ const TransactionOverview = () => {
   const budgetPrevSum = budget.prevSum ;
   const contributionSum = savings.sum ;
   const contributionPrevSum = savings.prevSum ;
-  const prevDate = expenses.prevDate ;        
-
+  const debtSum = debts.sum ;
+  const debtPrevSum = debts.prevSum ;
+  const prevDate = expenses.prevDate ;  
   return (
     <>
       <Container maxWidth={false} sx={{ p: 1 }}>
@@ -204,6 +205,8 @@ const TransactionOverview = () => {
                       expensePrevSum: expensePrevSum,
                       contributionPrevSum: contributionPrevSum,
                       budgetPrevSum: budgetPrevSum,
+                      debtSum: debtSum,
+                      debtPrevSum: debtPrevSum
                     }}                
                     openInfoDialog={() => setOpenInfoDialog(true)}
                   />

@@ -32,8 +32,8 @@ type TransactionDataType = {
   endDate: Date | null;
 };
 type SumAmountType = {
-  expenseSum: number; incomeSum: number; contributionSum: number; budgetSum: number
-  expensePrevSum: number; incomePrevSum: number; contributionPrevSum: number; budgetPrevSum: number
+  expenseSum: number; incomeSum: number; contributionSum: number; budgetSum: number ; debtSum: number;
+  expensePrevSum: number; incomePrevSum: number; contributionPrevSum: number; budgetPrevSum: number; debtPrevSum: number
 }
 interface Props {
   data: TransactionDataType;
@@ -54,8 +54,8 @@ const TransactionOverviewItems = (props: Props) => {
 
   useEffect(() => {
     if (props.data.prevDate) {
-      const currentSUM = calculateCurrentSum(props.data.type, props.sumAmounts.incomeSum, props.sumAmounts.expenseSum, props.sumAmounts.contributionSum, props.sumAmounts.budgetSum);
-      const prevSUM = calculatePrevSum(props.data.type, props.sumAmounts.incomePrevSum, props.sumAmounts.expensePrevSum, props.sumAmounts.contributionPrevSum, props.sumAmounts.budgetPrevSum);
+      const currentSUM = calculateCurrentSum(props.data.type, props.sumAmounts.incomeSum, props.sumAmounts.expenseSum, props.sumAmounts.contributionSum, props.sumAmounts.budgetSum, props.sumAmounts.debtSum);
+      const prevSUM = calculatePrevSum(props.data.type, props.sumAmounts.incomePrevSum, props.sumAmounts.expensePrevSum, props.sumAmounts.contributionPrevSum, props.sumAmounts.budgetPrevSum, props.sumAmounts.debtPrevSum);
       const percentageIncrease = calculatePercentageIncrease(currentSUM, prevSUM);
       const percentagecolor = determinePercentageColor(percentageIncrease);
       const percentageSTR = determinePercentageStr(percentageIncrease, currentSUM, prevSUM);

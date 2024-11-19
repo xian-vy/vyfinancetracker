@@ -22,16 +22,20 @@ import {
   SAVINGS_THEME,
   BALANCE_THEME_DARK,
   BALANCE_THEME,
+  DEBT_THEME,
+  DEBT_THEME_DARK,
 } from "../../constants/componentTheme";
 import { iconSizeXS } from "../../constants/size";
 import { hoverBgColor } from "../../helper/utils";
+import PriceChangeIcon from '@mui/icons-material/PriceChange';
 
 export const calculateCurrentSum = (
   type: string,
   incomeSum: number,
   expenseSum: number,
   contributionSum: number,
-  budgetSum: number
+  budgetSum: number,
+  debtSum: number
 ) => {
   switch (type) {
     case txn_summary.Balance:
@@ -44,6 +48,8 @@ export const calculateCurrentSum = (
       return incomeSum;
     case txn_summary.Savings:
       return contributionSum;
+    case txn_summary.Debt:
+      return debtSum;
     default:
       return 0;
   }
@@ -54,7 +60,8 @@ export const calculatePrevSum = (
   incomePrevSum: number,
   expensePrevSum: number,
   contributionPrevSum: number,
-  budgetPrevSum: number
+  budgetPrevSum: number,
+  debtPrevSum : number
 ) => {
   switch (type) {
     case txn_summary.Balance:
@@ -67,6 +74,8 @@ export const calculatePrevSum = (
       return incomePrevSum;
     case txn_summary.Savings:
       return contributionPrevSum;
+    case txn_summary.Debt:
+      return debtPrevSum
     default:
       return 0;
   }
@@ -151,6 +160,11 @@ export function typeIconColor(type: string, theme: Theme, isDarkMode: boolean) {
       return {
         icon: <Coin fill={hoverBgColor(theme)} style={{ width: "14px", height: "14px" }} />,
         color: isDarkMode ? BALANCE_THEME_DARK : BALANCE_THEME,
+      };
+     case txn_summary.Debt:
+      return {
+        icon: <PriceChangeIcon style={{ color: hoverBgColor(theme), width: "14px", height: "14px" }} />,
+        color: isDarkMode ? DEBT_THEME_DARK : DEBT_THEME,
       };
     default:
       throw new Error(`Unsupported type: ${type}`);
