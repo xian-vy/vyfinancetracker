@@ -55,7 +55,7 @@ export const generateDebtAmounts = (data: DebtModel[])   => {
 
         return {
             ...item,
-            date : item.startDate,
+          
             amount : borrowedPaid ||  lendedNotPaid ? -item.amount : item.amount,
         }
 

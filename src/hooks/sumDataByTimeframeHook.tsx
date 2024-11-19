@@ -3,6 +3,7 @@ import { sumDataByTimeframeWorker } from "../helper/workers/workerHelper";
 import { FilterTimeframe } from "../constants/timeframes";
 import { TransactionTypes } from "../helper/GenericTransactionHelper";
 import SavingGoalsModel from "../models/SavingGoalsModel";
+import DebtModel from "../models/DebtModel";
 
 type generatedBudgets = {
   sum: number;
@@ -10,7 +11,7 @@ type generatedBudgets = {
   prevDate: string;
 };
 
-export const useSumDataByTimeframe = <T extends Exclude<TransactionTypes, SavingGoalsModel>>(
+export const useSumDataByTimeframe = <T extends Exclude<TransactionTypes, SavingGoalsModel >>(
   worker: Worker,
   store: T[],
   setStoreData: React.Dispatch<React.SetStateAction<generatedBudgets | null>>,

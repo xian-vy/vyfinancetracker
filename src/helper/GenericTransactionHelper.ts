@@ -8,6 +8,7 @@ import IncomeModel from "../models/IncomeModel";
 import { BudgetItemsModel } from "../models/BudgetModel";
 import SavingGoalsModel from "../models/SavingGoalsModel";
 import SavingGoalsContributionModel from "../models/SavingGoalsContribution";
+import DebtModel from "../models/DebtModel";
 
 //same types for categories,payments,accounts and income source
 export type CategoriesType = {
@@ -22,7 +23,8 @@ export type TransactionTypes =
   | IncomeModel
   | BudgetItemsModel
   | SavingGoalsModel
-  | SavingGoalsContributionModel;
+  | SavingGoalsContributionModel
+  | DebtModel
 
 /* First Aggregation --------------------------------------------*/
 export const filterDataByDateRange = <T extends TransactionTypes>(
@@ -178,7 +180,7 @@ function getCategoryId<T extends object>(item: T): string {
 
 /* Final Aggregation --------------------------------------------*/
 
-export const FilterAndGroupData = <T extends Exclude<TransactionTypes, SavingGoalsModel>>(
+export const FilterAndGroupData = <T extends Exclude<TransactionTypes, SavingGoalsModel | DebtModel>>(
   filterTimeframe: string,
   data: T[],
   categories: CategoriesType[], //works with SavingGoalsModel too same fields as categories
@@ -256,7 +258,7 @@ export function groupDataByIdWithIcons<T extends Exclude<TransactionTypes, Savin
 
 // -----------------------for dashboard overview SUM----------------------------//
 
-export function sumDataByTimeframe<T extends Exclude<TransactionTypes, SavingGoalsModel>>(
+export function sumDataByTimeframe<T extends Exclude<TransactionTypes, SavingGoalsModel | DebtModel>>(
   txnData: T[],
   timeframe: FilterTimeframe,
   dateStart?: Date,

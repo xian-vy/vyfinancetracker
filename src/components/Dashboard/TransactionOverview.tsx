@@ -20,6 +20,7 @@ import {
 } from "./TransactionOverviewHelper";
 import TransactionOverviewItems from "./TransactionOverviewItems";
 import { generateDebtAmounts } from "../../helper/DebtHelper";
+import DebtModel from "../../models/DebtModel";
 
 type sumByTransaction = {
   sum: number;
@@ -75,7 +76,7 @@ const TransactionOverview = () => {
     endDate || undefined
   );
 
-  const debtItems = generateDebtAmounts(debtStore);
+  const debtItems : DebtModel[] = generateDebtAmounts(debtStore);
 
   const workerIncome = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), [filterOption]);
   const workerSavings = useMemo(() => new Worker(new URL("../../helper/workers/workers", import.meta.url)), [filterOption]);
