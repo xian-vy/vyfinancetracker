@@ -22,12 +22,14 @@ const mapDataToDebtsModel = (doc: QueryDocumentSnapshot<any>, data: any): DebtMo
     return [
       {
         id: doc.id,
-        name: data.name,
-        description: data.description,
-        amount: data.targetAmount,
+        entity: data.entity,
+        account_id: data.account_id,
+        note: data.note,
+        amount: data.amount,
         startDate: convertToFirestoreTimestamp(data.startDate),
         endDate: convertToFirestoreTimestamp(data.endDate),
         status: data.status,
+        isCreditor: data.isCreditor,
         // rate: data.rate,
         // frequency: data.frequency,
         lastModified: convertToFirestoreTimestamp(data.lastModified),
