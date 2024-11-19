@@ -23,6 +23,8 @@ import GenericListItem from "../GenericListItem";
 import ExpenseModel from "../../../models/ExpenseModel";
 import SavingGoalsContributionModel from "../../../models/SavingGoalsContribution";
 import IncomeModel from "../../../models/IncomeModel";
+import DebtModel from "../../../models/DebtModel";
+import { updateDebtsAction } from "../../../redux/actions/debtAction";
 const AccountsForm = React.lazy(() => import("./AccountsForm"));
 
 const AccountsList = () => {
@@ -34,6 +36,7 @@ const AccountsList = () => {
   const expenses : ExpenseModel[] = useSelector((state: RootState) => state.expenses.expenses);
   const savingsContributions : SavingGoalsContributionModel[] = useSelector((state: RootState) => state.savingsContribution.contribution);
   const income : IncomeModel[]= useSelector((state: RootState) => state.income.income);
+  const debts : DebtModel[] = useSelector((state: RootState) => state.debt.debt);
   const [isLoading, setIsLoading] = useState(false);
   const [editAccountType, seteditAccountType] = useState<AccountTypeModel>({} as AccountTypeModel);
 
@@ -55,7 +58,11 @@ const AccountsList = () => {
 
       const SavingsContributionWithSameAccount = savingsContributions.filter((savings) => {
         return savings.account_id === editAccountType.id;
-      });
+      })
+
+      const DebtsWithSameAccount = debts.filter((debt) => {  
+        return debt.account_id === editAccountType.id;
+      })
 
       const uncategorized = accountType.find((ptype) => {
         return ptype.description === "Uncategorized";
@@ -86,6 +93,14 @@ const AccountsList = () => {
         );
       }
 
+      if (DebtsWithSameAccount.length > 0) {
+        await Promise.all(
+          DebtsWithSameAccount.map((debt) =>
+            dispatch(updateDebtsAction({ ...debt, account_id: uncategorizedId }))
+          )
+        );
+      }
+
       deleteAccountType(editAccountType.id);
 
       openSuccessSnackbar(`Account has been deleted`);
@@ -95,7 +110,7 @@ const AccountsList = () => {
       setDeleteFormOpen(false);
       setIsLoading(false);
     }
-  }, [accountType, expenses, income, editAccountType, savingsContributions, deleteAccountType]);
+  }, [accountType, expenses, income, editAccountType, savingsContributions,debts, deleteAccountType]);
 
   const handleAction = async (option: string, ptype: AccountTypeModel) => {
     seteditAccountType(ptype);
