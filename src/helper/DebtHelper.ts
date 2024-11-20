@@ -70,9 +70,9 @@ export const generateDebtAmounts = (data: DebtModel[])   => {
   export const generateNetOfDebt  = <T extends Exclude<TransactionTypes, SavingGoalsModel>>(data: T[])   => {
       return data.reduce((sum, item) => {
         if (item.amount < 0) {
-          return sum - item.amount; // Debt Owed
+          return sum - item.amount; // Debt Owed (Borrowed Paid, Lended UnPaid)
         } else {
-          return sum + item.amount; // Debt Owned
+          return sum + item.amount; // Debt Owned (Borrowed UnPaid, Lended Paid)
         }    
       }, 0) || 0;
   }
