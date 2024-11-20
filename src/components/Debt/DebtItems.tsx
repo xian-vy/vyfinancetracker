@@ -1,20 +1,21 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import {
-    CardContent,
-    Collapse,
-    Divider,
-    Grid,
-    IconButton,
-    Paper,
-    Stack,
-    Typography,
-    useTheme
+  CardContent,
+  Collapse,
+  Divider,
+  Grid,
+  IconButton,
+  Paper,
+  Stack,
+  Typography,
+  useTheme
 } from "@mui/material";
 import { useState } from "react";
-import { ACTION_TYPES } from "../../constants/constants";
+import { ACTION_TYPES, DEBT_STATUS } from "../../constants/constants";
 import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { TimestamptoDate } from "../../helper/date";
+import { getDebtAmountColor } from "../../helper/DebtHelper";
 import { formatShortAmountWithCurrency } from "../../helper/utils";
 import { useActionPopover } from "../../hooks/actionHook";
 import DebtModel from "../../models/DebtModel";
@@ -71,8 +72,8 @@ export function DebtItems({
           {/** Savings Name /More Icon -----------------------------------------------------------------*/}
           <Stack direction="row" justifyContent="space-between" alignItems="center">
   
-                <Typography align="left" variant="h6"  noWrap sx={{fontWeight: "bold"    }}>
-                   {formatShortAmountWithCurrency(debtsProp.amount, false, true)}    {" "}
+                <Typography align="left" variant="h6"  noWrap sx={{fontWeight: "bold"}}>
+                   <span style={{ color:  getDebtAmountColor(debtsProp.isCreditor,debtsProp.status === DEBT_STATUS.Complete)}}>{formatShortAmountWithCurrency(debtsProp.amount, false, true)} </span>   {" "}
                    {account ? account.description : ""}            
                 </Typography>    
                             
