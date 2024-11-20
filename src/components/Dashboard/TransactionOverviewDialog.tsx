@@ -27,7 +27,7 @@ interface Props {
   totalAmount: number;
   openDialog: boolean;
   onDialogClose: () => void;
-  networth?: { expenseSum: number; incomeSum: number; contributionSum: number };
+  networth?: { expenseSum: number; incomeSum: number; contributionSum: number , debtSum: number};
   selectedCategories?: string[];
   isDarkMode: boolean;
 }
@@ -104,6 +104,7 @@ const TransactionOverviewDialog = (props: Props) => {
                   expense: props.networth?.expenseSum || 0,
                   income: props.networth?.incomeSum || 0,
                   savings: props.networth?.contributionSum || 0,
+                  debts : props.networth?.debtSum || 0
                 }}
               />
             )}

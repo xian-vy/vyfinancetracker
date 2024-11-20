@@ -39,7 +39,7 @@ export const calculateCurrentSum = (
 ) => {
   switch (type) {
     case txn_summary.Balance:
-      return incomeSum - expenseSum - contributionSum;
+      return incomeSum - expenseSum - contributionSum - debtSum;
     case txn_summary.Expenses:
       return expenseSum;
     case txn_summary.Budget:

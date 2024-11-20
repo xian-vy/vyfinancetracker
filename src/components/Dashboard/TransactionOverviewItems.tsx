@@ -195,6 +195,7 @@ const TransactionOverviewItems = (props: Props) => {
           expenseSum: props.sumAmounts.expenseSum || 0,
           incomeSum: props.sumAmounts.incomeSum || 0,
           contributionSum: props.sumAmounts.contributionSum || 0,
+          debtSum: props.sumAmounts.debtSum || 0
         }}
         isDarkMode={props.data.isDarkMode}
       />

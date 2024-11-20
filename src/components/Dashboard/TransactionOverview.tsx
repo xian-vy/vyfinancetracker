@@ -138,7 +138,8 @@ const TransactionOverview = () => {
     filterOption,
     startDate || undefined,
     endDate || undefined,
-    [debtStore, filterOption, startDate, endDate]
+    [debtStore, filterOption, startDate, endDate],
+    true,
   );
   const isLoading = budget === null || income === null || expenses === null || savings === null || debts === null;
 
@@ -171,7 +172,8 @@ const TransactionOverview = () => {
   const contributionPrevSum = savings.prevSum ;
   const debtSum = debts.sum ;
   const debtPrevSum = debts.prevSum ;
-  const prevDate = expenses.prevDate ;  
+  const prevDate = expenses.prevDate 
+
   return (
     <>
       <Container maxWidth={false} sx={{ p: 1 }}>
@@ -223,7 +225,7 @@ const TransactionOverview = () => {
         content={
           <>
             <Typography variant="body1" mt={2}>
-              Income - Expense - Savings Contributions
+              Income - Expense - Savings Contributions - Debt
             </Typography>
           </>
         }
