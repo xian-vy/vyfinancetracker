@@ -1,15 +1,14 @@
 import { endOfMonth, format } from "date-fns";
 import { Timestamp } from "firebase/firestore";
 import { FilterTimeframe, monthFilters, weekFilters } from "../constants/timeframes";
-import { TimestamptoDate, getDateFormat, getPreviousTimeframe, getStartAndEndDate, sortDates } from "./date";
 import { getCategoryAndAccountTypeDescription, getColorbyDescription } from "../firebase/utils";
+import { BudgetItemsModel } from "../models/BudgetModel";
+import DebtModel from "../models/DebtModel";
 import ExpenseModel from "../models/ExpenseModel";
 import IncomeModel from "../models/IncomeModel";
-import { BudgetItemsModel } from "../models/BudgetModel";
-import SavingGoalsModel from "../models/SavingGoalsModel";
 import SavingGoalsContributionModel from "../models/SavingGoalsContribution";
-import DebtModel from "../models/DebtModel";
-import { generateNetOfDebt } from "./DebtHelper";
+import SavingGoalsModel from "../models/SavingGoalsModel";
+import { TimestamptoDate, getDateFormat, getPreviousTimeframe, getStartAndEndDate, sortDates } from "./date";
 
 //same types for categories,payments,accounts and income source
 export type CategoriesType = {
@@ -265,7 +264,6 @@ export function sumDataByTimeframe<T extends Exclude<TransactionTypes, SavingGoa
   timeframe: FilterTimeframe,
   dateStart?: Date,
   dateEnd?: Date,
-  isDebt?: boolean
 ) {
   if (timeframe === FilterTimeframe.AllTime) {
     const sum = txnData.reduce((total, item) => total + item.amount, 0);
@@ -290,15 +288,9 @@ export function sumDataByTimeframe<T extends Exclude<TransactionTypes, SavingGoa
     return date >= prevStartDate && date <= prevEndDate;
   });
 
-  let sum = 0;
-  let prevSum = 0;
-  if (isDebt) {
-    sum = generateNetOfDebt(filteredData);
-    prevSum = generateNetOfDebt(prevFilteredData)
-  } else {
-    sum = filteredData.reduce((total, item) => total + item.amount, 0);
-    prevSum = prevFilteredData.reduce((total, item) => total + item.amount, 0);
-  }
+ const sum = filteredData.reduce((total, item) => total + item.amount, 0);
+ const prevSum = prevFilteredData.reduce((total, item) => total + item.amount, 0);
+  
  
   return { sum, prevSum, prevDate };
 }

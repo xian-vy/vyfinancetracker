@@ -139,7 +139,6 @@ const TransactionOverview = () => {
     startDate || undefined,
     endDate || undefined,
     [debtStore, filterOption, startDate, endDate],
-    true,
   );
   const isLoading = budget === null || income === null || expenses === null || savings === null || debts === null;
 

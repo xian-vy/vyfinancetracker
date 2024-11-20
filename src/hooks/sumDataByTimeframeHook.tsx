@@ -18,13 +18,12 @@ export const useSumDataByTimeframe = <T extends Exclude<TransactionTypes, Saving
   startDate: Date | undefined,
   endDate: Date | undefined,
   dependencies: any[],
-  isDebt?: boolean
 ) => {
   useEffect(() => {
     let isMounted = true;
 
     if (store.length > 0) {
-      sumDataByTimeframeWorker(worker, store, filterOption, startDate || undefined, endDate || undefined,isDebt  || undefined
+      sumDataByTimeframeWorker(worker, store, filterOption, startDate || undefined, endDate || undefined
       ).then(
         (data) => {
           if (isMounted) {

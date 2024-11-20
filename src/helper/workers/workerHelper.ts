@@ -18,12 +18,11 @@ export function sumDataByTimeframeWorker<T extends Exclude<TransactionTypes, Sav
   timeframe: FilterTimeframe,
   dateStart?: Date,
   dateEnd?: Date,
-  isDebt? : boolean
 ) {
   return new Promise((resolve, reject) => {
     worker.postMessage({
       action: WORKER_DASHBOARD_OVERVIEWSUM,
-      payload: { txnData, timeframe, dateStart, dateEnd, isDebt },
+      payload: { txnData, timeframe, dateStart, dateEnd },
     });
 
     worker.onmessage = (event) => {
