@@ -37,6 +37,7 @@ const TopBudgetsContainer = React.lazy(() => import("../Charts/Budget/TopBudgets
 const TopExpensesContainer = React.lazy(() => import("../Charts/Expenses/TopExpensesContainer"));
 const TopIncomeContainer = React.lazy(() => import("../Charts/Income/TopIncomeContainer"));
 const TopSavingsContributionsContainer = React.lazy(() => import("../Charts/Savings/TopSavingsContributionsContainer"));
+const DebtBreakdownByType = React.lazy(() => import("./DebtBreakdownByType"));
 
 const TransactionOverviewDialog = (props: Props) => {
   const powerSavingMode = useSelector((state: RootState) => state.powerSaving.enabled);
@@ -136,6 +137,13 @@ const TransactionOverviewDialog = (props: Props) => {
                 filterOption={props.filterOption}
                 startDate={props.startDate}
                 endDate={props.endDate}
+              />
+            )}
+            {props.txnType === txn_summary.Debt && (
+              <DebtBreakdownByType 
+                timeframe={props.filterOption}
+                dateStart={props.startDate || undefined}
+                dateEnd={props.endDate || undefined}
               />
             )}
           </React.Suspense>
