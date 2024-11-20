@@ -1,15 +1,15 @@
+import { Divider, Stack, Tooltip, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
+import { generateDebtAmounts } from "../../helper/DebtHelper";
 import { calculateTotalSum } from "../../helper/GenericTransactionHelper";
-import { RootState } from "../../redux/store";
-import { Stack, Typography, Divider, useTheme, Tooltip } from "@mui/material";
 import { formatShortAmountWithCurrency } from "../../helper/utils";
 import { ReactComponent as Coin } from "../../media/coin.svg";
-import SavingGoalsContributionModel from "../../models/SavingGoalsContribution";
+import DebtModel from "../../models/DebtModel";
 import ExpenseModel from "../../models/ExpenseModel";
 import IncomeModel from "../../models/IncomeModel";
-import DebtModel from "../../models/DebtModel";
-import { generateDebtAmounts, generateNetOfDebt } from "../../helper/DebtHelper";
+import SavingGoalsContributionModel from "../../models/SavingGoalsContribution";
+import { RootState } from "../../redux/store";
 
 const TotalNetWorth = ({ collapsedDrawer }: { collapsedDrawer: boolean }) => {
   const theme = useTheme();
@@ -21,12 +21,13 @@ const TotalNetWorth = ({ collapsedDrawer }: { collapsedDrawer: boolean }) => {
   const income : IncomeModel[]= useSelector((state: RootState) => state.income.income);
   const debt : DebtModel[]= useSelector((state: RootState) => state.debt.debt);
   const debtItems = generateDebtAmounts(debt);
-  const netDebt =  generateNetOfDebt(debtItems);
 
   const totalSavingsContribution = calculateTotalSum(savingsContribution, "amount");
   const totalExpenses = calculateTotalSum(expenses, "amount");
   const totalIncome = calculateTotalSum(income, "amount");
-  const totalBalance = totalIncome - totalExpenses - totalSavingsContribution - netDebt;
+  const totalDebt = calculateTotalSum(debtItems, "amount");
+
+  const totalBalance = totalIncome - totalExpenses - totalSavingsContribution - (Math.abs(totalDebt));
   return (
     <div>
       {!collapsedDrawer && (

@@ -34,7 +34,7 @@ const BalanceByAccountTypeBreakdown = ({ networth }: Props) => {
     },
     {
       type: txn_types.Debt,
-      amount: networth.debts,
+      amount: Math.abs(networth.debts),
       color: DEBT_THEME,
       icon: <PriceChangeIcon sx={{ fontSize: iconSizeSM, color: DEBT_THEME }} />,
     },

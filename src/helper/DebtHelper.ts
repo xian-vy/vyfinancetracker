@@ -1,13 +1,24 @@
 import { DEBT_STATUS } from "../constants/constants";
+import { FilterTimeframe } from "../constants/timeframes";
 import DebtModel from "../models/DebtModel";
 import SavingGoalsModel from "../models/SavingGoalsModel";
+import { getStartAndEndDate } from "./date";
 import { TransactionTypes } from "./GenericTransactionHelper";
 
 
 
-export const calculateDebtSumByDate = (data: DebtModel[], startDateProp: Date, endDateProp: Date)  => {
-    const filteredData = data
+export const calculateDebtByType = (data: DebtModel[], timeframe: FilterTimeframe,
+  dateStart?: Date,
+  dateEnd?: Date,
+)  => {
+  const { startDate, endDate } = getStartAndEndDate(timeframe, dateStart, dateEnd);
+
   
+  const filteredData = data.filter((data) => {
+    const date = new Date(data.date.seconds * 1000 + data.date.nanoseconds / 1e6);
+    return date >= startDate && date <= endDate;
+  });
+
     //plus to balance
     const borrowedNotPaid = filteredData.reduce((total, item) => {
       if (item.isCreditor === false && item.status === DEBT_STATUS.InProgress) {
@@ -40,10 +51,10 @@ export const calculateDebtSumByDate = (data: DebtModel[], startDateProp: Date, e
       return total;
     }, 0);
 
-    const total = (lendedPaid + borrowedNotPaid) - (lendedNotPaid + borrowedPaid);
+    //const total = (lendedPaid + borrowedNotPaid) - (lendedNotPaid + borrowedPaid);
 
 
-    return  {total,borrowedPaid, borrowedNotPaid, lendedPaid, lendedNotPaid};
+    return  {borrowedPaid, borrowedNotPaid, lendedPaid, lendedNotPaid};
   }
 
 export const generateDebtAmounts = (data: DebtModel[])   => {
@@ -67,12 +78,16 @@ export const generateDebtAmounts = (data: DebtModel[])   => {
 
   }
 
-  export const generateNetOfDebt  = <T extends Exclude<TransactionTypes, SavingGoalsModel>>(data: T[])   => {
-      return data.reduce((sum, item) => {
-        if (item.amount < 0) {
-          return sum - item.amount; // Debt Owed (Borrowed Paid, Lended UnPaid)
-        } else {
-          return sum + item.amount; // Debt Owned (Borrowed UnPaid, Lended Paid)
-        }    
-      }, 0) || 0;
+  export const getDebtAmountColor = (isCreditor : boolean, isPaid : boolean) => {
+     let color = "#A4504A";
+     if (isCreditor && isPaid) {
+      color = "#008000";
+    } else if (isCreditor && !isPaid) {
+      color = "#A4504A";
+    } else if (!isCreditor && isPaid) {
+      color = "#A4504A";
+    } else if (!isCreditor && !isPaid) {
+      color = "#008000";
+    }
+    return color
   }

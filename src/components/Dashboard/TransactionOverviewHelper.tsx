@@ -39,7 +39,7 @@ export const calculateCurrentSum = (
 ) => {
   switch (type) {
     case txn_summary.Balance:
-      return incomeSum - expenseSum - contributionSum - debtSum;
+      return incomeSum - expenseSum - contributionSum - Math.abs(debtSum); //force positive, to fix substract calc issue for debt
     case txn_summary.Expenses:
       return expenseSum;
     case txn_summary.Budget:
@@ -65,7 +65,7 @@ export const calculatePrevSum = (
 ) => {
   switch (type) {
     case txn_summary.Balance:
-      return incomePrevSum - expensePrevSum - contributionPrevSum;
+      return incomePrevSum - expensePrevSum - contributionPrevSum -Math.abs(debtPrevSum); //force positive, to fix substract calc issue for debt
     case txn_summary.Expenses:
       return expensePrevSum;
     case txn_summary.Budget:
