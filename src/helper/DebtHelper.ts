@@ -1,5 +1,7 @@
 import { DEBT_STATUS } from "../constants/constants";
 import DebtModel from "../models/DebtModel";
+import SavingGoalsModel from "../models/SavingGoalsModel";
+import { TransactionTypes } from "./GenericTransactionHelper";
 
 
 
@@ -63,4 +65,14 @@ export const generateDebtAmounts = (data: DebtModel[])   => {
 
     return finalData  
 
+  }
+
+  export const generateNetOfDebt  = <T extends Exclude<TransactionTypes, SavingGoalsModel>>(data: T[])   => {
+      return data.reduce((sum, item) => {
+        if (item.amount < 0) {
+          return sum - item.amount; // Debt Owed
+        } else {
+          return sum + item.amount; // Debt Owned
+        }    
+      }, 0) || 0;
   }
