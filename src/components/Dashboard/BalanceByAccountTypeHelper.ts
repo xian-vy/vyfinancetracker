@@ -1,4 +1,5 @@
 import { getAccountsDetails } from "../../firebase/utils";
+import { generateNetOfDebt } from "../../helper/DebtHelper";
 import AccountTypeModel from "../../models/AccountTypeModel";
 import DebtModel from "../../models/DebtModel";
 import ExpenseModel from "../../models/ExpenseModel";
@@ -60,15 +61,7 @@ export function generateAccountsBalances(
     const income = incomeDataByAccountId[accountId as string]?.reduce((sum, item) => sum + item.amount, 0) || 0;
     const expense = expenseDataByAccountId[accountId as string]?.reduce((sum, item) => sum + item.amount, 0) || 0;
     const savings = contributionDataByAccountId[accountId as string]?.reduce((sum, item) => sum + item.amount, 0) || 0;
-   
-    const debts = debtsDataByAccountId[accountId as string]?.reduce((sum, item) => {
-      if (item.amount < 0) {
-        return sum - item.amount; // Debt Owed
-      } else {
-        return sum + item.amount; // Debt Owned
-      }
-    }, 0) || 0;
-    
+    const debts =  generateNetOfDebt(debtsDataByAccountId[accountId as string] as DebtModel[]);
     const netDebt = debts;
    
     balanceByAccountId[accountId] = {
