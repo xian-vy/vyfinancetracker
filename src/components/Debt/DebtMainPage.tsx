@@ -21,7 +21,6 @@ import FilterSavings from '../Filter/FilterSavings';
 import DebtForm from './DebtForm';
 import { DebtItems } from './DebtItems';
 import PaymentConfirmationDialog from './PaymentConfirmationDialog';
-import { de } from 'date-fns/locale';
 const DebtMainPage = () => {
     const theme = useTheme();
     const isDarkMode = theme.palette.mode === "dark";
