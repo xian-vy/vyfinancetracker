@@ -119,7 +119,7 @@ const TransactionLogsListVirtualized = ({ logs, selectedTimeframe }: Props) => {
           ({ color, categoryIcon } = getDebtDetails());
           const isCreditor = indexedDebts[item.txn_ref_id]?.isCreditor;
           const entity = indexedDebts[item.txn_ref_id]?.entity || "Deleted";
-          description = isCreditor ?  "Borrower: " : "Lender: " + entity;
+          description = isCreditor ?  "Borrower: "  + entity : "Lender: " + entity;
           break;
         default:
           break;
