@@ -6,10 +6,11 @@ import React from "react";
 import { formatShortAmountWithCurrency, hexToRGBA } from "../../helper/utils";
 import { iconSizeSM } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
-import { EXPENSES_THEME, INCOME_THEME, SAVINGS_THEME_DARK } from "../../constants/componentTheme";
+import { DEBT_THEME, EXPENSES_THEME, INCOME_THEME, SAVINGS_THEME_DARK } from "../../constants/componentTheme";
+import PriceChangeIcon from '@mui/icons-material/PriceChange';
 
 interface Props {
-  networth: { expense: number; income: number; savings: number };
+  networth: { expense: number; income: number; savings: number , debts : number};
 }
 const BalanceByAccountTypeBreakdown = ({ networth }: Props) => {
   const breakdown = [
@@ -31,9 +32,15 @@ const BalanceByAccountTypeBreakdown = ({ networth }: Props) => {
       color: SAVINGS_THEME_DARK,
       icon: <SavingsIcon sx={{ fontSize: iconSizeSM, color: SAVINGS_THEME_DARK }} />,
     },
+    {
+      type: txn_types.Debt,
+      amount: networth.debts,
+      color: DEBT_THEME,
+      icon: <PriceChangeIcon sx={{ fontSize: iconSizeSM, color: DEBT_THEME }} />,
+    },
   ];
 
-  const maxAmount = Math.max(networth.income, networth.expense, networth.savings);
+  const maxAmount = Math.max(networth.income, networth.expense, networth.savings, networth.debts);
 
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [maxWidth, setMaxWidth] = React.useState(0);

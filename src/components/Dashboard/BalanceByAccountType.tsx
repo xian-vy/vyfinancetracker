@@ -29,6 +29,8 @@ import SwapAccount from "./SwapAccount";
 import IncomeModel from "../../models/IncomeModel";
 import ExpenseModel from "../../models/ExpenseModel";
 import SavingGoalsContributionModel from "../../models/SavingGoalsContribution";
+import { generateDebtAmounts } from "../../helper/DebtHelper";
+import DebtModel from "../../models/DebtModel";
 
 interface AccountDetails {
   balance: number;
@@ -36,6 +38,7 @@ interface AccountDetails {
   expense: number;
   savings: number;
   color: string;
+  debts : number
   icon: string;
 }
 const swiperSlideStyle = { display: "inline-block", width: "auto" };
@@ -91,7 +94,8 @@ const BalanceByAccountType = () => {
   const incomeStore = useSelector((state: RootState) => state.income.income);
   const expenseStore = useSelector((state: RootState) => state.expenses.expenses);
   const savingsContributionStore = useSelector((state: RootState) => state.savingsContribution.contribution);
-
+  const debtStore = useSelector((state: RootState) => state.debt.debt);
+  const debtItems = generateDebtAmounts(debtStore);
   const { accountType } = useAccountTypeContext();
 
   const incomeData = useMemo(
@@ -116,11 +120,16 @@ const BalanceByAccountType = () => {
     [savingsContributionStore, filterOption, startDate, endDate]
   );
 
+  const debtData = useMemo(
+    () => filterDataByDateRange<DebtModel>(debtItems, "date", filterOption, startDate || undefined, endDate || undefined),
+    [debtStore, filterOption, startDate, endDate]
+  );
+
   const [data, setData] = useState<AccountDetails[] | undefined>(undefined);
 
   const worker = useMemo(
     () => new Worker(new URL("../../helper/workers/workers", import.meta.url)),
-    [incomeData, expenseData, contributionData, accountType]
+    [incomeData, expenseData, contributionData,debtData, accountType]
   );
 
   // necessary to populate/do worker function on first load
@@ -133,7 +142,7 @@ const BalanceByAccountType = () => {
   useEffect(() => {
     let isMounted = true;
 
-    generateAccountsBalancesWorker(worker, incomeData, expenseData, contributionData, accountType).then((data) => {
+    generateAccountsBalancesWorker(worker, incomeData, expenseData, contributionData, accountType,debtData).then((data) => {
       if (isMounted) {
         setData(data as AccountDetails[]);
       }
@@ -141,7 +150,7 @@ const BalanceByAccountType = () => {
     return () => {
       isMounted = false;
     };
-  }, [incomeData, expenseData, contributionData, accountType]);
+  }, [incomeData, expenseData, contributionData,debtData, accountType]);
 
   useEffect(() => {
     if (data) {
@@ -250,6 +259,7 @@ const BalanceByAccountType = () => {
                           income: accountDetails.income,
                           expense: accountDetails.expense,
                           savings: accountDetails.savings,
+                          debts : accountDetails.debts
                         }}
                         openDialog={expandedStates[accountType] || false}
                         onDialogClose={() => handleExpandClick(accountType)}

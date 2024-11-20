@@ -24,7 +24,7 @@ interface Props {
   totalAmount: number;
   openDialog: boolean;
   onDialogClose: () => void;
-  networth: { expense: number; income: number; savings: number };
+  networth: { expense: number; income: number; savings: number,debts : number };
 }
 
 const BalanceByAccountTypeDialog = (props: Props) => {
@@ -63,13 +63,14 @@ const BalanceByAccountTypeDialog = (props: Props) => {
           <Typography
             textAlign="center"
             variant="h4"
+            component={"div"}
             sx={{ color: props.totalAmount < 0 ? PERCENTAGE_DECREASE : "inherit", fontWeight: "bold" }}
           >
             {formatNumberWithoutCurrency(props.totalAmount)}
           </Typography>
         </DialogTitle>
 
-        <DialogContent sx={{ px: 3, py: 0, backgroundColor: isDarkMode ? "#1e1e1e" : "#fff", height: 135 }}>
+        <DialogContent sx={{ px: 3, py: 0, backgroundColor: isDarkMode ? "#1e1e1e" : "#fff", height: 160 }}>
           <React.Suspense
             fallback={
               <Box display="flex" justifyContent="center" alignItems="center" height="100%">

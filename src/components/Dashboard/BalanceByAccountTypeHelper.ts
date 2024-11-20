@@ -1,5 +1,6 @@
 import { getAccountsDetails } from "../../firebase/utils";
 import AccountTypeModel from "../../models/AccountTypeModel";
+import DebtModel from "../../models/DebtModel";
 import ExpenseModel from "../../models/ExpenseModel";
 import IncomeModel from "../../models/IncomeModel";
 import SavingGoalsContributionModel from "../../models/SavingGoalsContribution";
@@ -22,26 +23,29 @@ function groupByAccountId(data: Transaction[]) {
 function getAllAccountIds(
   incomeData: IncomeModel[],
   expenseData: ExpenseModel[],
-  contributionData: SavingGoalsContributionModel[]
+  contributionData: SavingGoalsContributionModel[],
+  debtsData : DebtModel[]
 ) {
   const incomeAccountIds = new Set(incomeData.map((item) => item.account_id));
   const expenseAccountIds = new Set(expenseData.map((item) => item.account_id));
   const contributionAccountIds = new Set(contributionData.map((item) => item.account_id));
+  const debtAccountIds = new Set(debtsData.map((item) => item.account_id));
 
   // Combine all account IDs
-  return new Set([...incomeAccountIds, ...expenseAccountIds, ...contributionAccountIds]);
+  return new Set([...incomeAccountIds, ...expenseAccountIds, ...contributionAccountIds, ...debtAccountIds]);
 }
 export function generateAccountsBalances(
   incomeData: IncomeModel[],
   expenseData: ExpenseModel[],
   contributionData: SavingGoalsContributionModel[],
-  accounts: AccountTypeModel[]
+  accounts: AccountTypeModel[],
+  debtsData : DebtModel[]
 ) {
   const incomeDataByAccountId = groupByAccountId(incomeData);
   const expenseDataByAccountId = groupByAccountId(expenseData);
   const contributionDataByAccountId = groupByAccountId(contributionData);
-
-  const allAccountIds = getAllAccountIds(incomeData, expenseData, contributionData);
+  const debtsDataByAccountId = groupByAccountId(debtsData);
+  const allAccountIds = getAllAccountIds(incomeData, expenseData, contributionData, debtsData);
 
   // Compute balance for each account type
   interface AccountBalance {
@@ -49,18 +53,30 @@ export function generateAccountsBalances(
     income: number;
     expense: number;
     savings: number;
+    debts : number
   }
   const balanceByAccountId: { [key: string]: AccountBalance } = {};
   for (const accountId of allAccountIds) {
     const income = incomeDataByAccountId[accountId as string]?.reduce((sum, item) => sum + item.amount, 0) || 0;
     const expense = expenseDataByAccountId[accountId as string]?.reduce((sum, item) => sum + item.amount, 0) || 0;
     const savings = contributionDataByAccountId[accountId as string]?.reduce((sum, item) => sum + item.amount, 0) || 0;
-
+   
+    const debts = debtsDataByAccountId[accountId as string]?.reduce((sum, item) => {
+      if (item.amount < 0) {
+        return sum - item.amount; // Debt Owed
+      } else {
+        return sum + item.amount; // Debt Owned
+      }
+    }, 0) || 0;
+    
+    const netDebt = debts;
+   
     balanceByAccountId[accountId] = {
-      balance: income - expense - savings,
+      balance: income - expense - savings - netDebt,
       income,
       expense,
       savings,
+      debts
     };
   }
 
@@ -70,6 +86,7 @@ export function generateAccountsBalances(
     income: number;
     expense: number;
     savings: number;
+    debts : number
     color: string;
     icon: string;
   }
@@ -82,6 +99,7 @@ export function generateAccountsBalances(
         income: balanceByAccountId[accountId as string].income,
         expense: balanceByAccountId[accountId as string].expense,
         savings: balanceByAccountId[accountId as string].savings,
+        debts : balanceByAccountId[accountId as string].debts,
         color: data.color,
         icon: data.icon, //pass only the string, web worker cant handle jsx element
       };
