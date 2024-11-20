@@ -9,7 +9,7 @@ import SavingGoalsContributionModel from "../../models/SavingGoalsContribution";
 import ExpenseModel from "../../models/ExpenseModel";
 import IncomeModel from "../../models/IncomeModel";
 import DebtModel from "../../models/DebtModel";
-import { generateDebtAmounts } from "../../helper/DebtHelper";
+import { generateDebtAmounts, generateNetOfDebt } from "../../helper/DebtHelper";
 
 const TotalNetWorth = ({ collapsedDrawer }: { collapsedDrawer: boolean }) => {
   const theme = useTheme();
@@ -21,13 +21,7 @@ const TotalNetWorth = ({ collapsedDrawer }: { collapsedDrawer: boolean }) => {
   const income : IncomeModel[]= useSelector((state: RootState) => state.income.income);
   const debt : DebtModel[]= useSelector((state: RootState) => state.debt.debt);
   const debtItems = generateDebtAmounts(debt);
-  const netDebt =   debtItems.reduce((sum, item) => {
-    if (item.amount < 0) {
-      return sum - item.amount; // Debt Owed (Borrowed Paid, Lended UnPaid)
-    } else {
-      return sum + item.amount; // Debt Owned (Borrowed UnPaid, Lended Paid)
-    }
-  }, 0) || 0;
+  const netDebt =  generateNetOfDebt(debtItems);
 
   const totalSavingsContribution = calculateTotalSum(savingsContribution, "amount");
   const totalExpenses = calculateTotalSum(expenses, "amount");
