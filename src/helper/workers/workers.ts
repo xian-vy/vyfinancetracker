@@ -13,13 +13,13 @@ self.onmessage = (event: MessageEvent) => {
   const { action, payload } = event.data;
   switch (action) {
     case WORKER_DASHBOARD_OVERVIEWSUM:
-      const { txnData, timeframe, dateStart, dateEnd } = payload;
-      const res = sumDataByTimeframe(txnData, timeframe, dateStart, dateEnd);
+      const { txnData, timeframe, dateStart, dateEnd,isDebt } = payload;
+      const res = sumDataByTimeframe(txnData, timeframe, dateStart, dateEnd, isDebt);
       self.postMessage(res);
       break;
     case WORKER_DASHBOARD_ACCOUNTBALANCES:
-      const { incomeData, expenseData, contributionData, accounts } = payload;
-      const res2 = generateAccountsBalances(incomeData, expenseData, contributionData, accounts);
+      const { incomeData, expenseData, contributionData, accounts, debtsData } = payload;
+      const res2 = generateAccountsBalances(incomeData, expenseData, contributionData, accounts,debtsData);
       self.postMessage(res2);
       break;
     case WORKER_TREND_BY_CATEGORY:

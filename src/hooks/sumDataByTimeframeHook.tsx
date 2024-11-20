@@ -3,7 +3,6 @@ import { sumDataByTimeframeWorker } from "../helper/workers/workerHelper";
 import { FilterTimeframe } from "../constants/timeframes";
 import { TransactionTypes } from "../helper/GenericTransactionHelper";
 import SavingGoalsModel from "../models/SavingGoalsModel";
-import DebtModel from "../models/DebtModel";
 
 type generatedBudgets = {
   sum: number;
@@ -18,13 +17,15 @@ export const useSumDataByTimeframe = <T extends Exclude<TransactionTypes, Saving
   filterOption: FilterTimeframe,
   startDate: Date | undefined,
   endDate: Date | undefined,
-  dependencies: any[]
+  dependencies: any[],
+  isDebt?: boolean
 ) => {
   useEffect(() => {
     let isMounted = true;
 
     if (store.length > 0) {
-      sumDataByTimeframeWorker(worker, store, filterOption, startDate || undefined, endDate || undefined).then(
+      sumDataByTimeframeWorker(worker, store, filterOption, startDate || undefined, endDate || undefined,isDebt  || undefined
+      ).then(
         (data) => {
           if (isMounted) {
             setStoreData(data as generatedBudgets);

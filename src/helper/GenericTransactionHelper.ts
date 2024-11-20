@@ -9,6 +9,7 @@ import { BudgetItemsModel } from "../models/BudgetModel";
 import SavingGoalsModel from "../models/SavingGoalsModel";
 import SavingGoalsContributionModel from "../models/SavingGoalsContribution";
 import DebtModel from "../models/DebtModel";
+import { generateNetOfDebt } from "./DebtHelper";
 
 //same types for categories,payments,accounts and income source
 export type CategoriesType = {
@@ -258,11 +259,13 @@ export function groupDataByIdWithIcons<T extends Exclude<TransactionTypes, Savin
 
 // -----------------------for dashboard overview SUM----------------------------//
 
-export function sumDataByTimeframe<T extends Exclude<TransactionTypes, SavingGoalsModel | DebtModel>>(
+
+export function sumDataByTimeframe<T extends Exclude<TransactionTypes, SavingGoalsModel>>(
   txnData: T[],
   timeframe: FilterTimeframe,
   dateStart?: Date,
-  dateEnd?: Date
+  dateEnd?: Date,
+  isDebt?: boolean
 ) {
   if (timeframe === FilterTimeframe.AllTime) {
     const sum = txnData.reduce((total, item) => total + item.amount, 0);
@@ -287,9 +290,16 @@ export function sumDataByTimeframe<T extends Exclude<TransactionTypes, SavingGoa
     return date >= prevStartDate && date <= prevEndDate;
   });
 
-  const sum = filteredData.reduce((total, item) => total + item.amount, 0);
-  const prevSum = prevFilteredData.reduce((total, item) => total + item.amount, 0);
-
+  let sum = 0;
+  let prevSum = 0;
+  if (isDebt) {
+    sum = generateNetOfDebt(filteredData);
+    prevSum = generateNetOfDebt(prevFilteredData)
+  } else {
+    sum = filteredData.reduce((total, item) => total + item.amount, 0);
+    prevSum = prevFilteredData.reduce((total, item) => total + item.amount, 0);
+  }
+ 
   return { sum, prevSum, prevDate };
 }
 

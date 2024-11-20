@@ -1,5 +1,6 @@
 import { FilterTimeframe } from "../../constants/timeframes";
 import AccountTypeModel from "../../models/AccountTypeModel";
+import DebtModel from "../../models/DebtModel";
 import ExpenseModel from "../../models/ExpenseModel";
 import IncomeModel from "../../models/IncomeModel";
 import SavingGoalsContributionModel from "../../models/SavingGoalsContribution";
@@ -16,12 +17,13 @@ export function sumDataByTimeframeWorker<T extends Exclude<TransactionTypes, Sav
   txnData: T[],
   timeframe: FilterTimeframe,
   dateStart?: Date,
-  dateEnd?: Date
+  dateEnd?: Date,
+  isDebt? : boolean
 ) {
   return new Promise((resolve, reject) => {
     worker.postMessage({
       action: WORKER_DASHBOARD_OVERVIEWSUM,
-      payload: { txnData, timeframe, dateStart, dateEnd },
+      payload: { txnData, timeframe, dateStart, dateEnd, isDebt },
     });
 
     worker.onmessage = (event) => {
@@ -39,12 +41,13 @@ export function generateAccountsBalancesWorker(
   incomeData: IncomeModel[],
   expenseData: ExpenseModel[],
   contributionData: SavingGoalsContributionModel[],
-  accounts: AccountTypeModel[]
+  accounts: AccountTypeModel[],
+  debtsData : DebtModel[]
 ) {
   return new Promise((resolve, reject) => {
     worker.postMessage({
       action: WORKER_DASHBOARD_ACCOUNTBALANCES,
-      payload: { incomeData, expenseData, contributionData, accounts },
+      payload: { incomeData, expenseData, contributionData, accounts,debtsData },
     });
 
     worker.onmessage = (event) => {
