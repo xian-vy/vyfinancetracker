@@ -53,7 +53,7 @@ const TransactionOverviewItems = (props: Props) => {
   });
 
   useEffect(() => {
-    if (props.data.prevDate) {
+    if (props.data.prevDate !== null) {
       const currentSUM = calculateCurrentSum(props.data.type, props.sumAmounts.incomeSum, props.sumAmounts.expenseSum, props.sumAmounts.contributionSum, props.sumAmounts.budgetSum, props.sumAmounts.debtSum);
       const prevSUM = calculatePrevSum(props.data.type, props.sumAmounts.incomePrevSum, props.sumAmounts.expensePrevSum, props.sumAmounts.contributionPrevSum, props.sumAmounts.budgetPrevSum, props.sumAmounts.debtPrevSum);
       const percentageIncrease = calculatePercentageIncrease(currentSUM, prevSUM);
