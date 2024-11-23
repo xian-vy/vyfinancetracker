@@ -26,7 +26,7 @@ import {
   DEBT_THEME_DARK,
 } from "../../constants/componentTheme";
 import { iconSizeXS } from "../../constants/size";
-import { hoverBgColor } from "../../helper/utils";
+import { overviewIconColor } from "../../helper/utils";
 import PriceChangeIcon from '@mui/icons-material/PriceChange';
 
 export const calculateCurrentSum = (
@@ -138,32 +138,32 @@ export function typeIconColor(type: string, theme: Theme, isDarkMode: boolean) {
   switch (type) {
     case txn_summary.Expenses:
       return {
-        icon: <LocalMallIcon sx={{ color: hoverBgColor(theme), fontSize: iconSizeXS }} />,
+        icon: <LocalMallIcon sx={{ color: overviewIconColor(theme), fontSize: iconSizeXS }} />,
         color: isDarkMode ? EXPENSES_THEME_DARK : EXPENSES_THEME,
       };
     case txn_summary.Income:
       return {
-        icon: <PaidIcon sx={{ color: hoverBgColor(theme), fontSize: iconSizeXS }} />,
+        icon: <PaidIcon sx={{ color: overviewIconColor(theme), fontSize: iconSizeXS }} />,
         color: isDarkMode ? INCOME_THEME_DARK : INCOME_THEME,
       };
     case txn_summary.Budget:
       return {
-        icon: <AccountBalanceWalletIcon sx={{ color: hoverBgColor(theme), fontSize: iconSizeXS }} />,
+        icon: <AccountBalanceWalletIcon sx={{ color: overviewIconColor(theme), fontSize: iconSizeXS }} />,
         color: isDarkMode ? BUDGET_THEME_DARK : BUDGET_THEME,
       };
     case txn_summary.Savings:
       return {
-        icon: <SavingsIcon sx={{ color: hoverBgColor(theme), fontSize: iconSizeXS }} />,
+        icon: <SavingsIcon sx={{ color: overviewIconColor(theme), fontSize: iconSizeXS }} />,
         color: isDarkMode ? SAVINGS_THEME_DARK : SAVINGS_THEME,
       };
     case txn_summary.Balance:
       return {
-        icon: <Coin fill={hoverBgColor(theme)} style={{ width: "14px", height: "14px" }} />,
+        icon: <Coin fill={overviewIconColor(theme)} style={{ width: "14px", height: "14px" }} />,
         color: isDarkMode ? BALANCE_THEME_DARK : BALANCE_THEME,
       };
      case txn_summary.Debt:
       return {
-        icon: <PriceChangeIcon style={{ color: hoverBgColor(theme), width: "14px", height: "14px" }} />,
+        icon: <PriceChangeIcon style={{ color: overviewIconColor(theme), width: "14px", height: "14px" }} />,
         color: isDarkMode ? DEBT_THEME_DARK : DEBT_THEME,
       };
     default:

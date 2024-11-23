@@ -85,6 +85,10 @@ export function hoverBgColor(theme: Theme) {
   return isDarkMode ? "#333" : "#eaeaea";
 }
 
+export function overviewIconColor(theme: Theme) {
+  const isDarkMode = theme.palette.mode === "dark";
+  return isDarkMode ? "#333" : "#fff";
+}
 const currency = "PHP";
 
 // export function formatNumberWithCurrency(amount: number) {
