@@ -42,7 +42,7 @@ const Shortcuts = () => {
                 sx={{
                   cursor: "pointer",
                   textDecoration: type === selectedType ? "underline" : "none",
-                  color: type === selectedType ? theme.palette.primary.main : "inherit",
+                  color: type === selectedType ? "#d86c70" : "inherit",
                   WebkitTapHighlightColor: "transparent",
                 }}
                 key={index}
