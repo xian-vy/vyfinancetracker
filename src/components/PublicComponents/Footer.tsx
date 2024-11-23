@@ -1,15 +1,16 @@
-import FacebookIcon from '@mui/icons-material/Facebook';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import MailIcon from '@mui/icons-material/Mail';
-import YouTubeIcon from '@mui/icons-material/YouTube';import { Dialog, DialogContent, Divider, Stack, Typography } from "@mui/material";
+import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
+import GoogleIcon from '@mui/icons-material/Google';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import { Dialog, DialogContent, DialogTitle, Divider, Stack, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { PRIVACY_POLICY, TERMS_OF_USE, TNCandPrivacyPolicyDialog } from "../../constants/routes";
+import logo from "../../media/logo.svg";
 import { RootState } from "../../redux/store";
 import SimpleThemeToggle from "./SimpleThemeToggle";
-import logo from "../../media/logo.svg";
-
+import { Close } from '@mui/icons-material';
 const About = React.lazy(() => import("../PublicComponents/About"));
 
 const Footer = () => {
@@ -33,7 +34,7 @@ const Footer = () => {
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: { xs: "0.7rem", lg: "0.75rem" },
-              color: darktheme ? "#ccc" : "#000",
+              color: darktheme ? "#ccc" : "#333",
               textDecoration: "none",
             }}
           >
@@ -45,7 +46,7 @@ const Footer = () => {
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: { xs: "0.7rem", lg: "0.75rem" },
-              color: darktheme ? "#ccc" : "#000",
+              color: darktheme ? "#ccc" : "#333",
               textDecoration: "none",
             }}
           >
@@ -63,9 +64,9 @@ const Footer = () => {
           Socials
         </Typography>
           <Stack direction="row" gap={1} alignContent="center" justifyContent="center">
-              <FacebookIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#333", cursor: "pointer" }} />
-              <LinkedInIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#333", cursor: "pointer" }} />
-              <YouTubeIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#333", cursor: "pointer" }} />
+              <AlternateEmailOutlinedIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#666", cursor: "pointer" }} />
+              <WhatsAppIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#666", cursor: "pointer" }} />
+              <InstagramIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#666", cursor: "pointer" }} />
           </Stack>
           <Stack direction="row" alignContent="center" gap={1} sx={{height : 30}}>
                   Theme
@@ -93,8 +94,8 @@ const Footer = () => {
                     Vy Finance Tracker
                 </Typography>
             </Stack>
-            <Stack direction="row" gap={0.5} alignItems="center">
-                <MailIcon sx={{ color: darktheme ? "#ccc" : "#333",fontSize:"16px"}} />
+            <Stack direction="row" gap={0.5} alignItems="center" sx={{fontSize:"0.8rem"}}>
+                <GoogleIcon sx={{ color: darktheme ? "#ccc" : "#666",fontSize:"16px"}} />
                 vyfinanceapp@gmail.com
             </Stack>
         </Stack>
@@ -106,7 +107,7 @@ const Footer = () => {
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: { xs: "0.7rem", lg: "0.75rem" },
-              color: darktheme ? "#ccc" : "#000",
+              color: darktheme ? "#ccc" : "#333",
               textDecoration: "none",
             }}
           >
@@ -130,7 +131,7 @@ const Footer = () => {
         </Stack>
 
         <Stack direction="row" justifyContent="center" mt={5}>
-          <Typography textAlign="center" sx={{ fontSize: { xs: "0.6rem", lg: "0.65rem" } }}>
+          <Typography textAlign="center" sx={{ fontSize: { xs: "0.65rem", lg: "0.7rem" } }}>
             {"Copyright © "}
             {"Vy Finance Tracker"} {new Date().getFullYear()}
             {"."}
@@ -141,7 +142,7 @@ const Footer = () => {
         open={openAbout}
         onClose={() => setOpenAbout(false)}
         PaperProps={{
-          sx: { borderRadius: 1, background: darktheme ? "#1e1e1e" : "#fff", height: "auto", width: 250 },
+          sx: { borderRadius: 0, background: darktheme ? "#1e1e1e" : "#fff", height: "auto", width: 250 },
         }}
         slotProps={{
           backdrop: {
@@ -149,6 +150,9 @@ const Footer = () => {
           },
         }}
       >
+        <DialogTitle sx={{ display: "flex", justifyContent: "end" }}>
+          <Close onClick={() => setOpenAbout(false)} sx={{ cursor: "pointer", fontSize:14 }} />
+        </DialogTitle>
         <DialogContent
           sx={{
             py: 2,

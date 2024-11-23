@@ -12,29 +12,26 @@ const About = ({ isPrivate }: { isPrivate?: boolean | null }) => {
         src={logo}
         onClick={!isPrivate ? () => navigate(HOME) : undefined}
         alt="Logo"
-        style={{ width: "20px", height: "20px", cursor: "pointer", padding: 0, marginBottom: "5px" }}
+        style={{ width: "24px", height: "24px", cursor: "pointer", padding: 0, marginBottom: "5px" }}
       />
 
-      <Typography variant="body1" textAlign="center">
+      <Typography variant="body1" textAlign="center" mt={1}>
         A progressive web app
       </Typography>
-      <Typography variant="body1" textAlign="center">
+      <Typography variant="body1" textAlign="center" mb={2}>
         built with
       </Typography>
-      <Typography variant="body1" textAlign="center">
-        React, Typescript, Redux, MUI, Firebase, Recharts
-      </Typography>
-      <Typography variant="body1" textAlign="center" mb={3}>
-        and Web Crypto API
+      <Typography variant="body1" textAlign="center" >
+        react, typescript, redux, material ui, firebase and recharts
       </Typography>
 
-      <Stack direction="row" justifyContent="center" alignItems="center" mb={2} width="100%">
-        Developed By
+      <Stack direction="row" justifyContent="center" alignItems="center" my={2} width="100%">
+        developed by
         <Link
           variant="caption"
           href="https://xianvy.vercel.app/"
           target="_blank"
-          sx={{ cursor: "pointer", textDecoration: "none", mx: 0.5 }}
+          sx={{ cursor: "pointer", textDecoration: "none", mx: 0.5 ,color: "#d86c70", }}
         >
           Xian
         </Link>
