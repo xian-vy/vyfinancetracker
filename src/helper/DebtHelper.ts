@@ -1,9 +1,7 @@
 import { DEBT_STATUS } from "../constants/constants";
 import { FilterTimeframe } from "../constants/timeframes";
 import DebtModel from "../models/DebtModel";
-import SavingGoalsModel from "../models/SavingGoalsModel";
 import { getStartAndEndDate } from "./date";
-import { TransactionTypes } from "./GenericTransactionHelper";
 
 
 
@@ -57,25 +55,18 @@ export const calculateDebtByType = (data: DebtModel[], timeframe: FilterTimefram
     return  {borrowedPaid, borrowedNotPaid, lendedPaid, lendedNotPaid};
   }
 
-export const generateDebtAmounts = (data: DebtModel[])   => {
-  
-
-    // make borrowedPaid/lendedNotPaid negative amount 
-    
+export const generateDebtAmounts = (data: DebtModel[])   => {  
     const finalData = data.map((item) =>  {
         const borrowedPaid = item.isCreditor === false && item.status === DEBT_STATUS.Complete
         const lendedNotPaid = item.isCreditor === true && item.status === DEBT_STATUS.InProgress
-
+        const lendedPaid = item.isCreditor === true && item.status === DEBT_STATUS.Complete
+        const newAmount =  lendedPaid ||  borrowedPaid ? 0 : lendedNotPaid ? -item.amount : item.amount
         return {
-            ...item,
-          
-            amount : borrowedPaid ||  lendedNotPaid ? -item.amount : item.amount,
+            ...item,          
+            amount :newAmount
         }
-
     })
-
     return finalData  
-
   }
 
   export const getDebtAmountColor = (isCreditor : boolean, isPaid : boolean) => {
