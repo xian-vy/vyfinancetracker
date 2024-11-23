@@ -27,3 +27,4 @@ export const drawerWidthCollapse = 60;
 
 export const DELETE_ACCT_TIMEOUT = 25000;
 export const FORM_WIDTH = 320;
+export const DIALOG_CLOSEICON_SIZE = 15;

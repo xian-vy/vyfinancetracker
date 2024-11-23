@@ -21,7 +21,7 @@ import { useSelector } from "react-redux";
 import CategoryIcons from "../../media/CategoryIcons";
 import IncomeSourceIcons from "../../media/IncomeSourceIcons";
 import SavingsIcons from "../../media/SavingsIcons";
-import { iconSizeSM, iconSizeXS } from "../../constants/size";
+import { DIALOG_CLOSEICON_SIZE, iconSizeSM, iconSizeXS } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
 import { RootState } from "../../redux/store";
 
@@ -81,14 +81,11 @@ const ShortcutItemsDialog = ({ open, type, onClose, context, favorites, onAddFav
             justifyContent: "space-between",
             backgroundColor: isDarkMode ? "#1e1e1e" : "#fff",
             alignItems: "center",
-            pt: { xs: 1, md: 2 },
-            pb: 0,
+            p:3
           }}
         >
           <Typography variant="body1">Add to Favorites</Typography>
-          <IconButton color="inherit" aria-label="close" onClick={onClose} sx={{ mr: { xs: -2, sm: -1, md: 0 } }}>
-            <CloseIcon />
-          </IconButton>
+          <CloseIcon sx={{ cursor: "pointer",fontSize:DIALOG_CLOSEICON_SIZE }} onClick={onClose}/>
         </DialogTitle>
         <DialogContent sx={{ px: 3, py: 2, backgroundColor: isDarkMode ? "#1e1e1e" : "#fff" }}>
           <Backdrop open={loading} sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -119,13 +116,13 @@ const ShortcutItemsDialog = ({ open, type, onClose, context, favorites, onAddFav
                       py: 0.5,
                       pl: { xs: 0.5, md: 1 },
                       pr: { xs: 0, md: 0.5 },
-                      my: 0.5,
+                      my: smScreen ? 0.4 : 0.8,
                       borderRadius: 6,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
                       backgroundColor: isDarkMode ? "#1e1e1e" : "#fff",
-                      mx: smScreen ? 0.3 : 1,
+                      mx: smScreen ? 0.5 : 1,
                     }}
                     variant="outlined"
                   >

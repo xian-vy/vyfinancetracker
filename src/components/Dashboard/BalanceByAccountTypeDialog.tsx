@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { PERCENTAGE_DECREASE } from "../../constants/componentTheme";
 import { formatNumberWithoutCurrency } from "../../helper/utils";
 import { RootState } from "../../redux/store";
+import { DIALOG_CLOSEICON_SIZE } from "../../constants/size";
 const BalanceByAccountTypeBreakdown = React.lazy(() => import("./BalanceByAccountTypeBreakdown"));
 
 interface Props {
@@ -54,9 +55,9 @@ const BalanceByAccountTypeDialog = (props: Props) => {
             <Typography variant="body2">
               {props.accountType} {props.filterTitle}
             </Typography>
-            <IconButton size="small" onClick={() => props.onDialogClose()}>
-              <CloseIcon />
-            </IconButton>
+       
+            <CloseIcon sx={{ cursor: "pointer",fontSize:DIALOG_CLOSEICON_SIZE }} onClick={() => props.onDialogClose()}/>
+
           </Stack>
           <Divider sx={{ width: "100%", mb: 2 }} />
 
