@@ -25,7 +25,7 @@ const Footer = () => {
   const Privacy = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="start" gap={1}>
-        <Typography variant="h3" mb={1}>
+        <Typography variant="h3" mb={1} sx={{color: darktheme ? "#ccc" : "#444"}}>
           Privacy
         </Typography>
           <Link
@@ -60,7 +60,7 @@ const Footer = () => {
   const Socials = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="center" gap={1}>
-         <Typography variant="h3" mb={1}>
+         <Typography variant="h3" mb={1} sx={{color: darktheme ? "#ccc" : "#444"}}>
           Socials
         </Typography>
           <Stack direction="row" gap={1} alignContent="center" justifyContent="center">
@@ -90,7 +90,7 @@ const Footer = () => {
 
                   }}
                   />
-                <Typography variant="h3" >
+                <Typography variant="h3" sx={{color: darktheme ? "#ccc" : "#444"}}>
                     Vy Finance Tracker
                 </Typography>
             </Stack>
