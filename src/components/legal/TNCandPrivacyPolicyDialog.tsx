@@ -36,7 +36,7 @@ const TNCandPrivacyPolicyDialog = ({ onClose, selectedDoc }: { onClose: () => vo
                   setTermsAndConditionsAsContent(false);
                   scrollToTop();
                 }}
-                sx={{ mx: 0.5, cursor: "pointer", WebkitTapHighlightColor: "transparent" }}
+                sx={{ mx: 0.5, cursor: "pointer", WebkitTapHighlightColor: "transparent",color: "#d86c70",textDecoration: "none" }}
               >
                 Privacy Policy
               </Link>
@@ -47,7 +47,7 @@ const TNCandPrivacyPolicyDialog = ({ onClose, selectedDoc }: { onClose: () => vo
                   setPrivacyPolicyAsContent(false);
                   scrollToTop();
                 }}
-                sx={{ mx: 0.5, cursor: "pointer", WebkitTapHighlightColor: "transparent" }}
+                sx={{ mx: 0.5, cursor: "pointer", WebkitTapHighlightColor: "transparent",color: "#d86c70",textDecoration: "none"  }}
               >
                 Terms of Use
               </Link>

@@ -39,7 +39,7 @@ const ThemeToggle = ({ loading }: { loading: boolean }) => {
           >
             <Button sx={{ py: 0.3, px: 0, minWidth: 35 }} onClick={() => handleDarkMode(false)}>
               <LightModeOutlinedIcon
-                sx={{ fontSize: "18px", color: currentMode === false ? theme.palette.primary.main : ThemeColor(theme) }}
+                sx={{ fontSize: "16px", color: currentMode === false ? "#d86c70" : ThemeColor(theme) }}
               />
             </Button>
             <Divider orientation="vertical" flexItem />
@@ -48,7 +48,7 @@ const ThemeToggle = ({ loading }: { loading: boolean }) => {
                 py: 0.3,
                 px: 1,
                 minWidth: 35,
-                color: currentMode === null ? theme.palette.primary.main : ThemeColor(theme),
+                color: currentMode === null ? "#d86c70" : ThemeColor(theme),
                 textTransform: "none",
               }}
               onClick={() => handleDarkMode(null)}
@@ -58,7 +58,7 @@ const ThemeToggle = ({ loading }: { loading: boolean }) => {
             <Divider orientation="vertical" flexItem />
             <Button sx={{ py: 0.3, px: 0, minWidth: 35 }} onClick={() => handleDarkMode(true)}>
               <DarkModeOutlinedIcon
-                sx={{ fontSize: "17px", color: currentMode === true ? theme.palette.primary.main : ThemeColor(theme) }}
+                sx={{ fontSize: "16px", color: currentMode === true ? "#d86c70" : ThemeColor(theme) }}
               />
             </Button>
           </Paper>
