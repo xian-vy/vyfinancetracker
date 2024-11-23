@@ -132,7 +132,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               my: 1,
             }}
           >
-          for all devices.
+          for all devices
           </Typography>
           <Typography
             component="h3"
