@@ -6,12 +6,14 @@ import { Container, IconButton, Stack, Tooltip, Typography, useTheme } from "@mu
 import React, { useState } from "react";
 import { ThemeColor, formatShortAmountWithCurrency } from "../../helper/utils";
 import { FilterTimeframe } from "../../constants/timeframes";
-import { iconSize, iconSizeXS } from "../../constants/size";
+import { iconSize, iconSizeSM, iconSizeXS } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
 import { useCategoryList } from "../../hooks/categoryListHook";
 import TransactionOverviewDialog from "../Dashboard/TransactionOverviewDialog";
 import CustomIconButton from "../CustomIconButton";
 import TimeframeDrawerPopOver from "./TimeframeDrawerPopOver";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 interface Props {
   onFilterChange: (filterOption: string) => void;
@@ -31,6 +33,7 @@ const FilterBudgetExpenseTrend = (props: Props) => {
   const [filterOpen, setFilterOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [breakdownOpen, setBreakdownOpen] = useState(false);
+  const systemFontSize = useSelector((state: RootState) => state.fontSize.size);
 
   const { renderCategoryList, selectedCategory, handleCategoryClick } = useCategoryList();
 
@@ -56,9 +59,9 @@ const FilterBudgetExpenseTrend = (props: Props) => {
   };
   let icon: React.ReactElement;
   if (props.txnType === txn_types.Budget) {
-    icon = <AccountBalanceWalletOutlinedIcon sx={{ fontSize: iconSizeXS }} />;
+    icon = <AccountBalanceWalletOutlinedIcon sx={{ fontSize: systemFontSize === "sm" ? iconSizeXS : iconSizeSM, mb: systemFontSize === "md" ? 0.5: 0 }} />;
   } else {
-    icon = <ShoppingBagOutlinedIcon sx={{ fontSize: iconSizeXS }} />;
+    icon = <ShoppingBagOutlinedIcon sx={{ fontSize: systemFontSize === "sm" ? iconSizeXS : iconSizeSM , mb: systemFontSize === "md" ? 0.5: 0}} />;
   }
   return (
     <Container maxWidth={false} sx={{ p: 1 }}>
@@ -72,7 +75,7 @@ const FilterBudgetExpenseTrend = (props: Props) => {
       >
         <Stack direction="row" justifyContent="space-between" alignItems="center" flexGrow={1}>
           <Stack direction="row" alignItems="center">
-            {icon}
+           {icon}
             <Typography ml={0.5} variant="h6">
               {props.title}
               <span

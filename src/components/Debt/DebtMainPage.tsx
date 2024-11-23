@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { operation_types, txn_types } from '../../constants/collections';
 import { ACTION_TYPES, DEBT_STATUS } from '../../constants/constants';
-import { iconSizeXS } from '../../constants/size';
+import { iconSizeSM, iconSizeXS } from '../../constants/size';
 import { useTransactionLogsContext } from '../../contextAPI/TransactionLogsContext';
 import { ThemeColor } from '../../helper/utils';
 import DebtModel from '../../models/DebtModel';
@@ -32,6 +32,7 @@ const DebtMainPage = () => {
     const [openForm, setOpenForm] = useState(false);
     const [deleteFormOpen, setDeleteFormOpen] = useState(false);
     const [confirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
+    const systemFontSize = useSelector((state: RootState) => state.fontSize.size);
 
     const { saveLogs } = useTransactionLogsContext();
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -101,7 +102,7 @@ const DebtMainPage = () => {
             > 
                 <Stack direction="row" justifyContent="space-between" alignItems="center">
                     <Stack direction="row" alignItems="center">
-                          <PriceChangeOutlinedIcon sx={{ color: ThemeColor(theme), fontSize: 16 }} />
+                          <PriceChangeOutlinedIcon sx={{ color: ThemeColor(theme), fontSize: systemFontSize === "sm" ? iconSizeXS : iconSizeSM  }} />
                           <Typography ml={0.5} variant="h6"> Debt</Typography>
                     </Stack>
                     <Stack direction="row" alignItems="center">

@@ -6,7 +6,7 @@ import { Container, IconButton, Stack, Tooltip, Typography, useTheme } from "@mu
 import React, { useState } from "react";
 import { ThemeColor, formatShortAmountWithCurrency } from "../../helper/utils";
 import { FilterTimeframe } from "../../constants/timeframes";
-import { iconSize, iconSizeXS } from "../../constants/size";
+import { iconSize, iconSizeSM, iconSizeXS } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
 import TransactionOverviewDialog from "../Dashboard/TransactionOverviewDialog";
 import CustomIconButton from "../CustomIconButton";
@@ -32,6 +32,7 @@ const FilterBudgetExpenseTrend = (props: Props) => {
   const [filterOpen, setFilterOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [breakdownOpen, setBreakdownOpen] = useState(false);
+  const systemFontSize = useSelector((state: RootState) => state.fontSize.size);
 
   const handleFilterClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setAnchorEl(event.currentTarget);
@@ -50,9 +51,9 @@ const FilterBudgetExpenseTrend = (props: Props) => {
 
   let icon: React.ReactElement;
   if (props.txnType === txn_types.Income) {
-    icon = <PaidOutlinedIcon sx={{ fontSize: iconSizeXS }} />;
+    icon = <PaidOutlinedIcon sx={{ fontSize: systemFontSize === "sm" ? iconSizeXS : iconSizeSM, mb: systemFontSize === "md" ? 0.5: 0 }} />;
   } else {
-    icon = <SavingsOutlinedIcon sx={{ fontSize: iconSizeXS }} />;
+    icon = <SavingsOutlinedIcon sx={{ fontSize: systemFontSize === "sm" ? iconSizeXS : iconSizeSM , mb: systemFontSize === "md" ? 0.5: 0}} />;
   }
   return (
     <Container maxWidth={false} sx={{ p: 1 }}>

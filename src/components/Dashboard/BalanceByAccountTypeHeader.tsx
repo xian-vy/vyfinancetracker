@@ -1,11 +1,13 @@
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import React from "react";
-import { iconSize, iconSizeXS } from "../../constants/size";
+import { iconSize, iconSizeSM, iconSizeXS } from "../../constants/size";
 import { ThemeColor } from "../../helper/utils";
 import CustomIconButton from "../CustomIconButton";
 import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SwapVert from "@mui/icons-material/SwapVert";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 interface Props {
   onfilterClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onSwapClick: () => void;
@@ -13,6 +15,8 @@ interface Props {
 }
 const BalanceByAccountTypeHeader = (props: Props) => {
   const theme = useTheme();
+  const systemFontSize = useSelector((state: RootState) => state.fontSize.size);
+
   return (
     <Box
       sx={{
@@ -23,7 +27,7 @@ const BalanceByAccountTypeHeader = (props: Props) => {
       }}
     >
       <Stack direction="row" justifyContent="center" alignItems="center">
-        <AccountBalanceOutlinedIcon sx={{ mr: 0.5, fontSize: iconSizeXS }} />
+        <AccountBalanceOutlinedIcon sx={{ mr: 0.5, fontSize: systemFontSize === "sm" ? iconSizeXS : iconSizeSM }} />
         <Typography variant="body1">Account Balances</Typography>
       </Stack>
 

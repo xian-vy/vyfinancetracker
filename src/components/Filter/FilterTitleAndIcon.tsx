@@ -4,9 +4,11 @@ import LineAxisOutlinedIcon from "@mui/icons-material/LineAxisOutlined";
 import { Box, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { ThemeColor } from "../../helper/utils";
-import { iconSize, iconSizeXS } from "../../constants/size";
+import { iconSize, iconSizeSM, iconSizeXS } from "../../constants/size";
 import CustomIconButton from "../CustomIconButton";
 import QueryStatsOutlinedIcon from "@mui/icons-material/QueryStatsOutlined";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 interface Props {
   title: string;
   timeframe: string;
@@ -15,14 +17,15 @@ interface Props {
 
 const FilterTitleAndIcon = (props: Props) => {
   const theme = useTheme();
+  const systemFontSize = useSelector((state: RootState) => state.fontSize.size);
 
   let icon: React.ReactElement | null = null;
   if (props.title === "Account Balances") {
-    icon = <AccountBalanceOutlinedIcon sx={{ mr: 0.5, fontSize: iconSizeXS }} />;
+    icon = <AccountBalanceOutlinedIcon sx={{ mr: 0.5, fontSize: systemFontSize === "sm" ?   iconSizeXS : iconSizeSM }} />;
   } else if (props.title === "Overview") {
-    icon = <QueryStatsOutlinedIcon sx={{ mr: 0.5, fontSize: iconSizeXS }} />;
+    icon = <QueryStatsOutlinedIcon sx={{ mr: 0.5, fontSize: systemFontSize === "sm" ?   iconSizeXS : iconSizeSM }} />;
   } else if (props.title.includes("Trends")) {
-    icon = <LineAxisOutlinedIcon sx={{ mr: 0.5, fontSize: iconSizeXS }} />;
+    icon = <LineAxisOutlinedIcon sx={{ mr: 0.5, fontSize: systemFontSize === "sm" ?   iconSizeXS : iconSizeSM }} />;
   }
   return (
     <>

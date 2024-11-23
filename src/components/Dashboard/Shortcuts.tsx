@@ -2,14 +2,17 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ShortcutOutlinedIcon from "@mui/icons-material/ShortcutOutlined";
 import { Breadcrumbs, IconButton, Link, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React, { useState } from "react";
-import { iconSizeXS } from "../../constants/size";
+import { iconSizeSM, iconSizeXS } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
 import Shortcutitems from "./Shortcutitems";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 const types = [txn_types.Expenses, txn_types.Savings, txn_types.Income];
 
 const Shortcuts = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedType, setSelectedType] = useState(txn_types.Expenses);
+  const systemFontSize = useSelector((state: RootState) => state.fontSize.size);
 
   const theme = useTheme();
 
@@ -19,7 +22,7 @@ const Shortcuts = () => {
       <Stack direction="row" justifyContent="center" flexWrap="wrap" px={{ xs: 0, sm: 2 }}>
         <Stack direction="row" alignItems="center" flexGrow={1}>
           <Stack direction="row" alignItems="center">
-            <ShortcutOutlinedIcon sx={{ fontSize: iconSizeXS }} />
+            <ShortcutOutlinedIcon sx={{ fontSize: systemFontSize === "sm" ? iconSizeXS : iconSizeSM }} />
             <Typography variant="body1" sx={{ ml: 0.5 }}>
               Shortcuts
             </Typography>

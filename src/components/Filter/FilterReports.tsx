@@ -4,10 +4,12 @@ import { FormControl, MenuItem, Select, SelectChangeEvent, Stack, Typography, us
 import React, { useState } from "react";
 import { ThemeColor } from "../../helper/utils";
 import { FilterTimeframe } from "../../constants/timeframes";
-import { iconSize, iconSizeXS } from "../../constants/size";
+import { iconSize, iconSizeSM, iconSizeXS } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
 import CustomIconButton from "../CustomIconButton";
 import TimeframeDrawerPopOver from "./TimeframeDrawerPopOver";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 interface Props {
   title: string;
@@ -20,6 +22,7 @@ const FilterReports = (props: Props) => {
   const [filterOpen, setFilterOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [filterOption, setFilterOption] = useState<FilterTimeframe>(props.filterOption);
+  const systemFontSize = useSelector((state: RootState) => state.fontSize.size);
 
   const theme = useTheme();
 
@@ -58,7 +61,7 @@ const FilterReports = (props: Props) => {
         }}
       >
         <Stack direction="row" justifyContent="flex-start" alignItems="center">
-          <PrintOutlinedIcon sx={{ fontSize: iconSizeXS }} />
+          <PrintOutlinedIcon sx={{ fontSize: systemFontSize === "sm" ? iconSizeXS : iconSizeSM }} />
           <Typography variant="h6" ml={0.5}>
             Reports
           </Typography>
