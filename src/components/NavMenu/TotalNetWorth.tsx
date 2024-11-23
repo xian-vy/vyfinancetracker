@@ -29,7 +29,7 @@ const TotalNetWorth = ({ collapsedDrawer }: { collapsedDrawer: boolean }) => {
 
   const totalBalance = totalIncome - totalExpenses - totalSavingsContribution + totalDebt;
   return (
-    <Stack mt={1}>
+    <Stack my={1}>
       {!collapsedDrawer && (
         <Tooltip title="Total NetWorth">
           <Stack direction="row" my={0.5} justifyContent="center" alignItems="center" sx={{ cursor: "pointer" }}>

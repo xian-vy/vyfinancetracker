@@ -97,7 +97,7 @@ const DebtMainPage = () => {
     <Grid container spacing={{ xs: 1, sm: 1.5, lg: 2 }} pb={{ xs: 10, md: 5 }}>
         <Grid item xs={12} lg={12}>
             <Paper
-            sx={{ py:1.5, px:3, minHeight: 250, borderRadius: 2}}
+            sx={{ py:1.5,  px:{xs:1.5, md:3}, minHeight: 250, borderRadius: 2}}
             variant={isDarkMode ? "elevation" : "outlined"}    
             > 
                 <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -125,7 +125,7 @@ const DebtMainPage = () => {
           </Grid>
           <Grid item xs={12} lg={12}>
                 <Paper
-                  sx={{ py:1.5, px:3, minHeight: 300, borderRadius: 2}}
+                  sx={{ py:1.5, px:{xs:1.5, md:3}, minHeight: 300, borderRadius: 2}}
                   variant={isDarkMode ? "elevation" : "outlined"}    
                     > 
                     <Grid container padding={1} spacing={2} paddingTop={4}>
