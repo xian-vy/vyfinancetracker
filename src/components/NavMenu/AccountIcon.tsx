@@ -128,7 +128,7 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
                   whiteSpace: "nowrap",
                   overflow: "hidden",
                   textOverflow: "ellipsis",
-                  height: "1rem",
+                  height: "1.2rem",
                   fontSize: user?.isAnonymous ? "0.85rem" : "0.7rem",
                 }}
               >
