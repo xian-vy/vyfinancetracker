@@ -21,6 +21,7 @@ import FilterSavings from '../Filter/FilterSavings';
 import DebtForm from './DebtForm';
 import { DebtItems } from './DebtItems';
 import PaymentConfirmationDialog from './PaymentConfirmationDialog';
+import DebtSummary from './DebtSummary';
 const DebtMainPage = () => {
     const theme = useTheme();
     const isDarkMode = theme.palette.mode === "dark";
@@ -116,10 +117,11 @@ const DebtMainPage = () => {
                 </Stack>
                 
                 <Grid container padding={1} spacing={2} paddingTop={4}>
-                    <Stack direction="row" gap={0.5} justifyContent="center"  alignItems="center" width="100%" mb={3}>
+                    <Stack direction="row" gap={0.5} justifyContent="center"  alignItems="center" width="100%" my={3}>
                         <InfoOutlinedIcon sx={{ color: ThemeColor(theme), fontSize: 16 }} />
                         <Typography textAlign={"center"} variant='body1' >This feature is under development. Currently, you can create Basic debts for record purposes. No interest and payments will be made. </Typography>
                     </Stack>
+                    <DebtSummary debt={debtSlice} />
                     {/** Savings Items Container------------------------------------------------------------------------*/}
                     {filteredDebts.map((debt) => (
                       <DebtItems key={debt.id} onActionSelect={handleActionSelect} debtsProp={debt} />
