@@ -2,7 +2,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Dispatch } from "react";
 import { collections } from "../../constants/collections";
-import { deleteMultipleExpenses, getExpenses, updateMultipleExpenses } from "../../firebase/ExpenseService";
+import { deleteExpensetoFirestore, deleteMultipleExpenses, getExpenses, updateMultipleExpenses } from "../../firebase/ExpenseService";
 import { createSingleDocument, deleteSingleDocument, updateSingleDocument } from "../../firebase/GenericCrud";
 import ExpenseModel from "../../models/ExpenseModel";
 
@@ -54,11 +54,8 @@ export const updateExpenseAction = createAsyncThunk(
 
 export const deleteExpenseAction = createAsyncThunk(
   "expenses/deleteExpense",
-  async (expense: ExpenseModel, { rejectWithValue }) => {
-    const { error } = await deleteSingleDocument({ item: expense, collectionName: collections.Expenses });
-    if (error) {
-      return rejectWithValue({ error: error });
-    }
+  async (expense: ExpenseModel) => {
+     deleteExpensetoFirestore(expense);
     return expense;
   }
 );
