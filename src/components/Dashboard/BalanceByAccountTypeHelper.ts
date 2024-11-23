@@ -62,14 +62,13 @@ export function generateAccountsBalances(
     const expense = expenseDataByAccountId[accountId as string]?.reduce((sum, item) => sum + item.amount, 0) || 0;
     const savings = contributionDataByAccountId[accountId as string]?.reduce((sum, item) => sum + item.amount, 0) || 0;
     const debts =  debtsDataByAccountId[accountId as string]?.reduce((sum, item) => sum + item.amount, 0) || 0;
-    const netDebt = Math.abs(debts);
    
     balanceByAccountId[accountId] = {
-      balance: income - expense - savings + netDebt,
+      balance: income - expense - savings + debts,
       income,
       expense,
       savings,
-      debts : netDebt
+      debts : debts
     };
   }
 

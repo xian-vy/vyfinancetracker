@@ -28,6 +28,7 @@ import {
 import { iconSizeXS } from "../../constants/size";
 import { overviewIconColor } from "../../helper/utils";
 import PriceChangeIcon from '@mui/icons-material/PriceChange';
+import de from "date-fns/esm/locale/de/index.js";
 
 export const calculateCurrentSum = (
   type: string,
@@ -39,7 +40,7 @@ export const calculateCurrentSum = (
 ) => {
   switch (type) {
     case txn_summary.Balance:
-      return incomeSum - expenseSum - contributionSum + Math.abs(debtSum); //subtracting it debt is negative and adding it if it's positive
+      return incomeSum - expenseSum - contributionSum + debtSum;
     case txn_summary.Expenses:
       return expenseSum;
     case txn_summary.Budget:
@@ -65,7 +66,7 @@ export const calculatePrevSum = (
 ) => {
   switch (type) {
     case txn_summary.Balance:
-      return incomePrevSum - expensePrevSum - contributionPrevSum + Math.abs(debtPrevSum); 
+      return incomePrevSum - expensePrevSum - contributionPrevSum + debtPrevSum; 
     case txn_summary.Expenses:
       return expensePrevSum;
     case txn_summary.Budget:

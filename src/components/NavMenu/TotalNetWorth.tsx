@@ -27,7 +27,7 @@ const TotalNetWorth = ({ collapsedDrawer }: { collapsedDrawer: boolean }) => {
   const totalIncome = calculateTotalSum(income, "amount");
   const totalDebt = calculateTotalSum(debtItems, "amount");
 
-  const totalBalance = totalIncome - totalExpenses - totalSavingsContribution + (Math.abs(totalDebt));
+  const totalBalance = totalIncome - totalExpenses - totalSavingsContribution + totalDebt;
   return (
     <div>
       {!collapsedDrawer && (
