@@ -41,7 +41,7 @@ const DebtSummary = ({debt}: Props) => {
      <Grid container spacing={2} justifyContent="center" alignItems="center" width="100%" mx="auto" my={2}>
         {summary.map((item, index) => (
             <Grid  container justifyContent="center" item xs={6} md={3} key={index}>
-                <Paper  sx={{ borderRadius: 2, p: 2, display: "flex",flexDirection: "column", justifyContent: "center", alignItems: "center" , width: "100%"}}     variant={isDarkMode ? "elevation" : "outlined"}>
+                <Paper  sx={{ borderRadius: 2, p: 4, display: "flex",flexDirection: "column", justifyContent: "center", alignItems: "center" , width: "100%"}}     variant={isDarkMode ? "elevation" : "outlined"}>
                     <Typography variant='body2' sx={{fontWeight:"bold",mb:2}}>
                         {item.title}
                     </Typography>

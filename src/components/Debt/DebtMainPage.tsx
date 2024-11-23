@@ -95,9 +95,9 @@ const DebtMainPage = () => {
     }
   return (
     <Grid container spacing={{ xs: 1, sm: 1.5, lg: 2 }} pb={{ xs: 10, md: 5 }}>
-        <Grid item xs={12} lg={12} >
+        <Grid item xs={12} lg={12}>
             <Paper
-            sx={{ py:1.5, px:3, minHeight: 600, borderRadius: 2}}
+            sx={{ py:1.5, px:3, minHeight: 250, borderRadius: 2}}
             variant={isDarkMode ? "elevation" : "outlined"}    
             > 
                 <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -116,20 +116,27 @@ const DebtMainPage = () => {
                         </CustomIconButton>
                     </Stack>
                 </Stack>
-                
-                <Grid container padding={1} spacing={2} paddingTop={4}>
-                    <Stack direction="row" gap={0.5} justifyContent="center"  alignItems="center" width="100%" my={3}>
+                <Stack direction="row" gap={0.5} justifyContent="center"  alignItems="center" width="100%" my={3}>
                         <InfoOutlinedIcon sx={{ color: ThemeColor(theme), fontSize: 16 }} />
                         <Typography textAlign={"center"} variant='body1' >This feature is under development. Currently, you can create Basic debts for record purposes. No interest and payments will be made. </Typography>
-                    </Stack>
-                    <DebtSummary debt={debtSlice} />
-                    {/** Savings Items Container------------------------------------------------------------------------*/}
-                    {filteredDebts.map((debt) => (
-                      <DebtItems key={debt.id} onActionSelect={handleActionSelect} debtsProp={debt} />
-                    ))}
-              </Grid>      
-          </Paper>
-        </Grid>
+                 </Stack>
+                <DebtSummary debt={debtSlice} />
+              </Paper>
+          </Grid>
+          <Grid item xs={12} lg={12}>
+                <Paper
+                  sx={{ py:1.5, px:3, minHeight: 300, borderRadius: 2}}
+                  variant={isDarkMode ? "elevation" : "outlined"}    
+                    > 
+                    <Grid container padding={1} spacing={2} paddingTop={4}>
+                  
+                        {/** Savings Items Container------------------------------------------------------------------------*/}
+                        {filteredDebts.map((debt) => (
+                          <DebtItems key={debt.id} onActionSelect={handleActionSelect} debtsProp={debt} />
+                        ))}
+                    </Grid>     
+                </Paper>           
+          </Grid>
 
         <Dialog
             open={openForm}
