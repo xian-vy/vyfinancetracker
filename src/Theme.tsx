@@ -170,6 +170,13 @@ let lightTheme = createTheme({
         },
       },
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+            borderColor: "#ccc",   
+        },
+      },
+    },
   },
 
   palette: {
@@ -252,6 +259,13 @@ let darkTheme = createTheme({
       styleOverrides: {
         root: {
           borderColor: "#292828",
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+            borderColor: "#333",   
         },
       },
     },
