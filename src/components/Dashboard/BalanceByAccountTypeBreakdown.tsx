@@ -40,7 +40,7 @@ const BalanceByAccountTypeBreakdown = ({ networth }: Props) => {
     },
   ];
 
-  const maxAmount = Math.max(networth.income, networth.expense, networth.savings, networth.debts);
+  const maxAmount = Math.max(networth.income, networth.expense, networth.savings,  Math.abs(networth.debts));
 
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [maxWidth, setMaxWidth] = React.useState(0);
