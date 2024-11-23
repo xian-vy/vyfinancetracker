@@ -48,7 +48,7 @@ const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean
             border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
           }}
         >
-          Continue Anonymously
+          Continue as Guest
         </Button>
       </Box>
 

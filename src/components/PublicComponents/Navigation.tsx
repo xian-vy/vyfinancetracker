@@ -48,7 +48,7 @@ export default function Navigation() {
               </Typography>
               <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems:"center" } }}>
                   {navItems.map((item) => (
-                    <Button key={item.name}   onClick={() => setAgreementDialog({ open: true, doc: item.path})} sx={{ color: darktheme ? '#ccc' : '#000' }} >
+                    <Button key={item.name}   onClick={() => setAgreementDialog({ open: true, doc: item.path})} sx={{ color: darktheme ? '#ccc' : '#333' }} >
                       {item.name}
                     </Button>
                   ))}

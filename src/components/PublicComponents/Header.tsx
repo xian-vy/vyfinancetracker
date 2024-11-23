@@ -101,7 +101,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             component="h1"
             align="center"
             sx={{
-              color: darktheme ? "#ccc" : "#333",
+              color: darktheme ? "#ccc" : "#444",
               fontWeight:600
             }}
           >
@@ -115,7 +115,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               fontSize: { xs: "1.4rem", sm: "1.8rem", md: "2.5rem", xl: "3rem" },
               lineHeight: { xs: "1.5rem", sm: "2rem", md: "2.8rem", xl: "3.2rem"  },
               fontWeight: 600,
-              color: darktheme ? "#ccc" : "#333",
+              color: darktheme ? "#ccc" : "#444",
               my: 1,
             }}
           >
@@ -128,7 +128,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               fontSize: { xs: "1.4rem", sm: "1.8rem", md: "2.5rem", xl: "3rem" },
               lineHeight: { xs: "1.5rem", sm: "2rem", md: "2.8rem", xl: "3.2rem"  },
               fontWeight: 600,
-              color: darktheme ? "#ccc" : "#333",
+              color: darktheme ? "#ccc" : "#444",
               my: 1,
             }}
           >

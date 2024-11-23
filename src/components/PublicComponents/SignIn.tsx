@@ -39,25 +39,17 @@ export default function SignIn() {
     >
       <Navigation />
       <Box sx={{ my: 20,minHeight: {xs:"50vh", sm:"auto"}, width: 320, py: 1, px: 2, flexDirection: "column", display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <Stack direction="row" alignItems="center" justifyContent="center" mb={2}>
-          <img
-            src={logo}
-            onClick={() => navigate(HOME)}
-            alt="Logo"
-            style={{ width: "24px", height: "24px", cursor: "pointer", padding: 0 }}
-          />
 
-          <Typography component="h1" align="center" ml={0.8} variant="subtitle1" fontWeight={500}>
-            Sign In
-          </Typography>
-        </Stack>
+        <Typography component="h1" align="center" variant="h3"  mb={3}>
+          Sign In
+        </Typography>
 
         <SignInGoogle
           hasAgreed={agreeToTerms}
           promptAgreementMsg={() => openSuccessSnackbar("You must agree to privacy and terms to continue.", true)}
         />
 
-        <Divider sx={{ my: 2, width: "90%", fontSize: "0.7rem" }}>Or</Divider>
+        <Divider sx={{ my: 1.5, width: "90%", fontSize: "0.7rem" }}>Or</Divider>
 
         <SignInAnonymous
           hasAgreed={agreeToTerms}
