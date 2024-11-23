@@ -52,38 +52,34 @@ const TransactionOverviewBreakdown = ({ groupedData }: { groupedData: groupedDat
           <Stack direction="column" alignItems="flex-start">
             {aggregatedData.map((item, index) => {
               return (
-                <div key={index}>
-                  <Stack direction="column" justifyContent="flex-start" marginBottom={0.5}>
-                    <Stack direction="row" alignItems="center">
+                    <Stack key={index} direction="row" alignItems="center">
                       {/* Icon and Description ------------------------------------------------------------- */}
                       {item.icon && renderIcon(item.icon, isDarkMode ? item.color : item.color || "")}
-                      <Stack direction="column">
-                        <Typography variant="caption" ml={0.5} height={14}>
-                          {item.category.length > charLimit
-                            ? item.category.substring(0, charLimit) + ".."
-                            : item.category}
-                        </Typography>
-                        {/* Amount and Progress ------------------------------------------------------------- */}
-                        <Stack direction="row" alignItems="center" ml={0.5}>
-                          <svg width={maxAmount === 0 ? "0" : `${(item.amount / maxAmount) * maxWidth}px`} height="10">
-                            <rect
-                              width="100%"
-                              height="100%"
-                              fill={hexToRGBA(item.color)}
-                              stroke={isDarkMode ? "#1e1e1e" : item.color}
-                              strokeWidth={isDarkMode ? 1 : 0.3}
-                              rx={4}
-                              ry={4}
-                            />
-                          </svg>
-                          <Typography variant="caption" ml={0.5}>
-                            {formatShortAmountWithCurrency(item.amount, false, true)}
-                          </Typography>
-                        </Stack>
-                      </Stack>
+                          <Stack direction="column">
+                            <Typography variant="caption" ml={0.5} height={14}>
+                              {item.category.length > charLimit
+                                ? item.category.substring(0, charLimit) + ".."
+                                : item.category}
+                            </Typography>
+                            {/* Amount and Progress ------------------------------------------------------------- */}
+                            <Stack direction="row" alignItems="center" ml={0.5}>
+                              <svg width={maxAmount === 0 ? "0" : `${(item.amount / maxAmount) * maxWidth}px`} height="5">
+                                <rect
+                                  width="100%"
+                                  height="100%"
+                                  fill={hexToRGBA(item.color)}
+                                  stroke={isDarkMode ? "#1e1e1e" : item.color}
+                                  strokeWidth={isDarkMode ? 1 : 0.3}
+                                  rx={4}
+                                  ry={4}
+                                />
+                              </svg>
+                              <Typography variant="caption" ml={0.5}>
+                                {formatShortAmountWithCurrency(item.amount, false, true)}
+                              </Typography>
+                            </Stack>
+                          </Stack>
                     </Stack>
-                  </Stack>
-                </div>
               );
             })}
           </Stack>

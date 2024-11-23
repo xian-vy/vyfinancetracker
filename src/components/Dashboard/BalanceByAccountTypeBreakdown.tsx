@@ -8,6 +8,7 @@ import { iconSizeSM } from "../../constants/size";
 import { txn_types } from "../../constants/collections";
 import { DEBT_THEME, EXPENSES_THEME, INCOME_THEME, SAVINGS_THEME_DARK } from "../../constants/componentTheme";
 import PriceChangeIcon from '@mui/icons-material/PriceChange';
+import { getAccountTotalColor, getAccountTotalSign } from "./BalanceByAccountTypeHelper";
 
 interface Props {
   networth: { expense: number; income: number; savings: number , debts : number};
@@ -64,13 +65,12 @@ const BalanceByAccountTypeBreakdown = ({ networth }: Props) => {
   }, []);
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
+
   return (
     <Box ref={containerRef} overflow="hidden" sx={{ px: 0, display: "flex", justifyContent: "flex-start" }}>
       <Stack direction="column">
         {breakdown.map((item, index) => (
-          <div key={index}>
-            <Stack direction="column" justifyContent="flex-start" marginBottom={1}>
-              <Stack direction="row" alignItems="center" gap={0.5}>
+            <Stack key={index} direction="row" alignItems="center" gap={0.5}>
                 {item.icon}
                 <Stack direction="column">
                   <Typography variant="caption" ml={0.3} height={15}>
@@ -78,7 +78,7 @@ const BalanceByAccountTypeBreakdown = ({ networth }: Props) => {
                   </Typography>
 
                   <Stack direction="row" alignItems="center" height={15}>
-                    <svg width={maxAmount === 0 ? "0" : `${(item.amount / maxAmount) * maxWidth}px`} height="10">
+                    <svg width={maxAmount === 0 ? "0" : `${(item.amount / maxAmount) * maxWidth}px`} height="5">
                       <rect
                         width="100%"
                         height="100%"
@@ -89,14 +89,17 @@ const BalanceByAccountTypeBreakdown = ({ networth }: Props) => {
                         ry={4}
                       />
                     </svg>
-                    <Typography variant="caption" ml={0.5}>
+             
+                     <Typography variant="caption"  ml={0.5} >
                       {formatShortAmountWithCurrency(item.amount, false, true)}
+                      </Typography>           
+                      <Typography variant="body1"  ml={0.2} sx={{color : getAccountTotalColor(item.type, networth.debts)}}>
+                      {item.amount !== 0  && getAccountTotalSign(item.type, networth.debts)}
                     </Typography>
+                        
                   </Stack>
                 </Stack>
-              </Stack>
-            </Stack>
-          </div>
+            </Stack>    
         ))}
       </Stack>
     </Box>

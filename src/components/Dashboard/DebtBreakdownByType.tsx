@@ -68,9 +68,7 @@ const DebtBreakdownByType = ({ timeframe, dateStart, dateEnd} : Props) => {
     <Box ref={containerRef} overflow="hidden" sx={{ px: 0, display: "flex", justifyContent: "flex-start" }}>
     <Stack direction="column">
       {finalData.map((item, index) => (
-        <div key={index}>
-          <Stack direction="column" justifyContent="flex-start" marginBottom={1}>
-            <Stack direction="row" alignItems="center" gap={0.5}>
+         <Stack key={index} direction="row" alignItems="center" gap={0.5}>
               {/* {item.icon} */}
               <Stack direction="column">
                 <Typography variant="caption" ml={0.3} height={15}>
@@ -78,7 +76,7 @@ const DebtBreakdownByType = ({ timeframe, dateStart, dateEnd} : Props) => {
                 </Typography>
 
                 <Stack direction="row" alignItems="center" height={15}>
-                  <svg width={maxAmount === 0 ? "0" : `${(item.amount / maxAmount) * maxWidth}px`} height="10">
+                  <svg width={maxAmount === 0 ? "0" : `${(item.amount / maxAmount) * maxWidth}px`} height="5">
                     <rect
                       width="100%"
                       height="100%"
@@ -94,9 +92,7 @@ const DebtBreakdownByType = ({ timeframe, dateStart, dateEnd} : Props) => {
                   </Typography>
                 </Stack>
               </Stack>
-            </Stack>
           </Stack>
-        </div>
       ))}
     </Stack>
   </Box>
