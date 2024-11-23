@@ -69,7 +69,7 @@ const menuItems = [
   },
   { key: "Reports", path: REPORTS_PATH, icon: <PrintOutlinedIcon sx={{ fontSize: iconSizeXS }} />, text: "Reports" },
   { key: "Settings", path: "Settings", icon: <SettingsOutlinedIcon sx={{ fontSize: iconSizeXS }} />, text: "Settings" },
-  { key: "About", path: "About", icon: <InfoOutlinedIcon sx={{ fontSize: iconSizeXS }} />, text: "About" },
+  // { key: "About", path: "About", icon: <InfoOutlinedIcon sx={{ fontSize: iconSizeXS }} />, text: "About" },
 ];
 
 const NavigationMain = () => {
