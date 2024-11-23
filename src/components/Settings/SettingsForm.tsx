@@ -4,7 +4,7 @@ import { Box, Divider, IconButton, Skeleton, Stack, Typography, useTheme } from 
 import React from "react";
 import { useSelector } from "react-redux";
 import { ThemeColor } from "../../helper/utils";
-import { iconSizeSM, iconSizeXS } from "../../constants/size";
+import { DIALOG_CLOSEICON_SIZE, iconSizeSM, iconSizeXS } from "../../constants/size";
 import { RootState } from "../../redux/store";
 
 interface Props {
@@ -46,7 +46,7 @@ const SettingsForm: React.FC<Props> = ({ closeForm, loading }) => {
               <CloseIcon
                 style={{
                   cursor: "pointer",
-                  fontSize: iconSizeSM,
+                  fontSize: DIALOG_CLOSEICON_SIZE,
                 }}
               />
             </IconButton>

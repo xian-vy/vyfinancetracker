@@ -1,13 +1,11 @@
-import { Button, Stack, useTheme } from "@mui/material";
-import React from "react";
+import { Button, Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import { setHideBalances } from "../../redux/reducer/userAccountSlice";
 import { setLocalHideBalances } from "../../localstorage/hidebalancesettings";
+import { setHideBalances } from "../../redux/reducer/userAccountSlice";
+import { RootState } from "../../redux/store";
 
 const HideBalances = ({ isDarkMode }: { isDarkMode: boolean }) => {
   const dispatch = useDispatch();
-  const theme = useTheme();
 
   const hideBalance = useSelector((state: RootState) => state.userAccount.hideBalances);
 
@@ -38,8 +36,8 @@ const HideBalances = ({ isDarkMode }: { isDarkMode: boolean }) => {
           sx={{
             minWidth: "40%",
             height: "100%",
-            border: `solid 1px ${!hideBalance ? theme.palette.primary.main : "inherit"}`,
-            color: !hideBalance ? theme.palette.primary.main : "inherit",
+            border: `solid 1px ${!hideBalance ? "#d86c70" : "inherit"}`,
+            color: !hideBalance ? "#d86c70" : "inherit",
             textTransform: "none",
             borderRadius: 2,
           }}
@@ -52,8 +50,8 @@ const HideBalances = ({ isDarkMode }: { isDarkMode: boolean }) => {
           sx={{
             minWidth: "40%",
             height: "100%",
-            border: `solid 1px ${hideBalance ? theme.palette.primary.main : "inherit"}`,
-            color: hideBalance ? theme.palette.primary.main : "inherit",
+            border: `solid 1px ${hideBalance ? "#d86c70" : "inherit"}`,
+            color: hideBalance ? "#d86c70" : "inherit",
             textTransform: "none",
             borderRadius: 2,
             py: 0.3,

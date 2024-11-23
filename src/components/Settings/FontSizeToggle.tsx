@@ -38,8 +38,8 @@ const FontSizeToggle = ({ isDarkMode }: { isDarkMode: boolean }) => {
           sx={{
             minWidth: "40%",
             height: "100%",
-            border: `solid 1px ${fontSize === "sm" ? theme.palette.primary.main : "inherit"}`,
-            color: fontSize === "sm" ? theme.palette.primary.main : "inherit",
+            border: `solid 1px ${fontSize === "sm" ? "#d86c70" : "inherit"}`,
+            color: fontSize === "sm" ? "#d86c70" : "inherit",
             textTransform: "none",
             borderRadius: 2,
           }}
@@ -52,8 +52,8 @@ const FontSizeToggle = ({ isDarkMode }: { isDarkMode: boolean }) => {
           sx={{
             minWidth: "40%",
             height: "100%",
-            border: `solid 1px ${fontSize === "md" ? theme.palette.primary.main : "inherit"}`,
-            color: fontSize === "md" ? theme.palette.primary.main : "inherit",
+            border: `solid 1px ${fontSize === "md" ? "#d86c70" : "inherit"}`,
+            color: fontSize === "md" ? "#d86c70" : "inherit",
             textTransform: "none",
             borderRadius: 2,
           }}

@@ -1,5 +1,4 @@
-import { Button, Stack, useTheme } from "@mui/material";
-import React from "react";
+import { Button, Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setPowerSavingMode } from "../../localstorage/powersavingsettings";
 import { togglePowerSavingMode } from "../../redux/reducer/powerSavingSlice";
@@ -7,7 +6,6 @@ import { RootState } from "../../redux/store";
 
 const PowerSavingToggle = ({ isDarkMode }: { isDarkMode: boolean }) => {
   const dispatch = useDispatch();
-  const theme = useTheme();
 
   const powerSavingMode = useSelector((state: RootState) => state.powerSaving.enabled);
 
@@ -38,8 +36,8 @@ const PowerSavingToggle = ({ isDarkMode }: { isDarkMode: boolean }) => {
           sx={{
             minWidth: "40%",
             height: "100%",
-            border: `solid 1px ${!powerSavingMode ? theme.palette.primary.main : "inherit"}`,
-            color: !powerSavingMode ? theme.palette.primary.main : "inherit",
+            border: `solid 1px ${!powerSavingMode ? "#d86c70" : "inherit"}`,
+            color: !powerSavingMode ? "#d86c70" : "inherit",
             textTransform: "none",
             borderRadius: 2,
           }}
@@ -52,8 +50,8 @@ const PowerSavingToggle = ({ isDarkMode }: { isDarkMode: boolean }) => {
           sx={{
             minWidth: "40%",
             height: "100%",
-            border: `solid 1px ${powerSavingMode ? theme.palette.primary.main : "inherit"}`,
-            color: powerSavingMode ? theme.palette.primary.main : "inherit",
+            border: `solid 1px ${powerSavingMode ? "#d86c70" : "inherit"}`,
+            color: powerSavingMode ? "#d86c70" : "inherit",
             textTransform: "none",
             borderRadius: 2,
           }}
