@@ -72,7 +72,7 @@ export function DebtItems({
           {/** Savings Name /More Icon -----------------------------------------------------------------*/}
           <Stack direction="row" justifyContent="space-between" alignItems="center">
   
-                <Typography align="left" variant="h6"  noWrap sx={{fontWeight: "bold"}}>
+                <Typography align="left" variant="h6"  noWrap >
                    <span style={{ color:  getDebtAmountColor(debtsProp.isCreditor,debtsProp.status === DEBT_STATUS.Complete)}}>{formatShortAmountWithCurrency(debtsProp.amount, false, true)} </span>   {" "}
                    {account ? account.description : ""}            
                 </Typography>    
