@@ -1,3 +1,4 @@
+import { txn_types } from "../../constants/collections";
 import { getAccountsDetails } from "../../firebase/utils";
 import AccountTypeModel from "../../models/AccountTypeModel";
 import DebtModel from "../../models/DebtModel";
@@ -64,7 +65,7 @@ export function generateAccountsBalances(
     const netDebt = Math.abs(debts);
    
     balanceByAccountId[accountId] = {
-      balance: income - expense - savings - netDebt,
+      balance: income - expense - savings + netDebt,
       income,
       expense,
       savings,
@@ -99,3 +100,46 @@ export function generateAccountsBalances(
   }
   return balanceByAccountType;
 }
+
+
+export const getAccountTotalSign  =  (type : txn_types, debts : number) => {
+  let sign = "+"
+    switch (type) {
+      case txn_types.Income:
+        sign  = "+"
+        break;
+    case txn_types.Expenses:
+        sign  = "-"
+        break;
+    case txn_types.Savings:
+        sign  = "-"
+        break;
+    case txn_types.Debt:
+        sign = debts < 0 ? "-" : "+"
+        break;
+      default:
+        break;
+    }
+return sign
+} 
+
+export const getAccountTotalColor  =  (type : txn_types, debts : number) => {
+  let sign = "green"
+    switch (type) {
+      case txn_types.Income:
+        sign  = "green"
+        break;
+    case txn_types.Expenses:
+        sign  = "salmon"
+        break;
+    case txn_types.Savings:
+        sign  = "salmon"
+        break;
+    case txn_types.Debt:
+        sign = debts < 0 ? "salmon" : "green"
+        break;
+      default:
+        break;
+    }
+return sign
+} 
