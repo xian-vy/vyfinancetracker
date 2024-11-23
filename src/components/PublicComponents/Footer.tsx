@@ -1,8 +1,7 @@
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import MailIcon from '@mui/icons-material/Mail';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import { Dialog, DialogContent, Divider, Stack, Typography } from "@mui/material";
+import YouTubeIcon from '@mui/icons-material/YouTube';import { Dialog, DialogContent, Divider, Stack, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
@@ -66,7 +65,7 @@ const Footer = () => {
           <Stack direction="row" gap={1} alignContent="center" justifyContent="center">
               <FacebookIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#333", cursor: "pointer" }} />
               <LinkedInIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#333", cursor: "pointer" }} />
-              <TwitterIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#333", cursor: "pointer" }} />
+              <YouTubeIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#333", cursor: "pointer" }} />
           </Stack>
           <Stack direction="row" alignContent="center" gap={1} sx={{height : 30}}>
                   Theme
@@ -80,7 +79,7 @@ const Footer = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="start" gap={1}>
         <Stack direction="column" alignItems="start" justifyContent="start" >
-           <Stack direction="row" justifyContent="center" alignItems="center" gap={1} mb={1} >
+           <Stack direction="row" justifyContent="center" alignItems="center" gap={1} mb={2} >
                 <img
                   src={logo}
                   alt="Logo"
@@ -94,9 +93,6 @@ const Footer = () => {
                     Vy Finance Tracker
                 </Typography>
             </Stack>
-            <Typography variant="body2">
-               Personal Finance Tracker
-            </Typography>
             <Stack direction="row" gap={0.5} alignItems="center">
                 <MailIcon sx={{ color: darktheme ? "#ccc" : "#333",fontSize:"16px"}} />
                 vyfinanceapp@gmail.com
@@ -122,10 +118,10 @@ const Footer = () => {
 
   return (
     <>
-      <Stack direction="column" width="100%" >
+      <Stack direction="column" width="100%" my={5}>
         <Divider sx={{ mt: 1, mx: "auto", width: "100%" }} />
         
-        <Stack py={2} px={{xs:3, sm:5}} gap={3} direction={{xs:"column",sm:"row"}} justifyContent="space-between" alignItems="start" width="100%" maxWidth="lg" mx="auto" mt={2}>
+        <Stack pt={5} px={{xs:3, sm:5}} gap={3} direction={{xs:"column",sm:"row"}} justifyContent="space-between" alignItems="start" width="100%" maxWidth="lg" mx="auto" mt={2}>
             <AppDetails />
             <Stack direction={{xs:"column",sm:"row"}} alignItems="start" gap={{xs:3,sm:6}}>
                 <Privacy />
@@ -133,7 +129,7 @@ const Footer = () => {
             </Stack>
         </Stack>
 
-        <Stack direction="row" justifyContent="center" mt={2}>
+        <Stack direction="row" justifyContent="center" mt={5}>
           <Typography textAlign="center" sx={{ fontSize: { xs: "0.6rem", lg: "0.65rem" } }}>
             {"Copyright © "}
             {"Vy Finance Tracker"} {new Date().getFullYear()}
