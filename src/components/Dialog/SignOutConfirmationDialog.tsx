@@ -46,7 +46,7 @@ const SignOutConfirmationDialog = (props: Props) => {
         <DialogContent>
           {!user?.isAnonymous ? (
             <>
-              <Typography variant="body1" textAlign="center" gutterBottom mt={1}>
+              <Typography variant="body1" textAlign="center" gutterBottom mt={2}>
                 Open network/wifi to sync and backup changes.
               </Typography>
               <Typography variant="body1" textAlign="center" mt={1}>
@@ -55,7 +55,7 @@ const SignOutConfirmationDialog = (props: Props) => {
             </>
           ) : (
             <>
-              <Typography variant="body1" textAlign="center" gutterBottom mt={1}>
+              <Typography variant="body1" textAlign="center" gutterBottom mt={2}>
                 Signing out while anonymous will delete all your data.
               </Typography>
               <Typography variant="body1" textAlign="center" mt={1}>
