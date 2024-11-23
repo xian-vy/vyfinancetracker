@@ -57,7 +57,7 @@ export default function SignIn() {
           promptAgreementMsg={() => openSuccessSnackbar("You must agree to privacy and terms to continue.", true)}
         />
 
-        <Divider sx={{ my: 1, width: "90%", fontSize: "0.7rem" }}>Or</Divider>
+        <Divider sx={{ my: 2, width: "90%", fontSize: "0.7rem" }}>Or</Divider>
 
         <SignInAnonymous
           hasAgreed={agreeToTerms}
@@ -70,7 +70,7 @@ export default function SignIn() {
               checked={agreeToTerms}
               onChange={(event) => setAgreeToTerms(event.target.checked)}
               color="primary"
-              sx={{ height: 16, width: 25 }}
+              sx={{ height: 16, width: 25, ":hover": { bgcolor: "transparent" } }}
             />
             <Typography align="center" sx={{ fontSize: { xs: "0.65rem", lg: "0.7rem" } }}>
               I agree to the{" "}
