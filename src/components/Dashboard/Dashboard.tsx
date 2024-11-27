@@ -1,14 +1,23 @@
-import { Grid, Paper, useTheme } from "@mui/material";
+import { CircularProgress, Grid, Paper, Stack, useTheme } from "@mui/material";
 import React from "react";
 import AllTransactionsTrendChartContainer from "./AllTransactionsTrendChartContainer";
 import BalanceByAccountType from "./BalanceByAccountType";
 import Shortcuts from "./Shortcuts";
 import TransactionOverview from "./TransactionOverview";
+import { useSliceFetchingStates } from "../../hooks/slicefetchingHook";
 
 const Dashboard = () => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
+  const { isLoading } = useSliceFetchingStates();
 
+  if (isLoading) {
+    return (
+      <Stack justifyContent="center" alignItems="center" height="100vh">
+        <CircularProgress size={15} />
+      </Stack>
+    )
+  }
   return (
     <>
       <Grid container spacing={{ xs: 1, sm: 1.5, lg: 2 }} pb={{ xs: 10, md: 5 }} style={{ overflow: "hidden" }}>
