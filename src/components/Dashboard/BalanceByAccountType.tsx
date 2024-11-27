@@ -197,7 +197,7 @@ const BalanceByAccountType = () => {
       <Box sx={{ minHeight: { xs: 90, md: 96 }, pt: 1, px: { xs: 0, md: 3 } }}>
         {!data || loading ? (
           <Box display="flex" justifyContent="center" alignItems="center" mb={1}>
-            <CircularProgress size={20} />
+            <CircularProgress size={15} />
           </Box>
         ) : (
           <Swiper
