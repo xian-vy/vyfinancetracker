@@ -15,7 +15,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CategoryIcons from "../../media/CategoryIcons";
@@ -56,7 +56,7 @@ const Shortcutitems = ({
   const smScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [favorites, setFavorites] = useState<string[]>([]);
 
-  const handleFavoriteClick = (selectedCategory: genericModel) => {
+  const handleFavoriteClick = useCallback((selectedCategory: genericModel) => {
     setLoading(true);
     if (favorites.includes(selectedCategory.id)) {
       // If the selectedCategory is already a favorite, remove it from the favorites
@@ -71,7 +71,7 @@ const Shortcutitems = ({
       snackbarOpen();
       setLoading(false);
     }, 500);
-  };
+  }, [favorites]);
 
   const handleAddFavorite = (newfavorite: string) => {
     setFavorites([...favorites, newfavorite]);
@@ -128,7 +128,8 @@ const Shortcutitems = ({
   }, [favorites]);
 
   const navigate = useNavigate();
-  const handleNavigate = (selectedCategory: genericModel) => {
+
+  const handleNavigate = useCallback((selectedCategory: genericModel) => {
     switch (type) {
       case txn_types.Expenses:
         navigate(`${EXPENSE_PATH}/${selectedCategory.id}`, { state: { openForm: true } });
@@ -144,9 +145,12 @@ const Shortcutitems = ({
       default:
         break;
     }
-  };
+  }, [type, navigate]);
 
-  const favoriteList = shortcutList.filter((item) => favorites.includes(item.id));
+
+  const favoriteList = useMemo(() => {
+    return shortcutList.filter((item) => favorites.includes(item.id));
+  }, [shortcutList, favorites]);
 
   const AdddedToFavorites = (
     <React.Fragment>
@@ -169,8 +173,8 @@ const Shortcutitems = ({
       <Backdrop open={loading} sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <CircularProgress color="inherit" />
       </Backdrop>
-      <Stack direction="row" alignItems="center" flexWrap="wrap">
-        {favoriteList.map((category, index) => {
+      <Stack direction="row" alignItems="center" flexWrap="wrap" gap={{ xs: 1, md: 1.5 }}>
+        {favoriteList.length > 0 && favoriteList.map((category, index) => {
           let iconObject: React.ReactElement | undefined;
 
           switch (type) {
@@ -192,15 +196,13 @@ const Shortcutitems = ({
               <Paper
                 sx={{
                   py: 0.5,
-                  pl: { xs: 0.5, md: 1 },
-                  pr: { xs: 0, md: 0.5 },
-                  borderRadius: 6,
+                  pl: 1,
+                  pr:  0.5 ,
+                  borderRadius: 4,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
                   backgroundColor: isDarkMode ? "#1e1e1e" : "#fff",
-                  mx: smScreen ? 0.3 : 1,
-                  my: smScreen ? 0.3 : 1,
                 }}
                 variant="outlined"
               >
@@ -248,7 +250,7 @@ const Shortcutitems = ({
       <React.Suspense
         fallback={
           <Box display="flex" justifyContent="center">
-            <CircularProgress size={20} />
+           {dialogOpen && <CircularProgress size={15} /> }
           </Box>
         }
       >
