@@ -1,4 +1,4 @@
-import { Box, ThemeProvider, useMediaQuery } from "@mui/material";
+import { Box, CircularProgress, ThemeProvider, useMediaQuery } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
@@ -9,7 +9,6 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import LoadingLogo from "./components/LoadingLogo";
 import { ProtectedRoute } from "./components/ProtectedRoutes";
 import PublicRoute from "./components/PublicRoute";
-import DashboardSkeleton from "./components/Skeleton/DashboardSkeleton";
 import { DASHBOARD_PATH, routes } from "./constants/routes";
 import { useAuthState } from "./hooks/authStateHook";
 import { useBgColor } from "./hooks/bgColorHook";
@@ -18,17 +17,17 @@ import { RootState } from "./redux/store";
 const SeedPhraseMain = React.lazy(() => import("./encryption/SeedPhraseMain"));
 
 function getFallbackComponent(path: string) {
-  switch (path) {
-    case DASHBOARD_PATH:
-      return <DashboardSkeleton />;
+  // switch (path) {
+  //   case DASHBOARD_PATH:
+  //     return <DashboardSkeleton />;
 
-    default:
+  //   default:
       return (
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="100vh">
-          Loading...
+          <CircularProgress size={15} />
         </Box>
       );
-  }
+  // }
 }
 
 function App() {

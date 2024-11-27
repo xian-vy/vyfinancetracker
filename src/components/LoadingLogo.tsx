@@ -21,7 +21,7 @@ const LoadingLogo = ({ loadingLabel }: { loadingLabel: string }) => {
         width: "100%",
       }}
     >
-      <img src={logoAnimate} alt="Logo Animation" style={{ width: "40px", height: "40px", marginBottom: "10px" }} />
+      <img src={logoAnimate} alt="Logo Animation" style={{ width: "30px", height: "30px", marginBottom: "10px" }} />
       <Typography variant="caption">{loadingLabel}</Typography>
     </Box>
   );
