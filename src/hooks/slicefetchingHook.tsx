@@ -14,6 +14,8 @@ export const useSliceFetchingStates = () => {
   const incomeLoading = useSelector((state: RootState) => state.income.isfetching);
   const savingsLoading = useSelector((state: RootState) => state.savings.isfetching);
   const savingsContributionLoading = useSelector((state: RootState) => state.savingsContribution.isfetching);
+  const debtsLoading = useSelector((state: RootState) => state.debt.isfetching);
+
   const { loading: categoryLoading } = useCategoryContext();
   const { loading: accountLoading } = useAccountTypeContext();
   const { loading: incomesourceLoading } = useIncomeSourcesContext();
@@ -28,7 +30,8 @@ export const useSliceFetchingStates = () => {
     savingsContributionLoading ||
     categoryLoading ||
     accountLoading ||
-    incomesourceLoading;
+    incomesourceLoading ||
+    debtsLoading
   useEffect(() => {
     setLoadingData(loading);
 
@@ -50,6 +53,7 @@ export const useSliceFetchingStates = () => {
     categoryLoading,
     accountLoading,
     incomesourceLoading,
+    debtsLoading
   ]);
 
   return { isLoading, timeoutError };
