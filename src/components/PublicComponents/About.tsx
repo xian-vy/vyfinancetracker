@@ -33,7 +33,7 @@ const About = ({ isPrivate }: { isPrivate?: boolean | null }) => {
           target="_blank"
           sx={{ cursor: "pointer", textDecoration: "none", mx: 0.5 ,color: "#d86c70", }}
         >
-          Xian
+          xian
         </Link>
       </Stack>
     </Stack>
