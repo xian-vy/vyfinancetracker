@@ -35,7 +35,7 @@ const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; p
   };
   return (
     <>
-      <Box display="flex" px={2} flexDirection="column" alignItems="center" justifyContent="center" width={300}>
+      <Box display="flex" px={2} flexDirection="column" alignItems="center" justifyContent="center" width={340}>
         <Button
           variant="outlined"
           color="inherit"
@@ -48,6 +48,7 @@ const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; p
             textTransform: "none",
             fontSize: { xs: "0.7rem", lg: "0.75rem" },
             border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
+            py:1.1
           }}
         >
           Continue with Google

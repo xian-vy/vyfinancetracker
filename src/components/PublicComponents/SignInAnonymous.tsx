@@ -33,7 +33,7 @@ const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean
   };
   return (
     <>
-      <Box display="flex" px={2} flexDirection="column" alignItems="center" justifyContent="center" width={300}>
+      <Box display="flex" px={2} flexDirection="column" alignItems="center" justifyContent="center" width={340}>
         <Button
           variant="outlined"
           color="inherit"
@@ -46,6 +46,7 @@ const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean
             textTransform: "none",
             fontSize: { xs: "0.7rem", lg: "0.75rem" },
             border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
+            py:1.1
           }}
         >
           Continue as Guest

@@ -1,13 +1,11 @@
-import { Checkbox, Dialog, Divider, Link, Stack, ThemeProvider, useMediaQuery, useTheme } from "@mui/material";
+import { Checkbox, Dialog, Divider, Link, Stack, ThemeProvider, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { darkTheme, lightTheme } from "../../Theme";
-import { HOME, PRIVACY_POLICY, TERMS_OF_USE, TNCandPrivacyPolicyDialog } from "../../constants/routes";
+import { PRIVACY_POLICY, TERMS_OF_USE, TNCandPrivacyPolicyDialog } from "../../constants/routes";
 import useSnackbarHook from "../../hooks/snackbarHook";
-import logo from "../../media/logo.svg";
 import { RootState } from "../../redux/store";
 import Footer from "./Footer";
 import Navigation from "./Navigation";
@@ -15,11 +13,9 @@ import SignInAnonymous from "./SignInAnonymous";
 import SignInGoogle from "./SignInGoogle";
 
 export default function SignIn() {
-  const theme = useTheme();
   const darktheme = useSelector((state: RootState) => state.theme.darkMode);
   const systemThemeIsDark = useMediaQuery("(prefers-color-scheme: dark)");
   const { openSuccessSnackbar, SnackbarComponent } = useSnackbarHook();
-  const navigate = useNavigate();
   const [agreeToTerms, setAgreeToTerms] = React.useState(false);
   const [agreementDialog, setAgreementDialog] = React.useState<{ open: boolean; doc: string | null }>({
     open: false,
@@ -38,10 +34,10 @@ export default function SignIn() {
       }}
     >
       <Navigation />
-      <Box sx={{ my: 20,minHeight: {xs:"50vh", sm:"auto"}, width: 320, py: 1, px: 2, flexDirection: "column", display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <Box sx={{ my: 20,minHeight: {xs:"50vh", sm:"auto"}, width: 370, py: 1, px: 2, flexDirection: "column", display: "flex", justifyContent: "center", alignItems: "center" }}>
 
-        <Typography component="h1" align="center" variant="h3"  mb={3}>
-          Sign In
+        <Typography component="h1" align="center" sx={{fontSize:" 1.35rem" , fontWeight:"bold"}}  mb={3}>
+          Sign in to continue
         </Typography>
 
         <SignInGoogle
@@ -49,7 +45,7 @@ export default function SignIn() {
           promptAgreementMsg={() => openSuccessSnackbar("You must agree to privacy and terms to continue.", true)}
         />
 
-        <Divider sx={{ my: 1.5, width: "90%", fontSize: "0.7rem" }}>Or</Divider>
+        <Divider sx={{ my: 2, width: "90%", fontSize: "0.7rem" }}>Or</Divider>
 
         <SignInAnonymous
           hasAgreed={agreeToTerms}
