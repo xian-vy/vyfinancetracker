@@ -48,8 +48,8 @@ const AllTransactionsTrendChart = (props: Props) => {
   const savings = useSelector((state: RootState) => state.savings.savings);
   const budgets = useSelector((state: RootState) => state.budget.budgets);
   const [isExpenseChecked, setIsExpenseChecked] = useState(true);
-  const [isBudgetChecked, setIsBudgetChecked] = useState(true);
-  const [isIncomeChecked, setIsIncomeChecked] = useState(false);
+  const [isBudgetChecked, setIsBudgetChecked] = useState(false);
+  const [isIncomeChecked, setIsIncomeChecked] = useState(true);
   const [isSavingsChecked, setIsSavingsChecked] = useState(false);
   const [isBalanceChecked, setIsBalanceChecked] = useState(false);
   const [loading, setLoading] = useState(false);
