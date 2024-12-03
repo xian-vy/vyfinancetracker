@@ -44,3 +44,5 @@ export enum DEBT_STATUS {
   Complete = "Completed",
   Archived = "Archived"
 }
+
+export const FEATURES = ["Finance Tracking", "Budgeting", "Reports"];

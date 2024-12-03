@@ -21,9 +21,9 @@ const SimpleThemeToggle = () => {
   return (
     <Stack direction="row" justifyContent="center">
       {currentMode ? (
-        <DarkModeOutlinedIcon sx={{fontSize:16, mx:0.5, cursor:"pointer", color : currentMode ? "#ccc" : "#333"}} onClick={() => handleDarkMode(false)} />
+        <DarkModeOutlinedIcon sx={{fontSize:14, mx:0.5, cursor:"pointer", color : currentMode ? "#ccc" : "#333"}} onClick={() => handleDarkMode(false)} />
       ) : (
-        <WbSunnyOutlinedIcon sx={{fontSize:16, mx:0.5, cursor:"pointer", color : currentMode ? "#ccc" : "#333"}} onClick={() => handleDarkMode(true)} />
+        <WbSunnyOutlinedIcon sx={{fontSize:14, mx:0.5, cursor:"pointer", color : currentMode ? "#ccc" : "#333"}} onClick={() => handleDarkMode(true)} />
       )}
     </Stack>
   );

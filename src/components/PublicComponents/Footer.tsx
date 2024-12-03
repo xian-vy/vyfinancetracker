@@ -1,17 +1,17 @@
+import { Close } from '@mui/icons-material';
 import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
-import GoogleIcon from '@mui/icons-material/Google';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { Dialog, DialogContent, DialogTitle, Divider, Stack, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { FEATURES } from '../../constants/constants';
 import { PRIVACY_POLICY, TERMS_OF_USE, TNCandPrivacyPolicyDialog } from "../../constants/routes";
 import logo from "../../media/logo.svg";
 import { RootState } from "../../redux/store";
 import SimpleThemeToggle from "./SimpleThemeToggle";
-import { Close } from '@mui/icons-material';
-const About = React.lazy(() => import("../PublicComponents/About"));
+const AboutComponent = React.lazy(() => import("../PublicComponents/About"));
 
 const Footer = () => {
   const [openAbout, setOpenAbout] = useState(false);
@@ -22,11 +22,11 @@ const Footer = () => {
     doc: null,
   });
 
-  const Privacy = () => {
+  const About = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="start" gap={1}>
-        <Typography variant="h3" mb={1} sx={{color: darktheme ? "#ccc" : "#444"}}>
-          Privacy
+        <Typography  mb={0.5} sx={{color: darktheme ? "#ccc" : "#444", fontSize:"1.2rem",fontWeight:"600"}}>
+          About
         </Typography>
           <Link
             onClick={() => setAgreementDialog({ open: true, doc: PRIVACY_POLICY })}
@@ -34,7 +34,7 @@ const Footer = () => {
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: { xs: "0.7rem", lg: "0.75rem" },
-              color: darktheme ? "#ccc" : "#333",
+              color: darktheme ? "#ccc" : "#666",
               textDecoration: "none",
             }}
           >
@@ -46,13 +46,25 @@ const Footer = () => {
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: { xs: "0.7rem", lg: "0.75rem" },
-              color: darktheme ? "#ccc" : "#333",
+              color: darktheme ? "#ccc" : "#666",
               textDecoration: "none",
             }}
           >
             Terms of Use
           </Link>
-         
+          <Link
+            component="div"
+            onClick={() => setOpenAbout(true)}
+            sx={{
+              cursor: "pointer",
+              WebkitTapHighlightColor: "transparent",
+              fontSize: { xs: "0.7rem", lg: "0.75rem" },
+              color: darktheme ? "#ccc" : "#666",
+              textDecoration: "none",
+            }}
+          >
+            About
+        </Link>
     </Stack>
     )
   }
@@ -60,83 +72,95 @@ const Footer = () => {
   const Socials = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="center" gap={1}>
-         <Typography variant="h3" mb={1} sx={{color: darktheme ? "#ccc" : "#444"}}>
+         <Typography  mb={0.5} sx={{color: darktheme ? "#ccc" : "#444", fontSize:"1.2rem",fontWeight:"600"}}>
           Socials
         </Typography>
-          <Stack direction="row" gap={1} alignContent="center" justifyContent="center">
-              <AlternateEmailOutlinedIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#666", cursor: "pointer" }} />
-              <WhatsAppIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#666", cursor: "pointer" }} />
-              <InstagramIcon fontSize='small' sx={{ color: darktheme ? "#ccc" : "#666", cursor: "pointer" }} />
+          <Stack direction="row" gap={1} alignItems="center" justifyContent="center">
+              <AlternateEmailOutlinedIcon sx={{ color: darktheme ? "#ccc" : "#555", cursor: "pointer", fontSize: 16 }} />
+              <WhatsAppIcon sx={{ color: darktheme ? "#ccc" : "#555", cursor: "pointer" , fontSize: 16}} />
+              <InstagramIcon sx={{ color: darktheme ? "#ccc" : "#555", cursor: "pointer", fontSize: 16 }} />
           </Stack>
-          <Stack direction="row" alignContent="center" gap={1} sx={{height : 30}}>
-                  Theme
-                <SimpleThemeToggle />
+          <Stack direction="row" justifyContent="center" alignItems="center" gap={1} mt={0.5} sx={{color: darktheme ? "#ccc" : "#555",}}>
+               Theme
+              <SimpleThemeToggle />
           </Stack>
-      </Stack>
+    </Stack>
     )
   }
 
   const AppDetails = () => {
     return (
-      <Stack direction="column" alignItems="start" justifyContent="start" gap={1}>
-        <Stack direction="column" alignItems="start" justifyContent="start" >
-           <Stack direction="row" justifyContent="center" alignItems="center" gap={1} mb={2} >
+      <Stack direction="column" alignItems="start" justifyContent="start"  maxWidth={300}>
+           <Stack direction="row" justifyContent="center" alignItems="center" gap={1} mb={1.2} >
                 <img
                   src={logo}
                   alt="Logo"
                   style={{
-                    width: "22px",
-                    height: "22px",
+                    width: "18px",
+                    height: "18px",
 
                   }}
                   />
-                <Typography variant="h3" sx={{color: darktheme ? "#ccc" : "#444"}}>
-                    Vy Finance Tracker
+                <Typography sx={{color: darktheme ? "#ccc" : "#444", mt:0.1,fontSize:"1rem",fontWeight:"600"}}>
+                   VYFINANCE
                 </Typography>
             </Stack>
-            <Stack direction="row" gap={0.5} alignItems="center" sx={{fontSize:"0.8rem"}}>
-                <GoogleIcon sx={{ color: darktheme ? "#ccc" : "#666",fontSize:"16px"}} />
-                vyfinanceapp@gmail.com
-            </Stack>
-        </Stack>
-       
-        <Link
-            component="div"
-            onClick={() => setOpenAbout(true)}
-            sx={{
-              cursor: "pointer",
-              WebkitTapHighlightColor: "transparent",
-              fontSize: { xs: "0.7rem", lg: "0.75rem" },
-              color: darktheme ? "#ccc" : "#333",
-              textDecoration: "none",
-            }}
-          >
-            About
-        </Link>
+            <Typography variant="subtitle2" sx={{color: darktheme ? "#ccc" : "#666"}}>
+                    Free personal finance tracker, available offline and on the web, for all platforms.
+            </Typography>
+      </Stack>
+    )
+  }
+
+  const Features = () => {
+    return (
+      <Stack direction="column" alignItems="start" justifyContent="start" gap={1}>
+         <Typography mb={0.5} sx={{color: darktheme ? "#ccc" : "#444", fontSize:"1.2rem",fontWeight:"600"}}>
+          Features
+        </Typography>
+        {
+          FEATURES.map((item, index) => (
+            <Typography
+              variant='body2'
+              key={index}
+              sx={{
+                WebkitTapHighlightColor: "transparent",
+                fontSize: { xs: "0.7rem", lg: "0.75rem" },
+                color: darktheme ? "#ccc" : "#666",
+                textDecoration: "none",
+              }}
+            >
+              {item}
+            </Typography>
+          ))
+        }
+
       </Stack>
     )
   }
 
   return (
     <>
-      <Stack direction="column" width="100%" my={5}>
+      <Stack direction="column" width="100%" my={5}  >
         <Divider sx={{ mt: 1, mx: "auto", width: "100%" }} />
         
-        <Stack pt={5} px={{xs:3, sm:5}} gap={3} direction={{xs:"column",sm:"row"}} justifyContent="space-between" alignItems="start" width="100%" maxWidth="lg" mx="auto" mt={2}>
+        <Stack py={5}  gap={{xs:3,sm:6}} px={{xs:3, sm:5}} direction={{xs:"column",md:"row"}} justifyContent="space-between" alignItems="start" width="100%" maxWidth="lg" mx="auto" mt={2}>
             <AppDetails />
-            <Stack direction={{xs:"column",sm:"row"}} alignItems="start" gap={{xs:3,sm:6}}>
-                <Privacy />
+            <Stack direction={{xs:"column",md:"row"}} alignItems="start" gap={{xs:3,sm:6,xl:10}}>
+                <About />
+                <Features />
                 <Socials />
             </Stack>
         </Stack>
 
-        <Stack direction="row" justifyContent="center" mt={5}>
-          <Typography textAlign="center" sx={{ fontSize: { xs: "0.65rem", lg: "0.7rem" } }}>
+
+
+        <Typography textAlign="center" sx={{ fontSize: { xs: "0.65rem", lg: "0.7rem" } , mt:5, color: darktheme ? "#ccc" : "#555"}}>
             {"Copyright © "}
             {"Vy Finance Tracker"} {new Date().getFullYear()}
             {"."}
-          </Typography>
-        </Stack>
+         </Typography>
+        
       </Stack>
       <Dialog
         open={openAbout}
@@ -162,7 +186,7 @@ const Footer = () => {
           }}
         >
           <React.Suspense fallback={<div>Loading...</div>}>
-            <About />
+            <AboutComponent />
           </React.Suspense>
         </DialogContent>
       </Dialog>
