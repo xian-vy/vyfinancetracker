@@ -199,9 +199,9 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
           setOpenTutorial(false);
         }}
         PaperProps={{
-          sx: { borderRadius: 2, mx: 0 },
+          sx: { borderRadius: 2, mx: 2,width:"100%" },
         }}
-        maxWidth="xl"
+        maxWidth="lg"
         slotProps={{
           backdrop: {
             sx: { backgroundColor: "rgba(0,  0,  0,  0.8)" },

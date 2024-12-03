@@ -13,7 +13,7 @@ const InstallWindows = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
-        minWidth: { md: 750, lg: 1000, xl: 1200 },
+        width: "100%",
         height: 400,
         bgcolor: darktheme ? "#333" : "#ddd",
         borderRadius: 2,

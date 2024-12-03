@@ -15,7 +15,7 @@ const InstallAndroid = () => {
         flexDirection: "column",
         alignItems: "stretch",
         justifyContent: "space-between",
-        minWidth: 260,
+        width: "100%",
         height: 500,
         bgcolor: darktheme ? "#333" : "#ddd",
         borderRadius: 2,
