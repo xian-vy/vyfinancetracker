@@ -36,7 +36,7 @@ export default function SignIn() {
       <Navigation />
       <Box sx={{ my: 20,minHeight: {xs:"50vh", sm:"auto"}, width: 370, py: 1, px: 2, flexDirection: "column", display: "flex", justifyContent: "center", alignItems: "center" }}>
 
-        <Typography component="h1" align="center" sx={{fontSize:" 1.35rem" , fontWeight:"bold"}}  mb={3}>
+        <Typography component="h1" align="center" sx={{fontSize:" 1.35rem" , fontWeight:"bold", color: darktheme ? "#ccc" : "#555"}}  mb={3}>
           Sign in to continue
         </Typography>
 
@@ -45,7 +45,7 @@ export default function SignIn() {
           promptAgreementMsg={() => openSuccessSnackbar("You must agree to privacy and terms to continue.", true)}
         />
 
-        <Divider sx={{ my: 2, width: "90%", fontSize: "0.7rem" }}>Or</Divider>
+        <Divider sx={{ my: 2, width: "90%", fontSize: "0.7rem" }}>OR</Divider>
 
         <SignInAnonymous
           hasAgreed={agreeToTerms}

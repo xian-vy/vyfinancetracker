@@ -129,7 +129,8 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               lineHeight: { xs: "1.5rem", sm: "2rem", md: "2.8rem", xl: "3.2rem"  },
               fontWeight: 600,
               color: darktheme ? "#ccc" : "#444",
-              my: 1,
+              mt: 1,
+              mb:1.5
             }}
           >
           for all devices
@@ -138,13 +139,13 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             component="h3"
             align="center"
             sx={{
-              fontSize: { xs: "0.8rem", sm: "1rem" },
+              fontSize: { xs: "0.8rem", sm: "0.9rem" },
               fontWeight: 400,
-              color: darktheme ? "#bbb" : "#333",
+              color: darktheme ? "#bbb" : "#444",
               ml: 1,
             }}
           >
-                Available offline and one the web.
+                Available offline and one the web
           </Typography>
         </Container>
 

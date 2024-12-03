@@ -10,7 +10,7 @@ const featuresData = [
   },
   {
     description: "Visualize your data",
-    details: "Analyze your finances using charts to easily understand your financial health.",
+    details: "Gain insights into your financial well-being by analyzing your finances through visual charts.",
     IconComponent: Equalizer,
   },
   {
@@ -58,7 +58,7 @@ const Features = () => {
             >
               <feature.IconComponent sx={{ fontSize: { xs: "18px", md: "22px" }, mb: 0.5, color: "#d86c70" }} />
               <Typography textAlign="center" sx={{ fontSize: "0.85rem", mb: 0.8 }}>{feature.description}</Typography>
-              <Typography textAlign="center" sx={{ fontSize: "0.8rem", color: darkmode ? "#ccc" : "#333" }}>
+              <Typography textAlign="center" sx={{ fontSize: "0.8rem", color: darkmode ? "#ccc" : "#555" }}>
                 {feature.details}
               </Typography>
             </Paper>
