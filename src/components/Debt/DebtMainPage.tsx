@@ -17,11 +17,10 @@ import { deleteDebtsAction, updateDebtsAction } from '../../redux/actions/debtAc
 import { RootState } from '../../redux/store';
 import CustomIconButton from '../CustomIconButton';
 import DeleteConfirmationDialog from '../Dialog/DeleteConfirmationDialog';
-import FilterSavings from '../Filter/FilterSavings';
 import DebtForm from './DebtForm';
 import { DebtItems } from './DebtItems';
 import PaymentConfirmationDialog from './PaymentConfirmationDialog';
-import DebtSummary from './DebtSummary';
+import FilterDebt from '../Filter/FilterDebt';
 const DebtMainPage = () => {
     const theme = useTheme();
     const isDarkMode = theme.palette.mode === "dark";
@@ -79,6 +78,9 @@ const DebtMainPage = () => {
         setDeleteFormOpen(true);
       } else if (option === ACTION_TYPES.MarkAsPaid) {
         setConfirmationDialogOpen(true);
+      } else if (option === ACTION_TYPES.Archive) {
+        await dispatch(updateDebtsAction({ ...debt, status: DEBT_STATUS.Archived }));
+        setDebtToEdit(null);
       }
     };
 
@@ -106,7 +108,7 @@ const DebtMainPage = () => {
                           <Typography ml={0.5} variant="h6"> Debt</Typography>
                     </Stack>
                     <Stack direction="row" alignItems="center">
-                        <FilterSavings filter={filterOption} onFilterChange={handleFilterChange} />
+                        <FilterDebt filter={filterOption} onFilterChange={handleFilterChange} />
 
                         <CustomIconButton onClick={() => setOpenForm(true)} type="add">
                         <Typography variant="caption" sx={{ color: ThemeColor(theme) }}>

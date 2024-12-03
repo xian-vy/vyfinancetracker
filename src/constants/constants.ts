@@ -23,6 +23,7 @@ export enum ACTION_TYPES {
   MarkAsPaid = "Mark as Paid",
   Edit = "Edit",
   Delete = "Delete",
+  Archive = "Archive",
 }
 
 export enum COMPONENTS_WITH_TIMEFRAME {
@@ -40,5 +41,6 @@ export enum COMPONENTS_WITH_TIMEFRAME {
 
 export enum DEBT_STATUS {
   InProgress = "In Progress",
-  Complete = "Completed"
+  Complete = "Completed",
+  Archived = "Archived"
 }

@@ -45,8 +45,10 @@ export function DebtItems({
     handleActionClose();
   };
   const { ActionPopover, handleActionOpen, handleActionClose } = useActionPopover({
-    actions: [ACTION_TYPES.MarkAsPaid, ACTION_TYPES.Edit, ACTION_TYPES.Delete],
+    actions: [ACTION_TYPES.MarkAsPaid,ACTION_TYPES.Archive, ACTION_TYPES.Edit, ACTION_TYPES.Delete],
     handleAction,
+      disabledCondition: (action: string, debt : DebtModel) =>
+      action === ACTION_TYPES.Archive && debt.status === DEBT_STATUS.Archived
   });
 
 
