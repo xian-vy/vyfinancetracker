@@ -79,7 +79,7 @@ const DebtMainPage = () => {
       } else if (option === ACTION_TYPES.MarkAsPaid) {
         setConfirmationDialogOpen(true);
       } else if (option === ACTION_TYPES.Archive) {
-        await dispatch(updateDebtsAction({ ...debt, status: DEBT_STATUS.Archived }));
+        await dispatch(updateDebtsAction({ ...debt, archived: true }));
         setDebtToEdit(null);
       }
     };

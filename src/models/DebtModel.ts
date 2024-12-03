@@ -14,6 +14,7 @@ interface DebtModel {
   // frequency: string;
   status: DEBT_STATUS;
   lastModified?: Timestamp;
+  archived?: boolean;
 }
 
 export default DebtModel;

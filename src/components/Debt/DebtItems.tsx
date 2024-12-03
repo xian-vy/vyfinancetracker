@@ -48,7 +48,7 @@ export function DebtItems({
     actions: [ACTION_TYPES.MarkAsPaid,ACTION_TYPES.Archive, ACTION_TYPES.Edit, ACTION_TYPES.Delete],
     handleAction,
       disabledCondition: (action: string, debt : DebtModel) =>
-      action === ACTION_TYPES.Archive && debt.status === DEBT_STATUS.Archived
+      action === ACTION_TYPES.Archive && debt.archived === true
   });
 
 
