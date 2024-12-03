@@ -2,7 +2,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import CloseIcon from "@mui/icons-material/Close";
-import { Backdrop, Box, Button, CircularProgress, IconButton, Stack, TextField, Typography } from "@mui/material";
+import { Backdrop, Box, Button, CircularProgress, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { CirclePicker } from "react-color";
 import { v4 as uuidv4 } from "uuid";
@@ -11,6 +11,7 @@ import { getRandomColor } from "../../../firebase/defaultData";
 import CategoryIcons from "../../../media/CategoryIcons";
 import CategoryModel from "../../../models/CategoryModel";
 import IconListComponent from "../IconListComponent";
+import { DIALOG_CLOSEICON_SIZE } from "../../../constants/size";
 
 interface Props {
   closeForm: () => void;
@@ -111,11 +112,9 @@ const BudgetForm: React.FC<Props> = ({ closeForm, editCategory, isEditMode, cate
       <Backdrop open={isLoading} sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <CircularProgress color="inherit" />
       </Backdrop>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
         <Typography variant="h6"> Category Entry Form</Typography>
-        <IconButton onClick={() => closeForm()} sx={{ mr: -1 }}>
-          <CloseIcon />
-        </IconButton>
+        <CloseIcon sx={{ cursor: "pointer",fontSize:DIALOG_CLOSEICON_SIZE }} onClick={closeForm}/>
       </Box>
       <Stack
         spacing={2}

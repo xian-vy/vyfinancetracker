@@ -77,7 +77,7 @@ const BudgetList = ({ selectedTimeframe, startDate, endDate, URLopenForm }: Prop
         }}
         transitionDuration={powerSavingMode ? 0 : undefined}
       >
-        <DialogContent sx={{ px: { xs: 2, md: 3 }, py: { xs: 1, lg: 1 }, background: isDarkMode ? "#1e1e1e" : "#fff" }}>
+        <DialogContent sx={{ px: { xs: 2, md: 3 }, py: 1.5, background: isDarkMode ? "#1e1e1e" : "#fff" }}>
           <BudgetForm
             onCloseForm={() => {
               setIsBudgetFormOpen(false);

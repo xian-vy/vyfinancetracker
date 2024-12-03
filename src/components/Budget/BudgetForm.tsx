@@ -10,6 +10,7 @@ import { ThunkDispatch } from "@reduxjs/toolkit";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ASYNC_RESULT } from "../../constants/constants";
+import { DIALOG_CLOSEICON_SIZE } from "../../constants/size";
 import { useCategoryContext } from "../../contextAPI/CategoryContext";
 import { useTransactionLogsContext } from "../../contextAPI/TransactionLogsContext";
 import useSnackbarHook from "../../hooks/snackbarHook";
@@ -146,9 +147,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ onCloseForm }) => {
       >
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography variant="h6"> Budget Entry Form</Typography>
-          <IconButton onClick={() => onCloseForm()} sx={{ mr: -1 }}>
-            <CloseIcon />
-          </IconButton>
+          <CloseIcon sx={{ cursor: "pointer",fontSize:DIALOG_CLOSEICON_SIZE }} onClick={onCloseForm}/>
         </Box>
 
         {/* Date Picker-------------------------------------------------------------------------------------- */}

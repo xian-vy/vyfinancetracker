@@ -170,7 +170,7 @@ const IncomeMainPage = () => {
         }}
         transitionDuration={powerSavingMode ? 0 : undefined}
       >
-        <DialogContent sx={{ px: 3, py: 1 }}>
+        <DialogContent sx={{ px: 3, py: 2 }}>
           <IncomeForm
             editIncome={income}
             onCloseForm={handleCloseForm}

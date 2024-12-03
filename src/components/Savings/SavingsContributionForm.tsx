@@ -7,10 +7,9 @@ import {
   CircularProgress,
   Container,
   Divider,
-  IconButton,
   Stack,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -20,7 +19,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { operation_types, txn_types } from "../../constants/collections";
-import { iconSizeXS } from "../../constants/size";
+import { DIALOG_CLOSEICON_SIZE, iconSizeXS } from "../../constants/size";
 import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { useTransactionLogsContext } from "../../contextAPI/TransactionLogsContext";
 import { currentDatetoDatePicker } from "../../helper/date";
@@ -215,7 +214,7 @@ const SavingsContributionForm = (props: Props) => {
       <Backdrop open={loading} sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <CircularProgress color="inherit" />
       </Backdrop>
-      <Box display="flex" justifyContent="space-between" alignItems="center" pt={1} px={1}>
+      <Box display="flex" justifyContent="space-between" alignItems="center" py={1} px={1}>
         <Stack direction="row" alignItems="center" width="85%">
           {iconObject && renderIcon(iconObject.icon, color)}
 
@@ -224,9 +223,7 @@ const SavingsContributionForm = (props: Props) => {
           </Typography>
         </Stack>
 
-        <IconButton onClick={() => props.onCloseForm()} sx={{ mr: -1 }}>
-          <CloseIcon />
-        </IconButton>
+        <CloseIcon sx={{ cursor: "pointer",fontSize:DIALOG_CLOSEICON_SIZE }} onClick={() => props.onCloseForm()}/>
       </Box>
       <Divider sx={{ mb: 2 }}>
         <Typography variant="body1">

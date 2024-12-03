@@ -1,12 +1,13 @@
 // ExpenseForm
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, Dialog, DialogContent, IconButton, Stack, TextField, Typography } from "@mui/material";
+import { Box, Dialog, DialogContent, Stack, TextField, Typography } from "@mui/material";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { Timestamp } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { operation_types, txn_types } from "../../constants/collections";
+import { DIALOG_CLOSEICON_SIZE } from "../../constants/size";
 import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
 import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
 import { useTransactionLogsContext } from "../../contextAPI/TransactionLogsContext";
@@ -133,11 +134,9 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ editIncome, onCloseForm, isEdit
   };
   return (
     <>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
         <Typography variant="h6"> Income Entry Form</Typography>
-        <IconButton onClick={() => onCloseForm()} sx={{ mr: -1.5 }}>
-          <CloseIcon />
-        </IconButton>
+        <CloseIcon sx={{ cursor: "pointer",fontSize:DIALOG_CLOSEICON_SIZE }} onClick={onCloseForm}/>
       </Box>
       <Stack
         spacing={2}

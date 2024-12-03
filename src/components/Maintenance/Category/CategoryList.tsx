@@ -187,7 +187,7 @@ const CategoryList = () => {
           sx: { borderRadius: 1, width: FORM_WIDTH },
         }}
       >
-        <DialogContent sx={{ px: 2, py: 1, backgroundColor: isDarkMode ? "#1e1e1e" : "#fff" }}>
+        <DialogContent sx={{ p:2, backgroundColor: isDarkMode ? "#1e1e1e" : "#fff" }}>
           <React.Suspense fallback={<EntryFormSkeleton items={4} />}>
             <CategoryForm
               categoryContext={categories}

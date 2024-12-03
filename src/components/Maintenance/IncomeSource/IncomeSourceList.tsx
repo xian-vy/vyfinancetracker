@@ -11,6 +11,7 @@ import { ThemeColor } from "../../../helper/utils";
 import { useActionPopover } from "../../../hooks/actionHook";
 import useSnackbarHook from "../../../hooks/snackbarHook";
 import IncomeSourceIcons from "../../../media/IncomeSourceIcons";
+import IncomeModel from "../../../models/IncomeModel";
 import IncomeSourcesModel from "../../../models/IncomeSourcesModel";
 import { updateincomeAction } from "../../../redux/actions/incomeAction";
 import { RootState } from "../../../redux/store";
@@ -18,8 +19,6 @@ import CustomIconButton from "../../CustomIconButton";
 import DeleteConfirmationDialog from "../../Dialog/DeleteConfirmationDialog";
 import EntryFormSkeleton from "../../Skeleton/EntryFormSkeleton";
 import GenericListItem from "../GenericListItem";
-import ExpenseModel from "../../../models/ExpenseModel";
-import IncomeModel from "../../../models/IncomeModel";
 const IncomeSourceForm = React.lazy(() => import("./IncomeSourceForm"));
 
 const IncomeSourceList = () => {
@@ -134,7 +133,7 @@ const IncomeSourceList = () => {
           sx: { borderRadius: 1, width: FORM_WIDTH },
         }}
       >
-        <DialogContent sx={{ px: 2, py: 1, backgroundColor: isDarkMode ? "#1e1e1e" : "#fff" }}>
+        <DialogContent sx={{ p:2, backgroundColor: isDarkMode ? "#1e1e1e" : "#fff" }}>
           <React.Suspense fallback={<EntryFormSkeleton items={4} />}>
             <IncomeSourceForm
               closeForm={() => setFormOpen(false)}

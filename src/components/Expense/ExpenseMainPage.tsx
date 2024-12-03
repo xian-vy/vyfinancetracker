@@ -247,7 +247,7 @@ const ExpenseMainPage = () => {
         }}
         transitionDuration={powerSavingMode ? 0 : undefined}
       >
-        <DialogContent sx={{ px: 3, py: 1 }}>
+        <DialogContent sx={{ px: 3, py: 2 }}>
           <ExpenseForm
             categoryContext={categories}
             accountType={accountType}

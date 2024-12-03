@@ -6,17 +6,17 @@ import {
   FormControl,
   FormControlLabel,
   FormHelperText,
-  IconButton,
   InputLabel,
   MenuItem,
   Select,
   Stack,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import { Timestamp } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import { CirclePicker } from "react-color";
+import { DIALOG_CLOSEICON_SIZE } from "../../constants/size";
 import { getRandomColor } from "../../firebase/defaultData";
 import { currentDatetoDatePicker } from "../../helper/date";
 import SavingsIcons from "../../media/SavingsIcons";
@@ -24,7 +24,6 @@ import SavingGoalsModel from "../../models/SavingGoalsModel";
 import EntryFormButton from "../GenericComponents/EntryFormButton";
 import EntryFormDatePicker from "../GenericComponents/EntryFormDatePicker";
 import IconListComponent from "../Maintenance/IconListComponent";
-import React from "react";
 interface Props {
   onAddSavings: (savings: SavingGoalsModel) => void;
   EditSavings: SavingGoalsModel;
@@ -123,9 +122,7 @@ const SavingsForm = (props: Props) => {
     <>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="h6"> Savings Entry Form</Typography>
-        <IconButton onClick={() => props.onCloseForm()} sx={{ mr: -1.5 }}>
-          <CloseIcon />
-        </IconButton>
+        <CloseIcon sx={{ cursor: "pointer",fontSize:DIALOG_CLOSEICON_SIZE }} onClick={() => props.onCloseForm()}/>
       </Box>
       <Stack
         spacing={1.5}

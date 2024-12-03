@@ -1,11 +1,11 @@
-import TuneIcon from "@mui/icons-material/Tune";
-import { Box, Button, Container, Dialog, DialogContent, IconButton, Stack, Typography, useTheme } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { Box, Button, Container, Dialog, DialogContent, Stack, Typography, useTheme } from "@mui/material";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React from "react";
 import { useSelector } from "react-redux";
+import { DIALOG_CLOSEICON_SIZE } from "../../constants/size";
 import { RootState } from "../../redux/store";
-import CloseIcon from "@mui/icons-material/Close";
 
 interface Props {
   isFormOpen: boolean;
@@ -62,9 +62,7 @@ const CustomYearFilter = (props: Props) => {
           >
             <Stack direction="row" justifyContent="space-between" alignItems="center" mr={-1}>
               <Typography variant="body2">Filter by Year</Typography>
-              <IconButton size="small" onClick={handleCloseForm}>
-                <CloseIcon />
-              </IconButton>
+              <CloseIcon sx={{ cursor: "pointer",fontSize:DIALOG_CLOSEICON_SIZE }} onClick={handleCloseForm}/>
             </Stack>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
