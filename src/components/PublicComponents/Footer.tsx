@@ -144,9 +144,9 @@ const Footer = () => {
       <Stack direction="column" width="100%" my={5}  >
         <Divider sx={{ mt: 1, mx: "auto", width: "100%" }} />
         
-        <Stack py={5}  gap={{xs:3,sm:6}} px={{xs:3, sm:5}} direction={{xs:"column",md:"row"}} justifyContent="space-between" alignItems="start" width="100%" maxWidth="lg" mx="auto" mt={2}>
+        <Stack py={5}  gap={{xs:3,sm:6}} px={{xs:3}} direction={{xs:"column",md:"row"}} justifyContent="space-between" alignItems="start" width="100%" maxWidth="lg" mx="auto" mt={2}>
             <AppDetails />
-            <Stack direction={{xs:"column",md:"row"}} alignItems="start" gap={{xs:3,sm:6,xl:10}}>
+            <Stack direction={{xs:"column",md:"row"}} alignItems="start" gap={{xs:3,sm:6,md:8,lg:10}}>
                 <About />
                 <Features />
                 <Socials />
