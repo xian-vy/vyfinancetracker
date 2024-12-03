@@ -1,17 +1,20 @@
-import { CloseOutlined } from "@mui/icons-material";
+import CloseIcon from "@mui/icons-material/Close";
 import EastIcon from "@mui/icons-material/East";
-import { Button, Dialog, DialogContent, DialogTitle, IconButton, TextField, Typography } from "@mui/material";
+import { Button, Dialog, DialogContent, DialogTitle, TextField, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { Timestamp } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { txn_types } from "../../constants/collections";
-import { iconSizeXS } from "../../constants/size";
+import { DIALOG_CLOSEICON_SIZE, iconSizeXS } from "../../constants/size";
 import { useAccountTypeContext } from "../../contextAPI/AccountTypeContext";
+import { useCategoryContext } from "../../contextAPI/CategoryContext";
+import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
 import { useTransactionLogsContext } from "../../contextAPI/TransactionLogsContext";
 import { getAccountsDetails } from "../../firebase/utils";
 import { createSwapLog } from "../../helper/utils";
+import useSnackbarHook from "../../hooks/snackbarHook";
 import AccountsIcons from "../../media/AccountsIcons";
 import ExpenseModel from "../../models/ExpenseModel";
 import IncomeModel from "../../models/IncomeModel";
@@ -19,9 +22,6 @@ import { addExpenseAction } from "../../redux/actions/expenseAction";
 import { addincomeAction } from "../../redux/actions/incomeAction";
 import { RootState } from "../../redux/store";
 import EntryFormCategoryDropdown from "../GenericComponents/EntryFormCategoryDropdown";
-import useSnackbarHook from "../../hooks/snackbarHook";
-import { useCategoryContext } from "../../contextAPI/CategoryContext";
-import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
 function renderIcon(icon: React.ReactElement, color: string) {
   return React.cloneElement(icon, { style: { color: color, fontSize: iconSizeXS } });
 }
@@ -158,9 +158,7 @@ const SwapAccount = (props: Props) => {
           sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}
         >
           <Typography variant="body1">Swap Accounts</Typography>
-          <IconButton size="small" onClick={() => props.onDialogClose()} sx={{ mr: -1 }}>
-            <CloseOutlined />
-          </IconButton>
+          <CloseIcon sx={{ cursor: "pointer",fontSize:DIALOG_CLOSEICON_SIZE }} onClick={() => props.onDialogClose()}/>
         </DialogTitle>
         <DialogContent sx={{ px: { xs: 1, sm: 2 } }}>
           <Stack direction="column" justifyContent="center" alignItems="center" spacing={{ xs: 2, sm: 3 }} p={1}>

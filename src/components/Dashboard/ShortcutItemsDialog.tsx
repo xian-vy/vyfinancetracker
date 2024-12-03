@@ -9,20 +9,19 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-  IconButton,
   Paper,
   Stack,
   Typography,
   useMediaQuery,
-  useTheme,
+  useTheme
 } from "@mui/material";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { txn_types } from "../../constants/collections";
+import { DIALOG_CLOSEICON_SIZE, iconSizeSM, iconSizeXS } from "../../constants/size";
 import CategoryIcons from "../../media/CategoryIcons";
 import IncomeSourceIcons from "../../media/IncomeSourceIcons";
 import SavingsIcons from "../../media/SavingsIcons";
-import { DIALOG_CLOSEICON_SIZE, iconSizeSM, iconSizeXS } from "../../constants/size";
-import { txn_types } from "../../constants/collections";
 import { RootState } from "../../redux/store";
 
 interface Props<T> {
