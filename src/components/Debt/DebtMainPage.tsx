@@ -39,14 +39,10 @@ const DebtMainPage = () => {
 
     const filteredDebts = debtSlice.filter((debt) => {
        switch (filterOption) {
-         case DEBT_STATUS.Complete:
-           return debt.status === DEBT_STATUS.Complete;
-         case DEBT_STATUS.InProgress:
-           return debt.status === DEBT_STATUS.InProgress;
          case DEBT_STATUS.Archived:
            return debt.archived === true;
          default:
-           return true;
+          return debt.status === filterOption && !debt.archived;
        }
     });
     const handleFilterChange = (filter: string) => {
