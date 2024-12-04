@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { FEATURES } from '../../constants/constants';
 import { PRIVACY_POLICY, TERMS_OF_USE, TNCandPrivacyPolicyDialog } from "../../constants/routes";
-import logo from "../../media/logo.svg";
+import logo from "../../media/vylogonew.png";
 import { RootState } from "../../redux/store";
 import SimpleThemeToggle from "./SimpleThemeToggle";
 const AboutComponent = React.lazy(() => import("../PublicComponents/About"));
@@ -91,13 +91,13 @@ const Footer = () => {
   const AppDetails = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="start"  maxWidth={300}>
-           <Stack direction="row" justifyContent="center" alignItems="center" gap={1} mb={1.2} >
+           <Stack direction="row" justifyContent="center" alignItems="center" gap={0.5} mb={1.2} >
                 <img
                   src={logo}
                   alt="Logo"
                   style={{
-                    width: "18px",
-                    height: "18px",
+                    width: "30px",
+                    height: "30px",
 
                   }}
                   />
@@ -165,8 +165,8 @@ const Footer = () => {
       <Dialog
         open={openAbout}
         onClose={() => setOpenAbout(false)}
-        PaperProps={{
-          sx: { borderRadius: 0, background: darktheme ? "#1e1e1e" : "#fff", height: "auto", width: 250 },
+        PaperProps={{ 
+          sx: { borderRadius: 0, background: darktheme ? "#111" : "#fff", height: "auto", width: 250 },
         }}
         slotProps={{
           backdrop: {

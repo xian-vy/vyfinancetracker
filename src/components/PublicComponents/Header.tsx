@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SIGN_IN_PATH } from "../../constants/routes";
 import useSnackbarHook from "../../hooks/snackbarHook";
-import logo from "../../media/logo.svg";
+import logo from "../../media/vylogonew.png";
 import { RootState } from "../../redux/store";
 import Navigation from "./Navigation";
 
@@ -80,7 +80,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
         <Container disableGutters maxWidth="md" component="main" sx={{ pb: 0.5, px: 4, my: 2 }}>
 
           <Stack
-            direction="row"
+            direction="column"
             justifyContent="center"
             alignItems="center"
             width="100%"
@@ -91,8 +91,8 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               src={logo}
               alt="Logo"
               style={{
-                width: "16px",
-                height: "16px",
+                width: "28px",
+                height: "28px",
 
               }}
               />
@@ -112,8 +112,8 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             component="h2"
             align="center"
             sx={{
-              fontSize: { xs: "1.4rem", sm: "1.8rem", md: "2.5rem", xl: "3rem" },
-              lineHeight: { xs: "1.5rem", sm: "2rem", md: "2.8rem", xl: "3.2rem"  },
+              fontSize: { xs: "1.4rem", sm: "2rem", md: "2.5rem", xl: "3rem" },
+              lineHeight: { xs: "1.5rem", sm: "2.1rem", md: "2.8rem", xl: "3.2rem"  },
               fontWeight: 600,
               color: darktheme ? "#ccc" : "#444",
               my: 1,
@@ -125,8 +125,8 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             component="h2"
             align="center"
             sx={{
-              fontSize: { xs: "1.4rem", sm: "1.8rem", md: "2.5rem", xl: "3rem" },
-              lineHeight: { xs: "1.5rem", sm: "2rem", md: "2.8rem", xl: "3.2rem"  },
+              fontSize: { xs: "1.4rem", sm: "2rem", md: "2.5rem", xl: "3rem" },
+              lineHeight: { xs: "1.5rem", sm: "2.1rem", md: "2.8rem", xl: "3.2rem"  },
               fontWeight: 600,
               color: darktheme ? "#ccc" : "#444",
               mt: 1,
