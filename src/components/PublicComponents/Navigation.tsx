@@ -54,7 +54,7 @@ export default function Navigation() {
                   ))}
               </Box>  
               {location.pathname !== SIGN_IN_PATH &&  (
-                    <Button variant='contained' onClick={() => navigate(SIGN_IN_PATH)}  sx={{ color: '#fff', bgcolor :"#d86c70", ml:1 , borderRadius:0, boxShadow:"none", '&:hover': {
+                    <Button variant='contained' onClick={() => navigate(SIGN_IN_PATH)}  sx={{ color: '#fff', bgcolor :"#d86c70",border:`solid 1px #d86c70`, ml:1 , borderRadius:0, boxShadow:"none", '&:hover': {
                       bgcolor: "#d86c70"
                     }}}>
                       Get Started - Free
