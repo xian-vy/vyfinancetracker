@@ -46,7 +46,7 @@ export default function Navigation() {
               >
                 VYFINANCE
               </Typography>
-              <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems:"center" } }}>
+              <Box sx={{ display: { xs: location.pathname === SIGN_IN_PATH ? 'flex' : 'none', sm: 'flex', alignItems:"center" } }}>
                   {navItems.map((item) => (
                     <Button key={item.name}   onClick={() => setAgreementDialog({ open: true, doc: item.path})} sx={{ color: darktheme ? '#ccc' : '#444',fontWeight:600 }} >
                       {item.name}
