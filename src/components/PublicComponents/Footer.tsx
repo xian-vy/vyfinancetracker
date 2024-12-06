@@ -191,7 +191,10 @@ const Footer = () => {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={agreementDialog.open} maxWidth="md" fullWidth>
+      <Dialog open={agreementDialog.open} maxWidth="md" fullWidth 
+        PaperProps={{ 
+          sx: { borderRadius: 0,  },
+        }}>
         <React.Suspense fallback={<div>loading...</div>}>
           <TNCandPrivacyPolicyDialog
             selectedDoc={agreementDialog.doc}
