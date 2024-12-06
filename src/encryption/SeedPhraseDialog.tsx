@@ -111,7 +111,7 @@ const SeedPhraseDialog = ({
         maxWidth="md"
         fullWidth
         PaperProps={{
-          sx: { borderRadius: 1, background: isDarkMode ? "#1e1e1e" : "#fff" },
+          sx: { borderRadius: 0, background: isDarkMode ? "#101010" : "#fff", border : isDarkMode ? "1px solid #222" : "1px solid #ccc" },
         }}
         slotProps={{
           backdrop: {
@@ -119,7 +119,7 @@ const SeedPhraseDialog = ({
           },
         }}
       >
-        <DialogTitle>
+        <DialogTitle sx={{p:3}}>
           {!salt && (
             <Typography
               mr={1}
@@ -128,8 +128,8 @@ const SeedPhraseDialog = ({
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                mb: 2,
               }}
-              gutterBottom
             >
               Secret Recovery Phrase
               <HelpOutlineOutlinedIcon
@@ -161,7 +161,7 @@ const SeedPhraseDialog = ({
             </>
           )}
         </DialogTitle>
-        <DialogContent dividers={!salt} sx={{ p: 1, mx: salt ? 1 : 2 }}>
+        <DialogContent dividers={!salt} sx={{ p: 2, mx: salt ? 1 : 2 }}>
           {salt ? (
             <Grid container justifyContent="space-evenly" spacing={2}>
               {[...Array(12)].map((_, index) => (
