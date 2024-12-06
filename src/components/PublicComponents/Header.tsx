@@ -157,7 +157,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               size="medium"
               sx={{
                 textTransform: "capitalize",
-                width: { xs: 145, md: 160 },
+                width: { xs: 140, md: 150 },
                 fontSize: { xs: "0.75rem", lg: "0.8rem" },
                 border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
                 py: 0.7,
@@ -178,7 +178,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               size="medium"
               sx={{
                 display: "flex",
-                width: { xs: 145, md: 160 },
+                width: { xs: 140, md: 150 },
                 alignItems: "center",
                 py: 0.7,
                 textTransform: "capitalize",

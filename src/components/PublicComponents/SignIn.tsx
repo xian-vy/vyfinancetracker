@@ -35,35 +35,34 @@ export default function SignIn() {
       }}
     >
       <Navigation />
-      <Paper variant="outlined" sx={{ borderRadius:2, my: {xs:15, xl:20},p:6,minHeight: {xs:"50vh", sm:"auto"}, width: 370, flexDirection: "column", display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <Paper variant="outlined" sx={{ borderRadius:2, my: {xs:15, xl:20},p:6,minHeight: {xs:"50vh", sm:"auto"}, width: {xs:"90%", sm:350}, flexDirection: "column", display: "flex", justifyContent: "center", alignItems: "center" }}>
 
-        <Stack direction="row" justifyContent="center" alignItems="center" gap={1}  mb={5}>
-              <img
-                    src={logo}
-                    alt="Logo"
-                    style={{
-                      width: "25px",
-                      height: "25px",
-
-                    }}
-                    />
-              <Typography component="h1" align="center" sx={{fontSize:"1rem",fontWeight:"600", color: darktheme ? "#ccc" : "#555"}} >
-                SIGN IN
-              </Typography>
-        </Stack>
+        <img
+              src={logo}
+              alt="Logo"
+              style={{
+                width: "25px",
+                height: "25px",
+                marginBottom: "10px"
+              }}
+              />
+        <Typography component="h1" align="center" sx={{fontSize:"1rem",fontWeight:"600", color: darktheme ? "#ccc" : "#555"}}  mb={5}>
+          SIGN IN
+        </Typography>
+   
         <SignInGoogle
           hasAgreed={agreeToTerms}
           promptAgreementMsg={() => openSuccessSnackbar("You must agree to privacy and terms to continue.", true)}
         />
 
-        <Divider sx={{ my: 2, width: "90%", fontSize: "0.7rem" }}>OR</Divider>
+        <Divider sx={{ my: 2, width: "100%", fontSize: "0.7rem" }}>OR</Divider>
 
         <SignInAnonymous
           hasAgreed={agreeToTerms}
           promptAgreementMsg={() => openSuccessSnackbar("You must agree to privacy and terms to continue.", true)}
         />
 
-        <Stack direction="column" alignItems="center" mt={3} width="100%">
+        <Stack direction="column" alignItems="center" mt={5} width="100%">
           <Stack direction="row" alignItems="center">
             <Checkbox
               checked={agreeToTerms}
