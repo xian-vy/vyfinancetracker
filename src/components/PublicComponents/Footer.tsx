@@ -166,7 +166,7 @@ const Footer = () => {
         open={openAbout}
         onClose={() => setOpenAbout(false)}
         PaperProps={{ 
-          sx: { borderRadius: 0, background: darktheme ? "#111" : "#fff", height: "auto", width: 250 },
+          sx: { borderRadius: 0, background: darktheme ? "#111" : "#fff", height: "auto", width: 250,border : darktheme ? "1px solid #222" : "1px solid #333" },
         }}
         slotProps={{
           backdrop: {
