@@ -48,13 +48,13 @@ export default function Navigation() {
               </Typography>
               <Box sx={{ display: { xs: 'none', sm: 'flex', alignItems:"center" } }}>
                   {navItems.map((item) => (
-                    <Button key={item.name}   onClick={() => setAgreementDialog({ open: true, doc: item.path})} sx={{ color: darktheme ? '#ccc' : '#444' }} >
+                    <Button key={item.name}   onClick={() => setAgreementDialog({ open: true, doc: item.path})} sx={{ color: darktheme ? '#ccc' : '#444',fontWeight:600 }} >
                       {item.name}
                     </Button>
                   ))}
               </Box>  
               {location.pathname !== SIGN_IN_PATH &&  (
-                    <Button variant='contained' onClick={() => navigate(SIGN_IN_PATH)}  sx={{ color: '#fff', bgcolor :"#d86c70",border:`solid 1px #d86c70`, ml:1 , borderRadius:0, boxShadow:"none", '&:hover': {
+                    <Button variant='contained' onClick={() => navigate(SIGN_IN_PATH)}  sx={{ color: '#fff',fontWeight:600, bgcolor :"#d86c70",border:`solid 1px #d86c70`, ml:1 , borderRadius:0, boxShadow:"none", '&:hover': {
                       bgcolor: "#d86c70"
                     }}}>
                       Get Started - Free

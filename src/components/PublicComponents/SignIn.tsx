@@ -1,4 +1,4 @@
-import { Checkbox, Dialog, Divider, Link, Stack, ThemeProvider, useMediaQuery } from "@mui/material";
+import { Checkbox, Dialog, Divider, Link, Paper, Stack, ThemeProvider, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import React from "react";
@@ -11,6 +11,7 @@ import Footer from "./Footer";
 import Navigation from "./Navigation";
 import SignInAnonymous from "./SignInAnonymous";
 import SignInGoogle from "./SignInGoogle";
+import logo from "../../media/vylogonew.png";
 
 export default function SignIn() {
   const darktheme = useSelector((state: RootState) => state.theme.darkMode);
@@ -34,12 +35,22 @@ export default function SignIn() {
       }}
     >
       <Navigation />
-      <Box sx={{ my: 20,minHeight: {xs:"50vh", sm:"auto"}, width: 370, py: 1, px: 2, flexDirection: "column", display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <Paper variant="outlined" sx={{ borderRadius:2, my: {xs:15, xl:20},p:6,minHeight: {xs:"50vh", sm:"auto"}, width: 370, flexDirection: "column", display: "flex", justifyContent: "center", alignItems: "center" }}>
 
-        <Typography component="h1" align="center" sx={{fontSize:" 1.35rem" , fontWeight:"bold", color: darktheme ? "#ccc" : "#555"}}  mb={3}>
-          Sign in to continue
-        </Typography>
+        <Stack direction="row" justifyContent="center" alignItems="center" gap={1}  mb={5}>
+              <img
+                    src={logo}
+                    alt="Logo"
+                    style={{
+                      width: "25px",
+                      height: "25px",
 
+                    }}
+                    />
+              <Typography component="h1" align="center" sx={{fontSize:"1rem",fontWeight:"600", color: darktheme ? "#ccc" : "#555"}} >
+                SIGN IN
+              </Typography>
+        </Stack>
         <SignInGoogle
           hasAgreed={agreeToTerms}
           promptAgreementMsg={() => openSuccessSnackbar("You must agree to privacy and terms to continue.", true)}
@@ -84,7 +95,7 @@ export default function SignIn() {
             .
           </Typography>
         </Stack>
-      </Box>
+      </Paper>
       <Footer />
       {SnackbarComponent}
       <ThemeProvider

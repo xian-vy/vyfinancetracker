@@ -44,7 +44,7 @@ const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean
           startIcon={<PersonIcon sx={{ fontSize: 18 }} />}
           sx={{
             textTransform: "none",
-            fontSize: { xs: "0.7rem", lg: "0.75rem" },
+            fontSize: { xs: "0.75rem", lg: "0.8rem" },
             border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
             py:1.1
           }}
