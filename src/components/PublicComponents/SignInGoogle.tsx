@@ -39,6 +39,7 @@ const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; p
         <Button
           variant="outlined"
           onClick={signIn}
+          color="inherit"
           fullWidth
           size="large"
           disabled={isSigningIn}
