@@ -101,7 +101,17 @@ export default function SignIn() {
       <ThemeProvider
         theme={darktheme === null ? (systemThemeIsDark ? darkTheme : lightTheme) : darktheme ? darkTheme : lightTheme}
       >
-        <Dialog open={agreementDialog.open} maxWidth="md" fullWidth>
+        <Dialog open={agreementDialog.open} maxWidth="md" fullWidth  
+            PaperProps={{ 
+              sx: { borderRadius: 0,  },
+            }}
+           slotProps={{
+            backdrop: {
+              sx: {
+                backgroundColor: 'rgba(0,  0,  0,  0.8)',
+              },
+            },
+          }}>
           <React.Suspense fallback={<div>loading...</div>}>
             <TNCandPrivacyPolicyDialog
               selectedDoc={agreementDialog.doc}

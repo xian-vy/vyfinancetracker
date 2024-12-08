@@ -46,7 +46,14 @@ const PrivacyAndTerms = () => {
       <Dialog
         open={openPrivacy || openTNC}
         PaperProps={{
-          sx: { background: isDarkMode ? "#1e1e1e" : "#fff" },
+          sx: { background: isDarkMode ? "#1e1e1e" : "#fff", borderRadius: 0},
+        }}
+        slotProps={{
+          backdrop: {
+            sx: {
+              backgroundColor: 'rgba(0,  0,  0,  0.8)',
+            },
+          },
         }}
         maxWidth="md"
         transitionDuration={powerSavingMode ? 0 : undefined}
