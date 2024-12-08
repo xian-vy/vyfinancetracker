@@ -41,12 +41,13 @@ const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean
           size="large"
           fullWidth
           disabled={isSigningIn}
-          startIcon={<PersonIcon sx={{ fontSize: 18 }} />}
+          startIcon={<PersonIcon sx={{ fontSize: 16,color : darktheme ? "#ccc" : "#555" }} />}
           sx={{
             textTransform: "none",
             fontSize: { xs: "0.75rem", lg: "0.8rem" },
             border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
-            py:1.1
+            py:0.6,
+            color: darktheme ? "#ccc" : "#222",
           }}
         >
           Continue as Guest

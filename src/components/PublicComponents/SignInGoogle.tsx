@@ -38,17 +38,17 @@ const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; p
       <Box display="flex" px={2} flexDirection="column" alignItems="center" justifyContent="center" width={{xs: 285, sm: 300}}>
         <Button
           variant="outlined"
-          color="inherit"
           onClick={signIn}
           fullWidth
           size="large"
           disabled={isSigningIn}
-          startIcon={<GoogleIcon style={{ fontSize: "20px" }} />}
+          startIcon={<GoogleIcon style={{ fontSize: "18px",color : darktheme ? "#ccc" : "#555" }} />}
           sx={{
             textTransform: "none",
             fontSize: { xs: "0.75rem", lg: "0.8rem" },
             border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
-            py:1.1
+            py:0.6,
+            color: darktheme ? "#ccc" : "#222",
           }}
         >
           Continue with Google

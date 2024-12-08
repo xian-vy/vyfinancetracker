@@ -39,10 +39,7 @@ const FeaturesIMG = () => {
                   sx={{
                     textDecoration: "none",
                     WebkitTapHighlightColor: "transparent",
-                    fontSize:
-                      currentImage === feature.laptopImg || currentImage === feature.laptopImgDark
-                        ? "0.85rem"
-                        : "0.75rem",
+                    fontSize:"0.85rem",
                     borderBottom:
                       currentImage === feature.laptopImg || currentImage === feature.laptopImgDark
                         ? `solid 3px #d86c70`
@@ -51,6 +48,7 @@ const FeaturesIMG = () => {
                     mx: { xs: 1, md: 1.5 },
                     fontWeight: 500,
                     cursor: "pointer",
+                    color: darktheme ? "#ccc" : "#222",
                   }}
                 >
                   {feature.name}

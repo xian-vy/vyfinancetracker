@@ -101,7 +101,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             component="h1"
             align="center"
             sx={{
-              color: darktheme ? "#ccc" : "#444",
+              color: darktheme ? "#ccc" : "#333",
               fontWeight:600
             }}
           >
@@ -115,7 +115,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               fontSize: { xs: "1.4rem", sm: "2rem", md: "2.5rem", xl: "3rem" },
               lineHeight: { xs: "1.5rem", sm: "2.1rem", md: "2.8rem", xl: "3.2rem"  },
               fontWeight: 600,
-              color: darktheme ? "#ccc" : "#444",
+              color: darktheme ? "#ccc" : "#333",
               my: 1,
             }}
           >
@@ -128,7 +128,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               fontSize: { xs: "1.4rem", sm: "2rem", md: "2.5rem", xl: "3rem" },
               lineHeight: { xs: "1.5rem", sm: "2.1rem", md: "2.8rem", xl: "3.2rem"  },
               fontWeight: 600,
-              color: darktheme ? "#ccc" : "#444",
+              color: darktheme ? "#ccc" : "#333",
               mt: 1,
               mb:1.5
             }}
@@ -139,9 +139,9 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             component="h3"
             align="center"
             sx={{
-              fontSize: { xs: "0.8rem", sm: "0.9rem" },
-              fontWeight: 400,
-              color: darktheme ? "#bbb" : "#444",
+              fontSize: { xs: "0.8rem", sm: "0.9rem",lg:"1rem" },
+              fontWeight: 500,
+              color: darktheme ? "#bbb" : "#222",
               ml: 1,
             }}
           >
@@ -160,7 +160,8 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
                 width: { xs: 140, md: 150 },
                 fontSize: { xs: "0.75rem", lg: "0.8rem" },
                 border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
-                py: 0.7,
+                py: 0.6,
+                color: darktheme ? "#ccc" : "#222",
               }}
               onClick={handleStartClick}
             >
@@ -174,16 +175,16 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
           <Box display="flex" justifyContent="center" alignItems="center">
             <Button
               variant="outlined"
-              color="inherit"
               size="medium"
               sx={{
                 display: "flex",
                 width: { xs: 140, md: 150 },
                 alignItems: "center",
-                py: 0.7,
+                py: 0.6,
                 textTransform: "capitalize",
                 fontSize: { xs: "0.75rem", lg: "0.8rem" },
                 border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
+                color: darktheme ? "#ccc" : "#222",
               }}
               onClick={handleInstallClick}
             >

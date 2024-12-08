@@ -25,7 +25,7 @@ const Footer = () => {
   const About = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="start" gap={1}>
-        <Typography  mb={0.5} sx={{color: darktheme ? "#ccc" : "#444", fontSize:"1.2rem",fontWeight:"600"}}>
+        <Typography  mb={0.5} sx={{color: darktheme ? "#ccc" : "#333", fontSize:"1.2rem",fontWeight:"600"}}>
           About
         </Typography>
           <Link
@@ -34,7 +34,7 @@ const Footer = () => {
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: "0.75rem",
-              color: darktheme ? "#ccc" : "#666",
+              color: darktheme ? "#ccc" : "#444",
               textDecoration: "none",
             }}
           >
@@ -46,7 +46,7 @@ const Footer = () => {
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: "0.75rem",
-              color: darktheme ? "#ccc" : "#666",
+              color: darktheme ? "#ccc" : "#444",
               textDecoration: "none",
             }}
           >
@@ -59,7 +59,7 @@ const Footer = () => {
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: "0.75rem",
-              color: darktheme ? "#ccc" : "#666",
+              color: darktheme ? "#ccc" : "#444",
               textDecoration: "none",
             }}
           >
@@ -72,15 +72,15 @@ const Footer = () => {
   const Socials = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="center" gap={1}>
-         <Typography  mb={0.5} sx={{color: darktheme ? "#ccc" : "#444", fontSize:"1.2rem",fontWeight:"600"}}>
+         <Typography  mb={0.5} sx={{color: darktheme ? "#ccc" : "#333", fontSize:"1.2rem",fontWeight:"600"}}>
           Socials
         </Typography>
           <Stack direction="row" gap={1} alignItems="center" justifyContent="center">
-              <AlternateEmailOutlinedIcon sx={{ color: darktheme ? "#ccc" : "#666", cursor: "pointer", fontSize: 16 }} />
-              <WhatsAppIcon sx={{ color: darktheme ? "#ccc" : "#666", cursor: "pointer" , fontSize: 16}} />
-              <InstagramIcon sx={{ color: darktheme ? "#ccc" : "#666", cursor: "pointer", fontSize: 16 }} />
+              <AlternateEmailOutlinedIcon sx={{ color: darktheme ? "#ccc" : "#444", cursor: "pointer", fontSize: 16 }} />
+              <WhatsAppIcon sx={{ color: darktheme ? "#ccc" : "#444", cursor: "pointer" , fontSize: 16}} />
+              <InstagramIcon sx={{ color: darktheme ? "#ccc" : "#444", cursor: "pointer", fontSize: 16 }} />
           </Stack>
-          <Stack direction="row" justifyContent="center" alignItems="center" gap={1} mt={0.5} sx={{color: darktheme ? "#ccc" : "#555",}}>
+          <Stack direction="row" justifyContent="center" alignItems="center" gap={1} mt={0.5} sx={{color: darktheme ? "#ccc" : "#444",}}>
                Theme
               <SimpleThemeToggle />
           </Stack>
@@ -96,16 +96,16 @@ const Footer = () => {
                   src={logo}
                   alt="Logo"
                   style={{
-                    width: "30px",
-                    height: "30px",
+                    width: "28px",
+                    height: "28px",
 
                   }}
                   />
-                <Typography sx={{color: darktheme ? "#ccc" : "#444", mt:0.1,fontSize:"1rem",fontWeight:"600"}}>
+                <Typography sx={{color: darktheme ? "#ccc" : "#333", mt:0.1,fontSize:"1rem",fontWeight:"600"}}>
                    VYFINANCE
                 </Typography>
             </Stack>
-            <Typography  sx={{color: darktheme ? "#ccc" : "#666",  fontSize: {xs:"0.75rem", sm:"0.8rem"}}}>
+            <Typography  sx={{color: darktheme ? "#ccc" : "#444",  fontSize: {xs:"0.8rem", sm:"0.85rem"}}}>
                     Free personal finance tracker, available offline and on the web, for all platforms.
             </Typography>
       </Stack>
@@ -115,7 +115,7 @@ const Footer = () => {
   const Features = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="start" gap={1}>
-         <Typography mb={0.5} sx={{color: darktheme ? "#ccc" : "#444", fontSize:"1.2rem",fontWeight:"600"}}>
+         <Typography mb={0.5} sx={{color: darktheme ? "#ccc" : "#333", fontSize:"1.2rem",fontWeight:"600"}}>
           Features
         </Typography>
         {
@@ -126,7 +126,7 @@ const Footer = () => {
               sx={{
                 WebkitTapHighlightColor: "transparent",
                 fontSize: "0.75rem",
-                color: darktheme ? "#ccc" : "#666",
+                color: darktheme ? "#ccc" : "#444",
                 textDecoration: "none",
               }}
             >
@@ -155,7 +155,7 @@ const Footer = () => {
 
 
 
-        <Typography textAlign="center" sx={{ fontSize: { xs: "0.65rem", lg: "0.7rem" } , mt:5, color: darktheme ? "#ccc" : "#555"}}>
+        <Typography textAlign="center" sx={{ fontSize: { xs: "0.65rem", lg: "0.7rem" } , mt:5, color: darktheme ? "#ccc" : "#444"}}>
             {"Copyright © "}
             {"Vy Finance Tracker"} {new Date().getFullYear()}
             {"."}

@@ -41,14 +41,14 @@ export default function Navigation() {
               <Typography
                 variant="h6"
                 component="div"
-                sx={{ flexGrow: 1, fontWeight:600,color: darktheme ? '#ccc' : '#444',cursor:"pointer" }}
+                sx={{ flexGrow: 1, fontWeight:600,color: darktheme ? '#ccc' : '#333',cursor:"pointer" }}
                 onClick={() => navigate(HOME)}
               >
                 VYFINANCE
               </Typography>
               <Box sx={{ display: { xs: location.pathname === SIGN_IN_PATH ? 'flex' : 'none', sm: 'flex', alignItems:"center" } }}>
                   {navItems.map((item) => (
-                    <Button key={item.name}   onClick={() => setAgreementDialog({ open: true, doc: item.path})} sx={{ color: darktheme ? '#ccc' : '#444',fontWeight:600 }} >
+                    <Button key={item.name}   onClick={() => setAgreementDialog({ open: true, doc: item.path})} sx={{ color: darktheme ? '#ccc' : '#333',fontWeight:600 }} >
                       {item.name}
                     </Button>
                   ))}

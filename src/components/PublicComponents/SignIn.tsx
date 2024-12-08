@@ -35,21 +35,22 @@ export default function SignIn() {
       }}
     >
       <Navigation />
-      <Paper variant="outlined" sx={{ borderRadius:2, my: {xs:15, xl:20},p:6,minHeight: {xs:"50vh", sm:"auto"}, width: {xs:"90%", sm:350}, flexDirection: "column", display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <Box  sx={{ borderRadius:2, my: {xs:15, xl:20},p:6,minHeight: {xs:"50vh", sm:"auto"}, width: {xs:"90%", sm:350}, flexDirection: "column", display: "flex", justifyContent: "center", alignItems: "center" }}>
 
-        <img
-              src={logo}
-              alt="Logo"
-              style={{
-                width: "25px",
-                height: "25px",
-                marginBottom: "10px"
-              }}
-              />
-        <Typography component="h1" align="center" sx={{fontSize:"1rem",fontWeight:"600", color: darktheme ? "#ccc" : "#555"}}  mb={5}>
-          SIGN IN
-        </Typography>
-   
+      <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.5} width="100%"  mb={5}>
+          <img
+                src={logo}
+                alt="Logo"
+                style={{
+                  width: "25px",
+                  height: "25px",
+                }}
+                />
+          <Typography component="h1" align="center" sx={{fontSize:"0.9rem",fontWeight:"600", color: darktheme ? "#ccc" : "#444"}} >
+            VYFINANCE
+          </Typography>
+       </Stack>
+
         <SignInGoogle
           hasAgreed={agreeToTerms}
           promptAgreementMsg={() => openSuccessSnackbar("You must agree to privacy and terms to continue.", true)}
@@ -94,7 +95,7 @@ export default function SignIn() {
             .
           </Typography>
         </Stack>
-      </Paper>
+      </Box>
       <Footer />
       {SnackbarComponent}
       <ThemeProvider
