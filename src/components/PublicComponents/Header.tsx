@@ -189,7 +189,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               onClick={handleInstallClick}
             >
               Install
-              <FileDownloadOutlinedIcon fontSize="small" sx={{ mx: 0.5 }} />
+              <FileDownloadOutlinedIcon fontSize="small" sx={{ mx: 0.5, color: darktheme ? "#ccc" : "#555" }} />
             </Button>
           </Box>
         </Stack>
