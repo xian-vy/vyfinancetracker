@@ -175,6 +175,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
           <Box display="flex" justifyContent="center" alignItems="center">
             <Button
               variant="outlined"
+              color="inherit"
               size="medium"
               sx={{
                 display: "flex",
