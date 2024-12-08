@@ -73,6 +73,13 @@ export default function Navigation() {
           PaperProps={{ 
             sx: { borderRadius: 0,  },
           }}
+           slotProps={{
+            backdrop: {
+              sx: {
+                backgroundColor: 'rgba(0,  0,  0,  0.8)',
+              },
+            },
+          }}
         >
           <React.Suspense fallback={<div>loading...</div>}>
             <TNCandPrivacyPolicyDialog
