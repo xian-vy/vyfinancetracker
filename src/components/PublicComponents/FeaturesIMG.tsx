@@ -27,7 +27,7 @@ const FeaturesIMG = () => {
   }, [darktheme]);
   return (
     <>
-      <Stack justifyContent="center" alignItems="center" direction="column" maxWidth="md" mt={{ xs: 2, sm: 3, lg: 4 }} width="100%">
+      <Stack justifyContent="center" alignItems="center" direction="column" maxWidth="md" mt={4} width="100%">
         <Box display="flex" flexDirection="column" justifyContent="space-between" alignItems="center">
           <Stack direction="column" alignItems="center" justifyContent="flex-start" mb={{ xs: 2, md: 0 }}>
             <Stack direction="row" alignItems="center" mb={1.2} sx={{ px: 0.5 }}>

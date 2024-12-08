@@ -84,7 +84,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             justifyContent="center"
             alignItems="center"
             width="100%"
-            my={{ xs: 2, sm: 3, md: 4 }}
+            my={4}
             gap={1}
           >
             <img

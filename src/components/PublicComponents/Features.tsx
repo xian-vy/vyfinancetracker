@@ -35,7 +35,7 @@ const Features = () => {
       justifyContent="center"
       alignItems="center"
       width="100%"
-      my={{ xs: 2, sm: 3, md: 4 }}
+      my={4}
       mx="auto"
     >
       <Grid container spacing={2} maxWidth="md" px={2}>
