@@ -72,11 +72,10 @@ const TNCandPrivacyPolicyDialog = ({ onClose, selectedDoc }: { onClose: () => vo
         </Stack>
       </DialogTitle>
 
-      <DialogContent dividers sx={{ backgroundColor: isDarkMode ? "#1e1e1e" : "#fff" }} ref={contentRef}>
+      <DialogContent dividers sx={{ backgroundColor: isDarkMode ? "#1e1e1e" : "#fff",pb:5 }} ref={contentRef}>
         {privacyPolicyAsContent && <PrivacyPolicy isPublic={false} />}
         {termsAndConditionsAsContent && <TermsAndConditions isPublic={false} />}
       </DialogContent>
-      <Stack direction="row" justifyContent="end" alignItems="center" sx={{ mb: 5 }} />
     </React.Fragment>
   );
 };
