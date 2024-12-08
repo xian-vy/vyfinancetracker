@@ -46,7 +46,7 @@ export default function SignIn() {
                   height: "25px",
                 }}
                 />
-          <Typography component="h1" align="center" sx={{fontSize:"0.9rem",fontWeight:"600", color: darktheme ? "#ccc" : "#444"}} >
+          <Typography component="h1" align="center" sx={{fontSize:"0.9rem",fontWeight:"600", color: darktheme ? "#ccc" : "#333"}} >
             VYFINANCE
           </Typography>
        </Stack>
