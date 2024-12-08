@@ -1,4 +1,4 @@
-import { Link, Stack, Typography, useTheme } from "@mui/material";
+import { Divider, Link, Stack, Typography, useTheme } from "@mui/material";
 import Button from "@mui/material/Button";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -7,6 +7,8 @@ import { PRIVACY_POLICY, TERMS_OF_USE } from "../../constants/routes";
 import ThemeToggle from "../Settings/ThemeToggle";
 import PrivacyPolicy from "./PrivacyPolicy/PrivacyPolicyV1";
 import TermsAndConditions from "./TermsAndConditions/TermsAndConditionsV1";
+import { CloseOutlined } from "@mui/icons-material";
+import logo from "../../media/vylogonew.png";
 
 const TNCandPrivacyPolicyDialog = ({ onClose, selectedDoc }: { onClose: () => void; selectedDoc: string | null }) => {
   const theme = useTheme();
@@ -23,13 +25,27 @@ const TNCandPrivacyPolicyDialog = ({ onClose, selectedDoc }: { onClose: () => vo
     <React.Fragment>
       <DialogTitle sx={{ backgroundColor: isDarkMode ? "#1e1e1e" : "#fff", py: 1 }}>
         <Stack direction="column">
-          <Stack direction="row" justifyContent="center" alignItems="center" sx={{ mb: 1, ml: -1 }}>
-            <ThemeToggle loading={false} />
+          <Stack direction="row" justifyContent="space-between" alignItems="center" my={1.5}>
+              <Stack direction="row" justifyContent="center" alignItems="center" gap={0.5}  >
+                    <img
+                      src={logo}
+                      alt="Logo"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+
+                      }}
+                      />
+                    <Typography sx={{color: isDarkMode ? "#ccc" : "#333", mt:0.1,fontSize:"0.8rem",fontWeight:"600"}}>
+                      VYFINANCE
+                    </Typography>
+                </Stack>
+                <CloseOutlined onClick={onClose} sx={{ color: isDarkMode ? "#ccc" : "#333", cursor: "pointer", fontSize:16 }} />
           </Stack>
 
           <Stack direction="row" mt={1} justifyContent="center">
-            <Typography variant="body1" textAlign="center" gutterBottom>
-              <strong>By continuing to use our app, you agree to our </strong>
+            <Typography variant="subtitle2" textAlign="center" gutterBottom>
+             By continuing to use our app, you agree to our 
               <Link
                 onClick={() => {
                   setPrivacyPolicyAsContent(true);
@@ -40,7 +56,7 @@ const TNCandPrivacyPolicyDialog = ({ onClose, selectedDoc }: { onClose: () => vo
               >
                 Privacy Policy
               </Link>
-              <strong> and acknowledge being subject to its</strong>
+               and acknowledge being subject to its
               <Link
                 onClick={() => {
                   setTermsAndConditionsAsContent(true);
@@ -60,13 +76,7 @@ const TNCandPrivacyPolicyDialog = ({ onClose, selectedDoc }: { onClose: () => vo
         {privacyPolicyAsContent && <PrivacyPolicy isPublic={false} />}
         {termsAndConditionsAsContent && <TermsAndConditions isPublic={false} />}
       </DialogContent>
-      <Stack direction="column" sx={{ py: 1, px: { xs: 1, md: 2 }, backgroundColor: isDarkMode ? "#1e1e1e" : "#fff" }}>
-        <Stack direction="row" justifyContent="flex-end">
-          <Button color="inherit" onClick={onClose}>
-            close
-          </Button>
-        </Stack>
-      </Stack>
+      <Stack direction="row" justifyContent="end" alignItems="center" sx={{ mb: 5 }} />
     </React.Fragment>
   );
 };
