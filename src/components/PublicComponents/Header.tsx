@@ -200,7 +200,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
           setOpenTutorial(false);
         }}
         PaperProps={{
-          sx: { borderRadius: 2, mx: 2,width:"100%" },
+          sx: { borderRadius: 0, mx: 2,width:"100%" },
         }}
         maxWidth="lg"
         slotProps={{
