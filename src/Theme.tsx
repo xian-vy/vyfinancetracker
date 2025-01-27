@@ -159,7 +159,7 @@ let lightTheme = createTheme({
       styleOverrides: {
         root: {
           //color: "#7e7e7e", !default icon light color
-          color: "#6c6c6c",
+          color: "#333",
         },
       },
     },

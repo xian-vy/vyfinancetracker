@@ -42,8 +42,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ redirectPath = H
           component="main"
           sx={{
             flexGrow: 1,
-            px: { xs: 1, sm: 2, xl: 4 },
-            py: { xs: 2, sm: 2, xl: 4 },
+            px: { xs: 1, sm: 2, xl: 3 },
+            py: { xs: 2, sm: 2, xl: 3 },
             width: { sm: `calc(100% - ${drawerWidth}px)` },
             overflowX: "hidden",
           }}

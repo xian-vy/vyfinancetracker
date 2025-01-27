@@ -22,8 +22,8 @@ export const AVATAR_SIZE_SM = {
   height: 24,
 };
 
-export const drawerWidth = 280;
-export const drawerWidthCollapse = 60;
+export const drawerWidth = 320;
+export const drawerWidthCollapse = 70;
 
 export const DELETE_ACCT_TIMEOUT = 25000;
 export const FORM_WIDTH = 320;

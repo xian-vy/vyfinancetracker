@@ -61,7 +61,7 @@ const DrawerNav = ({
         boxSizing: "border-box",
         height: { xs: "auto", sm: "100vh" },
         width: { xs: "96%", sm: drawerSize },
-        pb: { xs: 1.5, md: 0 },
+        py: { xs: 1.5, md: 1 },
         mx: { xs: "auto", md: 0 },
         borderTopLeftRadius: { xs: 10, sm: 0 },
         borderTopRightRadius: { xs: 10, sm: 0 },
@@ -70,6 +70,7 @@ const DrawerNav = ({
         justifyContent: "space-between",
         background: isDarkMode ? "#1e1e1e" : "#fff",
         borderRight: isDarkMode ? "none" : `solid 1px ${theme.palette.divider}`,
+        px:1
       },
     }),
     [isMdScreen, isDarkMode, drawerSize]
@@ -85,7 +86,7 @@ const DrawerNav = ({
               alignItems="center"
               justifyContent="space-between"
               spacing={1}
-              sx={{ width: "100%", py: 1.5, px: 1 }}
+              sx={{ width: "100%", py: 1.5, px: 1, display:"flex", justifyContent:"center"}}
             >
               <Stack direction="row" alignItems="center">
                 <Skeleton variant="circular" height={34} width={34} sx={{ mr: 1 }} />
@@ -98,8 +99,8 @@ const DrawerNav = ({
           <AccountIcon isLoading={isLoading} collapsedDrawer={collapsedDrawer} />
         </React.Suspense>
         {menuItems.map((item) => (
-          <List key={item.key} sx={{ mx: collapsedDrawer ? 1 : 3, height: "28px", pt: 0, mt: 0.5 }}>
-            <ListItem disablePadding sx={{ minWidth: collapsedDrawer ? "40px" : "auto" }}>
+          <List key={item.key} sx={{ mx: collapsedDrawer ? 1 : 3, height: "34px", pt: 0, mt: 0.5 }}>
+            <ListItem disablePadding sx={{ minWidth: collapsedDrawer ? "25px" : "auto", }}>
               <ListItemButton
                 component={Link}
                 to={item.path}
@@ -110,11 +111,13 @@ const DrawerNav = ({
                         ? "1px solid #333"
                         : "1px solid #ccc"
                       : "solid 1px transparent",
-                  py: 0,
+                  py: 0.5,
                   borderRadius: 2,
-                  display: "flex",
-                  justifyContent: "center",
                   px: collapsedDrawer ? 0.5 : 2,
+                  width:"100%",
+                  '& .MuiListItemIcon-root': {
+                      display:"flex",flexDirection:"row",justifyContent:"center" 
+                  }
                 }}
                 disabled={isLoading}
                 onClick={(event) => {
@@ -134,7 +137,7 @@ const DrawerNav = ({
                 ) : (
                   <ListItemIcon
                     style={{
-                      minWidth: collapsedDrawer ? "20px" : "35px",
+                      minWidth: collapsedDrawer ? "28px" : "45px"
                     }}
                   >
                     {item.icon}

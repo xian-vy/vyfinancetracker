@@ -1,8 +1,8 @@
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
+import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
 import PrintOutlinedIcon from "@mui/icons-material/PrintOutlined";
 import SavingsOutlinedIcon from "@mui/icons-material/SavingsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
@@ -20,55 +20,54 @@ import {
   REPORTS_PATH,
   SAVINGS_PATH,
 } from "../../constants/routes";
-import { drawerWidth, drawerWidthCollapse, iconSizeXS } from "../../constants/size";
+import { drawerWidth, drawerWidthCollapse, iconSizeSM, iconSizeXS } from "../../constants/size";
 import { useSliceFetchingStates } from "../../hooks/slicefetchingHook";
 import { RootState } from "../../redux/store";
 import SettingsForm from "../Settings/SettingsForm";
 import BottomNav from "./BottomNav";
 import DrawerNav from "./DrawerNav";
-import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
 const About = React.lazy(() => import("../PublicComponents/About"));
 
 const menuItems = [
   {
     key: "Dashboard",
     path: DASHBOARD_PATH,
-    icon: <DashboardOutlinedIcon sx={{ fontSize: iconSizeXS }} />,
+    icon: <DashboardOutlinedIcon sx={{ fontSize: iconSizeSM}} />,
     text: "Dashboard",
   },
   {
     key: "Expenses",
     path: EXPENSE_PATH,
-    icon: <ShoppingBagOutlinedIcon sx={{ fontSize: iconSizeXS }} />,
+    icon: <ShoppingBagOutlinedIcon sx={{ fontSize: iconSizeSM }} />,
     text: "Expenses",
   },
   {
     key: "Budget",
     path: BUDGET_PATH,
-    icon: <AccountBalanceWalletOutlinedIcon sx={{ fontSize: iconSizeXS }} />,
+    icon: <AccountBalanceWalletOutlinedIcon sx={{ fontSize: iconSizeSM }} />,
     text: "Budget",
   },
-  { key: "Income", path: INCOME_PATH, icon: <PaidOutlinedIcon sx={{ fontSize: iconSizeXS }} />, text: "Income" },
+  { key: "Income", path: INCOME_PATH, icon: <PaidOutlinedIcon sx={{ fontSize: iconSizeSM }} />, text: "Income" },
   {
     key: "Saving Goals",
     path: SAVINGS_PATH,
-    icon: <SavingsOutlinedIcon sx={{ fontSize: iconSizeXS }} />,
+    icon: <SavingsOutlinedIcon sx={{ fontSize: iconSizeSM }} />,
     text: "Saving Goals",
   },
   {
     key: "Debt",
     path: DEBT_PATH,
-    icon: <PriceChangeOutlinedIcon sx={{ fontSize: iconSizeXS }} />,
+    icon: <PriceChangeOutlinedIcon sx={{ fontSize: iconSizeSM }} />,
     text: "Debt",
   },
   {
     key: "Maintenance",
     path: MAINTENANCE_PATH,
-    icon: <ListAltOutlinedIcon sx={{ fontSize: iconSizeXS }} />,
+    icon: <ListAltOutlinedIcon sx={{ fontSize: iconSizeSM }} />,
     text: "Categories",
   },
-  { key: "Reports", path: REPORTS_PATH, icon: <PrintOutlinedIcon sx={{ fontSize: iconSizeXS }} />, text: "Reports" },
-  { key: "Settings", path: "Settings", icon: <SettingsOutlinedIcon sx={{ fontSize: iconSizeXS }} />, text: "Settings" },
+  { key: "Reports", path: REPORTS_PATH, icon: <PrintOutlinedIcon sx={{ fontSize: iconSizeSM }} />, text: "Reports" },
+  { key: "Settings", path: "Settings", icon: <SettingsOutlinedIcon sx={{ fontSize: iconSizeSM }} />, text: "Settings" },
   // { key: "About", path: "About", icon: <InfoOutlinedIcon sx={{ fontSize: iconSizeXS }} />, text: "About" },
 ];
 
