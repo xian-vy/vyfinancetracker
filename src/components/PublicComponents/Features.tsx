@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 const featuresData = [
   {
-    description: "End to End Encryption",
+    description: "E2E Encryption",
     details: "Using AES encryption for data at rest and firebase built in encryption for data in transit.",
     IconComponent: LockOutlined,
   },
@@ -56,7 +56,7 @@ const Features = () => {
               }}
             >
               <feature.IconComponent sx={{ fontSize: { xs: "18px", md: "22px" }, mb: 0.5, color: "#d86c70" }} />
-              <Typography textAlign="center" sx={{ fontSize: {xs: "0.8rem", sm: "0.85rem"}, mb: 0.8,fontWeight:600 }}>{feature.description}</Typography>
+              <Typography textAlign="center" sx={{ fontSize: {xs: "0.8rem", sm: "0.85rem"}, mb: 0.8,fontWeight:500 }}>{feature.description}</Typography>
               <Typography textAlign="center" sx={{ fontSize: {xs: "0.75rem", sm: "0.8rem"}, color: darkmode ? "#ccc" : "#333" }}>
                 {feature.details}
               </Typography>

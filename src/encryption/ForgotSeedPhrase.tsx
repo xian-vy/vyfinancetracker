@@ -34,7 +34,7 @@ const ForgotSeedPhrase = ({
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-        <DialogContent sx={{ p: 3 }}>
+        <DialogContent sx={{ p: 4 }}>
           <Typography variant="body2" gutterBottom textAlign="center">
             Your seed phrase cannot be recovered.
           </Typography>
@@ -46,7 +46,7 @@ const ForgotSeedPhrase = ({
             with no existing data.
           </Typography>
         </DialogContent>
-        <Stack direction="row" justifyContent="center" mb={1}>
+        <Stack direction="row" justifyContent="center" mb={3}>
           <DeleteAccount
             onDeleteSuccess={() => {
               if (onDeleteAccount) {

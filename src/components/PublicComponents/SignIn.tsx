@@ -71,7 +71,7 @@ export default function SignIn() {
               color="primary"
               sx={{ height: 16, width: 25, ":hover": { bgcolor: "transparent" } }}
             />
-            <Typography align="center" sx={{ fontSize: { xs: "0.65rem", lg: "0.7rem" } }}>
+            <Typography align="center" sx={{ fontSize: { xs: "0.65rem", md: "0.75rem" } }}>
               I agree to the{" "}
               <Link
                 onClick={() => setAgreementDialog({ open: true, doc: PRIVACY_POLICY })}
@@ -80,10 +80,10 @@ export default function SignIn() {
               >
                 Privacy Policy
               </Link>{" "}
-              and
+              and I
             </Typography>
           </Stack>
-          <Typography align="center" sx={{ fontSize: { xs: "0.65rem", lg: "0.7rem" } }}>
+          <Typography align="center" sx={{ fontSize: { xs: "0.65rem", md: "0.75rem" } }}>
             acknowledge being subject to its{" "}
             <Link
               onClick={() => setAgreementDialog({ open: true, doc: TERMS_OF_USE })}

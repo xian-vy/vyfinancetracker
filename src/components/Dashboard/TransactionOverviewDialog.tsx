@@ -51,7 +51,7 @@ const TransactionOverviewDialog = (props: Props) => {
           sx: { borderRadius: 2 },
         }}
         fullWidth
-        maxWidth="xs"
+        maxWidth="sm"
         transitionDuration={powerSavingMode ? 0 : undefined}
       >
         <DialogTitle

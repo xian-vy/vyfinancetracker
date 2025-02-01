@@ -42,7 +42,7 @@ const BalanceByAccountTypeDialog = (props: Props) => {
         }}
         onClose={() => props.onDialogClose()}
         fullWidth
-        maxWidth="xs"
+        maxWidth="sm"
         transitionDuration={powerSavingMode ? 0 : undefined}
       >
         <DialogTitle

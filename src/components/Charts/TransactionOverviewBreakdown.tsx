@@ -25,7 +25,7 @@ const TransactionOverviewBreakdown = ({ groupedData }: { groupedData: groupedDat
     const updateMaxWidth = () => {
       if (containerRef.current) {
         const containerWidth = containerRef.current.offsetWidth;
-        const maxWidth = containerWidth - 60; 
+        const maxWidth = containerWidth - 70; 
         setMaxWidth(maxWidth);
       }
     };
