@@ -46,7 +46,7 @@ const SignInAnonymous = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean
             textTransform: "none",
             fontSize: { xs: "0.75rem", lg: "0.8rem" },
             border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
-            py:0.6,
+            py:0.8,
             color: darktheme ? "#ccc" : "#222",
           }}
         >

@@ -64,15 +64,15 @@ const FeaturesIMG = () => {
                 borderRadius: 2,
               }}
             >
-              <Stack sx={{ background: darktheme ? "#222" : "#555", p: 0.2, borderRadius: 2 }}>
+              <Stack sx={{ background: darktheme ? "#222" : "#666", p: 0.2, borderRadius: 3 }}>
                 <Stack
                   sx={{
-                    background: darktheme ? "#101010" : "#555",
+                    background: darktheme ? "#101010" : "#666",
                     py: { xs: 1.5, lg: 2 },
                     px:0.8,
-                    height: { xs: 220, sm: 350, md: 400, lg: 450 },
+                    height: { xs: 220, sm: 350, md: 450, lg: 500 },
                     position: "relative",
-                    borderRadius: 2,
+                    borderRadius: 3,
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
