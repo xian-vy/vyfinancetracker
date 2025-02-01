@@ -28,6 +28,7 @@ import GenericDialog from "../Dialog/GenericDialog";
 import SignOutConfirmationDialog from "../Dialog/SignOutConfirmationDialog";
 import PendingWrites from "./PendingWrites";
 import TotalNetWorth from "./TotalNetWorth";
+import logo from "../../media/vylogonew.png";
 
 const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; collapsedDrawer: boolean }) => {
   const theme = useTheme();
@@ -77,6 +78,35 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
 
   return (
     <div>
+        <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            width="100%"
+            my={1}
+            gap={1}
+          >
+            <img
+              src={logo}
+              alt="Logo"
+              style={{
+                width: "28px",
+                height: "28px",
+
+              }}
+              />
+           <Typography
+           variant="body2"
+            component="h1"
+            align="center"
+            sx={{
+              color: isDarkMode ? "#ccc" : "#333",
+              fontWeight:600
+            }}
+          >
+            VY FINANCE TRACKER
+          </Typography>
+          </Stack>
       <Box
         sx={{
           py: user?.isAnonymous ? 0.8 : 1.5,
@@ -161,7 +191,7 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
             flexDirection: "row",
           }}
         >
-          <Typography sx={{ fontSize: "0.6rem" }}>
+          <Typography sx={{ fontSize: { xs: "0.6rem", sm: "0.65rem", md: "0.7rem" },px:1 }}>
             To keep your data synced across devices,Link your account in Settings
           </Typography>
           <InfoOutlinedIcon
