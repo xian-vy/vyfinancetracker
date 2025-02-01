@@ -95,17 +95,19 @@ const AccountIcon = ({ isLoading, collapsedDrawer }: { isLoading: boolean; colla
 
               }}
               />
-           <Typography
-           variant="body2"
-            component="h1"
-            align="center"
-            sx={{
-              color: isDarkMode ? "#ccc" : "#333",
-              fontWeight:600
-            }}
-          >
-            VY FINANCE TRACKER
-          </Typography>
+            {!collapsedDrawer && (
+              <Typography
+              variant="body2"
+                component="h1"
+                align="center"
+                sx={{
+                  color: isDarkMode ? "#ccc" : "#333",
+                  fontWeight:600
+                }}
+              >
+                VY FINANCE TRACKER
+              </Typography>
+            )}
           </Stack>
       <Box
         sx={{

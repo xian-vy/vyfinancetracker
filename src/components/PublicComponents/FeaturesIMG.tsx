@@ -1,13 +1,12 @@
-import CloseIcon from "@mui/icons-material/Close";
-import { Box, Dialog, Link, Stack } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Link, Stack } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import budgetDark from "../../media/features/budget-dark.png";
-import budgetLight from "../../media/features/budget-light.png";
-import dashboardDark from "../../media/features/dashboard-dark.png";
-import dashboardLight from "../../media/features/dashboard-light.png";
-import expenseDark from "../../media/features/expenses-dark.png";
-import expenseLight from "../../media/features/expenses-light.png";
+import budgetDark from "../../media/features/budget-dark.jpeg";
+import budgetLight from "../../media/features/budget-light.jpeg";
+import dashboardDark from "../../media/features/dashboard-dark.jpeg";
+import dashboardLight from "../../media/features/dashboard-light.jpeg";
+import expenseDark from "../../media/features/expenses-dark.jpeg";
+import expenseLight from "../../media/features/expenses-light.jpeg";
 import { RootState } from "../../redux/store";
 const features = [
   { name: "Expenses", laptopImg: expenseLight, laptopImgDark: expenseDark },

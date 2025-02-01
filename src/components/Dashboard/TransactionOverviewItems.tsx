@@ -86,10 +86,10 @@ const TransactionOverviewItems = (props: Props) => {
           {/* Avatar/ICON --------------------------------------------------------------------------- */}
 
           <Stack direction="row" alignItems="center">
-            <Avatar sx={{ bgcolor: props.data.color }} style={AVATAR_SIZE_SM}>
+            <Avatar sx={{ bgcolor: props.data.color }} style={AVATAR_SIZE_SM} variant="rounded">
               {props.data.icon}
             </Avatar>
-            <Typography variant="body1" ml={0.5}>
+            <Typography variant="body1" ml={1}>
               {props.data.type}
             </Typography>
             {props.data.type === txn_summary.Balance && (

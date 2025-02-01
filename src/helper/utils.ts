@@ -77,7 +77,7 @@ export const getFilterTitle = (filterOption: FilterTimeframe, startDate: Date | 
 //For filter icons dark/light bg color
 export function ThemeColor(theme: Theme) {
   const isDarkMode = theme.palette.mode === "dark";
-  return isDarkMode ? "#ccc" : "#666";
+  return isDarkMode ? "#ccc" : "#333";
 }
 //For list  dark/light bg color
 export function hoverBgColor(theme: Theme) {

@@ -185,7 +185,7 @@ let lightTheme = createTheme({
       default: "#fff",
     },
     text: {
-      primary: "#333",
+      primary: "#000",
     },
   },
 });
