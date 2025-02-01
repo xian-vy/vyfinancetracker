@@ -38,22 +38,21 @@ const Features = () => {
       my={4}
       mx="auto"
     >
-      <Grid container spacing={2} maxWidth="md" px={2}>
+      <Grid container spacing={2} maxWidth={{ xs: 600, md: 900 }} px={2}>
         {featuresData.map((feature, index) => (
-          <Grid item container xs={6}  sm={3} key={index} justifyContent="center">
+          <Grid item container xs={6}  md={3} key={index}  justifyContent="center">
             <Paper
               variant="outlined"
               sx={{
                 border: darkmode ? "solid 1px #2a2a2a" : "solid 1px  #ccc",
                 borderRadius: 2,
                 p: 2,
-                minHeight: 130,
+                minHeight: {xs: 130, sm: 150, md: 180},
                 height: "auto",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-start",
                 alignItems: "center",
-                maxWidth:"200px"
               }}
             >
               <feature.IconComponent sx={{ fontSize: { xs: "18px", md: "22px" }, mb: 0.5, color: "#d86c70" }} />
