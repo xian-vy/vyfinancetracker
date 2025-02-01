@@ -1,9 +1,10 @@
-import { Grid, Paper, useTheme } from "@mui/material";
+import { Grid, Paper, useMediaQuery, useTheme } from "@mui/material";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import BudgetbyCategoryTrend from "../Charts/Budget/BudgetbyCategoryTrend";
 import BudgetList from "./BudgetList";
 import { FilterTimeframe } from "../../constants/timeframes";
+import { TABLE_HEIGHT, TABLE_HEIGHT_XL } from "../../constants/size";
 
 const BudgetMainPage = () => {
   const theme = useTheme();
@@ -13,6 +14,7 @@ const BudgetMainPage = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [selectedTimeframe, setSelectedTimeframe] = useState(FilterTimeframe.Year);
+  const xlScreen = useMediaQuery(theme.breakpoints.up("xl"));
 
   const handleDateFilterChange = (selectedTimeframe: FilterTimeframe, startDate?: Date, endDate?: Date) => {
     if (startDate && endDate) {
@@ -41,7 +43,7 @@ const BudgetMainPage = () => {
         </Paper>
       </Grid>
       <Grid item xs={12} lg={12}>
-        <Paper sx={{ borderRadius: 2, minHeight: 600 }} variant={isDarkMode ? "elevation" : "outlined"}>
+        <Paper sx={{ borderRadius: 2, height: { xs: 500, md : 360, lg:400, xl:565} }} variant={isDarkMode ? "elevation" : "outlined"}>
           <BudgetList
             URLopenForm={openForm}
             startDate={startDate}

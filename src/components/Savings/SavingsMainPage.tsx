@@ -173,7 +173,7 @@ const SavingsMainPage = () => {
         </Grid>
         <Grid item xs={12} lg={12}>
           <Paper
-            sx={{ py: 1, px: { xs: 0, sm: 1, md: 2 }, minHeight: 600, borderRadius: 2 }}
+            sx={{ py: 1, px: { xs: 0, sm: 1, md: 2 }, minHeight: { xs: 500, md : 360, lg:400, xl:565} , borderRadius: 2 }}
             variant={isDarkMode ? "elevation" : "outlined"}
           >
             <Stack direction="column" mr={1}>

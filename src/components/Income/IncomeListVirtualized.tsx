@@ -17,7 +17,7 @@ import { FixedSizeList, ListChildComponentProps } from "react-window";
 import { getIncomeSourceDetails, getCategoryAndAccountTypeDescription } from "../../firebase/utils";
 import { TimestamptoDate } from "../../helper/date";
 import { hoverBgColor, formatNumberWithoutCurrency, useResponsiveCharLimit } from "../../helper/utils";
-import { TABLE_HEIGHT, FIXED_SIZE, iconSizeSM, iconSizeXS } from "../../constants/size";
+import { TABLE_HEIGHT, FIXED_SIZE, iconSizeSM, iconSizeXS, TABLE_HEIGHT_XL } from "../../constants/size";
 import IncomeModel from "../../models/IncomeModel";
 import IncomeSourcesModel from "../../models/IncomeSourcesModel";
 import AccountTypeModel from "../../models/AccountTypeModel";
@@ -34,6 +34,7 @@ type Props = {
 const IncomeListVirtualized = ({ incomeSource, paginatedIncome, onActionSelect, accountType }: Props) => {
   const theme = useTheme();
   const smScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const xlScreen = useMediaQuery(theme.breakpoints.up("xl"));
 
   function renderIcon(icon: React.ReactElement, color: string) {
     return React.cloneElement(icon, { style: { color: color, fontSize: smScreen ? iconSizeXS : iconSizeSM } });
@@ -120,11 +121,11 @@ const IncomeListVirtualized = ({ incomeSource, paginatedIncome, onActionSelect, 
           px: { xs: 0, sm: 1, md: 2 },
           pt: 2,
           mx: { xs: 0, sm: 1, md: 2 },
-          height: smScreen ? "auto" : TABLE_HEIGHT,
+          height:  "auto" ,
         }}
       >
         <FixedSizeList
-          height={TABLE_HEIGHT}
+          height={ xlScreen  ? TABLE_HEIGHT_XL + 25 : TABLE_HEIGHT + 25}
           itemCount={paginatedIncome.length}
           itemSize={FIXED_SIZE}
           style={{ listStyle: "none" }}

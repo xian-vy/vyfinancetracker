@@ -16,7 +16,7 @@ import {
 import { useTheme } from "@mui/material/styles";
 import React from "react";
 import { FixedSizeList, ListChildComponentProps } from "react-window";
-import { FIXED_SIZE, TABLE_HEIGHT, iconSizeXS } from "../../constants/size";
+import { FIXED_SIZE, TABLE_HEIGHT, TABLE_HEIGHT_XL, iconSizeXS } from "../../constants/size";
 import { getCategoryAndAccountTypeDescription, getCategoryDetails } from "../../firebase/utils";
 import { TimestamptoDate } from "../../helper/date";
 import { formatNumberWithoutCurrency, hoverBgColor, useResponsiveCharLimit } from "../../helper/utils";
@@ -50,6 +50,8 @@ const ExpenseListVirtualized: React.FC<ExpenseListVirtualizedProps> = ({
 }) => {
   const theme = useTheme();
   const smScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const xlScreen = useMediaQuery(theme.breakpoints.up("xl"));
+
   const charLimit = useResponsiveCharLimit();
 
   const handleAction = (action: string, expense: ExpenseModel) => {
@@ -150,7 +152,7 @@ const ExpenseListVirtualized: React.FC<ExpenseListVirtualizedProps> = ({
         }}
       >
         <FixedSizeList
-          height={TABLE_HEIGHT}
+          height={xlScreen  ? TABLE_HEIGHT_XL : TABLE_HEIGHT}
           itemCount={filteredExpenses.length}
           itemSize={FIXED_SIZE}
           style={{ listStyle: "none" }}
