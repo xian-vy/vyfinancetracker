@@ -59,18 +59,20 @@ const DrawerNav = ({
     () => ({
       "& .MuiDrawer-paper": {
         boxSizing: "border-box",
-        height: { xs: "auto", sm: "100vh" },
+        height: { xs: "auto", sm: "96vh" },
         width: { xs: "96%", sm: drawerSize },
         py: { xs: 1.5, md: 1 },
-        mx: { xs: "auto", md: 0 },
-        borderTopLeftRadius: { xs: 10, sm: 0 },
-        borderTopRightRadius: { xs: 10, sm: 0 },
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
         background: isDarkMode ? "#1e1e1e" : "#fff",
-        borderRight: isDarkMode ? "none" : `solid 1px ${theme.palette.divider}`,
-        px:1
+        border: isDarkMode ? "none" : `solid 1px ${theme.palette.divider}`,
+        px:1,
+        position: "fixed",
+        zIndex: 999,
+        top: "2vh",
+        left: "2vh",
+        borderRadius: "10px",
       },
     }),
     [isMdScreen, isDarkMode, drawerSize]
