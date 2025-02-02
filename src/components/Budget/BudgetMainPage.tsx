@@ -43,7 +43,7 @@ const BudgetMainPage = () => {
         </Paper>
       </Grid>
       <Grid item xs={12} lg={12}>
-        <Paper sx={{ borderRadius: 2, height: { xs: 500, md : 360, lg:400, xl:565} }} variant={isDarkMode ? "elevation" : "outlined"}>
+        <Paper sx={{ borderRadius: 2, minHeight: { xs: 500, md : 360, lg:400, xl:565} }} variant={isDarkMode ? "elevation" : "outlined"}>
           <BudgetList
             URLopenForm={openForm}
             startDate={startDate}
