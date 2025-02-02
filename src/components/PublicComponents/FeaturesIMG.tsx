@@ -26,7 +26,7 @@ const FeaturesIMG = () => {
       <Stack justifyContent="center" alignItems="center" direction="column"  mt={4} width="100%">
         <Box display="flex" flexDirection="column" justifyContent="space-between" alignItems="center">
           <Stack direction="column" alignItems="center" justifyContent="flex-start" mb={{ xs: 2, md: 0 }}>
-            <Stack direction="row" alignItems="center" mb={1.2} sx={{ px: 0.5 }}>
+            <Stack direction="row" alignItems="center" mb={{ xs: 2, md: 3}} sx={{ px: 0.5 }}>
               {features.map((feature) => (
                 <Link
                   key={feature.name}
@@ -54,7 +54,7 @@ const FeaturesIMG = () => {
      
                 <Stack
                   sx={{
-                    height: { xs: 230, sm: 350, md: 450, lg: 500, xl: 600 },
+                    height: { xs: 220, sm: 350, md: 450, lg: 500, xl: 600 },
                     position: "relative",
                     borderRadius: 3,
                     display: "flex",

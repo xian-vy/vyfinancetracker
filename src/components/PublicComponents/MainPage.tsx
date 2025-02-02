@@ -52,7 +52,7 @@ export default function MainPage() {
       >
         <Header appInstalled={appInstalled} />
 
-        <Stack direction="column" pb={4}>
+        <Stack direction="column" py={{ xs: 2, sm: 4}} gap={2}>
           <FeaturesIMG />
           <Features />
         </Stack>
