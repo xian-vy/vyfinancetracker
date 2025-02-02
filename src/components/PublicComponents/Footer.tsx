@@ -25,7 +25,7 @@ const Footer = () => {
   const About = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="start" gap={1}>
-        <Typography  mb={0.5} sx={{color: darktheme ? "#ccc" : "#333", fontSize:"1.2rem",fontWeight:"600"}}>
+        <Typography  mb={0.5} sx={{color: darktheme ? "#ccc" : "#333", fontSize:{xs:"1rem",md:"1.2rem"},fontWeight:"600"}}>
           About
         </Typography>
           <Link
@@ -33,7 +33,7 @@ const Footer = () => {
             sx={{
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
-              fontSize: "0.75rem",
+              fontSize: {xs:"0.75rem",md:"0.85rem"},
               color: darktheme ? "#ccc" : "#222",
               textDecoration: "none",
             }}
@@ -45,7 +45,7 @@ const Footer = () => {
             sx={{
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
-              fontSize: "0.75rem",
+              fontSize: {xs:"0.75rem",md:"0.85rem"},
               color: darktheme ? "#ccc" : "#222",
               textDecoration: "none",
             }}
@@ -58,7 +58,7 @@ const Footer = () => {
             sx={{
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
-              fontSize: "0.75rem",
+              fontSize: {xs:"0.75rem",md:"0.85rem"},
               color: darktheme ? "#ccc" : "#222",
               textDecoration: "none",
             }}
@@ -72,7 +72,7 @@ const Footer = () => {
   const Socials = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="center" gap={1}>
-         <Typography  mb={0.5} sx={{color: darktheme ? "#ccc" : "#333", fontSize:"1.2rem",fontWeight:"600"}}>
+         <Typography  mb={0.5} sx={{color: darktheme ? "#ccc" : "#333", fontSize:{xs:"1rem",md:"1.2rem"},fontWeight:"600"}}>
           Socials
         </Typography>
           <Stack direction="row" gap={1} alignItems="center" justifyContent="center">
@@ -80,7 +80,7 @@ const Footer = () => {
               <WhatsAppIcon sx={{ color: darktheme ? "#ccc" : "#222", cursor: "pointer" , fontSize: 16}} />
               <InstagramIcon sx={{ color: darktheme ? "#ccc" : "#222", cursor: "pointer", fontSize: 16 }} />
           </Stack>
-          <Stack direction="row" justifyContent="center" alignItems="center" gap={1} mt={0.5} sx={{color: darktheme ? "#ccc" : "#222",}}>
+          <Stack direction="row" justifyContent="center" alignItems="center" gap={1} mt={0.5} sx={{color: darktheme ? "#ccc" : "#222",fontSize:{xs:"0.75rem",md:"0.85rem"}}}>
                Theme
               <SimpleThemeToggle />
           </Stack>
@@ -115,7 +115,7 @@ const Footer = () => {
   const Features = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="start" gap={1}>
-         <Typography mb={0.5} sx={{color: darktheme ? "#ccc" : "#333", fontSize:"1.2rem",fontWeight:"600"}}>
+         <Typography mb={0.5} sx={{color: darktheme ? "#ccc" : "#333", fontSize:{xs:"1rem",md:"1.2rem"},fontWeight:"600"}}>
           Features
         </Typography>
         {
@@ -125,7 +125,7 @@ const Footer = () => {
               key={index}
               sx={{
                 WebkitTapHighlightColor: "transparent",
-                fontSize: "0.75rem",
+                fontSize: {xs:"0.75rem",md:"0.85rem"},
                 color: darktheme ? "#ccc" : "#222",
                 textDecoration: "none",
               }}
@@ -141,7 +141,7 @@ const Footer = () => {
 
   return (
     <>
-      <Stack direction="column" width="100%" my={5}  >
+      <Stack direction="column" width="100%" my={5}  sx={{px:{xs:0,sm:3}}}>
         <Divider sx={{ mt: 1, mx: "auto", width: "100%" }} />
         
         <Stack py={5}  gap={{xs:3,sm:6}} px={{xs:3}} direction={{xs:"column",md:"row"}} justifyContent="space-between" alignItems="start" width="100%" maxWidth="lg" mx="auto" mt={2}>
