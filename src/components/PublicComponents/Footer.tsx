@@ -7,7 +7,6 @@ import { FEATURES } from '../../constants/constants';
 import { PRIVACY_POLICY, TERMS_OF_USE, TNCandPrivacyPolicyDialog } from "../../constants/routes";
 import logo from "../../media/vylogonew.png";
 import { RootState } from "../../redux/store";
-import SimpleThemeToggle from "./SimpleThemeToggle";
 const AboutComponent = React.lazy(() => import("../PublicComponents/About"));
 
 const Footer = () => {
@@ -22,7 +21,7 @@ const Footer = () => {
   const About = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="start" gap={1}>
-        <Typography   sx={{color: darktheme ? "#ccc" : "#333", fontSize:{xs:"1rem",md:"1.2rem"},fontWeight:"600"}}>
+        <Typography   sx={{color:  '#ccc' , fontSize:{xs:"1rem",md:"1.2rem"},fontWeight:"600"}}>
           About
         </Typography>
           <Link
@@ -31,7 +30,7 @@ const Footer = () => {
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: {xs:"0.75rem",md:"0.85rem"},
-              color: darktheme ? "#ccc" : "#222",
+              color:  '#ccc' ,
               textDecoration: "none",
             }}
           >
@@ -43,7 +42,7 @@ const Footer = () => {
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: {xs:"0.75rem",md:"0.85rem"},
-              color: darktheme ? "#ccc" : "#222",
+              color:  '#ccc' ,
               textDecoration: "none",
             }}
           >
@@ -56,7 +55,7 @@ const Footer = () => {
               cursor: "pointer",
               WebkitTapHighlightColor: "transparent",
               fontSize: {xs:"0.75rem",md:"0.85rem"},
-              color: darktheme ? "#ccc" : "#222",
+              color:  '#ccc' ,
               textDecoration: "none",
             }}
           >
@@ -69,7 +68,7 @@ const Footer = () => {
   const Socials = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="center" gap={1}>
-         <Typography   sx={{color: darktheme ? "#ccc" : "#333", fontSize:{xs:"1rem",md:"1.2rem"},fontWeight:"600"}}>
+         <Typography   sx={{color:  '#ccc' , fontSize:{xs:"1rem",md:"1.2rem"},fontWeight:"600"}}>
           Socials
         </Typography>
 
@@ -80,7 +79,7 @@ const Footer = () => {
             sx={{
               WebkitTapHighlightColor: "transparent",
               fontSize: {xs:"0.75rem",md:"0.85rem"},
-              color: darktheme ? "#ccc" : "#222",
+              color:  '#ccc' ,
               textDecoration: "none",
               ":hover":  {
                 textDecoration: "underline",
@@ -96,7 +95,7 @@ const Footer = () => {
             sx={{
               WebkitTapHighlightColor: "transparent",
               fontSize: {xs:"0.75rem",md:"0.85rem"},
-              color: darktheme ? "#ccc" : "#222",
+              color:  '#ccc' ,
               textDecoration: "none",
               ":hover":  {
                 textDecoration: "underline",
@@ -105,11 +104,23 @@ const Footer = () => {
           >
            Facebook
           </Link>
-         
-          <Stack direction="row" justifyContent="center" alignItems="center" gap={0.5} sx={{color: darktheme ? "#ccc" : "#222",fontSize:{xs:"0.75rem",md:"0.85rem"}}}>
-               Theme
-              <SimpleThemeToggle />
-          </Stack>
+          <Link
+            href="https://github.com/xian-vy"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              WebkitTapHighlightColor: "transparent",
+              fontSize: {xs:"0.75rem",md:"0.85rem"},
+              color:  '#ccc' ,
+              textDecoration: "none",
+              ":hover":  {
+                textDecoration: "underline",
+              }
+            }}
+          >
+           Github
+          </Link>
+
     </Stack>
     )
   }
@@ -127,11 +138,11 @@ const Footer = () => {
 
                   }}
                   />
-                <Typography sx={{color: darktheme ? "#ccc" : "#222", mt:0.1,fontSize:"1rem",fontWeight:"600"}}>
+                <Typography sx={{color:  '#ccc' , mt:0.1,fontSize:"1rem",fontWeight:"600"}}>
                    VYFINANCE
                 </Typography>
             </Stack>
-            <Typography  sx={{color: darktheme ? "#ccc" : "#222",  fontSize: {xs:"0.8rem", sm:"0.85rem"}}}>
+            <Typography  sx={{color:  '#ccc' ,  fontSize: {xs:"0.8rem", sm:"0.85rem"}}}>
                     Free personal finance tracker, available offline and on the web, for all platforms.
             </Typography>
       </Stack>
@@ -141,7 +152,7 @@ const Footer = () => {
   const Features = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="start" gap={1}>
-         <Typography  sx={{color: darktheme ? "#ccc" : "#333", fontSize:{xs:"1rem",md:"1.2rem"},fontWeight:"600"}}>
+         <Typography  sx={{color:  '#ccc' , fontSize:{xs:"1rem",md:"1.2rem"},fontWeight:"600"}}>
           Features
         </Typography>
         {
@@ -152,7 +163,7 @@ const Footer = () => {
               sx={{
                 WebkitTapHighlightColor: "transparent",
                 fontSize: {xs:"0.75rem",md:"0.85rem"},
-                color: darktheme ? "#ccc" : "#222",
+                color:  '#ccc' ,
                 textDecoration: "none",
               }}
             >
@@ -181,7 +192,7 @@ const Footer = () => {
 
 
 
-        <Typography textAlign="center" sx={{ fontSize: { xs: "0.65rem", lg: "0.7rem", xl: "0.75rem" } , mt:5, color: darktheme ? "#ccc" : "#222"}}>
+        <Typography textAlign="center" sx={{ fontSize: { xs: "0.65rem", lg: "0.7rem", xl: "0.75rem" } , mt:5, color:  '#ccc' }}>
             {"© Vy Finance Tracker"} {new Date().getFullYear()}
          </Typography>
         

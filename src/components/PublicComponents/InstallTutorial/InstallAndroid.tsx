@@ -3,11 +3,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import StopIcon from "@mui/icons-material/Stop";
 import { Box, Stack, Typography } from "@mui/material";
-import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
 const InstallAndroid = () => {
-  const darktheme = useSelector((state: RootState) => state.theme.darkMode);
   return (
     <Box
       sx={{
@@ -17,19 +13,19 @@ const InstallAndroid = () => {
         justifyContent: "space-between",
         width: "100%",
         height: 500,
-        bgcolor: darktheme ? "#333" : "#ddd",
+        bgcolor:  "#333" ,
         borderRadius: 2,
         p: 2,
       }}
     >
       <Stack direction="row" alignItems="center" spacing={1} width="100%">
-        <Stack sx={{ width: 30, height: 25, bgcolor: darktheme ? "#666" : "#ccc", borderRadius: 3 }}></Stack>
+        <Stack sx={{ width: 30, height: 25, bgcolor:  '#666' , borderRadius: 3 }}></Stack>
         <Stack
           direction="row"
           sx={{
             flexGrow: 1,
             height: 25,
-            bgcolor: darktheme ? "#666" : "#ccc",
+            bgcolor:  '#666' ,
             borderRadius: 3,
             alignItems: "center",
             px: 1.5,

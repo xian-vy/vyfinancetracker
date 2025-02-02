@@ -20,7 +20,6 @@ export default function MainPage() {
   const { openSuccessSnackbar, SnackbarComponent } = useSnackbarHook();
   const dispatch = useDispatch();
   const accntDeleted = useSelector((state: RootState) => state.userAccount.deleteMessage);
-  const darktheme = useSelector((state: RootState) => state.theme.darkMode);
 
   useEffect(() => {
     if (window.navigator.standalone) {

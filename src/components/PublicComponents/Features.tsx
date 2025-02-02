@@ -1,7 +1,5 @@
-import { Equalizer, LanOutlined, LockOutlined, Devices } from "@mui/icons-material";
+import { Devices, Equalizer, LanOutlined, LockOutlined } from "@mui/icons-material";
 import { Grid, Paper, Stack, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 const featuresData = [
   {
     description: "E2E Encryption",
@@ -27,7 +25,6 @@ const featuresData = [
 ];
 
 const Features = () => {
-  const darkmode = useSelector((state: RootState) => state.theme.darkMode);
 
   return (
     <Stack
@@ -38,13 +35,13 @@ const Features = () => {
       my={4}
       mx="auto"
     >
-      <Grid container spacing={2} maxWidth={{ xs: 600, md: 900 }} px={2}>
+      <Grid container spacing={{ xs: 2, xl: 3}} maxWidth={{ xs: 600, md: 900,xl: 1000 }} px={2}>
         {featuresData.map((feature, index) => (
           <Grid item container xs={6}  md={3} key={index}  justifyContent="center">
             <Paper
               variant="outlined"
               sx={{
-                border: darkmode ? "solid 1px #2a2a2a" : "solid 1px  #ccc",
+                border:  "solid 1px #2a2a2a",
                 borderRadius: 2,
                 p: 2,
                 minHeight: {xs: 130, sm: 150, md: 180},
@@ -57,7 +54,7 @@ const Features = () => {
             >
               <feature.IconComponent sx={{ fontSize: { xs: "18px", md: "22px" }, mb: 0.5, color: "#d86c70" }} />
               <Typography textAlign="center" sx={{ fontSize: {xs: "0.8rem", sm: "0.85rem"}, mb: 0.8,fontWeight:500 }}>{feature.description}</Typography>
-              <Typography textAlign="center" sx={{ fontSize: {xs: "0.75rem", sm: "0.8rem"}, color: darkmode ? "#ccc" : "#333" }}>
+              <Typography textAlign="center" sx={{ fontSize: {xs: "0.75rem", sm: "0.8rem"}, color: "#ccc" }}>
                 {feature.details}
               </Typography>
             </Paper>

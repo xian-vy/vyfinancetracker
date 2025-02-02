@@ -6,13 +6,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { HOME, PRIVACY_POLICY, SIGN_IN_PATH, TERMS_OF_USE } from '../../constants/routes';
-import { RootState } from '../../redux/store';
-import { darkTheme, lightTheme } from '../../Theme';
-import TNCandPrivacyPolicyDialog from '../legal/TNCandPrivacyPolicyDialog';
 import logo from "../../media/vylogonew.png";
+import { darkTheme } from '../../Theme';
+import TNCandPrivacyPolicyDialog from '../legal/TNCandPrivacyPolicyDialog';
 
 const navItems =   [
     {
@@ -28,7 +26,6 @@ const navItems =   [
 export default function Navigation() {
   const navigate = useNavigate();
   const location = useLocation();
-  const darktheme = useSelector((state: RootState) => state.theme.darkMode);
   const [agreementDialog, setAgreementDialog] = React.useState<{ open: boolean; doc: string | null }>({
     open: false,
     doc: null,
@@ -36,7 +33,7 @@ export default function Navigation() {
   return (
     <Box sx={{ display: 'flex', }}>
       <CssBaseline />
-      <AppBar elevation={0} variant='outlined' component="nav" sx={{ bgcolor: darktheme ? "#121212" : "#fff", borderLeft:"none", borderRight:"none"}}>
+      <AppBar elevation={0} variant='outlined' component="nav" sx={{ bgcolor: "#121212", borderLeft:"none", borderRight:"none"}}>
       <Toolbar>
       <Container maxWidth="lg" sx={{display:"flex", justifyContent:"space-between", alignItems:"center",px:0, width:"100%"}}>      
              <Stack direction="row" alignItems="center" spacing={0.5} width="100%">
@@ -52,7 +49,7 @@ export default function Navigation() {
                     <Typography
                       variant="h6"
                       component="div"
-                      sx={{  fontWeight:600,color: darktheme ? '#ccc' : '#333',cursor:"pointer" }}
+                      sx={{  fontWeight:600,color:  '#ccc' ,cursor:"pointer" }}
                       onClick={() => navigate(HOME)}
                     >
                       VYFINANCE
@@ -61,7 +58,7 @@ export default function Navigation() {
               <Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={0.5} width="100%">
                   <Box sx={{ display: { xs: location.pathname === SIGN_IN_PATH ? 'flex' : 'none', sm: 'flex', alignItems:"center" } }}>
                       {navItems.map((item) => (
-                        <Button key={item.name}   onClick={() => setAgreementDialog({ open: true, doc: item.path})} sx={{ color: darktheme ? '#ccc' : '#333',fontWeight:600 }} >
+                        <Button key={item.name}   onClick={() => setAgreementDialog({ open: true, doc: item.path})} sx={{ color:  '#ccc' ,fontWeight:600 }} >
                           {item.name}
                         </Button>
                       ))}
@@ -82,9 +79,7 @@ export default function Navigation() {
      
       <Toolbar />  
 
-      <ThemeProvider
-        theme={darktheme ? darkTheme : lightTheme} 
-      >
+      <ThemeProvider theme={ darkTheme} >
         <Dialog open={agreementDialog.open} maxWidth="md" fullWidth
           PaperProps={{ 
             sx: { borderRadius: 0,  },

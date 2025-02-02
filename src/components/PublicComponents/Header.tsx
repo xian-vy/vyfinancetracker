@@ -1,12 +1,10 @@
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { Box, Button, Container, Dialog, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SIGN_IN_PATH } from "../../constants/routes";
 import useSnackbarHook from "../../hooks/snackbarHook";
 import logo from "../../media/vylogonew.png";
-import { RootState } from "../../redux/store";
 import Navigation from "./Navigation";
 
 interface ChoiceResult {
@@ -16,7 +14,6 @@ interface ChoiceResult {
 const InstallTutorial = React.lazy(() => import("./InstallTutorial/InstallTutorial"));
 
 const Header = ({ appInstalled }: { appInstalled: boolean }) => {
-  const darktheme = useSelector((state: RootState) => state.theme.darkMode);
 
   const navigate = useNavigate();
   const [openTutorial, setOpenTutorial] = useState(false);
@@ -101,7 +98,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             component="h1"
             align="center"
             sx={{
-              color: darktheme ? "#ccc" : "#333",
+              color:  '#ccc' ,
               fontWeight:600
             }}
           >
@@ -115,7 +112,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               fontSize: { xs: "1.4rem", sm: "2rem", md: "2.5rem", xl: "3rem" },
               lineHeight: { xs: "1.5rem", sm: "2.1rem", md: "2.8rem", xl: "3.2rem"  },
               fontWeight: 600,
-              color: darktheme ? "#ccc" : "#333",
+              color:  '#ccc' ,
               my: 1,
             }}
           >
@@ -128,7 +125,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
               fontSize: { xs: "1.4rem", sm: "2rem", md: "2.5rem", xl: "3rem" },
               lineHeight: { xs: "1.5rem", sm: "2.1rem", md: "2.8rem", xl: "3.2rem"  },
               fontWeight: 600,
-              color: darktheme ? "#ccc" : "#333",
+              color:  '#ccc' ,
               mt: 1,
               mb:1.5
             }}
@@ -141,7 +138,7 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
             sx={{
               fontSize: { xs: "0.8rem", sm: "0.9rem",lg:"1rem" },
               fontWeight: 500,
-              color: darktheme ? "#bbb" : "#222",
+              color: "#bbb" ,
               ml: 1,
             }}
           >
@@ -159,9 +156,9 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
                 textTransform: "capitalize",
                 width: { xs: 140, md: 150 },
                 fontSize: { xs: "0.75rem", lg: "0.8rem" },
-                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
+                border:  "solid 1px #2a2a2a" ,
                 py: 0.6,
-                color: darktheme ? "#ccc" : "#222",
+                color: "#ccc" ,
               }}
               onClick={handleStartClick}
             >
@@ -184,13 +181,13 @@ const Header = ({ appInstalled }: { appInstalled: boolean }) => {
                 py: 0.6,
                 textTransform: "capitalize",
                 fontSize: { xs: "0.75rem", lg: "0.8rem" },
-                border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
-                color: darktheme ? "#ccc" : "#222",
+                border:  "solid 1px #2a2a2a" ,
+                color:  "#ccc",
               }}
               onClick={handleInstallClick}
             >
               Install
-              <FileDownloadOutlinedIcon fontSize="small" sx={{ mx: 0.5, color: darktheme ? "#ccc" : "#333" }} />
+              <FileDownloadOutlinedIcon fontSize="small" sx={{ mx: 0.5, color:  '#ccc'  }} />
             </Button>
           </Box>
         </Stack>

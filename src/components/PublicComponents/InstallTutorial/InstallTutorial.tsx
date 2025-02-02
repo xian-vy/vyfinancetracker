@@ -5,17 +5,13 @@ import InstallMobileIcon from "@mui/icons-material/InstallMobile";
 import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import { DialogContent, DialogTitle, IconButton, Stack, Typography } from "@mui/material";
-import React from "react";
 import { getOperatingSystem } from "../../../helper/utils";
 import InstallAndroid from "./InstallAndroid";
 import InstallIOS from "./InstallIOS";
 import InstallWindows from "./InstallWindows";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
 
 const InstallTutorial = ({ onDialogClose }: { onDialogClose: () => void }) => {
   const platform = getOperatingSystem();
-  const darktheme = useSelector((state: RootState) => state.theme.darkMode);
 
   let instruction: JSX.Element | null = null;
 
@@ -83,7 +79,7 @@ const InstallTutorial = ({ onDialogClose }: { onDialogClose: () => void }) => {
 
   return (
     <>
-      <DialogTitle align="right" sx={{ pb: 0, pt: 1, background: darktheme ? "#1e1e1e" : "#fff" }}>
+      <DialogTitle align="right" sx={{ pb: 0, pt: 1, background:  "#1e1e1e"  }}>
         <IconButton
           color="inherit"
           onClick={() => {
@@ -100,7 +96,7 @@ const InstallTutorial = ({ onDialogClose }: { onDialogClose: () => void }) => {
         sx={{
           px: { xs: 2, sm: 3 },
           py: 3,
-          background: darktheme ? "#1e1e1e" : "#fff",
+          background:"#1e1e1e",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",

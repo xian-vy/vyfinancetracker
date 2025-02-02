@@ -1,21 +1,17 @@
-import { Checkbox, Dialog, Divider, Link, Paper, Stack, ThemeProvider, useMediaQuery } from "@mui/material";
+import { Checkbox, Dialog, Divider, Link, Stack, ThemeProvider } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import React from "react";
-import { useSelector } from "react-redux";
-import { darkTheme, lightTheme } from "../../Theme";
+import { darkTheme } from "../../Theme";
 import { PRIVACY_POLICY, TERMS_OF_USE, TNCandPrivacyPolicyDialog } from "../../constants/routes";
 import useSnackbarHook from "../../hooks/snackbarHook";
-import { RootState } from "../../redux/store";
+import logo from "../../media/vylogonew.png";
 import Footer from "./Footer";
 import Navigation from "./Navigation";
 import SignInAnonymous from "./SignInAnonymous";
 import SignInGoogle from "./SignInGoogle";
-import logo from "../../media/vylogonew.png";
 
 export default function SignIn() {
-  const darktheme = useSelector((state: RootState) => state.theme.darkMode);
-  const systemThemeIsDark = useMediaQuery("(prefers-color-scheme: dark)");
   const { openSuccessSnackbar, SnackbarComponent } = useSnackbarHook();
   const [agreeToTerms, setAgreeToTerms] = React.useState(false);
   const [agreementDialog, setAgreementDialog] = React.useState<{ open: boolean; doc: string | null }>({
@@ -46,7 +42,7 @@ export default function SignIn() {
                   height: "25px",
                 }}
                 />
-          <Typography component="h1" align="center" sx={{fontSize:"0.9rem",fontWeight:"600", color: darktheme ? "#ccc" : "#333"}} >
+          <Typography component="h1" align="center" sx={{fontSize:"0.9rem",fontWeight:"600", color: "#ccc"}} >
             SIGN IN
           </Typography>
        </Stack>
@@ -99,7 +95,7 @@ export default function SignIn() {
       <Footer />
       {SnackbarComponent}
       <ThemeProvider
-        theme={darktheme === null ? (systemThemeIsDark ? darkTheme : lightTheme) : darktheme ? darkTheme : lightTheme}
+        theme={darkTheme}
       >
         <Dialog open={agreementDialog.open} maxWidth="md" fullWidth  
             PaperProps={{ 

@@ -12,7 +12,6 @@ const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; p
   const [networkError, setNetworkError] = useState(false);
   const dispatch = useDispatch();
   const isSigningIn = useSelector((state: RootState) => state.userAccount.isSigningIn);
-  const darktheme = useSelector((state: RootState) => state.theme.darkMode);
 
   const signIn = async () => {
     if (!hasAgreed) {
@@ -43,13 +42,13 @@ const SignInGoogle = ({ hasAgreed, promptAgreementMsg }: { hasAgreed: boolean; p
           fullWidth
           size="large"
           disabled={isSigningIn}
-          startIcon={<GoogleIcon style={{ fontSize: "18px",color : darktheme ? "#ccc" : "#555" }} />}
+          startIcon={<GoogleIcon style={{ fontSize: "18px",color :"#ccc" }} />}
           sx={{
             textTransform: "none",
             fontSize: { xs: "0.75rem", lg: "0.8rem" },
-            border: darktheme ? "solid 1px #2a2a2a" : "solid 1px #ccc",
+            border:  "solid 1px #2a2a2a" ,
             py:0.8,
-            color: darktheme ? "#ccc" : "#222",
+            color:  "#ccc" ,
           }}
         >
           Continue with Google
