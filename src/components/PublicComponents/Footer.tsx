@@ -1,7 +1,4 @@
 import { Close } from '@mui/icons-material';
-import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { Dialog, DialogContent, DialogTitle, Divider, Stack, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
 import React, { useState } from "react";
@@ -25,7 +22,7 @@ const Footer = () => {
   const About = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="start" gap={1}>
-        <Typography  mb={0.5} sx={{color: darktheme ? "#ccc" : "#333", fontSize:{xs:"1rem",md:"1.2rem"},fontWeight:"600"}}>
+        <Typography   sx={{color: darktheme ? "#ccc" : "#333", fontSize:{xs:"1rem",md:"1.2rem"},fontWeight:"600"}}>
           About
         </Typography>
           <Link
@@ -72,15 +69,44 @@ const Footer = () => {
   const Socials = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="center" gap={1}>
-         <Typography  mb={0.5} sx={{color: darktheme ? "#ccc" : "#333", fontSize:{xs:"1rem",md:"1.2rem"},fontWeight:"600"}}>
+         <Typography   sx={{color: darktheme ? "#ccc" : "#333", fontSize:{xs:"1rem",md:"1.2rem"},fontWeight:"600"}}>
           Socials
         </Typography>
-          <Stack direction="row" gap={1} alignItems="center" justifyContent="center">
-              <AlternateEmailOutlinedIcon sx={{ color: darktheme ? "#ccc" : "#222", cursor: "pointer", fontSize: 16 }} />
-              <WhatsAppIcon sx={{ color: darktheme ? "#ccc" : "#222", cursor: "pointer" , fontSize: 16}} />
-              <InstagramIcon sx={{ color: darktheme ? "#ccc" : "#222", cursor: "pointer", fontSize: 16 }} />
-          </Stack>
-          <Stack direction="row" justifyContent="center" alignItems="center" gap={1} mt={0.5} sx={{color: darktheme ? "#ccc" : "#222",fontSize:{xs:"0.75rem",md:"0.85rem"}}}>
+
+          <Link
+            href="https://www.linkedin.com/in/xianvyy/"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              WebkitTapHighlightColor: "transparent",
+              fontSize: {xs:"0.75rem",md:"0.85rem"},
+              color: darktheme ? "#ccc" : "#222",
+              textDecoration: "none",
+              ":hover":  {
+                textDecoration: "underline",
+              }
+            }}
+          >
+           Linkedin
+          </Link>
+          <Link
+            href="https://www.facebook.com/xzyian.vy"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              WebkitTapHighlightColor: "transparent",
+              fontSize: {xs:"0.75rem",md:"0.85rem"},
+              color: darktheme ? "#ccc" : "#222",
+              textDecoration: "none",
+              ":hover":  {
+                textDecoration: "underline",
+              }
+            }}
+          >
+           Facebook
+          </Link>
+         
+          <Stack direction="row" justifyContent="center" alignItems="center" gap={0.5} sx={{color: darktheme ? "#ccc" : "#222",fontSize:{xs:"0.75rem",md:"0.85rem"}}}>
                Theme
               <SimpleThemeToggle />
           </Stack>
@@ -115,7 +141,7 @@ const Footer = () => {
   const Features = () => {
     return (
       <Stack direction="column" alignItems="start" justifyContent="start" gap={1}>
-         <Typography mb={0.5} sx={{color: darktheme ? "#ccc" : "#333", fontSize:{xs:"1rem",md:"1.2rem"},fontWeight:"600"}}>
+         <Typography  sx={{color: darktheme ? "#ccc" : "#333", fontSize:{xs:"1rem",md:"1.2rem"},fontWeight:"600"}}>
           Features
         </Typography>
         {
@@ -155,7 +181,7 @@ const Footer = () => {
 
 
 
-        <Typography textAlign="center" sx={{ fontSize: { xs: "0.65rem", lg: "0.7rem" } , mt:5, color: darktheme ? "#ccc" : "#222"}}>
+        <Typography textAlign="center" sx={{ fontSize: { xs: "0.65rem", lg: "0.7rem", xl: "0.75rem" } , mt:5, color: darktheme ? "#ccc" : "#222"}}>
             {"© Vy Finance Tracker"} {new Date().getFullYear()}
          </Typography>
         

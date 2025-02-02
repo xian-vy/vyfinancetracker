@@ -90,7 +90,7 @@ export default function SignIn() {
               underline="hover"
               sx={{ cursor: "pointer", color: "#d86c70", }}
             >
-              Terms of Use
+              Terms
             </Link>
             .
           </Typography>
