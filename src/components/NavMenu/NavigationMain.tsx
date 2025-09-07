@@ -27,7 +27,7 @@ import { RootState } from "../../redux/store";
 import SettingsForm from "../Settings/SettingsForm";
 import BottomNav from "./BottomNav";
 import DrawerNav from "./DrawerNav";
-import { SwapVert } from "@mui/icons-material";
+import { CurrencyExchange } from "@mui/icons-material";
 const About = React.lazy(() => import("../PublicComponents/About"));
 
 const menuItems = [
@@ -65,7 +65,7 @@ const menuItems = [
   {
     key: "Exchanges",
     path: EXCHANGES_PATH,
-    icon: <SwapVert sx={{ fontSize: iconSizeNav }} />,
+    icon: <CurrencyExchange sx={{ fontSize: iconSizeNav }} />,
     text: "Exchanges",
   },
   {

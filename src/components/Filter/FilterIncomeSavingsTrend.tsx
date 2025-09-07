@@ -13,7 +13,7 @@ import CustomIconButton from "../CustomIconButton";
 import TimeframeDrawerPopOver from "./TimeframeDrawerPopOver";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { PriceChangeOutlined, SwapVert } from "@mui/icons-material";
+import { CurrencyExchange, PriceChangeOutlined } from "@mui/icons-material";
 
 interface Props {
   onFilterChange: (filterOption: string) => void;
@@ -56,7 +56,7 @@ const FilterBudgetExpenseTrend = (props: Props) => {
   }  else if (props.txnType === txn_types.Debt) {
       icon = <PriceChangeOutlined sx={{ fontSize: systemFontSize === "sm" ? iconSizeXS : iconSizeSM , mb: systemFontSize === "md" ? 0.5: 0}} />;
   } else if (props.txnType === "Exchanges") { // not sure if txnType is used in dashboard so hardcoding for now lol
-    icon = <SwapVert sx={{ fontSize: systemFontSize === "sm" ? iconSizeXS : iconSizeSM , mb: systemFontSize === "md" ? 0.5: 0}} />;
+    icon = <CurrencyExchange sx={{ fontSize: systemFontSize === "sm" ? iconSizeXS : iconSizeSM , mb: systemFontSize === "md" ? 0.5: 0}} />;
   } else {
     icon = <SavingsOutlinedIcon sx={{ fontSize: systemFontSize === "sm" ? iconSizeXS : iconSizeSM , mb: systemFontSize === "md" ? 0.5: 0}} />;
   }
