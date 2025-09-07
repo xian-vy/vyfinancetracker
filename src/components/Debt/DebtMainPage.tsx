@@ -21,6 +21,8 @@ import DebtForm from './DebtForm';
 import { DebtItems } from './DebtItems';
 import PaymentConfirmationDialog from './PaymentConfirmationDialog';
 import FilterDebt from '../Filter/FilterDebt';
+import DebtByEntityTrend from '../Charts/Debt/DebtByEntityTrend';
+import { DEBT_THEME } from '../../constants/componentTheme';
 const DebtMainPage = () => {
     const theme = useTheme();
     const isDarkMode = theme.palette.mode === "dark";
@@ -103,6 +105,35 @@ const DebtMainPage = () => {
   return (
     <Grid container spacing={{ xs: 1, sm: 1.5, lg: 2 }} pb={{ xs: 10, md: 5 }}>
         <Grid item xs={12} lg={12}>
+          <Paper sx={{ borderRadius: 2 }} variant={isDarkMode ? "elevation" : "outlined"}>
+            {(() => {
+              const activeDebts = debtSlice.filter((d) => !d.archived);
+              const uniqueEntities = Array.from(new Set(activeDebts.map((d) => d.entity)));
+              const categories = uniqueEntities.map((entity) => ({
+                id: entity,
+                description: entity,
+                color: DEBT_THEME,
+                icon: "",
+              }));
+              const debtsForChart = activeDebts.map((d) => ({
+                id: d.id,
+                amount: Math.abs(d.amount),
+                description: d.entity || d.note,
+                account_id: d.account_id,
+                date: d.date,
+                category_id: d.entity,
+              }));
+              return (
+                <DebtByEntityTrend
+                  debts={debtsForChart}
+                  categories={categories}
+                  onDateFilterChange={() => {}}
+                />
+              );
+            })()}
+          </Paper>
+        </Grid>
+        <Grid item xs={12} lg={12}>
             <Paper
             sx={{ py:1.5,  px:{xs:1.5, md:3}, minHeight: 400, borderRadius: 2}}
             variant={isDarkMode ? "elevation" : "outlined"}    
@@ -123,11 +154,11 @@ const DebtMainPage = () => {
                         </CustomIconButton>
                     </Stack>
                 </Stack>
-                <Stack direction="row" gap={0.5} justifyContent="center"  alignItems="center" width="100%" my={3}>
+                <Stack direction="row" gap={0.5} justifyContent="start"  alignItems="center" width="100%" mt={3}>
                         <InfoOutlinedIcon sx={{ color: ThemeColor(theme), fontSize: 16 }} />
-                        <Typography textAlign={"center"} variant='body1' >This feature is under development. Currently, you can create Basic debts for record purposes. No interest and payments will be made. </Typography>
+                        <Typography textAlign={"start"} variant='body1' >This feature is under development. Currently, you can create Basic debts for record purposes. No interest and payments will be made. </Typography>
                  </Stack>
-                  <Grid container padding={1} spacing={2} paddingTop={4}>
+                  <Grid container padding={1} spacing={2}>
                   
                         {/** Savings Items Container------------------------------------------------------------------------*/}
                         {filteredDebts.map((debt) => (
