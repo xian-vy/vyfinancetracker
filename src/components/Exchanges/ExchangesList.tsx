@@ -8,7 +8,7 @@ import { ThemeColor } from "../../helper/utils";
 import { useTablePagination } from "../../hooks/paginationHook";
 import IncomeModel from "../../models/IncomeModel";
 import ExpenseModel from "../../models/ExpenseModel";
-import IncomeListVirtualized from "./ExchangesListVirtualized";
+import ExchangesListVirtualized from "./ExchangesListVirtualized";
 import { SORT_TYPE } from "../../constants/constants";
 import { useCategoryContext } from "../../contextAPI/CategoryContext";
 
@@ -66,7 +66,7 @@ const ExchangesList: React.FC<Props> = ({ exchangePairs, sortBy, filterDate, onD
 
   return (
     <>
-      <IncomeListVirtualized
+      <ExchangesListVirtualized
         accountType={accountType}
         incomeSource={incomeSource}
         paginatedIncome={paginatedIncome as any}

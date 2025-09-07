@@ -25,6 +25,7 @@ import ExchangesListHeader from "./ExchangesListHeader";
 const ExchangesMainPage = () => {
   const [deleteFormOpen, setDeleteFormOpen] = useState(false);
   const [exchangeToDelete, setExchangeToDelete] = useState<{ id: string; amount: number; description: string; account_id: string; date: Timestamp; category_id: string; kind: "income" | "expense" } | null>(null);
+  const [selectedPairForDelete, setSelectedPairForDelete] = useState<ExchangePair | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -112,7 +113,7 @@ const ExchangesMainPage = () => {
     return [...positives, ...negatives];
   }, [filteredIncomeByTimeframe, filteredExpensesByTimeframe]);
 
-  // Pair exchanges: expense (from) to income (to) based on same-day and equal abs amount
+  // Pair exchanges: expense (from) to income (to) using exact timestamp match (ts key)
   type ExchangePair = {
     expenseId: string;
     incomeId: string;
@@ -121,28 +122,27 @@ const ExchangesMainPage = () => {
     from_category_id: string;
     to_income_source_id: string;
     amount: number;
-    date: Timestamp; // latest of two legs
+    date: Timestamp; // matched timestamp
+    tsMs: number; // exact timestamp (milliseconds) used as correlation key
   };
 
   const exchangePairs: ExchangePair[] = useMemo(() => {
     const expenses = mergedExchanges.filter((e) => e.kind === "expense");
     const incomes = mergedExchanges.filter((e) => e.kind === "income");
 
-    // index expenses by dateKey|amount
-    const expenseBuckets = new Map<string, ExchangeItem[]>();
-    const makeKey = (d: Timestamp, amt: number) => `${d.toDate().toDateString()}|${Math.abs(Math.round(amt))}`;
-
+    // Index expenses by exact timestamp
+    const expenseBucketsByTs = new Map<number, ExchangeItem[]>();
     expenses.forEach((e) => {
-      const key = makeKey(e.date, Math.abs(e.amount));
-      const arr = expenseBuckets.get(key) || [];
+      const tsKey = e.date.toDate().getTime();
+      const arr = expenseBucketsByTs.get(tsKey) || [];
       arr.push(e);
-      expenseBuckets.set(key, arr);
+      expenseBucketsByTs.set(tsKey, arr);
     });
 
     const pairs: ExchangePair[] = [];
     incomes.forEach((inc) => {
-      const key = makeKey(inc.date, Math.abs(inc.amount));
-      const bucket = expenseBuckets.get(key);
+      const tsKey = inc.date.toDate().getTime();
+      const bucket = expenseBucketsByTs.get(tsKey);
       if (bucket && bucket.length > 0) {
         const exp = bucket.shift() as ExchangeItem;
         pairs.push({
@@ -153,9 +153,10 @@ const ExchangesMainPage = () => {
           from_category_id: exp.category_id,
           to_income_source_id: inc.category_id,
           amount: Math.abs(inc.amount),
-          date: inc.date.toDate() > exp.date.toDate() ? inc.date : exp.date,
+          date: inc.date,
+          tsMs: tsKey,
         });
-        if (bucket.length === 0) expenseBuckets.delete(key);
+        if (bucket.length === 0) expenseBucketsByTs.delete(tsKey);
       }
     });
     return pairs;
@@ -168,36 +169,65 @@ const ExchangesMainPage = () => {
   ///  DELETE  //////////////////////////////////////////////////////////////////
   const handleDelete = async () => {
     handleCloseForm();
-    if (!exchangeToDelete) return;
+    if (!selectedPairForDelete) return;
     try {
       setIsLoading(true);
-      const isExpense = exchangeToDelete.kind === "expense" || exchangeToDelete.amount < 0;
-
-      const log: TransactionLogsModel = {
+      // Delete income leg first
+      await saveLogs({
         txn_id: "",
-        txn_ref_id: exchangeToDelete.id,
-        txn_type: isExpense ? txn_types.Expenses : txn_types.Income,
+        txn_ref_id: selectedPairForDelete.incomeId,
+        txn_type: txn_types.Income,
         operation: operation_types.Delete,
-        category_id: exchangeToDelete.category_id,
-        account_id: exchangeToDelete.account_id,
-        amount: Math.abs(exchangeToDelete.amount),
+        category_id: selectedPairForDelete.to_income_source_id,
+        account_id: selectedPairForDelete.to_account_id,
+        amount: selectedPairForDelete.amount,
         lastModified: Timestamp.now(),
-      };
+      } as TransactionLogsModel);
+      await dispatch(deleteincomeAction(selectedPairForDelete.incomeId));
 
-      await saveLogs(log);
-      if (isExpense) {
-        await dispatch(deleteExpenseAction({
-          id: exchangeToDelete.id,
-          description: exchangeToDelete.description,
-          amount: Math.abs(exchangeToDelete.amount),
-          date: exchangeToDelete.date,
-          account_id: exchangeToDelete.account_id,
-          category_id: exchangeToDelete.category_id,
-        } as ExpenseModel));
-      } else {
-        await dispatch(deleteincomeAction(exchangeToDelete.id));
+      // Delete expense leg using exact timestamp match (fallback to id)
+      const swapExpenseCategoryId = categories.find((c) => c.description === "Swap Account")?.id || "";
+      let expenseLeg = expenseSlice.find(
+        (e: ExpenseModel) => e.date.toDate().getTime() === selectedPairForDelete.tsMs && e.category_id === swapExpenseCategoryId && !/fee/i.test(e.description)
+      );
+      if (!expenseLeg) {
+        expenseLeg = expenseSlice.find((e: ExpenseModel) => e.id === selectedPairForDelete.expenseId);
       }
-      openSuccessSnackbar("Exchange has been deleted!");
+      if (expenseLeg) {
+        await saveLogs({
+          txn_id: "",
+          txn_ref_id: expenseLeg.id,
+          txn_type: txn_types.Expenses,
+          operation: operation_types.Delete,
+          category_id: expenseLeg.category_id,
+          account_id: expenseLeg.account_id,
+          amount: expenseLeg.amount,
+          lastModified: Timestamp.now(),
+        } as TransactionLogsModel);
+        await dispatch(deleteExpenseAction(expenseLeg));
+      }
+
+      // Delete related fee if any, matched by same exact timestamp
+      const feeCandidate = expenseSlice.find((e: ExpenseModel) => {
+        if (e.category_id !== swapExpenseCategoryId) return false;
+        if (!/fee/i.test(e.description)) return false;
+        return e.date.toDate().getTime() === selectedPairForDelete.tsMs;
+      });
+      if (feeCandidate) {
+        await saveLogs({
+          txn_id: "",
+          txn_ref_id: feeCandidate.id,
+          txn_type: txn_types.Expenses,
+          operation: operation_types.Delete,
+          category_id: feeCandidate.category_id,
+          account_id: feeCandidate.account_id,
+          amount: feeCandidate.amount,
+          lastModified: Timestamp.now(),
+        } as TransactionLogsModel);
+        await dispatch(deleteExpenseAction(feeCandidate));
+      }
+
+      openSuccessSnackbar("Exchange (income, expense, and fee if any) deleted!");
     } catch (error) {
       console.error("Exchange delete failed", error);
     } finally {
@@ -247,8 +277,7 @@ const ExchangesMainPage = () => {
               sortBy={sortBy}
               filterDate={getFilterTitle(selectedTimeframe, startDate || null, endDate || null)}
               onDeleteExchange={(pair) => {
-                // store both legs for deletion using existing state structure
-                // default to income leg; we'll use pair inside delete handler
+                setSelectedPairForDelete(pair);
                 setExchangeToDelete({
                   id: pair.incomeId,
                   amount: pair.amount,
@@ -258,8 +287,6 @@ const ExchangesMainPage = () => {
                   category_id: "",
                   kind: "income",
                 });
-                // temporarily stash pair ids on window to reuse in delete (quick pragmatic)
-                (window as any).__lastExchangePair = pair;
                 setDeleteFormOpen(true);
               }}
             />

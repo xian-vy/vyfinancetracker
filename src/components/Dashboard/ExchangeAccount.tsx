@@ -106,8 +106,15 @@ const ExchangeAccount = (props: Props) => {
       return;
     }
     setLoading(true);
-    const incomeId = await dispatch(addincomeAction(income)).then((action) => action.payload);
-    const expenseId = await dispatch(addExpenseAction(expense)).then((action) => action.payload);
+    // Use one identical timestamp for income, expense, and optional fee
+    const ts = Timestamp.now();
+
+    const incomeWithTs: IncomeModel = { ...income, date: ts };
+    const expenseWithTs: ExpenseModel = { ...expense, date: ts };
+    const expenseFeeWithTs: ExpenseModel = { ...expenseFee, date: ts };
+
+    const incomeId = await dispatch(addincomeAction(incomeWithTs)).then((action) => action.payload);
+    const expenseId = await dispatch(addExpenseAction(expenseWithTs)).then((action) => action.payload);
 
     const incomeLog = createSwapLog(
       incomeId as string,
@@ -128,7 +135,7 @@ const ExchangeAccount = (props: Props) => {
     await saveLogs(expenseLog);
 
     if (expenseFee.amount > 0) {
-      const expenseFeeId = await dispatch(addExpenseAction(expenseFee)).then((action) => action.payload);
+      const expenseFeeId = await dispatch(addExpenseAction(expenseFeeWithTs)).then((action) => action.payload);
       const expenseFeeLog = createSwapLog(
         expenseFeeId as string,
         txn_types.Expenses,

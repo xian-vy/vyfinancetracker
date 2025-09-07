@@ -53,7 +53,7 @@ const ExchangesListVirtualized = ({ incomeSource, paginatedIncome, onActionSelec
     handleActionClose();
   };
   const { ActionPopover, handleActionOpen, handleActionClose } = useActionPopover({
-    actions: ["Edit", "Delete"],
+    actions: ["Delete"],
     handleAction,
   });
 
