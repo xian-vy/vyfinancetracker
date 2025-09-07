@@ -101,9 +101,7 @@ const TopExchangesContainer = ({ filterOption, startDate, endDate, exchanges }: 
     }
 
     const arrayResult = Array.isArray(result) ? result : Object.values(result);
-
-    // Ensure category label shows only 'Swap Account'
-    return arrayResult.map((item) => ({ ...item, category: "Swap Account" }));
+    return arrayResult;
   }, [filter, exchangeData, accountType]);
 
   return (
