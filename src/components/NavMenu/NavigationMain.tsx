@@ -14,6 +14,7 @@ import {
   BUDGET_PATH,
   DASHBOARD_PATH,
   DEBT_PATH,
+  EXCHANGES_PATH,
   EXPENSE_PATH,
   INCOME_PATH,
   MAINTENANCE_PATH,
@@ -26,6 +27,7 @@ import { RootState } from "../../redux/store";
 import SettingsForm from "../Settings/SettingsForm";
 import BottomNav from "./BottomNav";
 import DrawerNav from "./DrawerNav";
+import { SwapVert } from "@mui/icons-material";
 const About = React.lazy(() => import("../PublicComponents/About"));
 
 const menuItems = [
@@ -59,6 +61,12 @@ const menuItems = [
     path: DEBT_PATH,
     icon: <PriceChangeOutlinedIcon sx={{ fontSize: iconSizeSM }} />,
     text: "Debt",
+  },
+  {
+    key: "Exchanges",
+    path: EXCHANGES_PATH,
+    icon: <SwapVert sx={{ fontSize: iconSizeSM }} />,
+    text: "Exchanges",
   },
   {
     key: "Maintenance",

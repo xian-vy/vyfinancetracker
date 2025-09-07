@@ -6,7 +6,6 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
-  IconButton,
   Stack,
   Typography,
 } from "@mui/material";
@@ -37,6 +36,7 @@ const TopBudgetsContainer = React.lazy(() => import("../Charts/Budget/TopBudgets
 const TopExpensesContainer = React.lazy(() => import("../Charts/Expenses/TopExpensesContainer"));
 const TopIncomeContainer = React.lazy(() => import("../Charts/Income/TopIncomeContainer"));
 const TopSavingsContributionsContainer = React.lazy(() => import("../Charts/Savings/TopSavingsContributionsContainer"));
+const TopExchangesContainer = React.lazy(() => import("../Charts/Exchanges/TopExchangesContainer"));
 const DebtBreakdownByType = React.lazy(() => import("./DebtBreakdownByType"));
 
 const TransactionOverviewDialog = (props: Props) => {
@@ -132,6 +132,13 @@ const TransactionOverviewDialog = (props: Props) => {
             )}
             {props.txnType === txn_summary.Savings && (
               <TopSavingsContributionsContainer
+                filterOption={props.filterOption}
+                startDate={props.startDate}
+                endDate={props.endDate}
+              />
+            )}
+            {props.txnType === "Exchanges" && (
+              <TopExchangesContainer
                 filterOption={props.filterOption}
                 startDate={props.startDate}
                 endDate={props.endDate}
