@@ -102,8 +102,8 @@ const TrendByCategoryChart = ({
                 key={index}
                 dataKey={`categories[${index}].total`}
                 stackId={isStacked ? "categories" : undefined}
-                barSize={isStacked ? 25 : 15}
-                maxBarSize={isStacked ? 25 : 20}
+                barSize={isStacked ? smScreen ? 20 : 25 : 15}
+                maxBarSize={isStacked ? smScreen ? 20 : 25 : 20}
                 strokeWidth={isDarkMode ? 1 : 0.3}
                 radius={isStacked ? undefined : [4, 4, 0, 0]}
               >
