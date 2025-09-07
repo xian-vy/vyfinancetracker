@@ -24,7 +24,6 @@ import ExchangesList from "./ExchangesList";
 import ExchangesListHeader from "./ExchangesListHeader";
 const ExchangesMainPage = () => {
   const [deleteFormOpen, setDeleteFormOpen] = useState(false);
-  const [exchangeToDelete, setExchangeToDelete] = useState<{ id: string; amount: number; description: string; account_id: string; date: Timestamp; category_id: string; kind: "income" | "expense" } | null>(null);
   const [selectedPairForDelete, setSelectedPairForDelete] = useState<ExchangePair | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -124,6 +123,7 @@ const ExchangesMainPage = () => {
     amount: number;
     date: Timestamp; // matched timestamp
     tsMs: number; // exact timestamp (milliseconds) used as correlation key
+    feeAmount?: number;
   };
 
   const exchangePairs: ExchangePair[] = useMemo(() => {
@@ -145,6 +145,13 @@ const ExchangesMainPage = () => {
       const bucket = expenseBucketsByTs.get(tsKey);
       if (bucket && bucket.length > 0) {
         const exp = bucket.shift() as ExchangeItem;
+        // try to find a related fee expense at the exact same timestamp
+        const feeCandidate = filteredExpensesByTimeframe.find((e) => {
+          return (
+            e.date.toDate().getTime() === tsKey &&
+            /fee/i.test(e.description)
+          );
+        });
         pairs.push({
           expenseId: exp.id,
           incomeId: inc.id,
@@ -155,12 +162,13 @@ const ExchangesMainPage = () => {
           amount: Math.abs(inc.amount),
           date: inc.date,
           tsMs: tsKey,
+          feeAmount: feeCandidate ? Math.abs(feeCandidate.amount) : undefined,
         });
         if (bucket.length === 0) expenseBucketsByTs.delete(tsKey);
       }
     });
     return pairs;
-  }, [mergedExchanges]);
+  }, [mergedExchanges, filteredExpensesByTimeframe]);
   
   const handleCloseForm = () => {
     setDeleteFormOpen(false);
@@ -292,15 +300,6 @@ const ExchangesMainPage = () => {
               filterDate={getFilterTitle(selectedTimeframe, startDate || null, endDate || null)}
               onDeleteExchange={(pair) => {
                 setSelectedPairForDelete(pair);
-                setExchangeToDelete({
-                  id: pair.incomeId,
-                  amount: pair.amount,
-                  description: `${pair.from_account_id} -> ${pair.to_account_id}`,
-                  account_id: pair.to_account_id,
-                  date: pair.date,
-                  category_id: "",
-                  kind: "income",
-                });
                 setDeleteFormOpen(true);
               }}
             />

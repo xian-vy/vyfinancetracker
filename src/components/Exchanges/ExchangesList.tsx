@@ -20,6 +20,7 @@ interface Props {
     to_account_id: string;
     amount: number;
     date: any;
+    feeAmount?: number;
   }>;
   sortBy: SORT_TYPE;
   filterDate: string;

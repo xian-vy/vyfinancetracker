@@ -36,6 +36,7 @@ type Props = {
     to_income_source_id: string;
     amount: number;
     date: any;
+    feeAmount?: number;
   }>;
 };
 
@@ -112,6 +113,11 @@ const ExchangesListVirtualized = ({ incomeSource, paginatedIncome, onActionSelec
                 <Stack direction="row" alignItems="center" spacing={1}>
                   <Stack direction="column" alignItems="flex-end">
                     <Typography variant="caption">{TimestamptoDate(pair.date, "MMM dd, yyyy")}</Typography>
+                    {typeof pair.feeAmount === "number" && (
+                      <Typography variant="caption" sx={{ opacity: 0.7 }}>
+                        Fee: {formatNumberWithoutCurrency(Math.abs(pair.feeAmount))}
+                      </Typography>
+                    )}
                   </Stack>
                   <IconButton aria-label="Actions" onClick={(event) => handleActionOpen(event, pair)}>
                     <MoreVertIcon fontSize="small" />
