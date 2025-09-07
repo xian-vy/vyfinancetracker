@@ -24,8 +24,9 @@ interface Props {
   }>;
   sortBy: SORT_TYPE;
   filterDate: string;
+  onDeleteExchange: (item: any) => void;
 }
-const ExchangesList: React.FC<Props> = ({ exchanges, sortBy, filterDate }) => {
+const ExchangesList: React.FC<Props> = ({ exchanges, sortBy, filterDate, onDeleteExchange }) => {
   const theme = useTheme();
   const smScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { accountType } = useAccountTypeContext();
@@ -59,7 +60,9 @@ const ExchangesList: React.FC<Props> = ({ exchanges, sortBy, filterDate }) => {
   );
 
   const handleAction = (action: string, income: IncomeModel | ExpenseModel) => {
-   
+    if (action === "Delete") {
+      onDeleteExchange(income);
+    }
   };
 
   return (

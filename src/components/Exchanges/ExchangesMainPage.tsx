@@ -16,11 +16,15 @@ import IncomeModel from "../../models/IncomeModel";
 import { RootState } from "../../redux/store";
 import ExchangesTrend from "../Charts/Exchanges/ExchangesByCategoryTrend";
 import DeleteConfirmationDialog from "../Dialog/DeleteConfirmationDialog";
+import { deleteincomeAction } from "../../redux/actions/incomeAction";
+import { deleteExpenseAction } from "../../redux/actions/expenseAction";
+import { operation_types, txn_types } from "../../constants/collections";
+import TransactionLogsModel from "../../models/TransactionLogsModel";
 import ExchangesList from "./ExchangesList";
 import ExchangesListHeader from "./ExchangesListHeader";
 const ExchangesMainPage = () => {
   const [deleteFormOpen, setDeleteFormOpen] = useState(false);
-  const [incomeToDelete, setIncomeToDelete] = useState<IncomeModel>();
+  const [exchangeToDelete, setExchangeToDelete] = useState<{ id: string; amount: number; description: string; account_id: string; date: Timestamp; category_id: string; kind: "income" | "expense" } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -115,7 +119,41 @@ const ExchangesMainPage = () => {
   ///  DELETE  //////////////////////////////////////////////////////////////////
   const handleDelete = async () => {
     handleCloseForm();
+    if (!exchangeToDelete) return;
+    try {
+      setIsLoading(true);
+      const isExpense = exchangeToDelete.kind === "expense" || exchangeToDelete.amount < 0;
 
+      const log: TransactionLogsModel = {
+        txn_id: "",
+        txn_ref_id: exchangeToDelete.id,
+        txn_type: isExpense ? txn_types.Expenses : txn_types.Income,
+        operation: operation_types.Delete,
+        category_id: exchangeToDelete.category_id,
+        account_id: exchangeToDelete.account_id,
+        amount: Math.abs(exchangeToDelete.amount),
+        lastModified: Timestamp.now(),
+      };
+
+      await saveLogs(log);
+      if (isExpense) {
+        await dispatch(deleteExpenseAction({
+          id: exchangeToDelete.id,
+          description: exchangeToDelete.description,
+          amount: Math.abs(exchangeToDelete.amount),
+          date: exchangeToDelete.date,
+          account_id: exchangeToDelete.account_id,
+          category_id: exchangeToDelete.category_id,
+        } as ExpenseModel));
+      } else {
+        await dispatch(deleteincomeAction(exchangeToDelete.id));
+      }
+      openSuccessSnackbar("Exchange has been deleted!");
+    } catch (error) {
+      console.error("Exchange delete failed", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
 
@@ -159,6 +197,7 @@ const ExchangesMainPage = () => {
               exchanges={mergedExchanges}
               sortBy={sortBy}
               filterDate={getFilterTitle(selectedTimeframe, startDate || null, endDate || null)}
+              onDeleteExchange={(item) => { setExchangeToDelete(item); setDeleteFormOpen(true); }}
             />
           </Paper>
         </Grid>
@@ -170,7 +209,7 @@ const ExchangesMainPage = () => {
         isDialogOpen={deleteFormOpen}
         onClose={handleCloseForm}
         onDelete={handleDelete}
-        description={incomeToDelete?.description || ""}
+        description={exchangeToDelete?.description || ""}
       />
     </>
   );
