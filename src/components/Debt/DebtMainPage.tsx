@@ -156,7 +156,7 @@ const DebtMainPage = () => {
                 </Stack>
                 <Stack direction="row" gap={0.5} justifyContent="start"  alignItems="center" width="100%" mt={3}>
                         <InfoOutlinedIcon sx={{ color: ThemeColor(theme), fontSize: 16 }} />
-                        <Typography textAlign={"start"} variant='body1' >This feature is under development. Currently, you can create Basic debts for record purposes. No interest and payments will be made. </Typography>
+                        <Typography textAlign={"start"} variant='caption' >Under development. Basic debts for record purposes only</Typography>
                  </Stack>
                   <Grid container padding={1} spacing={2}>
                   
