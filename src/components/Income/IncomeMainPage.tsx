@@ -11,6 +11,7 @@ import { FilterTimeframe } from "../../constants/timeframes";
 import { useTransactionLogsContext } from "../../contextAPI/TransactionLogsContext";
 import { filterDataByDateRange } from "../../helper/GenericTransactionHelper";
 import { getFilterTitle } from "../../helper/utils";
+import { useIncomeSourcesContext } from "../../contextAPI/IncomeSourcesContext";
 import useSnackbarHook from "../../hooks/snackbarHook";
 import IncomeModel from "../../models/IncomeModel";
 import TransactionLogsModel from "../../models/TransactionLogsModel";
@@ -39,6 +40,8 @@ const IncomeMainPage = () => {
   const [sortBy, setSortBy] = useState(SORT_TYPE.date);
 
   const incomeSlice = useSelector((state: RootState) => state.income.income);
+  const { incomeSource } = useIncomeSourcesContext();
+  const swapIncomeSourceId = useMemo(() => incomeSource.find((s) => s.description === "Swap Account")?.id || "", [incomeSource]);
 
   const { openSuccessSnackbar, SnackbarComponent } = useSnackbarHook();
 
@@ -51,9 +54,10 @@ const IncomeMainPage = () => {
     account_id: "",
   });
 
+  const incomeExcludingSwap = useMemo(() => incomeSlice.filter((i) => i.category_id !== swapIncomeSourceId), [incomeSlice, swapIncomeSourceId]);
   const filteredByTimeframe = useMemo(
-    () => filterDataByDateRange<IncomeModel>(incomeSlice, "date", selectedTimeframe, startDate || undefined, endDate || undefined),
-    [incomeSlice, selectedTimeframe, startDate, endDate]
+    () => filterDataByDateRange<IncomeModel>(incomeExcludingSwap, "date", selectedTimeframe, startDate || undefined, endDate || undefined),
+    [incomeExcludingSwap, selectedTimeframe, startDate, endDate]
   );
   //BUDGET FORM MODAL//////////////////////////////////////////////////////////////////////////
 

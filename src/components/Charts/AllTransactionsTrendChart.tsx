@@ -66,6 +66,24 @@ const AllTransactionsTrendChart = (props: Props) => {
   const { categories } = useCategoryContext();
   const { incomeSource } = useIncomeSourcesContext();
 
+  const swapExpenseCategoryId = useMemo(
+    () => categories.find((c) => c.description === "Swap Account")?.id || "",
+    [categories]
+  );
+  const expensesExcludingSwap = useMemo(
+    () => expenses.filter((e) => e.category_id !== swapExpenseCategoryId),
+    [expenses, swapExpenseCategoryId]
+  );
+
+  const swapIncomeSourceId = useMemo(
+    () => incomeSource.find((s) => s.description === "Swap Account")?.id || "",
+    [incomeSource]
+  );
+  const incomeExcludingSwap = useMemo(
+    () => income.filter((i) => i.category_id !== swapIncomeSourceId),
+    [income, swapIncomeSourceId]
+  );
+
   const handleExpenseChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsExpenseChecked(event.target.checked);
   };
@@ -136,26 +154,26 @@ const AllTransactionsTrendChart = (props: Props) => {
     () =>
       FilterAndGroupData(
         props.filterOption,
-        expenses,
+        expensesExcludingSwap,
         categories,
         props.startDate || undefined,
         props.endDate || undefined,
         false //group by category?
       ),
-    [props.filterOption, expenses, props.startDate, props.endDate]
+    [props.filterOption, expensesExcludingSwap, props.startDate, props.endDate]
   );
 
   const filteredIncome = useMemo(
     () =>
       FilterAndGroupData(
         props.filterOption,
-        income,
+        incomeExcludingSwap,
         incomeSource,
         props.startDate || undefined,
         props.endDate || undefined,
         false //group by category?
       ),
-    [props.filterOption, income, props.startDate, props.endDate]
+    [props.filterOption, incomeExcludingSwap, props.startDate, props.endDate]
   );
 
   const filteredSavingsContribution = useMemo(

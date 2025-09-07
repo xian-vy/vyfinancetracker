@@ -36,10 +36,12 @@ const IncomebyCategoryTrend: React.FC<ExpenseTrendProps> = ({ incomes, onDateFil
   }, [handleFilterOptionChange]);
 
   const { incomeSource } = useIncomeSourcesContext();
+  const swapIncomeSourceId = useMemo(() => incomeSource.find((s) => s.description === "Swap Account")?.id || "", [incomeSource]);
 
+  const incomesExcludingSwap = useMemo(() => incomes.filter((i) => i.category_id !== swapIncomeSourceId), [incomes, swapIncomeSourceId]);
   const filteredIncome = useMemo(
-    () => FilterAndGroupData(filterOption, incomes, incomeSource, startDate || undefined, endDate || undefined, true),
-    [filterOption, incomes, incomeSource, startDate, endDate]
+    () => FilterAndGroupData(filterOption, incomesExcludingSwap, incomeSource, startDate || undefined, endDate || undefined, true),
+    [filterOption, incomesExcludingSwap, incomeSource, startDate, endDate]
   );
 
   const formattedFilterOption = getFilterTitle(filterOption, startDate, endDate);

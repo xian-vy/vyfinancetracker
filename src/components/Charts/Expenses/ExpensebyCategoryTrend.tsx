@@ -52,14 +52,16 @@ const ExpensebyCategoryTrend: React.FC<Props> = ({ title, onDateFilterChange, on
   }, [selectedCategory]);
 
   const { categories } = useCategoryContext();
+  const swapExpenseCategoryId = useMemo(() => categories.find((c) => c.description === "Swap Account")?.id || "", [categories]);
+  const expensesExcludingSwap = useMemo(() => expenses.filter((e) => e.category_id !== swapExpenseCategoryId), [expenses, swapExpenseCategoryId]);
 
   const formattedFilterOption = getFilterTitle(filterOption, startDate, endDate);
 
   const includeDateFilter = yearFilters.includes(filterOption);
 
   const filteredExpenses = useMemo(
-    () => FilterAndGroupData(filterOption, expenses, categories, startDate || undefined, endDate || undefined, true),
-    [filterOption, expenses, categories, startDate, endDate]
+    () => FilterAndGroupData(filterOption, expensesExcludingSwap, categories, startDate || undefined, endDate || undefined, true),
+    [filterOption, expensesExcludingSwap, categories, startDate, endDate]
   );
 
   const { filteredChartData, allCategories, totalAmount } = useTrendByCategoryChart({

@@ -61,6 +61,8 @@ const ExpenseMainPage = () => {
   const uploadCancelled = useSelector((state: RootState) => state.expenses.uploadCancelled);
   const isUploading = useSelector((state: RootState) => state.expenses.isUploading);
 
+  const swapExpenseCategoryId = useMemo(() => categories.find((c) => c.description === "Swap Account")?.id || "", [categories]);
+
   const filteredExpenses = useMemo(() => {
     return expenses.filter((expense) => {
       const isInDateRange =
@@ -70,9 +72,10 @@ const ExpenseMainPage = () => {
       const matchesCategory =
         selectedCategory.includes("All Categories") ||
         selectedCategory.includes(getCategoryAndAccountTypeDescription(expense.category_id, categories));
-      return isInDateRange && matchesSearch && matchesCategory;
+      const notSwapAccount = expense.category_id !== swapExpenseCategoryId;
+      return isInDateRange && matchesSearch && matchesCategory && notSwapAccount;
     });
-  }, [expenses, selectedTimeframe, startDate, endDate, searchQuery, selectedCategory, categories]);
+  }, [expenses, selectedTimeframe, startDate, endDate, searchQuery, selectedCategory, categories, swapExpenseCategoryId]);
 
   const filteredAndSortedExpenses = useMemo(() => {
     return [...filteredExpenses].sort((a, b) => {
