@@ -13,20 +13,19 @@ import { SORT_TYPE } from "../../constants/constants";
 import { useCategoryContext } from "../../contextAPI/CategoryContext";
 
 interface Props {
-  exchanges: Array<{
-    id: string;
+  exchangePairs: Array<{
+    expenseId: string;
+    incomeId: string;
+    from_account_id: string;
+    to_account_id: string;
     amount: number;
-    description: string;
-    account_id: string;
     date: any;
-    category_id: string;
-    kind: "income" | "expense";
   }>;
   sortBy: SORT_TYPE;
   filterDate: string;
-  onDeleteExchange: (item: any) => void;
+  onDeleteExchange: (pair: any) => void;
 }
-const ExchangesList: React.FC<Props> = ({ exchanges, sortBy, filterDate, onDeleteExchange }) => {
+const ExchangesList: React.FC<Props> = ({ exchangePairs, sortBy, filterDate, onDeleteExchange }) => {
   const theme = useTheme();
   const smScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const { accountType } = useAccountTypeContext();
@@ -34,17 +33,17 @@ const ExchangesList: React.FC<Props> = ({ exchanges, sortBy, filterDate, onDelet
   const { categories } = useCategoryContext();
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } = useTablePagination();
 
-  const incomeRef = useRef(exchanges);
+  const incomeRef = useRef(exchangePairs);
   // go to page 1 when filtering
   useEffect(() => {
-    if (exchanges !== incomeRef.current) {
+    if (exchangePairs !== incomeRef.current) {
       handleChangePage(null, 0);
     }
-    incomeRef.current = exchanges;
-  }, [exchanges]);
+    incomeRef.current = exchangePairs;
+  }, [exchangePairs]);
 
   const sortedIncome = useMemo(() => {
-    return [...exchanges].sort((a, b) => {
+    return [...exchangePairs].sort((a, b) => {
       if (sortBy === SORT_TYPE.date) {
         return b.date.toDate().getTime() - a.date.toDate().getTime();
       } else if (sortBy === SORT_TYPE.amount) {
@@ -52,16 +51,16 @@ const ExchangesList: React.FC<Props> = ({ exchanges, sortBy, filterDate, onDelet
       }
       return 0;
     });
-  }, [exchanges, sortBy]);
+  }, [exchangePairs, sortBy]);
 
   const paginatedIncome = useMemo(
     () => sortedIncome.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
     [sortedIncome, page, rowsPerPage]
   );
 
-  const handleAction = (action: string, income: IncomeModel | ExpenseModel) => {
+  const handleAction = (action: string, pair: any) => {
     if (action === "Delete") {
-      onDeleteExchange(income);
+      onDeleteExchange(pair);
     }
   };
 
@@ -70,7 +69,7 @@ const ExchangesList: React.FC<Props> = ({ exchanges, sortBy, filterDate, onDelet
       <IncomeListVirtualized
         accountType={accountType}
         incomeSource={incomeSource}
-        paginatedIncome={paginatedIncome}
+        paginatedIncome={paginatedIncome as any}
         onActionSelect={handleAction}
       />
 

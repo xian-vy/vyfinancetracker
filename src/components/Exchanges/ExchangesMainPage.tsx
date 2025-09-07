@@ -65,7 +65,7 @@ const ExchangesMainPage = () => {
 
   const swapOnlyExpenses = useMemo(() => {
     if (!swapExpenseCategoryId) return [] as ExpenseModel[];
-    return expenseSlice.filter((e) => e.category_id === swapExpenseCategoryId);
+    return expenseSlice.filter((exp: ExpenseModel) => exp.category_id === swapExpenseCategoryId);
   }, [expenseSlice, swapExpenseCategoryId]);
 
   const filteredExpensesByTimeframe = useMemo(
@@ -111,6 +111,55 @@ const ExchangesMainPage = () => {
     }));
     return [...positives, ...negatives];
   }, [filteredIncomeByTimeframe, filteredExpensesByTimeframe]);
+
+  // Pair exchanges: expense (from) to income (to) based on same-day and equal abs amount
+  type ExchangePair = {
+    expenseId: string;
+    incomeId: string;
+    from_account_id: string;
+    to_account_id: string;
+    from_category_id: string;
+    to_income_source_id: string;
+    amount: number;
+    date: Timestamp; // latest of two legs
+  };
+
+  const exchangePairs: ExchangePair[] = useMemo(() => {
+    const expenses = mergedExchanges.filter((e) => e.kind === "expense");
+    const incomes = mergedExchanges.filter((e) => e.kind === "income");
+
+    // index expenses by dateKey|amount
+    const expenseBuckets = new Map<string, ExchangeItem[]>();
+    const makeKey = (d: Timestamp, amt: number) => `${d.toDate().toDateString()}|${Math.abs(Math.round(amt))}`;
+
+    expenses.forEach((e) => {
+      const key = makeKey(e.date, Math.abs(e.amount));
+      const arr = expenseBuckets.get(key) || [];
+      arr.push(e);
+      expenseBuckets.set(key, arr);
+    });
+
+    const pairs: ExchangePair[] = [];
+    incomes.forEach((inc) => {
+      const key = makeKey(inc.date, Math.abs(inc.amount));
+      const bucket = expenseBuckets.get(key);
+      if (bucket && bucket.length > 0) {
+        const exp = bucket.shift() as ExchangeItem;
+        pairs.push({
+          expenseId: exp.id,
+          incomeId: inc.id,
+          from_account_id: exp.account_id,
+          to_account_id: inc.account_id,
+          from_category_id: exp.category_id,
+          to_income_source_id: inc.category_id,
+          amount: Math.abs(inc.amount),
+          date: inc.date.toDate() > exp.date.toDate() ? inc.date : exp.date,
+        });
+        if (bucket.length === 0) expenseBuckets.delete(key);
+      }
+    });
+    return pairs;
+  }, [mergedExchanges]);
   
   const handleCloseForm = () => {
     setDeleteFormOpen(false);
@@ -194,10 +243,25 @@ const ExchangesMainPage = () => {
           <Paper sx={{ p: 1, borderRadius: 2 }} variant={isDarkMode ? "elevation" : "outlined"}>
             <ExchangesListHeader onSortChange={handleSortChange} />
             <ExchangesList
-              exchanges={mergedExchanges}
+              exchangePairs={exchangePairs}
               sortBy={sortBy}
               filterDate={getFilterTitle(selectedTimeframe, startDate || null, endDate || null)}
-              onDeleteExchange={(item) => { setExchangeToDelete(item); setDeleteFormOpen(true); }}
+              onDeleteExchange={(pair) => {
+                // store both legs for deletion using existing state structure
+                // default to income leg; we'll use pair inside delete handler
+                setExchangeToDelete({
+                  id: pair.incomeId,
+                  amount: pair.amount,
+                  description: `${pair.from_account_id} -> ${pair.to_account_id}`,
+                  account_id: pair.to_account_id,
+                  date: pair.date,
+                  category_id: "",
+                  kind: "income",
+                });
+                // temporarily stash pair ids on window to reuse in delete (quick pragmatic)
+                (window as any).__lastExchangePair = pair;
+                setDeleteFormOpen(true);
+              }}
             />
           </Paper>
         </Grid>

@@ -1,41 +1,41 @@
+import { ArrowRightAlt } from "@mui/icons-material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Typography,
-  ListItemSecondaryAction,
-  Stack,
-  IconButton,
-  Divider,
   Box,
+  Divider,
+  IconButton,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+  Stack,
   Tooltip,
+  Typography,
   useMediaQuery,
-  useTheme,
+  useTheme
 } from "@mui/material";
 import React from "react";
 import { FixedSizeList, ListChildComponentProps } from "react-window";
-import { getIncomeSourceDetails, getCategoryAndAccountTypeDescription } from "../../firebase/utils";
+import { FIXED_SIZE, iconSizeXS, TABLE_HEIGHT, TABLE_HEIGHT_XL } from "../../constants/size";
+import { getAccountsDetails, getCategoryAndAccountTypeDescription } from "../../firebase/utils";
 import { TimestamptoDate } from "../../helper/date";
-import { hoverBgColor, formatNumberWithoutCurrency, useResponsiveCharLimit } from "../../helper/utils";
-import { TABLE_HEIGHT, FIXED_SIZE, iconSizeSM, iconSizeXS, TABLE_HEIGHT_XL } from "../../constants/size";
-import IncomeModel from "../../models/IncomeModel";
-import IncomeSourcesModel from "../../models/IncomeSourcesModel";
-import AccountTypeModel from "../../models/AccountTypeModel";
+import { formatNumberWithoutCurrency, hoverBgColor, useResponsiveCharLimit } from "../../helper/utils";
 import { useActionPopover } from "../../hooks/actionHook";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import AccountTypeModel from "../../models/AccountTypeModel";
+import IncomeSourcesModel from "../../models/IncomeSourcesModel";
 
 type Props = {
   onActionSelect: (action: string, income: any) => void;
   incomeSource: IncomeSourcesModel[];
   accountType: AccountTypeModel[];
   paginatedIncome: Array<{
-    id: string;
-    amount: number; // signed
-    description: string;
-    account_id: string;
+    expenseId: string;
+    incomeId: string;
+    from_account_id: string;
+    to_account_id: string;
+    from_category_id: string;
+    to_income_source_id: string;
+    amount: number;
     date: any;
-    category_id: string;
-    kind: "income" | "expense";
   }>;
 };
 
@@ -45,7 +45,7 @@ const ExchangesListVirtualized = ({ incomeSource, paginatedIncome, onActionSelec
   const xlScreen = useMediaQuery(theme.breakpoints.up("xl"));
 
   function renderIcon(icon: React.ReactElement, color: string) {
-    return React.cloneElement(icon, { style: { color: color, fontSize: smScreen ? iconSizeXS : iconSizeSM } });
+    return React.cloneElement(icon, { style: { color: color, fontSize: iconSizeXS } });
   }
 
   const handleAction = (action: string, income: any) => {
@@ -62,10 +62,14 @@ const ExchangesListVirtualized = ({ incomeSource, paginatedIncome, onActionSelec
   const incomeList = React.useMemo(
     () =>
       ({ index, style }: ListChildComponentProps) => {
-        const income = paginatedIncome[index];
+        const pair = paginatedIncome[index];
+        const fromAccount = getCategoryAndAccountTypeDescription(pair.from_account_id, accountType) || "";
+        const toAccount = getCategoryAndAccountTypeDescription(pair.to_account_id, accountType) || "";
+        const { categoryIcon: fromIcon, color: fromColor } = getAccountsDetails(accountType, pair.from_account_id) as any;
+        const { categoryIcon: toIcon, color: toColor } = getAccountsDetails(accountType, pair.to_account_id) as any;
+ 
 
-        const { description, color, categoryIcon } = getIncomeSourceDetails(incomeSource, income.category_id);
-        const account = getCategoryAndAccountTypeDescription(income.account_id, accountType) || "";
+        const description = `${fromAccount} → ${toAccount}`;
         return (
           <div key={index} style={style}>
             <ListItem
@@ -79,33 +83,28 @@ const ExchangesListVirtualized = ({ incomeSource, paginatedIncome, onActionSelec
                 py: 0,
               }}
             >
-              <ListItemAvatar sx={{ minWidth: smScreen ? 24 : 32 }}>
-                <Tooltip title={description}>
-                  <div>{categoryIcon && renderIcon(categoryIcon.icon, color || "")}</div>
-                </Tooltip>
-              </ListItemAvatar>
               <ListItemText
                 primary={
                   <>
-                    <Tooltip title={income.description === "" ? description : income.description}>
-                      <Typography variant="body1">
-                        {income.description === ""
-                          ? description && description.length > charLimit
-                            ? description.substring(0, charLimit)
-                            : description
-                          : income.description.length > charLimit
-                          ? income.description.substring(0, charLimit)
-                          : income.description}{" "}
-                      </Typography>
+                    <Tooltip title={description}>
+                      <Stack direction="column" alignItems="start">
+                          <Stack direction="row" spacing={0.75} alignItems="center">
+                              {fromIcon && <span>{renderIcon(fromIcon.icon, fromColor || "")}</span>}
+                              <Typography variant="caption">{fromAccount}</Typography>
+                              <ArrowRightAlt sx={{fontSize: "18px"}} />
+                              {toIcon && <span>{renderIcon(toIcon.icon, toColor || "")}</span>}
+                              <Typography variant="caption">{toAccount}</Typography>
+                          </Stack>
+                          <Typography
+                            variant="caption"
+                            sx={{ color: "inherit", fontWeight: 600 }}
+                          >
+                            {formatNumberWithoutCurrency(Math.abs(pair.amount))}
+                          </Typography>
+                      </Stack>
                     </Tooltip>
 
-                    <Typography
-                      variant="caption"
-                      sx={{ color: income.amount < 0 ? "error.main" : "success.main", fontWeight: 600 }}
-                    >
-                      {income.amount < 0 ? "-" : "+"}
-                      {formatNumberWithoutCurrency(Math.abs(income.amount))}
-                    </Typography>
+              
                   </>
                 }
               />
@@ -113,10 +112,9 @@ const ExchangesListVirtualized = ({ incomeSource, paginatedIncome, onActionSelec
               <ListItemSecondaryAction sx={{ mr: smScreen ? -2 : 0 }}>
                 <Stack direction="row" alignItems="center" spacing={1}>
                   <Stack direction="column" alignItems="flex-end">
-                    <Typography variant="caption">{account}</Typography>
-                    <Typography variant="caption">{TimestamptoDate(income.date, "MMM dd, yyyy")}</Typography>
+                    <Typography variant="caption">{TimestamptoDate(pair.date, "MMM dd, yyyy")}</Typography>
                   </Stack>
-                  <IconButton aria-label="Actions" onClick={(event) => handleActionOpen(event, income)}>
+                  <IconButton aria-label="Actions" onClick={(event) => handleActionOpen(event, pair)}>
                     <MoreVertIcon fontSize="small" />
                   </IconButton>
                 </Stack>
@@ -126,7 +124,7 @@ const ExchangesListVirtualized = ({ incomeSource, paginatedIncome, onActionSelec
           </div>
         );
       },
-    [paginatedIncome, incomeSource, accountType]
+    [paginatedIncome, accountType]
   );
   return (
     <div>
