@@ -314,7 +314,7 @@ const ExchangesMainPage = () => {
         isDialogOpen={deleteFormOpen}
         onClose={handleCloseForm}
         onDelete={handleDelete}
-        description={exchangeToDelete?.description || ""}
+        description={""}
       />
     </>
   );

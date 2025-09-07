@@ -18,7 +18,7 @@ import { FixedSizeList, ListChildComponentProps } from "react-window";
 import { FIXED_SIZE, iconSizeXS, TABLE_HEIGHT, TABLE_HEIGHT_XL } from "../../constants/size";
 import { getAccountsDetails, getCategoryAndAccountTypeDescription } from "../../firebase/utils";
 import { TimestamptoDate } from "../../helper/date";
-import { formatNumberWithoutCurrency, hoverBgColor, useResponsiveCharLimit } from "../../helper/utils";
+import { formatNumberWithoutCurrency, hoverBgColor } from "../../helper/utils";
 import { useActionPopover } from "../../hooks/actionHook";
 import AccountTypeModel from "../../models/AccountTypeModel";
 import IncomeSourcesModel from "../../models/IncomeSourcesModel";
@@ -57,7 +57,6 @@ const ExchangesListVirtualized = ({ incomeSource, paginatedIncome, onActionSelec
     handleAction,
   });
 
-  const charLimit = useResponsiveCharLimit();
 
   const incomeList = React.useMemo(
     () =>
@@ -88,16 +87,16 @@ const ExchangesListVirtualized = ({ incomeSource, paginatedIncome, onActionSelec
                   <>
                     <Tooltip title={description}>
                       <Stack direction="column" alignItems="start">
-                          <Stack direction="row" spacing={0.75} alignItems="center">
-                              {fromIcon && <span>{renderIcon(fromIcon.icon, fromColor || "")}</span>}
+                          <Stack direction="row" spacing={0.5} alignItems="center">
+                              {fromIcon && <>{renderIcon(fromIcon.icon, fromColor || "")}</>}
                               <Typography variant="caption">{fromAccount}</Typography>
                               <ArrowRightAlt sx={{fontSize: "18px"}} />
-                              {toIcon && <span>{renderIcon(toIcon.icon, toColor || "")}</span>}
+                              {toIcon && <>{renderIcon(toIcon.icon, toColor || "")}</>}
                               <Typography variant="caption">{toAccount}</Typography>
                           </Stack>
                           <Typography
                             variant="caption"
-                            sx={{ color: "inherit", fontWeight: 600 }}
+                            sx={{ color: "inherit" }}
                           >
                             {formatNumberWithoutCurrency(Math.abs(pair.amount))}
                           </Typography>

@@ -3,6 +3,7 @@ export const iconSize = "small";
 export const iconSizeXS = "16px";
 export const iconSizeSM = "20px";
 export const iconSizeMD = "24px";
+export const iconSizeNav= "18px";
 
 export const TXN_SUMMARY_CHART_HEIGHT = 85;
 export const TXN_TREND_CHART_HEIGHT = 260;
