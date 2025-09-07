@@ -10,6 +10,7 @@ import userAccountSlice from "./userAccountSlice";
 import pendingSyncSlice from "./pendingSyncSlice";
 import powerSavingSlice from "./powerSavingSlice";
 import fontSizeSlice from "./fontSizeSlice";
+import trendChartSlice from "./trendChartSlice";
 
 import { savingsReducer, savingsContributionReducer } from "./savingsSlice";
 import debtReducer from "./debtSlice";
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   pendingSync: pendingSyncSlice,
   powerSaving: powerSavingSlice,
   fontSize: fontSizeSlice,
+  trendChart: trendChartSlice,
   debt: debtReducer,
 });
 

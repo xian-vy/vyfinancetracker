@@ -36,6 +36,7 @@ const TrendByCategoryChart = ({
   const smScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const isDarkMode = theme.palette.mode === "dark";
   const [loading, setLoading] = useState(false);
+  const isStacked = useSelector((state: RootState) => state.trendChart.stacked);
 
   useEffect(() => {
     if (filteredChartData) {
@@ -100,10 +101,11 @@ const TrendByCategoryChart = ({
                 isAnimationActive={powerSavingMode ? false : true}
                 key={index}
                 dataKey={`categories[${index}].total`}
-                barSize={15}
-                maxBarSize={20}
-                radius={[4, 4, 0, 0]}
+                stackId={isStacked ? "categories" : undefined}
+                barSize={isStacked ? 25 : 15}
+                maxBarSize={isStacked ? 25 : 20}
                 strokeWidth={isDarkMode ? 1 : 0.3}
+                radius={isStacked ? undefined : [4, 4, 0, 0]}
               >
                 {filteredChartData.map((entry, entryIndex) => {
                   const color = entry.categories[index]?.color || "#ccc";
