@@ -25,7 +25,7 @@ import { RootState } from "../../redux/store";
 import FilterActionsComponent from "../Filter/FilterActionsComponent";
 import BalanceByAccountTypeDialog from "./BalanceByAccountTypeDialog";
 import BalanceByAccountTypeHeader from "./BalanceByAccountTypeHeader";
-import SwapAccount from "./SwapAccount";
+import ExchangeAccount from "./ExchangeAccount";
 import IncomeModel from "../../models/IncomeModel";
 import ExpenseModel from "../../models/ExpenseModel";
 import SavingGoalsContributionModel from "../../models/SavingGoalsContribution";
@@ -289,7 +289,7 @@ const BalanceByAccountType = () => {
         selectedTimeframe={filterOption}
       />
 
-      <SwapAccount openDialog={openSwapAccount} onDialogClose={() => setOpenSwapAccount(false)} />
+      <ExchangeAccount openDialog={openSwapAccount} onDialogClose={() => setOpenSwapAccount(false)} />
     </>
   );
 };

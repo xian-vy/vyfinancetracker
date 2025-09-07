@@ -34,7 +34,7 @@ const BalanceByAccountTypeHeader = (props: Props) => {
       <Stack direction="row" justifyContent="center" alignItems="center">
         <CustomIconButton onClick={props.onSwapClick} type="filter">
           <Typography variant="caption" style={{ color: ThemeColor(theme) }}>
-            Swap
+            Exchange
           </Typography>
           <SwapVert fontSize={iconSize} />
         </CustomIconButton>

@@ -30,7 +30,7 @@ interface Props {
   openDialog: boolean;
   onDialogClose: () => void;
 }
-const SwapAccount = (props: Props) => {
+const ExchangeAccount = (props: Props) => {
   const powerSavingMode = useSelector((state: RootState) => state.powerSaving.enabled);
   const isDarkMode = useSelector((state: RootState) => state.theme.darkMode);
   const { accountType, loading: loadingAccounts } = useAccountTypeContext();
@@ -157,7 +157,7 @@ const SwapAccount = (props: Props) => {
         <DialogTitle
           sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}
         >
-          <Typography variant="body1">Swap Accounts</Typography>
+          <Typography variant="body1">Exchange Accounts</Typography>
           <CloseIcon sx={{ cursor: "pointer",fontSize:DIALOG_CLOSEICON_SIZE }} onClick={() => props.onDialogClose()}/>
         </DialogTitle>
         <DialogContent sx={{ px: { xs: 1, sm: 2 } }}>
@@ -218,6 +218,7 @@ const SwapAccount = (props: Props) => {
               fullWidth
               size="small"
               label="Description"
+              disabled
               value={expense.description}
               onChange={(e) => {
                 if (e.target.value.length <= 40) {
@@ -283,4 +284,4 @@ const SwapAccount = (props: Props) => {
   );
 };
 
-export default SwapAccount;
+export default ExchangeAccount;
