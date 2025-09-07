@@ -265,7 +265,21 @@ const ExchangesMainPage = () => {
       <Grid container spacing={{ xs: 1, sm: 1.5, lg: 2 }} pb={{ xs: 10, md: 5 }} ref={gridContainerRef}>
         <Grid item xs={12} lg={12}>
           <Paper sx={{ borderRadius: 2 }} variant={isDarkMode ? "elevation" : "outlined"}>
-            <ExchangesTrend exchanges={mergedExchanges} onDateFilterChange={handleDateFilterChange} />
+            {(() => {
+              // Build chart data using only paired exchanges, excluding fees and duplicates
+              const chartExchanges = exchangePairs.map((p) => ({
+                id: p.incomeId,
+                amount: p.amount,
+                description: `${p.from_account_id} -> ${p.to_account_id}`,
+                account_id: p.to_account_id,
+                date: p.date,
+                category_id: p.to_income_source_id,
+                kind: "income" as const,
+              }));
+              return (
+                <ExchangesTrend exchanges={chartExchanges} onDateFilterChange={handleDateFilterChange} />
+              );
+            })()}
           </Paper>
         </Grid>
 
