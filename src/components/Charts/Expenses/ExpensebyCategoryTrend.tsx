@@ -53,7 +53,13 @@ const ExpensebyCategoryTrend: React.FC<Props> = ({ title, onDateFilterChange, on
 
   const { categories } = useCategoryContext();
   const swapExpenseCategoryId = useMemo(() => categories.find((c) => c.description === "Swap Account")?.id || "", [categories]);
-  const expensesExcludingSwap = useMemo(() => expenses.filter((e) => e.category_id !== swapExpenseCategoryId), [expenses, swapExpenseCategoryId]);
+  const expensesExcludingSwap = useMemo(() => {
+    return expenses.filter((e) => {
+      const isSwapCategory = e.category_id === swapExpenseCategoryId;
+      const isFee = e.description.toLowerCase().includes("fee");
+      return !isSwapCategory || (isSwapCategory && isFee);
+    });
+  }, [expenses, swapExpenseCategoryId]);
 
   const formattedFilterOption = getFilterTitle(filterOption, startDate, endDate);
 

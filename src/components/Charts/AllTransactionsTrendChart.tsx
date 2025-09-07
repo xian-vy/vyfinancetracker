@@ -70,10 +70,14 @@ const AllTransactionsTrendChart = (props: Props) => {
     () => categories.find((c) => c.description === "Swap Account")?.id || "",
     [categories]
   );
-  const expensesExcludingSwap = useMemo(
-    () => expenses.filter((e) => e.category_id !== swapExpenseCategoryId),
-    [expenses, swapExpenseCategoryId]
-  );
+  const expensesExcludingSwap = useMemo(() => {
+    return expenses.filter((e) => {
+      const isSwapCategory = e.category_id === swapExpenseCategoryId;
+      const isFee = e.description.toLowerCase().includes("fee");
+      // keep fees, drop main swap legs
+      return !isSwapCategory || (isSwapCategory && isFee);
+    });
+  }, [expenses, swapExpenseCategoryId]);
 
   const swapIncomeSourceId = useMemo(
     () => incomeSource.find((s) => s.description === "Swap Account")?.id || "",

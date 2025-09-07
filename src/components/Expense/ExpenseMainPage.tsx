@@ -72,8 +72,11 @@ const ExpenseMainPage = () => {
       const matchesCategory =
         selectedCategory.includes("All Categories") ||
         selectedCategory.includes(getCategoryAndAccountTypeDescription(expense.category_id, categories));
-      const notSwapAccount = expense.category_id !== swapExpenseCategoryId;
-      return isInDateRange && matchesSearch && matchesCategory && notSwapAccount;
+      // Include swap fees (description contains 'fee'), exclude only main swap amounts in swap category
+      const isSwapCategory = expense.category_id === swapExpenseCategoryId;
+      const isFee = expense.description.toLowerCase().includes("fee");
+      const includeExpense = !isSwapCategory || (isSwapCategory && isFee);
+      return isInDateRange && matchesSearch && matchesCategory && includeExpense;
     });
   }, [expenses, selectedTimeframe, startDate, endDate, searchQuery, selectedCategory, categories, swapExpenseCategoryId]);
 
