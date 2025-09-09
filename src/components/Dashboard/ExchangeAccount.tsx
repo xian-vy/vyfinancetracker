@@ -244,6 +244,7 @@ const ExchangeAccount = (props: Props) => {
                 }
               }}
               InputLabelProps={{ shrink: true, sx: { fontSize: 15 } }}
+              sx={{display:'none'}}
             />
 
             <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1} width="100%">
