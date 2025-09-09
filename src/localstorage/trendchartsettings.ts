@@ -4,7 +4,7 @@ export const setTrendChartStacked = (stacked: boolean) => {
 
 export const getTrendChartStacked = (): boolean => {
   const value = localStorage.getItem("trendchart_stacked");
-  return value ? JSON.parse(value) : false;
+  return value ? JSON.parse(value) : true;
 };
 
 
