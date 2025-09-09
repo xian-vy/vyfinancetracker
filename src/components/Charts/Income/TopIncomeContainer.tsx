@@ -28,9 +28,18 @@ const TopIncomeContainer = ({ filterOption, startDate, endDate }: Props) => {
   const { incomeSource } = useIncomeSourcesContext();
   const { accountType } = useAccountTypeContext();
 
+   // exclude swap account
+  const swapIncomeCategoryId = useMemo(() => incomeSource.find((c) => c.description === "Swap Account")?.id || "", [incomeSource]);
+  const incomeExcludingSwap = useMemo(() => {
+    return income.filter((e) => {
+      const isSwapCategory = e.category_id === swapIncomeCategoryId;
+      return !isSwapCategory 
+    });
+  }, [income, swapIncomeCategoryId]);
+
   const incomeData : IncomeModel[] = useMemo(
-    () => filterDataByDateRange(income, "date", filterOption, startDate || undefined, endDate || undefined),
-    [income, startDate, endDate, filterOption, incomeSource, accountType]
+    () => filterDataByDateRange(incomeExcludingSwap, "date", filterOption, startDate || undefined, endDate || undefined),
+    [incomeExcludingSwap, startDate, endDate, filterOption, incomeSource, accountType]
   );
 
   const groupedData = useMemo(() => {

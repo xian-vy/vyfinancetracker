@@ -28,9 +28,19 @@ const TopExpensesContainer = ({ filterOption, startDate, endDate, selectedCatego
   const { categories } = useCategoryContext();
   const { accountType } = useAccountTypeContext();
 
+  // exclude swap account and fee
+  const swapExpenseCategoryId = useMemo(() => categories.find((c) => c.description === "Swap Account")?.id || "", [categories]);
+  const expensesExcludingSwap = useMemo(() => {
+    return expenses.filter((e) => {
+      const isSwapCategory = e.category_id === swapExpenseCategoryId;
+      const isFee = e.description.toLowerCase().includes("fee");
+      return !isSwapCategory || (isSwapCategory && isFee);
+    });
+  }, [expenses, swapExpenseCategoryId]);
+
   const expenseData : ExpenseModel[]= useMemo(
-    () => filterDataByDateRange(expenses, "date", filterOption, startDate || undefined, endDate || undefined),
-    [expenses, startDate, endDate, filterOption, categories, accountType]
+    () => filterDataByDateRange(expensesExcludingSwap, "date", filterOption, startDate || undefined, endDate || undefined),
+    [expensesExcludingSwap, startDate, endDate, filterOption, categories, accountType]
   );
 
   const groupedData = useMemo(() => {
